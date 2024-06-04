@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"SnapBufferReadJSON",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"SnapBufferReadJSON",
+  "parent":{
+    "name":"JSON",
+    "path":"folders/Extension/SNAP/JSON.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

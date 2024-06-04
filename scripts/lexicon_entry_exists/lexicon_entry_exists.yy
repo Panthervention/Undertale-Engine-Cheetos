@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"lexicon_entry_exists",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"lexicon_entry_exists",
+  "parent":{
+    "name":"Language",
+    "path":"folders/Extension/Lexicon/Language.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,259 @@
+{
+    "language": "English",
+    "locale": "en-US",
+    "text": 
+    {
+        "copyright": "UNDERTALE (C) TOBY FOX {0}\nUNDERTALE ENGINE {1} BY TML",
+        "battle":
+        {
+            "menu":
+            {
+                "page": "PAGE {0}",
+                "mercy":
+                {
+                    "spare": "* Spare",
+                    "flee": "* Flee"
+                }
+            },
+            "result":
+            {
+                "won": "* You WON!\n* You earned {0} EXP and {1} GOLD.",
+                "fled":
+                {
+                    "0": "* Escaped...",
+                    "1": "* I'm outta here.",
+                    "2": "* I've got better to do.",
+                    "3": "* Don't slow me down.",
+                    "reward": "* Ran away with {0} EXP\n  and {1} GOLD."
+                },
+                "lv_up": "* Your LOVE increased."
+            },
+            "enemy":
+            {
+                "sans":
+                {
+                    "name" : "* Sans",
+                    "check":
+                    {
+                        "0": "* Sans[sleep, 20] - 1 ATK 1 DEF[sleep, 20]\n* Bro \"voluntarily\" become the dummy\n  to serve as a test subject.",
+                        "1": "* Sans[sleep, 20] - 2 ATK 2 DEF[sleep, 20]\n* Nothing changes but this dialog."
+                    },
+                    "menu":
+                    {
+                        "0": "* Blud is a test dummy."
+                    },
+                    "turn":
+                    {
+                        "empty": "i regret to inform you\nthat there is no attack\nfor this turn[pause][clear]maybe you can make one\nup yourself?",
+                        "0": "welcome to the engine.[pause][clear]firstly[sleep, 20], i will initiate\nmy infamous intro attack.[pause][clear]if you dont mind[sleep, 20],\nthis dialog lies within\nthe json file named\nenglish.json in the\nlocale folder.",
+                        "0.1": "[sans_head, 0]i think you got\nthe idea from the\ncode how this worked",
+                        "1": "now[sleep, 20], i will initiate\nthe average bone gap\nattack[pause][clear]this should be the\neasiest attack for one\nto code",
+                        "2": "next[sleep, 20], i will bring out\nthe blaster spam[pause][clear][sans_head, 1]it lies within the\nalarm 0[sleep, 20], and it is\nvery fast[pause][clear][sans_head, 3]i think you will\nneed to adjust because\nthis is not going to\nbe [rainbow]bearable[/rainbow] at all",
+                        "3": "for this attack[sleep, 20], i will\nspam some bone walls\nalong with slams which\nmakes it called the\nbonestab attack[pause][clear]from this attack[sleep, 20], i hope\nyou can make these kinds\nof attacks effectively",
+                        "4": "this is the platform\nattack[pause][clear][sans_head, 1]sorry blud[sleep, 20], i know the\ncode is kinda horrendous\nbut the idea belongs\nto Toby so...",
+                        "5": "and here[sleep, 20], the famous\nblaster circle with ease\nin code[pause][clear]and with this attack[sleep, 20],\nthe example ends here[pause][clear]enjoy the\nengine experience.\n[sleep, 20][rainbow]Sans out![/rainbow]"
+                    }
+                }
+            }
+        },
+        "overworld":
+        {
+            "white_space":
+            {
+                "room_name": "White Space",
+                "save_dialog": "* Welcome to the white space![pause][clear]* You have been living here\n  as long as you can remember.[pause][clear][c_red]* It's time for a change![c_white]"
+            }
+        },
+        "item":
+        {
+            "eat": "* You ate the {0}.[sleep, 20]",
+            "equip": "* You equipped the {0}.[sleep, 20]",
+            "heal":
+            {
+                "part": "* You recovered {0} HP.",
+                "full": "* Your HP was maxed out."
+            },
+            "drop":
+            {
+                "0": "* The {0} was\n  thrown away.",
+                "1": "* You bid a quiet farewell\n  to the {0}.",
+                "2": "* You put the {0}\n  on the ground and gave it a\n  little pat.",
+                "3": "* You threw the {0}\n  on the ground like the piece\n  of trash it is",
+                "4": "* You abandoned the\n  {0}."
+            },
+            "stick":
+            {
+                "name": "Stick",
+                "info": "* Stick - Weapon AT 0\n[sleep, 20]* Its bark is worse than\n  its bite.",
+                "use": "* You threw the stick away.[sleep, 20]\n[sleep, 20]* Then picked it back up."
+            },
+            "bandage":
+            {
+                "name": "Bandage",
+                "info": "* Bandage - Heals 10 HP\n[sleep, 20]* It has already been used\n  several times.",
+                "use":
+                {
+                    "0": "* You re-applied the bandage.[sleep, 20]",
+                    "1": "* Still kind of gooey.[sleep, 20]"
+                }
+            },
+            "toy_knife":
+            {
+                "name": "Toy Knife",
+                "info": "* Toy Knife - Weapon AT 3\n[sleep, 20]* Made of plastic.\n[sleep, 20]* A rarity nowadays."
+            },
+            "faded_ribbon": 
+            {
+                "name": "Faded Ribbon",
+                "name_short": "Ribbon",
+                "info": "* Faded Ribbon - Armor DF 3\n[sleep, 20]* If you're cuter, [sleep, 20]monsters\n  won't hit you as hard."
+            },
+            "pie":
+            {
+                "name": "Butterscotch Pie",
+                "name_short": "ButtsPie",
+                "name_short_serious": "Pie",
+                "info": "All HP\n* Butterscotch-cinnamon\n  pie[sleep, 20], one slice."
+            },
+            "noodles":
+            {
+                "name": "Instant Noodles",
+                "name_short": "InstaNood",
+                "name_short_serious": "I. Noodles",
+                "info" : "Heals HP\n* Comes with everything you\n  need for a quick meal!",
+                "use.before": "* They're better dry."
+            },
+            "face_steak":
+            {
+                "name": "Face Steak",
+                "name_short":
+                {
+                    "0": "FaceSteak",
+                    "1": "Fsteak"
+                },
+                "name_short_serious": "Steak",
+                "info": "Heals {0} HP\n* Huge steak in the shape\n  of Mettaton's face."
+            },
+            "snow":
+            {
+                "name": "Snowman Piece",
+                "name_short": "SnowPiece",
+                "name_short_serious": "SnowPiece",
+                "info": "Heals {0} HP\n* Please take this to the\n  ends of the earth."
+            },
+            "legendary_hero":
+            {
+                "name": "Legendary Hero",
+                "name_short": "Leg.Hero",
+                "name_short_serious": "L. Hero",
+                "info": "Heals {0} HP\n* Sandwich shaped like a sword.\n* Increases ATTACK when eaten.",
+                "use.after" : "* ATTACK increased by 4!"
+            }
+        },
+        "cell":
+        {
+            "dimension_box": "Dimension Box {0}",
+            "toriel":
+            {
+                "address": "Toriel's Phone",
+                "0": "* Dialing...[pause][clear]* ...[pause][clear]* Nobody picked up."
+            }
+        },
+        "ui":
+        {
+            "menu":
+            {
+                "item": "ITEM",
+                "item_use": "USE",
+                "item_info": "INFO",
+                "item_drop": "DROP",
+                "stat": "STAT",
+                "stats":
+                {
+                    "0": "\"{0}\"",
+                    "1": "LV  {0}\nHP  {1} / {2}\n\nAT  {3} ({4})\nDF  {5} ({6})",
+                    "2": "WEAPON: {0}\nARMOR: {0}",
+                    "3": "GOLD: {0}",
+                    "4": "EXP: {0}\nNEXT: {1}",
+                    "5": "KILLS: {0}"
+                },
+                "cell": "CELL"
+            },
+            "save":
+            {
+                "name_empty": "EMPTY",
+                "save": "Save",
+                "return": "Return",
+                "saved": "File Saved."
+            },
+            "box":
+            {
+                "confirm":"* Use the box?\n\n         [sleep, 20][option, 0]Yes         [option, 1]No[option_event, option_box_yes, option_box_no]",
+                "inventory": "INVENTORY",
+                "box": "BOX",
+                "finish": "Press [X] or [SHIFT] to finish",
+                "inventory.empty":
+                {
+                    "0": "* You have no items.[sleep, 20]\n* You put a little time into\n  the box.",
+                    "1": "* You have no items.[sleep, 20]\n* You put a little effort\n  into the box.",
+                    "2": "* You have no items.[sleep, 20]\n* You put a little feeling\n  into the box."
+                }
+            }
+        },
+        "menu":
+        {
+            "input": "[Press Z or Enter]",
+            "begin": "Begin Game",
+            "settings": "Settings",
+            "continue": "Continue",
+            "instruction":
+            {
+                "title": "--- Instruction ---\n\n",
+                "line":
+                {
+                    "0": "[Z or ENTER] - Confirm\n",
+                    "1": "[X or SHIFT] - Cancel\n",
+                    "2": "[C or CTRL] - Menu (In-game)\n",
+                    "3": "[F4] - Fullscreen\n",
+                    "4": "[Hold ESC] - Quit\n",
+                    "5": "When HP is 0, you lose."
+                }
+            },
+            "reset":
+            {
+                "default": "Reset",
+                "true": "True Reset"
+            },
+            "naming":
+            {
+                "title": "Name the fallen human.",
+                "quit": "Quit",
+                "backspace": "Backspace",
+                "done": "Done"
+            },
+            "confirm":
+            {
+                "yes": "Yes",
+                "no": "No",
+                "title":
+                {
+                    "default": "Is this name correct?",
+                    "reset": "A name has already\nbeen chosen.",
+                    "aaaaaa": "Not very creative...?",
+                    "alphys": "D-don't do that.",
+                    "alphy": "Uh.... OK?",
+                    "asgore": "You cannot.",
+                    "toriel": "I think you should\nthink of your own\nname, my child.",
+                    "asriel": "...",
+                    "flowey": "I already CHOSE\nthat name.",
+                    "sans": "nope",
+                    "papyru": "I'LL ALLOW IT!!!!",
+                    "undyne": "Get your OWN name!",
+                    "mtt": "OOOOH!!! ARE YOU\nPROMOTING MY BRAND?",
+                    "chara": "The true name.",
+                    "frisk": "WARNING: This name will\nmake your life hell.\nProceed anyway?"
+                }
+            }
+        }
+    }
+}

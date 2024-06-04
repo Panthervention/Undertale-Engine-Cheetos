@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"lexicon_text_get_utf8_range",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"lexicon_text_get_utf8_range",
+  "parent":{
+    "name":"General",
+    "path":"folders/Extension/Lexicon/General.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

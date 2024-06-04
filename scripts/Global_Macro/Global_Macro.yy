@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"Global_Macro",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Global_Macro",
+  "parent":{
+    "name":"Global",
+    "path":"folders/Engine/Global.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

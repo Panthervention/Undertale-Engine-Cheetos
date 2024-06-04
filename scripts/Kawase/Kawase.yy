@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"Kawase",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Kawase",
+  "parent":{
+    "name":"Kawase",
+    "path":"folders/Extension/Kawase.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"__lexicon_reset",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__lexicon_reset",
+  "parent":{
+    "name":"Internal",
+    "path":"folders/Extension/Lexicon/Internal.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

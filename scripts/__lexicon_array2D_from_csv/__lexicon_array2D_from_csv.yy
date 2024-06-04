@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"__lexicon_array2D_from_csv",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__lexicon_array2D_from_csv",
+  "parent":{
+    "name":"Parsers",
+    "path":"folders/Extension/Lexicon/Internal/Parsers.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

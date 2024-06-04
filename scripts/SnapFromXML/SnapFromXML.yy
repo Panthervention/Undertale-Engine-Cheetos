@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"SnapFromXML",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"SnapFromXML",
+  "parent":{
+    "name":"XML",
+    "path":"folders/Extension/SNAP/XML.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

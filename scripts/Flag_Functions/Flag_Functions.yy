@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"Flag_Functions",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Flag_Functions",
+  "parent":{
+    "name":"Flag",
+    "path":"folders/Engine/Global/Flag.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

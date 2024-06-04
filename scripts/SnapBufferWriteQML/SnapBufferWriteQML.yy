@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"SnapBufferWriteQML",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"SnapBufferWriteQML",
+  "parent":{
+    "name":"QML",
+    "path":"folders/Extension/SNAP/QML.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

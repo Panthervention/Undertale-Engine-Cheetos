@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"SnapStringify",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"SnapStringify",
+  "parent":{
+    "name":"Utility",
+    "path":"folders/Extension/SNAP/Utility.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

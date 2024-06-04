@@ -1,0 +1,11 @@
+{
+  "$GMNotes":"",
+  "%Name":"TGMX_Documentation",
+  "name":"TGMX_Documentation",
+  "parent":{
+    "name":"Docs",
+    "path":"folders/Extension/TweenGMX/Docs.yy",
+  },
+  "resourceType":"GMNotes",
+  "resourceVersion":"2.0",
+}

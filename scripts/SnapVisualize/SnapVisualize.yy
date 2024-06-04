@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"SnapVisualize",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"SnapVisualize",
+  "parent":{
+    "name":"Utility",
+    "path":"folders/Extension/SNAP/Utility.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

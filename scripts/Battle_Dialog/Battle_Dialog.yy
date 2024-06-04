@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"Battle_Dialog",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Battle_Dialog",
+  "parent":{
+    "name":"Dialog",
+    "path":"folders/Engine/Battle/Dialog.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

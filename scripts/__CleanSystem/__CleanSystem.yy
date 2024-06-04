@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"__CleanSystem",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__CleanSystem",
+  "parent":{
+    "name":"(System)",
+    "path":"folders/Extension/Clean Shapes/(System).yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"__lexicon_text_struct_to_string",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__lexicon_text_struct_to_string",
+  "parent":{
+    "name":"Internal",
+    "path":"folders/Extension/Lexicon/Internal.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

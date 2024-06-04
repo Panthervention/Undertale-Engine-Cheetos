@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"lexicon_settings",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"lexicon_settings",
+  "parent":{
+    "name":"Lexicon",
+    "path":"folders/Extension/Lexicon.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

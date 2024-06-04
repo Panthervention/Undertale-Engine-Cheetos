@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"Box_Functions",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Box_Functions",
+  "parent":{
+    "name":"Box",
+    "path":"folders/Engine/Overworld/UI/Box.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"Battle_Reward",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Battle_Reward",
+  "parent":{
+    "name":"Controller",
+    "path":"folders/Engine/Battle/Controller.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

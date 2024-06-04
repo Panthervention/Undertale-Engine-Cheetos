@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"TGM_Debug",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"TGM_Debug",
+  "parent":{
+    "name":"Code",
+    "path":"folders/Extension/TurboGML/Code.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"shd_clip_mask_primitive",
+  "name":"shd_clip_mask_primitive",
+  "parent":{
+    "name":"System",
+    "path":"folders/Engine/Battle/Board/System.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}

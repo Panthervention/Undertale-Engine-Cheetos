@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"Cell_Dictionary",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Cell_Dictionary",
+  "parent":{
+    "name":"Cell",
+    "path":"folders/Engine/Cell.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

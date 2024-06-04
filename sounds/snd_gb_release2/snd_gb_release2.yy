@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"snd_gb_release2",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":2.407619,
+  "name":"snd_gb_release2",
+  "parent":{
+    "name":"Bullet",
+    "path":"folders/Engine/Audio/SFX/Battle/Bullet.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_gb_release2.ogg",
+  "type":1,
+  "volume":1.0,
+}

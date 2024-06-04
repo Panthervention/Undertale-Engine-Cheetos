@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"lexicon_async",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"lexicon_async",
+  "parent":{
+    "name":"General",
+    "path":"folders/Extension/Lexicon/General.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

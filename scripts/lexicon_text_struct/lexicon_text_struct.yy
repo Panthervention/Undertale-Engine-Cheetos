@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"lexicon_text_struct",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"lexicon_text_struct",
+  "parent":{
+    "name":"General",
+    "path":"folders/Extension/Lexicon/General.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"Dialog_Functions",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Dialog_Functions",
+  "parent":{
+    "name":"Dialog",
+    "path":"folders/Engine/Overworld/UI/Dialog.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"snd_phone_call",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":0.991746,
+  "name":"snd_phone_call",
+  "parent":{
+    "name":"Phone",
+    "path":"folders/Engine/Audio/SFX/Overworld/Phone.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_phone_call",
+  "type":1,
+  "volume":1.0,
+}

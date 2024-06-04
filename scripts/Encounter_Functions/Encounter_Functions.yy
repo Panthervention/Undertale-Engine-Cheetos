@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"Encounter_Functions",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Encounter_Functions",
+  "parent":{
+    "name":"Encounter",
+    "path":"folders/Engine/Overworld/Encounter.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

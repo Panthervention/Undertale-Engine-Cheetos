@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"Cell_Functions",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Cell_Functions",
+  "parent":{
+    "name":"Cell",
+    "path":"folders/Engine/Cell.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"snd_charging",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":3.63102,
+  "name":"snd_charging",
+  "parent":{
+    "name":"General",
+    "path":"folders/Engine/Audio/SFX/General.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_charging.mp3",
+  "type":1,
+  "volume":1.0,
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"Room_Dictionary",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Room_Dictionary",
+  "parent":{
+    "name":"Engine",
+    "path":"folders/Engine.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

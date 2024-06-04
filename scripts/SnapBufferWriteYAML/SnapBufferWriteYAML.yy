@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"SnapBufferWriteYAML",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"SnapBufferWriteYAML",
+  "parent":{
+    "name":"YAML",
+    "path":"folders/Extension/SNAP/YAML.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"Battle_SetSansAction",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Battle_SetSansAction",
+  "parent":{
+    "name":"Sans",
+    "path":"folders/Engine/Battle/Enemy/Sans.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

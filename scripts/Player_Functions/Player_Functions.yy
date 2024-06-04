@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"Player_Functions",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Player_Functions",
+  "parent":{
+    "name":"Global",
+    "path":"folders/Engine/Global.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

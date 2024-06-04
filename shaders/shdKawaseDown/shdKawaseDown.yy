@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"shdKawaseDown",
+  "name":"shdKawaseDown",
+  "parent":{
+    "name":"Kawase",
+    "path":"folders/Extension/Kawase.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}

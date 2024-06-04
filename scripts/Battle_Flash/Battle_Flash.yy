@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"Battle_Flash",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Battle_Flash",
+  "parent":{
+    "name":"Misc",
+    "path":"folders/Engine/Battle/Misc.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"scribble_option_events",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scribble_option_events",
+  "parent":{
+    "name":"Text",
+    "path":"folders/Engine/Global/Text.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

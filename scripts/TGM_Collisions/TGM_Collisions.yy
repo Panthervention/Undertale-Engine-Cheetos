@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"TGM_Collisions",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"TGM_Collisions",
+  "parent":{
+    "name":"Code",
+    "path":"folders/Extension/TurboGML/Code.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

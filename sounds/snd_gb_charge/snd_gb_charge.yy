@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"snd_gb_charge",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":1.057959,
+  "name":"snd_gb_charge",
+  "parent":{
+    "name":"Bullet",
+    "path":"folders/Engine/Audio/SFX/Battle/Bullet.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_gb_charge.ogg",
+  "type":1,
+  "volume":1.0,
+}

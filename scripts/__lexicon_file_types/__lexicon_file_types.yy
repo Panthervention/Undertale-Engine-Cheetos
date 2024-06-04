@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"__lexicon_file_types",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__lexicon_file_types",
+  "parent":{
+    "name":"File_Types",
+    "path":"folders/Extension/Lexicon/Internal/File_Types.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

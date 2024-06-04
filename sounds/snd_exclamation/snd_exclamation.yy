@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"snd_exclamation",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":1.256553,
+  "name":"snd_exclamation",
+  "parent":{
+    "name":"Overworld",
+    "path":"folders/Engine/Audio/SFX/Overworld.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_exclamation.ogg",
+  "type":1,
+  "volume":1.0,
+}

@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"snd_logo",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":2.842993,
+  "name":"snd_logo",
+  "parent":{
+    "name":"General",
+    "path":"folders/Engine/Audio/SFX/General.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_logo",
+  "type":1,
+  "volume":1.0,
+}

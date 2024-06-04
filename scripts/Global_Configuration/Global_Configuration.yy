@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"Global_Configuration",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Global_Configuration",
+  "parent":{
+    "name":"Engine",
+    "path":"folders/Engine.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

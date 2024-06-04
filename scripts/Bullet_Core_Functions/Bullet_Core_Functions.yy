@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"Bullet_Core_Functions",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Bullet_Core_Functions",
+  "parent":{
+    "name":"Bullet",
+    "path":"folders/Engine/Battle/Bullet.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
