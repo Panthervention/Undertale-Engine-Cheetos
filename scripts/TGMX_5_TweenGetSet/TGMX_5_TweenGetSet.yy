@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"TGMX_5_TweenGetSet",
   "isCompatibility":false,
   "isDnD":false,

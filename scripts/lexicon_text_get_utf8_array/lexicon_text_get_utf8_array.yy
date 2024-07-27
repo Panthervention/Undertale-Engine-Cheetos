@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"lexicon_text_get_utf8_array",
   "isCompatibility":false,
   "isDnD":false,

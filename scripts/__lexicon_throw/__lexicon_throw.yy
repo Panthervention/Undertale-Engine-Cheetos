@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"__lexicon_throw",
   "isCompatibility":false,
   "isDnD":false,

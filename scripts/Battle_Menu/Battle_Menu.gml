@@ -160,7 +160,7 @@ function Battle_EndMenu() {
 	                if (Player_UpdateLv())
 	                    audio_play_sound(snd_level_up, 0, false);
 	            }
-	            Battle_SetDialog(text, true);
+	            Battle_SetDialog(text);
 	        }
 	        else
 	            Battle_GotoNextState();

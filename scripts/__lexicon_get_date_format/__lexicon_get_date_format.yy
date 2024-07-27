@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"__lexicon_get_date_format",
   "isCompatibility":false,
   "isDnD":false,

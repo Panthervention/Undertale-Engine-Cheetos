@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"__lexicon_definitions_parse_files",
   "isCompatibility":false,
   "isDnD":false,

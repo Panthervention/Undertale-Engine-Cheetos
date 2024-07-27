@@ -1,4 +1,4 @@
-depth = -1600;
+depth = -16000;
 image_speed = 0;
 
 time = 60;

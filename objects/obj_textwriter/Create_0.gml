@@ -23,7 +23,7 @@ else
 portrait = noone;
 portrait_xscale = 1;
 portrait_yscale = 1;
-portrait_side = PORTRAIT_SIDE.RIGHT; // Left (Right side exists but no idea what for atm)
+portrait_side = PORTRAIT_SIDE.LEFT; // Left (Right side exists but no idea what for atm)
 
 portrait_index = 0;
 portrait_index_array = [];

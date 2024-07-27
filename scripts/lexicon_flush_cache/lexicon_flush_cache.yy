@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"lexicon_flush_cache",
   "isCompatibility":false,
   "isDnD":false,

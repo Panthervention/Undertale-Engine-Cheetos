@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"lexicon_index_fallback_locale_set",
   "isCompatibility":false,
   "isDnD":false,

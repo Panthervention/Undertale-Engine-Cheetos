@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"TGM_Vector",
   "isCompatibility":false,
   "isDnD":false,

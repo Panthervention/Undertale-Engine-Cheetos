@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"TGM_Layers",
   "isCompatibility":false,
   "isDnD":false,

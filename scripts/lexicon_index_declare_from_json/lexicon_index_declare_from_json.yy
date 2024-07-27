@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"lexicon_index_declare_from_json",
   "isCompatibility":false,
   "isDnD":false,

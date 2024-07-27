@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"__lexicon_gc_cache",
   "isCompatibility":false,
   "isDnD":false,

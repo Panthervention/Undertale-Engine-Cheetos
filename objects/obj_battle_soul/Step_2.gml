@@ -1,10 +1,7 @@
 #region Sticky platform
 var STATE = Battle_GetState();
 if (STATE == BATTLE_STATE.TURN_PREPARATION or STATE == BATTLE_STATE.IN_TURN)
-{
-	var h_spd = !hor_lock ? CHECK_HORIZONTAL : 0;
-	var v_spd = !ver_lock ? CHECK_VERTICAL   : 0;
-	
+{	
 	if (mode == SOUL_MODE.BLUE)
 	{
 		if (instance_exists(platform_check))

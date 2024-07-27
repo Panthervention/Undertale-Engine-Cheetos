@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"__lexicon_buffer_read_utf8",
   "isCompatibility":false,
   "isDnD":false,

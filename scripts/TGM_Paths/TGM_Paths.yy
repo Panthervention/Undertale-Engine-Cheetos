@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"TGM_Paths",
   "isCompatibility":false,
   "isDnD":false,

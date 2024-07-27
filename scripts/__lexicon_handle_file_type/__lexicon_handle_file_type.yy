@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"__lexicon_handle_file_type",
   "isCompatibility":false,
   "isDnD":false,

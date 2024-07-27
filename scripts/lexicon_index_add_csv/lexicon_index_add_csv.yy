@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"lexicon_index_add_csv",
   "isCompatibility":false,
   "isDnD":false,

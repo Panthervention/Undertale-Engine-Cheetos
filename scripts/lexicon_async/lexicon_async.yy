@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"lexicon_async",
   "isCompatibility":false,
   "isDnD":false,

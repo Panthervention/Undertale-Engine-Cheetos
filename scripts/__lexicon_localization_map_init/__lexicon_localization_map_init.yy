@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"__lexicon_localization_map_init",
   "isCompatibility":false,
   "isDnD":false,

@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"__lexicon_array2D_from_csv",
   "isCompatibility":false,
   "isDnD":false,

@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"lexicon_entry_remove",
   "isCompatibility":false,
   "isDnD":false,

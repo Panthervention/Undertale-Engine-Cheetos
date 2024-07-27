@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"TGM_AudioLoad",
   "isCompatibility":false,
   "isDnD":false,

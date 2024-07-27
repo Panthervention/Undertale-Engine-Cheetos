@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"Battle_Flee",
   "isCompatibility":false,
   "isDnD":false,

@@ -144,7 +144,7 @@ function Encounter_GetSoulY(ID)
 {
 	if (Encounter_IsExists(ID))
 	{
-		var struct_e = global.encounter[$ ID];
+		var struct_e = global._encounter[$ ID];
 		return (is_real(struct_e[$ "soul_y"]) ? struct_e[$ "soul_y"] : 454);
 	}
 	else

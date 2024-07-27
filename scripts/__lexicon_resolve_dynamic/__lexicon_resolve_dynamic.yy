@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"__lexicon_resolve_dynamic",
   "isCompatibility":false,
   "isDnD":false,

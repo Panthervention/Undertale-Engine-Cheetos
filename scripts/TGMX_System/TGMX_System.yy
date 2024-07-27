@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"TGMX_System",
   "isCompatibility":false,
   "isDnD":false,

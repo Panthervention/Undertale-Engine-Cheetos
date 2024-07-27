@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"lexicon_replace_chr_get",
   "isCompatibility":false,
   "isDnD":false,

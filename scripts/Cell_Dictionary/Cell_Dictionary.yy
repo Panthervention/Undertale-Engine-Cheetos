@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"Cell_Dictionary",
   "isCompatibility":false,
   "isDnD":false,

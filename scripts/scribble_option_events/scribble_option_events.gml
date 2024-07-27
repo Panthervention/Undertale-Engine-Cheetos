@@ -46,3 +46,11 @@ function option_box_no() {
 	instance_destroy(obj_ui_dialog);
 }
 
+function option_sans_fight_yes() {
+	instance_destroy(obj_ui_dialog);
+	Encounter_Start(0);
+}
+
+function option_sans_fight_nope() {
+	text = lexicon_text("overworld.sans.dialog.weary");
+}

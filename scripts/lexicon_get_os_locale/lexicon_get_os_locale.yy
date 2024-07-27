@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"lexicon_get_os_locale",
   "isCompatibility":false,
   "isDnD":false,

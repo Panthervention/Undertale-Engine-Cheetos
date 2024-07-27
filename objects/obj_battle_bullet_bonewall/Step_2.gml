@@ -3,7 +3,7 @@ if (active)
 	if (time_warn <= 0)
 	{
 		var spr = bone_index,
-			spr_width = sprite_get_width(spr),
+			spr_width = sprite_get_width(spr);
 
 		var board = obj_battle_board,
 			board_x = board.x,
@@ -16,7 +16,7 @@ if (active)
 		var soul = obj_battle_soul;
 			
 		var wall_angle = 0,
-			wall_head = (spr_width / 2) - 1,
+			wall_head = (spr_width / 2) - 1;
 		
 		if (dir == DIR.UP or dir == DIR.DOWN)
 		{

@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"scribble_option_events",
   "isCompatibility":false,
   "isDnD":false,

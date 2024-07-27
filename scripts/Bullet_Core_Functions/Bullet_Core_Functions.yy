@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"Bullet_Core_Functions",
   "isCompatibility":false,
   "isDnD":false,

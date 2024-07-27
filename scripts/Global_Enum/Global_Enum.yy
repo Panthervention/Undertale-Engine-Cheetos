@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"Global_Enum",
   "isCompatibility":false,
   "isDnD":false,

@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"lexicon_entry_get_variations",
   "isCompatibility":false,
   "isDnD":false,

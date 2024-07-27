@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"__lexicon_struct_merge",
   "isCompatibility":false,
   "isDnD":false,

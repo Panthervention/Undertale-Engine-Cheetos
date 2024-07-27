@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"TGMX_3_EventCallbacks",
   "isCompatibility":false,
   "isDnD":false,

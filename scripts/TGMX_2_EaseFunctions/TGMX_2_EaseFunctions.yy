@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"TGMX_2_EaseFunctions",
   "isCompatibility":false,
   "isDnD":false,
