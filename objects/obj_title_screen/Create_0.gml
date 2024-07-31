@@ -1,11 +1,11 @@
-Flag_Load(FLAG_TYPE.INFO);
+Player_Load(0)
 
 _hint = 0;
 audio_play_sound(snd_logo, 0, false);
 TweenFire(id, "", 0, false, 99, 1, "_hint>", 1); // Wait till the [Press Z or Enter]
 
 _menu = -1;
-_mode = file_exists(Flag_GetSavePath(FLAG_TYPE.INFO));
+_mode = Flag_Load(FLAG_TYPE.INFO); //registry_exists("SOFTWARE\\" + string(__CHEETOS_GAME_NAME) + "\\" + Flag_GetSavePath(FLAG_TYPE.INFO),Flag_Get(FLAG_TYPE.INFO),"string");
 
 _color_instruction = c_silver;
 _color_default = c_white;

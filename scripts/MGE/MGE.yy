@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"MGE",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"MGE",
+  "parent":{
+    "name":"Extension",
+    "path":"folders/Extension.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

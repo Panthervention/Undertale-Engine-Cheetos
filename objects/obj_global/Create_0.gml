@@ -8,6 +8,8 @@ frame_skip = 0;
 
 released = __CHEETOS_RELEASE;
 
+MGE();
+
 #region Debug
 allow_debug = __CHEETOS_ALLOW_DEBUG;
 global.debug = false;

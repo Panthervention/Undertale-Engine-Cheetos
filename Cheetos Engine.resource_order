@@ -661,6 +661,7 @@
     {"name":"lexicon_text_get_utf8_range","order":10,"path":"scripts/lexicon_text_get_utf8_range/lexicon_text_get_utf8_range.yy",},
     {"name":"lexicon_text_struct","order":11,"path":"scripts/lexicon_text_struct/lexicon_text_struct.yy",},
     {"name":"lexicon_text","order":7,"path":"scripts/lexicon_text/lexicon_text.yy",},
+    {"name":"MGE","order":8,"path":"scripts/MGE/MGE.yy",},
     {"name":"Platform_Function","order":7,"path":"scripts/Platform_Function/Platform_Function.yy",},
     {"name":"Player_Functions","order":6,"path":"scripts/Player_Functions/Player_Functions.yy",},
     {"name":"Room_Dictionary","order":1,"path":"scripts/Room_Dictionary/Room_Dictionary.yy",},

@@ -132,7 +132,8 @@ function Item_Get(_slot) {
 					Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.ITEM, _inventory_temp);
 				}
 			}
-			return _item;
+			var _item_dsmap = struct_to_ds_map(_item)
+			return _item_dsmap;
 		}
 	    return -1;
 	}

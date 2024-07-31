@@ -29,6 +29,9 @@ if global.debug
 	}
 	
 	draw_set_color(c_white);
+	var _path = Flag_GetSavePath(0);
+	if read_registry_key("SOFTWARE\\" + string(__CHEETOS_GAME_NAME) + "\\" + string(_path))
+		draw_text(5,150,"key exists.")
 }
 #endregion
 

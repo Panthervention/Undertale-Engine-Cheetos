@@ -1,147 +1,225 @@
-// Initializes the flag system
-function Flag_Init() {
-    global._flag = {};
-    Flag_Custom();
+//Sorry just had to revert the flag system :L
+
+
+function Flag_Init()
+{
+	global._flag = ds_map_create();
+	global._flag2 = {};
+	Flag_Custom();
 	return true;
 }
 
-// Uninitializes the flag system
-function Flag_Uninit() {
-    global._flag = undefined; // Allow garbage collection
-    return true;
-}
-
-// Saves flag data to respective file
-///@arg flag_type
-function Flag_Save(_type) {
-	var _path = Flag_GetSavePath(_type)
-    var _string = Flag_GetRawData(_type),
-        _string_size = string_byte_length(_string) + 1;
-    
-    var _buffer = buffer_create(_string_size, buffer_fixed, 1);
-    buffer_write(_buffer, buffer_string, _string);
-    buffer_save(_buffer, _path);
-    buffer_delete(_buffer);
-
-    show_debug_message($"CHEETOS: Flag type {_type} saved to {_path}.");
-
-    return true;
-}
-
-// Loads flag data from a file
-///@arg flag_type
-function Flag_Load(_type) {
-	var _path = Flag_GetSavePath(_type);
-    if (file_exists(_path))
-    {
-        var _buffer = buffer_load(_path);
-        var _string = buffer_read(_buffer, buffer_string);
-        buffer_delete(_buffer);
-    
-        var _data = SnapFromJSON(_string);
-        Flag_SetRawData(_type, _data);
-
-        show_debug_message($"CHEETOS: Flag loaded from {_path}.");
-
-        return true;
-    }
-    else
-    {
-        show_debug_message($"CHEETOS: Attempted to load flag type {_type} from non-existing file {_path}!");
-        return false;
-    }
-}
-
-// Retrieves a specific flag value from its file
-///@arg flag_type
-///@arg flag_slot
-///@arg val_default
-function Flag_Get(_type, _slot, _value_default = 0) {
-    var struct = global._flag;
-    if (struct[$ _type] != undefined) 
-    {
-        var struct_f = struct[$ _type];
-        if (struct_f[$ _slot] != undefined)
-            return struct_f[$ _slot];
-        else
-            return _value_default;
-    }
-    else
-        return _value_default;
-}
-
-// Sets a specific flag value
-///@arg flag_type
-///@arg flag_slot
-///@arg val
-function Flag_Set(_type, _slot, _value) {
-    global._flag[$ _type] ??= {};
-    
-    global._flag[$ _type][$ _slot] = _value; // Set the value directly
+function Flag_Uninit()
+{
+	var map = global._flag;
+	while (!ds_map_empty(map))
+	{
+	    var key = ds_map_find_first(map);
+	    var map_f = ds_map_find_value(map, key);
+	    ds_map_destroy(map_f);
+	    ds_map_delete(map, key);
+	}
+	ds_map_destroy(map);
 	return true;
 }
 
-// Gets the path for saving the flag data
-///@arg flag_type
-function Flag_GetSavePath(_type) {
-    var result = $"./savefiles/",
-		timeline = Flag_GetSaveSlot();
-    switch (_type)
-    {
-        case FLAG_TYPE.STATIC:
-            result += $"timeline {timeline}/static.save";
-            break;
-        case FLAG_TYPE.DYNAMIC:
-            result += $"timeline {timeline}/dynamic.save";
-            break;
-        case FLAG_TYPE.INFO:
-            result += $"timeline {timeline}/info.save";
-            break;
-        case FLAG_TYPE.SETTINGS:
-            result += "settings.save";
-            break;
-        default:
-            result = "";
-            break;
-    }
-    return result;
-}
+///@arg type
+///@arg [path]
+function Flag_Save(TYPE, PATH = "") 
+{
+	
+	if (PATH == "")
+	    PATH = Flag_GetSavePath(TYPE);
 
-// Gets the current save slot
-function Flag_GetSaveSlot() {
-    return Flag_Get(FLAG_TYPE.TEMP, FLAG_TEMP.SAVE_SLOT);
-}
+	var str = Flag_GetRaw(TYPE);
+	edit_registry("string", __CHEETOS_REGISTRY + string(PATH), string(TYPE), string(str))
 
-// Sets the current save slot
-///@arg save_slot
-function Flag_SetSaveSlot(_slot) {
-    Flag_Set(FLAG_TYPE.TEMP, FLAG_TEMP.SAVE_SLOT, _slot);
+	show_debug_message("Flag type " + string(TYPE) + " saved to \"" + PATH + "\".");
+
 	return true;
 }
 
-// Clears all data for a specific flag type
-///@arg flag_type
-function Flag_Clear(_type) {
-    if (global._flag[$ _type] != undefined)
-    {
-        global._flag[$ _type] = {}; // Reset the struct directly
-        return true;
-    }
-    else
-        return false;
+///@arg type
+///@arg [path]
+function Flag_Load(TYPE, PATH = "")
+{
+	if (PATH == "")
+		PATH = Flag_GetSavePath(TYPE);
+
+	var read = read_registry_key(__CHEETOS_REGISTRY + string(PATH))
+	if !(read)
+	{
+		show_debug_message("The " + string(TYPE) + " type registry from " + string(PATH) + " was not found.");
+		return false;
+	}
+
+	var str = read_registry(__CHEETOS_REGISTRY + string(Flag_GetSavePath(TYPE)), string(TYPE), "string")
+	
+	Flag_SetRaw(TYPE, str);
+
+	show_debug_message("Flag loaded from \"" + PATH + "\".");
+
+	return true;
 }
 
-// Retrieves raw JSON data for a flag type
-///@arg flag_type
-function Flag_GetRawData(_type) {
-    global._flag[$ _type] ??= {}; // Ensure the type exists
-    return SnapToJSON(global._flag[$ _type]);
+///@arg type
+///@arg slot
+///@arg [default]
+function Flag_Get(TYPE, SLOT, DEFAULT = 0)
+{
+	if is_struct(global._flag)
+	{
+		var struct = global._flag;
+	    if (struct[$ _type] != undefined) 
+	    {
+	        var struct_f = struct[$ _type];
+	        if (struct_f[$ _slot] != undefined)
+	            return struct_f[$ _slot];
+	        else
+	            return _value_default;
+	    }
+	    else
+	        return _value_default;
+	}
+	else
+	{
+		var map = global._flag;
+		if (ds_map_exists(map, TYPE))
+		{
+		    var map_f = ds_map_find_value(map, TYPE);
+		    if (ds_map_exists(map_f, SLOT))
+		    {
+		        var result = ds_map_find_value(map_f, SLOT);
+		        return result;
+		    }
+		    else
+		        return DEFAULT;
+		}
+		else
+		    return DEFAULT;
+	}
 }
 
-// Sets raw data for a flag type
-///@arg flag_type
-///@arg flag_data
-function Flag_SetRawData(_type, _raw) {
-    global._flag[$ _type] = _raw; // Directly update the struct in global._flag
-    return true;
+///@arg type
+///@arg slot
+///@arg value
+function Flag_Set(TYPE, SLOT, VALUE)
+{
+	if is_struct(global._flag)
+	{
+		global._flag[$ _type] ??= {};
+    
+	    global._flag[$ _type][$ _slot] = _value; // Set the value directly
+		return true;
+	
+	}
+	else
+	{
+		var map = global._flag;
+		var map_f = -1;
+		if (ds_map_exists(map, TYPE))
+		    map_f = ds_map_find_value(map, TYPE);
+		else
+		{
+		    map_f = ds_map_create();
+		    ds_map_add(map, TYPE, map_f);
+		}
+
+		ds_map_replace(map_f, SLOT, VALUE);
+		return true;
+	}
 }
+
+///@arg type
+function Flag_GetSavePath(TYPE)
+{
+	var result = "SOFTWARE\\" + __CHEETOS_GAME_NAME + "\\flag\\";
+	switch (TYPE)
+	{
+	    case FLAG_TYPE.STATIC:
+	        result += string(Flag_GetSaveSlot()) + "\\static";
+	        break;
+	    case FLAG_TYPE.DYNAMIC:
+	        result += string(Flag_GetSaveSlot()) + "\\dynamic";
+	        break;
+	    case FLAG_TYPE.INFO:
+	        result += string(Flag_GetSaveSlot()) + "\\info";
+	        break;
+	    case FLAG_TYPE.SETTINGS:
+	        result += "\\settings";
+	        break;
+	    default:
+	        result = "";
+	        break;
+	}
+	return read_registry_key(result);
+}
+
+function Flag_GetSaveSlot()
+{
+	var result = Flag_Get(FLAG_TYPE.TEMP,FLAG_TEMP.SAVE_SLOT);
+	return result;
+}
+
+///@arg slot
+function Flag_SetSaveSlot(SLOT)
+{
+	Flag_Set(FLAG_TYPE.TEMP, FLAG_TEMP.SAVE_SLOT, SLOT);
+	return true;
+}
+
+///@arg type
+function Flag_Clear(TYPE)
+{
+	var map = global._flag;
+	var map_f = -1;
+	if (ds_map_exists(map, TYPE))
+	{
+	    map_f = ds_map_find_value(map, TYPE);
+	    ds_map_clear(map_f);
+	    return true;
+	}
+	else
+	    return false;
+}
+
+///@arg type
+function Flag_GetRaw(TYPE)
+{
+	var map = global._flag;
+	var map_f = -1;
+	if (ds_map_exists(map, TYPE))
+	    map_f = ds_map_find_value(map, TYPE);
+	else
+	{
+	    map_f = ds_map_create();
+	    ds_map_add(map, TYPE, map_f);
+	}
+
+	var str = ds_map_write(map_f);
+
+	return str;
+}
+
+///@arg type
+///@arg raw
+function Flag_SetRaw(TYPE, RAW)
+{
+	var map = global._flag;
+	var map_f = -1;
+	if (ds_map_exists(map, TYPE))
+	{
+	    map_f = ds_map_find_value(map, TYPE);
+	    ds_map_clear(map_f);
+	}
+	else
+	{
+	    map_f = ds_map_create();
+	    ds_map_add(map, TYPE, map_f);
+	}
+
+	ds_map_read(map_f, RAW);
+
+	return true;
+}
+
