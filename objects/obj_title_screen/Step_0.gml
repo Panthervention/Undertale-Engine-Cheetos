@@ -230,7 +230,18 @@ else if (_menu == 2) // Name Confirmation
 	else if (input_confirm)
 	{
 	    if (_choice_confirm == 0) // No
+		{
 	        _menu = (!_mode ? 1 : 0);
+			if (TweenExists(_tween_confirm_name_x))
+				TweenDestroy(_tween_confirm_name_x);
+			if (TweenExists(_tween_confirm_name_y))
+				TweenDestroy(_tween_confirm_name_y);
+			if (TweenExists(_tween_confirm_name_scale))
+				TweenDestroy(_tween_confirm_name_scale);
+			_confirm_name_x = 280;
+			_confirm_name_y = 110;
+			_confirm_name_scale = 2;
+		}
 	    else // Yes
 		{
 	        _menu = 3;

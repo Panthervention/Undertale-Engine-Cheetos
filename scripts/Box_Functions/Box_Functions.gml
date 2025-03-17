@@ -24,8 +24,6 @@ function Box_ItemRemove(_box_slot, _slot) {
 			var _box_temp = Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.BOX);
 			if (Box_ItemCount(_box_slot) > 0)
 				array_delete(_box_temp[_box_slot], _slot, 1);
-			if (Box_ItemCount(_box_slot) <= 0)
-				array_delete(_box_temp, _box_slot, 1);
 			Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.BOX, _box_temp);
 		}
 	}

@@ -173,24 +173,40 @@ if (STATE == BATTLE_STATE.TURN_PREPARATION or STATE == BATTLE_STATE.IN_TURN)
 			_on_platform = true;
 			while position_meeting(x + platform_check_x[1], y + platform_check_y[1], obj_battle_platform)
 			{
+				var soul_x = x,
+					soul_y = y;
 				with platform_check
 				{
-					other.x += lengthdir_x(0.1, image_angle + 90);
-					other.y += lengthdir_y(0.1, image_angle + 90);
+					soul_x += lengthdir_x(0.1, image_angle + 90);
+					soul_y += lengthdir_y(0.1, image_angle + 90);
 				}
+				x = soul_x;
+				y = soul_y;
 			}
 		}
 		
-		/*
-			Here lies the deprecated sticky platform behavior. It was moved to End Step
-		*/
+		if (instance_exists(platform_check) && !h_spd && !v_spd)
+		{
+			var soul_x = x,
+				soul_y = y,
+			with (platform_check)
+			{
+				if (sticky)
+				{
+					soul_x += xdelta;
+					soul_y += ydelta;
+				}
+			}
+			x = soul_x;
+			y = soul_y;
+		}
 		
 		if _on_ground or _on_platform or (_fall_spd < 0 and _on_ceil)
 		{
 			if slam
 			{
 				slam = false;
-				Camera_Shake(global.slam_power/2,global.slam_power/2,1,1,true,true);
+				Camera_Shake(global.slam_power / 2, global.slam_power / 2, 1, 1, 1, 1, true, true);
 				if global.slam_damage
 				{
 					if Player_GetHp() > 1 Player_Hurt(1);

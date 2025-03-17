@@ -15,7 +15,7 @@ if global.debug
 	draw_set_color(c_debug);
 	draw_text(5, 0, "DEBUG");
 	draw_text(5, 10, "----------------------------------------");
-	draw_text(5, 20, $"FPS: {fps} ({global._fps_real}/{global._fps_average}) ({global._fps_min}/{global._fps_max})");
+	draw_text(5, 20, $"FPS: {fps} ({global.__fps_real}/{global.__fps_average}) ({global.__fps_min}/{global.__fps_max})");
 	draw_text(5, 35, $"Speed: {game_speed} ({game_speed / 60}x) {fps_locked}");
 	draw_text(5, 50, $"Room: {room_get_name(room)}");
 	draw_text(5, 65, $"Instances: {instance_count}");

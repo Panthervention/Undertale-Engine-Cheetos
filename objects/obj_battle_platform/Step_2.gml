@@ -1,3 +1,6 @@
+xdelta = x - xprevious;
+ydelta = y - yprevious;
+
 if destroyable
 {
 	var destroy = false;

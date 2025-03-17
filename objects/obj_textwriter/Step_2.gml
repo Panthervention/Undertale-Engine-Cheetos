@@ -10,8 +10,7 @@ if (sprite_exists(portrait))
 	text_wrapwidth -= (portrait_w * portrait_xscale);
 }
 
-text_writer = scribble(text, string(id))
-			  .scale_to_box(text_wrapwidth, infinity); // Usually for overworld it is spawn at x = 60
+text_writer = scribble(text, string(id));
 text_writer.build(true);
 
 var page = text_writer.get_page(),

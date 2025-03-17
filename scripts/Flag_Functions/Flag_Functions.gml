@@ -32,24 +32,23 @@ function Flag_Save(_type) {
 ///@arg flag_type
 function Flag_Load(_type) {
 	var _path = Flag_GetSavePath(_type);
-    if (file_exists(_path))
-    {
-        var _buffer = buffer_load(_path);
-        var _string = buffer_read(_buffer, buffer_string);
-        buffer_delete(_buffer);
-    
-        var _data = SnapFromJSON(_string);
-        Flag_SetRawData(_type, _data);
-
-        show_debug_message($"CHEETOS: Flag loaded from {_path}.");
-
-        return true;
-    }
-    else
-    {
+	
+	if (!file_exists(_path))
+	{
         show_debug_message($"CHEETOS: Attempted to load flag type {_type} from non-existing file {_path}!");
         return false;
     }
+	
+    var _buffer = buffer_load(_path);
+    var _string = buffer_read(_buffer, buffer_string);
+    buffer_delete(_buffer);
+    
+    var _data = SnapFromJSON(_string);
+    Flag_SetRawData(_type, _data);
+
+    show_debug_message($"CHEETOS: Flag loaded from {_path}.");
+
+    return true;
 }
 
 // Retrieves a specific flag value from its file

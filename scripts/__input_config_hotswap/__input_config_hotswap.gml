@@ -1,5 +1,5 @@
 //Number of milliseconds between source swaps. This should be longer than a single frame (>17 ms at 60FPS)
-#macro INPUT_HOTSWAP_DELAY  18
+#macro INPUT_HOTSWAP_DELAY  33
 
 //Whether to trigger a hotswap when a gamepad axis is moved
 #macro INPUT_HOTSWAP_ON_GAMEPAD_AXIS  true

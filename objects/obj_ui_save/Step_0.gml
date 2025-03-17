@@ -1,7 +1,6 @@
 var input_horizontal = PRESS_HORIZONTAL,
 	input_confirm = PRESS_CONFIRM,
-	input_cancel = PRESS_CANCEL,
-	input_menu = PRESS_MENU;
+	input_cancel = PRESS_CANCEL;
 
 if (_state == -1) // Initiate Saving UI
 {
@@ -37,11 +36,11 @@ else if (_state == 0) // Saving
         else // Return
             instance_destroy();
     }
-    else if (input_cancel) // Closing Save UI
+    else if (input_confirm || input_cancel) // Closing Save UI
         instance_destroy();
 }
 else if (_state == 1) // Saved
 {
-    if (input_cancel || input_menu) // Closing Save UI
+    if (input_confirm || input_cancel) // Closing Save UI
         instance_destroy();
 }

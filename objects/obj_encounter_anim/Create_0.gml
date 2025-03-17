@@ -1,4 +1,4 @@
-depth = DEPTH_UI.ENCOUNTER_ANIM;
+depth = -12000;//DEPTH_UI.ENCOUNTER_ANIM;
 
 _encounter = -1;
 _exclam = true;

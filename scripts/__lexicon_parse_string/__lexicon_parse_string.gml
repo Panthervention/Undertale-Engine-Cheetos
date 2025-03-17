@@ -1,5 +1,5 @@
-// Script assets have changed for v2.3.0 see
-// https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
+/// @ignore
+/// feather ignore all
 function __lexicon_parse_string(_lexiconTextCache) {
 	gml_pragma("forceinline");
 	static _global = __lexicon_init();
@@ -7,7 +7,6 @@ function __lexicon_parse_string(_lexiconTextCache) {
 	//static _replaceChrs = _global.replaceChr;
 	static _replaceChrStart = _global.replaceChr[0];
 	static _replaceChrEnd = _global.replaceChr[1];
-	static _replaceChrLegacy = _global.replaceChrLegacy;
     static _hashAvailable = _global.hashAvailable;
 	var _dynamicArray = undefined;
 	var _target = undefined;
@@ -30,6 +29,7 @@ function __lexicon_parse_string(_lexiconTextCache) {
 			
 			if (__LEXICON_ALLOW_LEGACY_ACCESSOR) {
 				_i = 1;
+                var _replaceChrLegacy = _global.replaceChrLegacy;
 				repeat(string_count("%s", _newStr)) {
 					if (_i >= argument_count) break;
 					repeat(argument_count-1) {
@@ -119,12 +119,27 @@ function __lexicon_parse_string(_lexiconTextCache) {
 					if (variable_struct_exists(_global.dynamicMap, _strKeyStripped)) {
 						var _callback = _global.dynamicMap[$ _strKeyStripped];
 						if (_callback[1]) {
+							// Parse inner system
 							if (_dynamicArray == undefined) _dynamicArray = [];
 							_lexiconTextCache.isDynamic = true;
 							array_push(_dynamicArray, [_strKeyStripped, undefined, _strKey, _args]);
 						} else {
 							_newStr = string_replace_all(_newStr, _replaceChrStart + _strKey + _replaceChrEnd, __lexicon_resolve_dynamic(_strKeyStripped, _args)); 
+						} 
+					} else if (lexicon_entry_exists(_strKeyStripped)) {
+						// Parse text entries
+						var _textEntryResult = _strKeyStripped;
+						if (__LEXICON_ENTRY_RECURSION_DETECTION) && (string_count(_strKeyStripped, _global.textEntries[$ _strKeyStripped]) > 0) {
+							__lexicon_throw("Recursive entry found in " + _strKeyStripped + "!\nPlease remove any recursive entries before proceeding!");	
 						}
+						
+						
+						if (is_array(_args)) {
+							_textEntryResult = lexicon_text_array(_strKeyStripped, _args);
+						} else {
+							_textEntryResult = lexicon_text(_strKeyStripped);
+						}
+						_newStr = string_replace_all(_newStr, _replaceChrStart + _strKey + _replaceChrEnd, _textEntryResult);
 					} else {
 						_ii = 1;
 						repeat(argument_count-1) {

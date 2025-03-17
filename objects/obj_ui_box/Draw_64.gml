@@ -22,9 +22,23 @@ draw_text_transformed(472, 30, _label_box, 2, 2, 0);
 draw_text_transformed(320, 406, _label_finish, 2, 2, 0);
 draw_set_align();
 
-
-_label_item_inventory.draw(68, 72);
-_label_item_box		 .draw(370, 72);
+var item_inventory = "", item_box = "", 
+	i = 0;
+repeat (10)
+{
+	if (i < 8)
+	{
+		item_inventory += Item_GetName(Item_Get(i));
+		item_inventory += "\n";
+	}
+	
+	item_box += Item_GetName(Box_ItemGet(_box_slot, i));
+	item_box += "\n";
+	
+	i++;
+}
+scribble($"{_prefix}{item_inventory}").draw(68, 72);
+scribble($"{_prefix}{item_box}").draw(370, 72);
 draw_set_color(c_white);
 
 draw_sprite_ext(spr_battle_soul, 0, 49 + 302 * _choice_mode, 91 + 32 * _choice_item, 1, 1, 0, c_red, 1);

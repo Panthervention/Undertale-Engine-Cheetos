@@ -1,5 +1,5 @@
 if (follow_board_y == true)
-    y = obj_battle_board.y - obj_battle_board.up - obj_battle_board.thickness_frame - 6;
+    y = obj_battle_board.y - obj_battle_board.up - obj_battle_board.frame_thickness - 6;
 
 var num = sprite_get_number(_body_sprite);
 

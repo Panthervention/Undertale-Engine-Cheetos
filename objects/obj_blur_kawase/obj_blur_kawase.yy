@@ -12,8 +12,8 @@
   "name":"obj_blur_kawase",
   "overriddenProperties":[],
   "parent":{
-    "name":"Effects",
-    "path":"folders/Engine/Effects.yy",
+    "name":"Kawase",
+    "path":"folders/Engine/Effects/Shaders/Kawase.yy",
   },
   "parentObjectId":null,
   "persistent":false,

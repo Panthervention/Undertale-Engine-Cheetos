@@ -50,7 +50,7 @@ enum CELL_EVENT {
 			{
 				audio_play_sound(snd_phone_box, 0, false);
 				var box = instance_create_depth(0, 0, DEPTH_UI.PANEL, obj_ui_box);
-					box.box_slot = slot;
+					box._box_slot = slot;
 			}
 			else
 			{
@@ -71,7 +71,7 @@ enum CELL_EVENT {
 			{
 				audio_play_sound(snd_phone_box, 0, false);
 				var box = instance_create_depth(0, 0, DEPTH_UI.PANEL, obj_ui_box);
-					box.box_slot = slot;
+					box._box_slot = slot;
 			}
 			else
 			{

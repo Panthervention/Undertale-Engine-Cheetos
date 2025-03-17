@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"lexicon_get_json_data",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"lexicon_get_json_data",
+  "parent":{
+    "name":"General",
+    "path":"folders/Extension/Lexicon/General.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

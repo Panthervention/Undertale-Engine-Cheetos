@@ -8,7 +8,7 @@ function ___fps_average() {
 	static total_fps = 1;
 	static total_smooth = 0;
 	frames++;
-	if (frames > 250) {
+	if (frames > game_get_speed(gamespeed_fps)) {
 		frames = 1;
 		total_fps = 1;
 	}

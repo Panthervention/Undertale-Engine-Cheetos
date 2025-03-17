@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"Global_Camera",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Global_Camera",
+  "parent":{
+    "name":"Global",
+    "path":"folders/Engine/Global.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

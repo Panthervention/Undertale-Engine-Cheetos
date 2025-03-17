@@ -1,11 +1,11 @@
 //Whether to use Input's own SDL2 database to remap gamepads, overriding the old and crusty
 //database that GameMaker uses internally. Setting this to <false> will cause Input to use
 //GameMaker's native database and, as a result, gamepad mapping data will be less accurate
-#macro INPUT_SDL2_REMAPPING  false
+#macro INPUT_SDL2_REMAPPING  true
 
 //Whether to allow external SDL2 database loading from environment variable %SDL_GAMECONTROLLERCONFIG%
 //This is useful for compatibility with external gamepad mapping software
-#macro INPUT_SDL2_ALLOW_EXTERNAL  false
+#macro INPUT_SDL2_ALLOW_EXTERNAL  true
 
 //Whether to allow identified non-gamepad joystick devices including wheels, flightsticks, throttles
 #macro INPUT_SDL2_ALLOW_NONGAMEPAD_JOYSTICKS  false

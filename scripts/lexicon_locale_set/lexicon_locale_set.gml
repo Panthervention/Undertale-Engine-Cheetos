@@ -1,6 +1,7 @@
 /// @func lexicon_locale_set
 /// @param {String} _locale
 /// @param {Bool} [_forceFlush=true]
+/// feather ignore all
 function lexicon_locale_set(_locale, _forceFlush = true) {
 	static _global = __lexicon_init();
 	// Clear entries
@@ -34,7 +35,7 @@ function lexicon_locale_set(_locale, _forceFlush = true) {
 		}
 	}
 	
-	if (__LEXICON_FORECE_LOAD_FALLBACK_LANGUAGE) {
+	if (__LEXICON_FORCE_LOAD_FALLBACK_LANGUAGE) {
 		var _fallbackLocale = is_array(_global.languageMap[$ _global.fallbackLanguage].locale) ? _global.languageMap[$ _global.fallbackLanguage].locale[0] : _global.languageMap[$ _global.fallbackLanguage].locale;
 		_global.forceLoadFile = true;
 		__lexicon_load_entries(_fallbackLocale);

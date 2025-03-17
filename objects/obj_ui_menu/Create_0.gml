@@ -2,8 +2,8 @@ depth = DEPTH_UI.PANEL;
 
 if (instance_exists(obj_char_player))
 {
-    _top = (obj_char_player.y - obj_global.cam_y > 130 + obj_char_player.sprite_height);
-    obj_char_player._moveable_menu = false;
+    _top = (obj_char_player.y - camera.y > 130 + obj_char_player.sprite_height);
+	obj_char_player._moveable_menu = false;
 }
 else
     _top = false;

@@ -1,5 +1,6 @@
 ///@arg enable
-function Border_SetEnabled(enable) 
+///@arg [auto_capture]
+function Border_SetEnabled(enable, auto_capture = false) 
 {
 	with obj_global
 	{
@@ -7,12 +8,14 @@ function Border_SetEnabled(enable)
 		{
 		    window_set_size(960, 540);
 		    border_enable = true;
+			border_auto_capture = auto_capture;
 		    alarm[0] = 1;
 		}
 		else
 		{
 		    window_set_size(640, 480);
 		    border_enable = false;
+			border_auto_capture = false;
 		    alarm[0] = 1;
 		
 		    if (sprite_exists(border_sprite))

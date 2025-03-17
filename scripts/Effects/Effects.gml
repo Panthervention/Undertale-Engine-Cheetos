@@ -24,7 +24,7 @@ function Screen_BlurKawase(intensity, duration, delay = 0)
 	{
 		blur_intensity_max = intensity;
 		alarm[0] = duration; // instance_destroy() for the blur object!
-		TweenFire(id, "", 0, off, delay, duration, "blur_intensity", intensity, 0);
+		TweenFire(id, EaseInCubic, TWEEN_MODE_ONCE, off, delay, duration, "blur_intensity", intensity, 0);
 	}
 	return blur;
 }

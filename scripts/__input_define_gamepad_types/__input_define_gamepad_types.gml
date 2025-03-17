@@ -11,6 +11,7 @@ function __input_define_gamepad_types()
         XBoxOneController      = INPUT_GAMEPAD_TYPE_XBOX_ONE;
         CommunityXBoxOne       = INPUT_GAMEPAD_TYPE_XBOX_ONE;
         SteamControllerNeptune = INPUT_GAMEPAD_TYPE_XBOX_ONE;
+        CommunitySteamDeck     = INPUT_GAMEPAD_TYPE_XBOX_ONE;
         CommunityLuna          = INPUT_GAMEPAD_TYPE_XBOX_ONE;
         CommunityStadia        = INPUT_GAMEPAD_TYPE_XBOX_ONE;
         AppleController        = INPUT_GAMEPAD_TYPE_XBOX_ONE;
@@ -23,7 +24,7 @@ function __input_define_gamepad_types()
         MobileTouch        = INPUT_GAMEPAD_TYPE_XBOX_360;
         
         //Default for XInput and Xbox-like gamepads
-        CommunityLikeXBox   = INPUT_GAMEPAD_TYPE_XBOX_ONE;
+        CommunityLikeXBox = INPUT_GAMEPAD_TYPE_XBOX_ONE;
         
         //PlayStation
         #macro INPUT_GAMEPAD_TYPE_PS5 "ps5"
@@ -121,6 +122,9 @@ function __input_define_gamepad_types()
         
         //#macro INPUT_GAMEPAD_TYPE_NEOGEO "neogeo"
         //CommunityNeoGeo = INPUT_GAMEPAD_TYPE_NEOGEO;
+        
+        //#macro INPUT_GAMEPAD_TYPE_NEOGEO_MINI "neogeo mini"
+        //CommunityNeoGeoMini = INPUT_GAMEPAD_TYPE_NEOGEO_MINI;
         
         #endregion
     }

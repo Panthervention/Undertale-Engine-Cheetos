@@ -62,12 +62,12 @@ function input_debug_player_input(_player_index = 0)
                     if (_global.__any_keyboard_binding_defined)
                     {
                         var _j = __INPUT_KEYCODE_MIN;
-                        repeat(1 + (256 - __INPUT_KEYCODE_MIN))
+                        repeat(1 + (0x100 - __INPUT_KEYCODE_MIN))
                         {
-                            if (_j == 256)
+                            if (_j == 0x100)
                             {
                                 var _keyboard_key = __input_keyboard_key();
-                                if (_keyboard_key <= 256) break;
+                                if (_keyboard_key <= 0x100) break;
                             }
                             else
                             {
@@ -83,18 +83,11 @@ function input_debug_player_input(_player_index = 0)
                                 var _binding = new __input_class_binding();
                                 _binding.__set_key(_keyboard_key, true);
                                 
-                                //On Mac we update the binding label to the actual keyboard character if it is a Basic Latin alphabetic character
+                                //On Mac we update the binding label to the actual keyboard character
                                 //This works around problems where a keyboard might be sending a character code for e.g. A but the OS is typing another letter
                                 if (__INPUT_ON_MACOS)
                                 {
-                                    var _keychar = string_upper(keyboard_lastchar);
-                                    
-                                    //Basic Latin only
-                                    if ((ord(_keychar) >= ord("A")) && (ord(_keychar) <= ord("Z")))
-                                    {
-                                        _binding.__set_label(_keychar);
-                                        __input_key_name_set(_keyboard_key, _keychar);    
-                                    }
+                                    _binding.__set_label(__input_key_get_char(_keyboard_key));
                                 }
                                 
                                 array_push(_result, _binding);
@@ -174,7 +167,7 @@ function input_debug_player_input(_player_index = 0)
                             if (input_gamepad_is_axis(__gamepad, _check))
                             {
                                 var _value = input_gamepad_value(__gamepad, _check);
-                                if ((abs(_value) > input_axis_threshold_get(_check, _player_index).mini) && _filter_func(_check, _ignore_struct, _allow_struct))
+                                if ((abs(_value) > input_axis_threshold_get(_check, _player_index).__mini) && _filter_func(_check, _ignore_struct, _allow_struct))
                                 {
                                     var _binding = input_binding_gamepad_axis(_check, (_value < 0));
                                     if (_global.__source_mode == INPUT_SOURCE_MODE.MULTIDEVICE) _binding.__gamepad_set(__gamepad);

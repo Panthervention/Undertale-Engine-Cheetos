@@ -1,4 +1,4 @@
-///@desc
+#region	Public Variables
 depth = DEPTH_BATTLE.BOARD;
 image_alpha = 1;
 
@@ -13,29 +13,36 @@ down = BATTLE_BOARD.DOWN;
 left = BATTLE_BOARD.LEFT;
 right = BATTLE_BOARD.RIGHT;
 
-frame_x = [0, 0, 0, 0];
-frame_y = [0, 0, 0, 0];
-frame_w = [0, 0, 0, 0];
-frame_h = [0, 0, 0, 0];
+frame_thickness = 5;
 
-bg_x = 0
-bg_y = 0
-bg_w = 0
-bg_h = 0
+bg_alpha = 1;
+bg_color = c_black;
+#endregion
 
-bg_a = 0.25;
-bg_c = c_black;
-
-thickness_frame = 5;
-
-point_x = 0;
-point_y = 0;
-
-function point_xy(p_x, p_y)
+#region	Private Functions
+__point_xy = function(_point_x, _point_y)
 {
-	var angle = image_angle
+	var _angle = -image_angle;
 	
-	point_x = ((p_x - x) * dcos(-angle)) - ((p_y - y) * dsin(-angle)) + x
-	point_y = ((p_y - y) * dcos(-angle)) + ((p_x - x) * dsin(-angle)) + y
+	__point_x = ((_point_x - x) * dcos(_angle)) - ((_point_y - y) * dsin(_angle)) + x;
+	__point_y = ((_point_y - y) * dcos(_angle)) + ((_point_x - x) * dsin(_angle)) + y;
 }
+#endregion
+
+#region	Private Variables
+__surface_frame = noone;
+
+__frame_x = [0, 0, 0, 0];
+__frame_y = [0, 0, 0, 0];
+__frame_width = [0, 0, 0, 0];
+__frame_height = [0, 0, 0, 0];
+
+__bg_x = 0;
+__bg_y = 0;
+__bg_width = 0;
+__bg_height = 0;
+
+__point_x = 0;
+__point_y = 0;
+#endregion
 

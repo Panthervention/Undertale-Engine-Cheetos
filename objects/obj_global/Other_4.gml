@@ -2,13 +2,7 @@ Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.ROOM, room);
 room_persistent = false;
 
 #region Camera Functions
-
-event_user(0);
-
-view_enabled = true;
-view_camera[0] = global.camera;
-view_visible[0] = true;
-
+camera.Reload();
 #endregion
 
 #region Overworld Texture Group Loading

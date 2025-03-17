@@ -98,33 +98,4 @@ function Fader_Fade(start, target, duration, delay = 0)
 	return true;
 }
 
-///@arg shake_x
-///@arg shake_y
-///@arg [shake_speed_x]
-///@arg [shake_speed_y]
-///@arg [shake_random_x]
-///@arg [shake_random_y]
-///@arg [shake_decrease_x]
-///@arg [shake_decrease_y]
-function Camera_Shake(X, Y, SPEED_X = 0, SPEED_Y = 0, RANDOM_X = false, RANDOM_Y = false, DECREASE_X = 1, DECREASE_Y = 1) 
-{
-	with obj_global
-	{
-		cam_shake_x = X;
-		cam_shake_y = Y;
-		cam_shake_speed_x = SPEED_X;
-		cam_shake_speed_y = SPEED_Y;
-		cam_shake_random_x = RANDOM_X;
-		cam_shake_random_y = RANDOM_Y;
-		cam_shake_decrease_x = DECREASE_X;
-		cam_shake_decrease_y = DECREASE_Y;
-		_cam_shake_pos_x = 0;
-		_cam_shake_pos_y = 0;
-		_cam_shake_time_x = 0;
-		_cam_shake_time_y = 0;
-		_cam_shake_positive_x = true;
-		_cam_shake_positive_y = true;
-	}
-	return true;
-}
 

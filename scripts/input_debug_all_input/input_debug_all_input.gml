@@ -95,13 +95,13 @@ function input_debug_all_input(_ignore_array = undefined, _allow_array = undefin
             if ((self == INPUT_KEYBOARD) && _global.__any_keyboard_binding_defined)
             {
                 var _j = __INPUT_KEYCODE_MIN;
-                repeat(1 + (256 - __INPUT_KEYCODE_MIN)) //Check commonly-used keys
+                repeat(1 + (0x100 - __INPUT_KEYCODE_MIN)) //Check commonly-used keys
                 {
-                    if (_j == 256)
+                    if (_j == 0x100)
                     {
                         //Instead of checking key 0xFF, check the currently pressed keyboard key (if any)
                         var _keyboard_key = __input_keyboard_key();
-                        if (_keyboard_key <= 256) break;
+                        if (_keyboard_key <= 0x100) break;
                     }
                     else
                     {
@@ -117,18 +117,11 @@ function input_debug_all_input(_ignore_array = undefined, _allow_array = undefin
                         var _binding = new __input_class_binding();
                         _binding.__set_key(_keyboard_key, true);
                         
-                        //On Mac we update the binding label to the actual keyboard character if it is a Basic Latin alphabetic character
+                        //On Mac we update the binding label to the actual keyboard character
                         //This works around problems where a keyboard might be sending a character code for e.g. A but the OS is typing another letter
                         if (__INPUT_ON_MACOS)
                         {
-                            var _keychar = string_upper(keyboard_lastchar);
-                            
-                            //Basic Latin only
-                            if ((ord(_keychar) >= ord("A")) && (ord(_keychar) <= ord("Z")))
-                            {
-                                _binding.__set_label(_keychar);
-                                __input_key_name_set(_keyboard_key, _keychar);    
-                            }
+                            _binding.__set_label(__input_key_get_char(_keyboard_key));
                         }
                         
                         array_push(_result, _binding);

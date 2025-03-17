@@ -10,8 +10,8 @@ function Flag_Custom()
 	Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.GOLD, 0);
 	Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.KILLS, 0);
 	
-	Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.ATK, 22);
-	Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.DEF, 2);
+	Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.ATK, 0);
+	Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.DEF, 0);
 	Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.SPD, 2);
 	Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.INV, 60);
 	
@@ -46,8 +46,8 @@ function Flag_Custom()
 	Item_Set(6, item_lhero);
 	Item_Set(7, item_lhero);
 
-	Player_SetWeapon(weapon_worn_knife);
-	Player_SetArmor(armor_broken_locket);
+	Player_SetWeapon(weapon_stick);
+	Player_SetArmor(armor_bandage);
 	#endregion
 	
 	#region Cell

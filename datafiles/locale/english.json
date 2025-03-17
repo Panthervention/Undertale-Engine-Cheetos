@@ -21,7 +21,7 @@
                 "fled":
                 {
                     "0": "* Escaped...",
-                    "1": "* I'm outta here.",
+                    "1": "* I'm outta here.", 
                     "2": "* I've got better to do.",
                     "3": "* Don't slow me down.",
                     "reward": "* Ran away with {0} EXP\n  and {1} GOLD."
@@ -180,7 +180,7 @@
                 {
                     "0": "\"{0}\"",
                     "1": "LV  {0}\nHP  {1} / {2}\n\nAT  {3} ({4})\nDF  {5} ({6})",
-                    "2": "WEAPON: {0}\nARMOR: {0}",
+                    "2": "WEAPON: {0}\nARMOR: {1}",
                     "3": "GOLD: {0}",
                     "4": "EXP: {0}\nNEXT: {1}",
                     "5": "KILLS: {0}"

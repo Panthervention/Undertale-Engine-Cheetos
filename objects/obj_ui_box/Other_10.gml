@@ -13,8 +13,5 @@ repeat (10)
 	
 	i++;
 }
-_label_item_inventory = scribble($"{_prefix}{item_inventory}");
-_label_item_box		  = scribble($"{_prefix}{item_box}");
 
-_label_item_inventory.build(true);
-_label_item_box		 .build(true);
+

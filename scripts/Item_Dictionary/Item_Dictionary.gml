@@ -24,8 +24,6 @@ enum ITEM {
 	BANDAGE,
 	TOY_KNIFE,
 	RIBBON,
-	WORN_KNIFE,
-	BROKEN_LOCKET,
 }
 #endregion
 
@@ -43,11 +41,9 @@ enum ITEM {
 	#region Equipment
 	#macro weapon_stick			new Weapon_Stick()
 	#macro weapon_toy_knife		new Weapon_ToyKnife()
-	#macro weapon_worn_knife	new Weapon_WornKnife()
 	
 	#macro armor_bandage		new Armor_Bandage()
 	#macro armor_ribbon			new Armor_FadedRibbon()
-	#macro armor_broken_locket	new Armor_BrokenLocket()
 	#endregion
 #endregion
 
@@ -195,31 +191,6 @@ function Item() constructor {
 
 		def = 3;
 	}
-	function Weapon_WornKnife() : Item() constructor {
-		item_id = ITEM.WORN_KNIFE;
-		type = ITEM_TYPE.EQUIPMENT;
-		type_equipment = "weapon";
-		name = lexicon_text("item.worn_knife.name");
-		name_short = lexicon_text("item.worn_knife.name");
-		name_short_serious = lexicon_text("item.worn_knife.name");
-
-		desc_info = lexicon_text("item.worn_knife.info");
-
-		atk = 20;
-	}
-	function Armor_BrokenLocket() : Item() constructor {
-		item_id = ITEM.BROKEN_LOCKET;
-		type = ITEM_TYPE.EQUIPMENT;
-		type_equipment = "armor";
-		
-		name = lexicon_text("item.broken_locket.name");
-		name_short = lexicon_text("item.broken_locket.name");
-		name_short_serious = lexicon_text("item.broken_locket.name");
-		
-		desc_info = lexicon_text("item.broken_locket.info");
-
-		def = 20;
-	};
 	#endregion
 #endregion
 
@@ -236,6 +207,4 @@ function Dictionary_Item_Init() {
 	global._dictionary_item[ITEM.BANDAGE]		= armor_bandage;
 	global._dictionary_item[ITEM.TOY_KNIFE]		= weapon_toy_knife;
 	global._dictionary_item[ITEM.RIBBON]		= armor_ribbon;
-	global._dictionary_item[ITEM.WORN_KNIFE]	= weapon_worn_knife;
-	global._dictionary_item[ITEM.BROKEN_LOCKET] = armor_broken_locket;
 }

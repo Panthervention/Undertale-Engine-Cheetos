@@ -3,7 +3,6 @@ var input_vertical = PRESS_VERTICAL,
 	input_confirm = PRESS_CONFIRM,
 	input_cancel = PRESS_CANCEL,
 	input_menu = PRESS_MENU;
-
 if (instance_exists(obj_ui_dialog) && _menu != -1)
     _menu = -1;
 else if (_menu == -1 && !instance_exists(obj_ui_dialog))

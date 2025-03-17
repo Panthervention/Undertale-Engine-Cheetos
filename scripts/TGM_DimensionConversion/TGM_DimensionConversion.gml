@@ -9,9 +9,9 @@
 /// @param {real} gui_height The GUI height.
 /// @param {bool} normalize If enabled, the value will be returned from 0 to 1 - useful for shaders and so on
 /// @returns {struct} 
-function room_to_gui_dimension(x1, y1, camera, gui_width, gui_height, normalize) {
-	var _px = (x1-camera_get_view_x(camera)) * (gui_width/camera_get_view_width(camera)),
-	_py = (y1-camera_get_view_y(camera)) * (gui_height/camera_get_view_height(camera));
+function room_to_gui_dimension(x1, y1, _camera, gui_width, gui_height, normalize) {
+	var _px = (x1-camera_get_view_x(_camera)) * (gui_width/camera_get_view_width(_camera)),
+	_py = (y1-camera_get_view_y(_camera)) * (gui_height/camera_get_view_height(_camera));
 	return normalize ? new Vector2(_px/gui_width, _py/gui_height) : new Vector2(_px, _py);
 }
 
@@ -24,11 +24,11 @@ function room_to_gui_dimension(x1, y1, camera, gui_width, gui_height, normalize)
 /// @param {real} gui_height The GUI height.
 /// @param {bool} normalize If enabled, the value will be returned from 0 to 1 - useful for shaders and so on
 /// @returns {struct} 
-function room_to_gui_dimension_ext(x1, y1, camera, angle, gui_width, gui_height, normalize) {
-	var _cw = camera_get_view_width(camera),
-	_ch = camera_get_view_height(camera),
-	_vcenter_x = camera_get_view_x(camera) + (_cw / 2),
-	_vcenter_y = camera_get_view_y(camera) + (_ch / 2),
+function room_to_gui_dimension_ext(x1, y1, _camera, angle, gui_width, gui_height, normalize) {
+	var _cw = camera_get_view_width(_camera),
+	_ch = camera_get_view_height(_camera),
+	_vcenter_x = camera_get_view_x(_camera) + (_cw / 2),
+	_vcenter_y = camera_get_view_y(_camera) + (_ch / 2),
 	_zoom = gui_width/_cw,
 	_wcenter_dis = point_distance(_vcenter_x, _vcenter_y, x1, y1) * _zoom,
 	_wcenter_dir = point_direction(_vcenter_x, _vcenter_y, x1, y1) + angle,
@@ -46,11 +46,11 @@ function room_to_gui_dimension_ext(x1, y1, camera, angle, gui_width, gui_height,
 /// @param {real} gui_height The GUI height.
 /// @param {bool} normalize If enabled, the value will be returned from 0 to 1 - useful for shaders and so on.
 /// @returns {struct} 
-function gui_to_room_dimension_ext(x1, y1, camera, angle, gui_width, gui_height, normalize) {
-	var _cx = camera_get_view_x(camera),
-	_cy = camera_get_view_y(camera),
-	_cw = camera_get_view_width(camera),
-	_ch = camera_get_view_height(camera),
+function gui_to_room_dimension_ext(x1, y1, _camera, angle, gui_width, gui_height, normalize) {
+	var _cx = camera_get_view_x(_camera),
+	_cy = camera_get_view_y(_camera),
+	_cw = camera_get_view_width(_camera),
+	_ch = camera_get_view_height(_camera),
 	_vcenter_x = gui_width / 2,
 	_vcenter_y = gui_height / 2,
 	zoom = gui_width/_cw,

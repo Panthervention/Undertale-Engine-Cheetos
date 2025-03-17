@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scribble_rgb_to_bgr",
   "parent":{
-    "name":"Colours",
-    "path":"folders/Extension/Scribble/Colours.yy",
+    "name":"Legacy",
+    "path":"folders/Extension/Scribble/Legacy.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -30,8 +30,45 @@ function __input_initialize()
     //Detect infinity
     if (is_undefined(infinity))
     {
-        __input_error("Error!\nGM constant 'infinity' is undefined. Please file a bug with YoYoGames.\n", "@jujuadams and @offalynne\n", __INPUT_DATE);
+        __input_error("Error!\nGM constant 'infinity' is undefined. Please file a bug with YoYoGames.");
     }
+    
+    //Detect string functions
+    var _use_split_and_trim;
+    try
+    {
+        var _split = array_equals(string_split("Juju\nwaz\nere", "\n", true), ["Juju", "waz", "ere"]);
+        var _trim = (string_trim("         you can't catch me          ") == "you can't catch me");
+        _use_split_and_trim = _split && _trim;
+    }
+    catch(_error)
+    {
+        _use_split_and_trim = false;
+    }
+    
+    if not (_use_split_and_trim) __input_error("Error!\nGM extended string functions are unavailable. Please update GameMaker.");
+    
+    //Detect non-native string_split(), which degrades loading particularly on YYC
+    var _native_split;
+    try
+    {
+        if (is_real(string_split))
+        {
+            //Native index boundary
+            _native_split = (real(string_split) < 100000);
+        }        
+        else
+        {
+            //GMRT native functions are structs
+            _native_split = is_struct(string_split);
+        }
+    }
+    catch(_error)
+    {
+        _native_split = false;
+    }
+    
+    if (!INPUT_ON_WEB && !_native_split) __input_trace_loud("Warning!\nFound indirection for GM native \"string_split\" function. Overriding \"string_split\" degrades load performance.");
     
     //Detect is_instanceof(), which offers some minor performance gains
     if (INPUT_ON_WEB)
@@ -56,44 +93,19 @@ function __input_initialize()
     {
         __input_trace(_global.__use_is_instanceof? "Using is_instanceof() for comparisons" : "is_instanceof() unavailable, using legacy comparisons");
     }
-    
-    //Detect new string functions, which offer a significant performance gain when reading the SDL2 database
-    if (INPUT_ON_WEB)
-    {
-        //Buggy as of 2023-10-08
-        _global.__use_legacy_strings = false;
-    }
-    else 
-    {
-        try
-        {
-            var _split = array_equals(string_split("Juju\nwaz\nere", "\n", true), ["Juju", "waz", "ere"]);
-            var _trim  = (string_trim("         you can't catch me          ") == "you can't catch me");
-            _global.__use_legacy_strings = !(_split && _trim);
-        }
-        catch(_error)
-        {
-            _global.__use_legacy_strings = true;
-        }
-    }
-    
-    if (not __INPUT_SILENT)
-    {
-        __input_trace(_global.__use_is_instanceof? "Using new string functions to parse SDL2 database" : "New string functions unavailable, using legacy SDL2 database parsing");
-    }
       
     //Detect new native gamepad constants
-    var _use_gp_extended = false;
+    _global.__use_gp_extended = false;
     try
     {
-        _use_gp_extended = is_numeric(gp_home) && is_numeric(gp_extra1) && is_numeric(gp_paddler) && is_numeric(gp_paddlel) && is_numeric(gp_paddlerb) && is_numeric(gp_paddlelb) && is_numeric(gp_touchpadbutton);
+        _global.__use_gp_extended = is_numeric(gp_home) && is_numeric(gp_extra1) && is_numeric(gp_paddler) && is_numeric(gp_paddlel) && is_numeric(gp_paddlerb) && is_numeric(gp_paddlelb) && is_numeric(gp_touchpadbutton);
     }
     catch(_error)
     {    
-        _use_gp_extended = false;
+        _global.__use_gp_extended = false;
     }
     
-    if (_use_gp_extended)
+    if (_global.__use_gp_extended)
     {
         _global.__gp_guide    = gp_home;
         _global.__gp_misc1    = gp_extra1;
@@ -166,6 +178,23 @@ function __input_initialize()
     }
     
     if (_global.__allow_gamepad_tester) __input_gamepad_tester_init();
+    
+    //Detect gamepad_enumerate() to enable hotplugging on Android, if supported
+    _global.__allow_gamepad_enumerate = false;
+    if (__INPUT_ON_ANDROID)
+    {
+        try
+        {
+            gamepad_enumerate();
+            _global.__allow_gamepad_enumerate = true;
+        }
+        catch(_error)
+        {
+            _global.__allow_gamepad_enumerate = false;
+        }
+        
+        if not (__INPUT_SILENT) __input_trace(_global.__allow_gamepad_enumerate? "Using gamepad enumeration" : "Gamepad enumeration is unavailable");
+    }
     
     #endregion
     
@@ -259,12 +288,7 @@ function __input_initialize()
     
     time_source_start(_global.__time_source);
     
-    if (((string_pos("127.0.0.1", parameter_string(0)) > 0) || (string_pos("localhost", parameter_string(0)) > 0)) && (os_browser != browser_not_a_browser))
-    {
-        show_message("Due to changes in security policy, some browsers may not permit the use of gamepads when testing locally.\n \nPlease host on a remote web service (itch.io, GX.games, etc.) if you are encountering problems.");
-    }
-    
-    if ((GM_build_type == "run") && (os_type == os_operagx))
+    if (((string_pos("127.0.0.1", parameter_string(0)) > 0) || (string_pos("localhost", parameter_string(0)) > 0)))
     {
         show_message("Due to changes in security policy, some browsers may not permit the use of gamepads when testing locally.\n \nPlease host on a remote web service (itch.io, GX.games, etc.) if you are encountering problems.");
     }
@@ -281,6 +305,9 @@ function __input_initialize()
     //Time the game was restarted
     _global.__restart_time = -infinity;
     
+    //Time of gamepad enumeration on Android
+    _global.__enumeration_time = -infinity;
+    
     //Whether momentary input has been cleared
     _global.__cleared = false;
     
@@ -288,6 +315,7 @@ function __input_initialize()
     _global.__window_focus       = true;
     _global.__overlay_focus      = false;
     _global.__game_input_allowed = true;
+    _global.__use_native_focus   = (__INPUT_ON_WINDOWS || INPUT_ON_WEB);
 
     //Accessibility state
     _global.__toggle_momentary_dict  = {};
@@ -320,12 +348,7 @@ function __input_initialize()
     _global.__mouse_capture_blocked     = false;
     _global.__mouse_capture_sensitivity = 1;
     _global.__mouse_capture_frame       = 0;
-    
-    //Combos
-    _global.__combo_params = {};
-    input_combo_params_reset();
-    _global.__combo_verb_dict = {};
-    
+        
     //Identify mobile and desktop
     _global.__on_desktop = (__INPUT_ON_WINDOWS || __INPUT_ON_MACOS || __INPUT_ON_LINUX || __INPUT_ON_OPERAGX);
     _global.__on_mobile  = (__INPUT_ON_ANDROID || __INPUT_ON_IOS);
@@ -404,9 +427,6 @@ function __input_initialize()
     _global.__chord_verb_dict  = {};
     _global.__chord_verb_array = [];
     
-    _global.__combo_verb_dict  = {};
-    _global.__combo_verb_array = [];
-    
     //Struct to store keyboard key names
      _global.__key_name_dict = {};
     
@@ -425,20 +445,46 @@ function __input_initialize()
     //This can also work with INPUT_MOUSE if INPUT_MOUSE_ALLOW_VIRTUAL_BUTTONS is set to <true>
     _global.__touch_player = undefined;
     
+    //Gamepad device count by platform
+    var _max_gamepads = 4;
+    if (!INPUT_ON_WEB)
+    {
+        if (__INPUT_ON_WINDOWS)
+        {
+            _max_gamepads = 12;
+        }
+        else if (__INPUT_ON_SWITCH)
+        {
+            _max_gamepads = 9;
+        }
+        else if (__INPUT_ON_XBOX)
+        {
+            _max_gamepads = 8;        
+        }
+        else if (__INPUT_ON_IOS)
+        {
+            _max_gamepads = 5;
+        }
+        else if (__INPUT_ON_LINUX || __INPUT_ON_ANDROID)
+        {
+            _max_gamepads = gamepad_get_device_count();
+        }
+    }
+    
     //Two structs that are returned by input_players_get_status() and input_gamepads_get_status()
     //These are "static" structs that are reset and populated by __input_system_tick()
     _global.__players_status = {
-        any_changed: false,
-        new_connections: [],
-        new_disconnections: [],
-        players: array_create(INPUT_MAX_PLAYERS, INPUT_STATUS.DISCONNECTED),
+        __any_changed: false,
+        __new_connections: [],
+        __new_disconnections: [],
+        __players: array_create(INPUT_MAX_PLAYERS, INPUT_STATUS.DISCONNECTED),
     }
     
     _global.__gamepads_status = {
-        any_changed: false,
-        new_connections: [],
-        new_disconnections: [],
-        gamepads: array_create(INPUT_MAX_GAMEPADS, INPUT_STATUS.DISCONNECTED),
+        __any_changed: false,
+        __new_connections: [],
+        __new_disconnections: [],
+        __gamepads: array_create(_max_gamepads, INPUT_STATUS.DISCONNECTED),
     }
     
     //The default player. This player struct holds default binding data
@@ -477,7 +523,11 @@ function __input_initialize()
     //Array of currently connected gamepads. If an element is <undefined> then the gamepad is disconnected
     //Each gamepad in this array is an instance of __input_class_gamepad
     //Gamepad structs contain remapping information and current button state
-    _global.__gamepads = array_create(INPUT_MAX_GAMEPADS, undefined);
+    _global.__gamepads = array_create(_max_gamepads, undefined);
+    
+    //Array of gamepad connection states
+    _global.__gamepad_connections_native   = array_create(_max_gamepads, false);
+    _global.__gamepad_connections_internal = array_create(_max_gamepads, false);
     
     //Our database of SDL2 definitions, used for the aforementioned remapping information
     _global.__sdl2_database = {
@@ -640,11 +690,60 @@ function __input_initialize()
     _global.__gamepad_led_pattern_dict = _dict;
     
     #endregion
+    
+    
+        
+    #region Device locale
+        
+    //Gamepad region
+    _global.__ps_region_swap = false;
+    if (INPUT_PS_REGION_SWAP_CONFIRM && (os_type == os_ps4))
+    {
+        var _map = os_get_info();
+        if (ds_exists(_map, ds_type_map))
+        {
+            if (_map[? "enter_button_assign"] == 0)
+            {
+                _global.__ps_region_swap = true;
+            }
+            
+            ds_map_destroy(_map);
+        }
+    }
+    
+    //Keyboard locale
+    _global.__keyboard_locale = "QWERTY";
+    var _locale = os_get_language() + "-" + os_get_region();
+    switch(_locale)
+    {
+        case "ar-DZ": case "ar-MA": case "ar-TN":
+        case "br-FR": case "co-FR": case "ff-SN":
+        case "fr-BE": case "fr-CD": case "fr-CI":
+        case "fr-CM": case "fr-FR": case "fr-HT":
+        case "fr-MA": case "fr-MC": case "fr-ML":
+        case "fr-RE": case "nl-BE": case "oc-FR":
+        case "wo-SN": case "tzm-DZ":
+        case "mg-":   case "gsw-FR":
+            _global.__keyboard_locale = "AZERTY";
+        break;  
 
+        case "cs-CZ": case "de-AT": case "de-CH":
+        case "de-DE": case "de-LI": case "de-LU":
+        case "fr-CH": case "fr-LU": case "sq-AL":
+        case "hr-BA": case "hr-HR": case "hu-HU":
+        case "lb-LU": case "rm-CH": case "sk-SK":
+        case "sl-SI": case "dsb-DE":
+        case "sr-BA": case "hsb-DE":
+            _global.__keyboard_locale = "QWERTZ";
+        break;
+    }
+    
+    #endregion 
+    
 
 
     #region Key names
-
+    
     __input_key_name_set(vk_backtick,   "`");
     __input_key_name_set(vk_hyphen,     "-");
     __input_key_name_set(vk_equals,     "=");
@@ -727,25 +826,42 @@ function __input_initialize()
     __input_key_name_set(vk_end,      "end");
    
     //Name newline character after Enter
-    __input_key_name_set(10, _global.__key_name_dict[$ vk_enter]);
+    __input_key_name_set(0x0A, _global.__key_name_dict[$ vk_enter]);
     
     //Reset F11 and F12 keycodes on certain platforms
     if (__INPUT_ON_SWITCH || __INPUT_ON_LINUX || __INPUT_ON_MACOS)
     {
-        __input_key_name_set(128, "f11");
-        __input_key_name_set(129, "f12");
+        __input_key_name_set(0x80, "f11");
+        __input_key_name_set(0x81, "f12");
     }
-   
-    //F13 to F32 on Windows and Web
-    if (__INPUT_ON_WINDOWS || INPUT_ON_WEB)
+
+    //Numeric key 2 on MacOS
+    if (__INPUT_ON_MACOS)
     {
-        for(var _i = vk_f1 + 12; _i < vk_f1 + 32; _i++) __input_key_name_set(_i, "f" + string(_i));
+        __input_key_name_set(0x32, "2");
     }
     
     //Numeric keys 2-7 on Switch
     if (__INPUT_ON_SWITCH)
     {
         for(var _i = 2; _i <= 7; _i++) __input_key_name_set(_i, __input_key_get_name(ord(_i)));
+    }
+    
+    if (__INPUT_ON_WINDOWS || INPUT_ON_WEB)
+    {
+        //F13 to F32 on Windows and Web
+        for(var _i = 0x0D; _i <= 0x20; _i++) __input_key_name_set(_i + vk_f1 - 1, "f" + string(_i));
+        
+        //IntlBackslash, Backquote
+        __input_key_name_set(0xE2, (INPUT_ON_WEB? "\\" : "<"));
+        
+        //Uncommon layout-contextual symbol
+        switch(INPUT_KEYBOARD_LOCALE)
+        {
+            case "QWERTY": __input_key_name_set(0xDF, "`"); break;
+            case "AZERTY": __input_key_name_set(0xDF, "!"); break;
+            case "QWERTZ": __input_key_name_set(0xDF, "$"); break;
+        }
     }
     
     #endregion
@@ -894,7 +1010,7 @@ function __input_initialize()
                 if (__INPUT_ON_WINDOWS) _identifier = _map[? "video_adapter_description"];
             
                 //Steam Deck GPU identifier
-                if ((_identifier != undefined) && __input_string_contains(_identifier, "AMD Custom GPU 04"))
+                if ((_identifier != undefined) && __input_string_contains(_identifier, "AMD Custom GPU 0"))
                 {
                     _global.__on_steam_deck = true;
                 }
@@ -1021,53 +1137,7 @@ function __input_initialize()
 
     #endregion
     
-    
-    
-    #region Device locale
         
-    //Gamepad region
-    _global.__ps_region_swap = false;
-    if (INPUT_PS_REGION_SWAP_CONFIRM && (os_type == os_ps4))
-    {
-        var _map = os_get_info();
-        if (ds_exists(_map, ds_type_map))
-        {
-            if (_map[? "enter_button_assign"] == 0)
-            {
-                _global.__ps_region_swap = true;
-            }
-            
-            ds_map_destroy(_map);
-        }
-    }
-    
-    //Keyboard locale
-    _global.__keyboard_locale = "QWERTY";
-    var _locale = os_get_language() + "-" + os_get_region();;
-    switch(_locale)
-    {
-        case "ar-DZ": case "ar-MA": case "ar-TN":
-        case "fr-BE": case "fr-FR": case "fr-MC":
-        case "co-FR": case "oc-FR": case "ff-SN": 
-        case "wo-SN": case "gsw-FR": 
-        case "nl-BE": case "tzm-DZ":
-            _global.__keyboard_type = "AZERTY";
-        break;  
-
-        case "cs-CZ": case "de-AT": case "de-CH": 
-        case "de-DE": case "de-LI": case "de-LU": 
-        case "fr-CH": case "fr-LU": case "sq-AL":
-        case "hr-BA": case "hr-HR": case "hu-HU":
-        case "lb-LU": case "rm-CH": case "sk-SK": 
-        case "sl-SI": case "dsb-DE":
-        case "sr-BA": case "hsb-DE":
-            _global.__keyboard_type = "QWERTZ";
-        break;
-    }
-    
-    #endregion 
-    
-    
     
     #region Keyboard type
     
@@ -1144,9 +1214,9 @@ function __input_initialize()
     _global.__source_mouse    = INPUT_ASSIGN_KEYBOARD_AND_MOUSE_TOGETHER? INPUT_KEYBOARD : (new __input_class_source(__INPUT_SOURCE.MOUSE));
     _global.__source_touch    = new __input_class_source(__INPUT_SOURCE.TOUCH);
     
-    _global.__source_gamepad = array_create(INPUT_MAX_GAMEPADS, undefined);
+    _global.__source_gamepad = array_create(_max_gamepads, undefined);
     var _g = 0;
-    repeat(INPUT_MAX_GAMEPADS)
+    repeat(_max_gamepads)
     {
         _global.__source_gamepad[@ _g] = new __input_class_source(__INPUT_SOURCE.GAMEPAD, _g);
         ++_g;

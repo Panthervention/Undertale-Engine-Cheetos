@@ -1,8 +1,10 @@
 randomize();
 
+#region		Localization Initialize
 lexicon_index_definitions("./locale/definitions.json");
 lexicon_language_set("English");
 lexicon_index_fallback_language_set("English");
+#endregion
 
 Flag_Init();
 Encounter_Init();

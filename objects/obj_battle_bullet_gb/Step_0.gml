@@ -91,7 +91,7 @@ if (state == 4)
 	{	
 		if (_blaster[4] >= 2)
 		{
-			Camera_Shake(5, 5, 1, 1, 1, 1, 0.5, 0.5);
+			Camera_Shake(5, 5, 1, 1, 0.5, 0.5, true, true);
 			if (blurring)
 				Screen_Blur(_blaster[4], time_blast);
 		}

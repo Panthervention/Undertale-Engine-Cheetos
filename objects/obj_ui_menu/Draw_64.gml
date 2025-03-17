@@ -6,13 +6,13 @@ draw_set_format(font_dt_sans, _color);
 draw_sprite_ext(spr_pixel, 0, 32, 52 + _is_top, 142, 110, 0, _color, 1);
 draw_sprite_ext(spr_pixel, 0, 38, 58 + _is_top, 130, 98, 0, c_black, 1);
 
-draw_text_transformed(46, 60, _player_name, 2, 2, 0);
+draw_text_transformed(46, 60 + _is_top, _player_name, 2, 2, 0);
 
 draw_set_format(font_crypt_of_tomorrow, _color);
-draw_text_transformed(46, 100, _label_lv, 2, 2, 0);
-draw_text_transformed(46, 118, _label_hp, 2, 2, 0);
-draw_text_transformed(46, 136, _label_g, 2, 2, 0);
-draw_text_transformed(90, 136, _player_gold, 2, 2, 0);
+draw_text_transformed(46, 100 + _is_top, _label_lv, 2, 2, 0);
+draw_text_transformed(46, 118 + _is_top, _label_hp, 2, 2, 0);
+draw_text_transformed(46, 136 + _is_top, _label_g, 2, 2, 0);
+draw_text_transformed(90, 136 + _is_top, _player_gold, 2, 2, 0);
 draw_set_format(font_dt_sans, _color);
 #endregion
 

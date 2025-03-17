@@ -2,6 +2,7 @@ depth = DEPTH_BATTLE.SOUL;
 image_speed = 0;
 image_blend = c_red;
 
+
 follow_board = false;
 global.inv = 0;
 global.deadable = true;

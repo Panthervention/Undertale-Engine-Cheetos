@@ -7,5 +7,3 @@ if (instance_exists(obj_battle_soul))
     obj_battle_soul.visible = false;
     obj_battle_soul.moveable = false;
 }
-
-
