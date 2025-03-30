@@ -1,19 +1,19 @@
-///@arg spr_index
-///@arg x
-///@arg y
-///@arg angle
-///@arg xscale
-///@arg yscale
-///@arg x_target
-///@arg y_target
-///@arg angle_target
-///@arg pause
-///@arg blast_time
-///@arg duration
-///@arg [type]
-///@arg [blur]
-///@arg [c_sound]
-///@arg [r_sound]
+///@param spr_index
+///@param x
+///@param y
+///@param angle
+///@param xscale
+///@param yscale
+///@param x_target
+///@param y_target
+///@param angle_target
+///@param pause
+///@param blast_time
+///@param duration
+///@param [type]
+///@param [blur]
+///@param [c_sound]
+///@param [r_sound]
 function Bullet_Blaster(SPRITE_INDEX, X, Y, ANGLE, XSCALE, YSCALE, IDEALX, IDEALY, IDEALROT, PAUSE, BLAST, DURATION, TYPE = 0, BLUR = false, C = 1, R = 1) 
 {	
 	var DEPTH = DEPTH_BATTLE.BULLET_HIGH;
@@ -47,22 +47,22 @@ function Bullet_Blaster(SPRITE_INDEX, X, Y, ANGLE, XSCALE, YSCALE, IDEALX, IDEAL
 	}
 	return _gb;
 }
-///@arg spr_index
-///@arg len_x
-///@arg len_y
-///@arg len_start
-///@arg len_end
-///@arg rot
-///@arg dir
-///@arg xscale
-///@arg yscale
-///@arg pause
-///@arg blast_time
-///@arg duration
-///@arg [type]
-///@arg [blur]
-///@arg [c_sound]
-///@arg [r_sound]
+///@param spr_index
+///@param len_x
+///@param len_y
+///@param len_start
+///@param len_end
+///@param rot
+///@param dir
+///@param xscale
+///@param yscale
+///@param pause
+///@param blast_time
+///@param duration
+///@param [type]
+///@param [blur]
+///@param [c_sound]
+///@param [r_sound]
 function Bullet_BlasterCircle(spr_index, len_x, len_y, len_start, len_end, rot, dir, xscale, yscale, pause, blast, duration, type = 0, blur = false, c = 1, r = 1)
 {
 	var length_start = len_start,

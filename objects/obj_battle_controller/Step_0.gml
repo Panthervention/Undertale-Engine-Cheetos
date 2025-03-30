@@ -1,24 +1,28 @@
-var input_vertical = PRESS_VERTICAL,
-	input_horizontal = PRESS_HORIZONTAL,
-	input_confirm = PRESS_CONFIRM,
-	input_cancel = PRESS_CANCEL;
+var _input_vertical = PRESS_VERTICAL,
+	_input_horizontal = PRESS_HORIZONTAL,
+	_input_confirm = PRESS_CONFIRM,
+	_input_cancel = PRESS_CANCEL;
 
-if (_state == BATTLE_STATE.MENU)
+if (__state == BATTLE_STATE.MENU)
 {
-    if (_menu == BATTLE_MENU.BUTTON)
+    if (__menu == BATTLE_MENU.BUTTON)
     {
-        var _button_pos = button_pos;
-        var button = Battle_GetMenuChoiceButton();
-        if (input_horizontal != 0)
+        var _button_pos = button_pos,
+			_button = Battle_GetMenuChoiceButton();
+        if (_input_horizontal != 0)
         {
-            button = posmod(button + input_horizontal, 4);
-            Battle_SetMenuChoiceButton(button);
+            _button = posmod(_button + _input_horizontal, 4);
+            Battle_SetMenuChoiceButton(_button);
             audio_play_sound(snd_menu_switch, 50, false);
         }
-        obj_battle_soul.x += ((_button_pos[button][0] - 47) - obj_battle_soul.x) / 3;
-        obj_battle_soul.y += ((_button_pos[button][1] + 1) - obj_battle_soul.y) / 3;
-        
-        if (input_confirm)
+		
+		with (obj_battle_soul)
+		{
+	        x = lerp(x, _button_pos[_button][0] - 47, 1/3);
+	        y = lerp(y, _button_pos[_button][1] + 1, 1/3);
+		}
+		
+        if (_input_confirm)
         {
             audio_play_sound(snd_menu_confirm, 50, false);
             switch (Battle_GetMenuChoiceButton())
@@ -41,169 +45,189 @@ if (_state == BATTLE_STATE.MENU)
             }
         }
     }
-    else if (_menu == BATTLE_MENU.FIGHT_TARGET)
+    else if (__menu == BATTLE_MENU.FIGHT_TARGET)
     {
-        var enemy = Battle_GetMenuChoiceEnemy();
-        var len = Battle_GetEnemyNumber();
-        if (input_vertical != 0)
+        var _enemy = Battle_GetMenuChoiceEnemy(),
+			_len = Battle_GetEnemyNumber();
+        if (_input_vertical != 0)
         {
-            enemy = posmod(enemy + input_vertical, len);
-            Battle_SetMenuChoiceEnemy(enemy);
-            if (enemy >= 0 && Battle_GetEnemyNumber() > 1 && enemy < Battle_GetEnemyNumber())
+            _enemy = posmod(_enemy + _input_vertical, _len);
+            Battle_SetMenuChoiceEnemy(_enemy);
+            if (_enemy >= 0 && Battle_GetEnemyNumber() > 1 && _enemy < Battle_GetEnemyNumber())
                 audio_play_sound(snd_menu_switch, 50, false);
         }
         
-        obj_battle_soul.x += ((obj_battle_board.x - obj_battle_board.left - 5 + 40) - obj_battle_soul.x) / 3;
-        obj_battle_soul.y += (((obj_battle_board.y - obj_battle_board.up - 5 + 37) + (enemy * 32)) - obj_battle_soul.y) / 3;
-        
-        if (input_cancel)
+		with (obj_battle_soul)
+		{
+			x = lerp(x, (obj_battle_board.x - obj_battle_board.left - 5 + 40), 1/3);
+			y = lerp(y, (obj_battle_board.y - obj_battle_board.up - 5 + 37) + (_enemy * 32), 1/3);
+		}
+		
+        if (_input_cancel)
             Battle_SetMenu(BATTLE_MENU.BUTTON);
         
-        if (input_confirm)
+        if (_input_confirm)
         {
             audio_play_sound(snd_menu_confirm, 50, false);
             Battle_SetMenu(BATTLE_MENU.FIGHT_AIM);
         }
     }
-    else if (_menu == BATTLE_MENU.FIGHT_ANIM)
+    else if (__menu == BATTLE_MENU.FIGHT_ANIM)
     {
-        if (_menu_fight_anim_time > 0)
-            _menu_fight_anim_time--;
-        else if (_menu_fight_anim_time == 0)
+        if (__menu_fight_anim_time > 0)
+            __menu_fight_anim_time--;
+        else if (__menu_fight_anim_time == 0)
             Battle_EndMenuFightAnim();
     }
-    else if (_menu == BATTLE_MENU.FIGHT_DAMAGE)
+    else if (__menu == BATTLE_MENU.FIGHT_DAMAGE)
     {
-        if (_menu_fight_damage_time > 0)
-            _menu_fight_damage_time--;
-        else if (_menu_fight_damage_time == 0)
+        if (__menu_fight_damage_time > 0)
+            __menu_fight_damage_time--;
+        else if (__menu_fight_damage_time == 0)
             Battle_EndMenuFightDamage();
     }
-    else if (_menu == BATTLE_MENU.ACT_TARGET)
+    else if (__menu == BATTLE_MENU.ACT_TARGET)
     {
-        var enemy = Battle_GetMenuChoiceEnemy();
-        var len = Battle_GetEnemyNumber();
-        if (input_vertical != 0)
+        var _enemy = Battle_GetMenuChoiceEnemy(),
+			_len = Battle_GetEnemyNumber();
+        if (_input_vertical != 0)
         {
-            enemy = posmod(enemy + input_vertical, len);
-            Battle_SetMenuChoiceEnemy(enemy);
-            if (enemy >= 0 && len > 1 && enemy < len)
+            _enemy = posmod(_enemy + _input_vertical, _len);
+            Battle_SetMenuChoiceEnemy(_enemy);
+            if (_enemy >= 0 && _len > 1 && _enemy < _len)
                 audio_play_sound(snd_menu_switch, 50, false);
         }
         
-        obj_battle_soul.x += ((obj_battle_board.x - obj_battle_board.left - 5 + 40) - obj_battle_soul.x) / 3;
-        obj_battle_soul.y += (((obj_battle_board.y - obj_battle_board.up - 5 + 37) + (enemy * 32)) - obj_battle_soul.y) / 3;
-        
-        if (input_cancel)
+		with (obj_battle_soul)
+		{
+			x = lerp(x, (obj_battle_board.x - obj_battle_board.left - 5 + 40), 1/3);
+			y = lerp(y, (obj_battle_board.y - obj_battle_board.up - 5 + 37) + (_enemy * 32), 1/3);
+		}
+		
+        if (_input_cancel)
             Battle_SetMenu(BATTLE_MENU.BUTTON);
         
-        if (input_confirm)
+        if (_input_confirm)
         {
             audio_play_sound(snd_menu_confirm, 50, false);
             Battle_SetMenu(BATTLE_MENU.ACT_ACTION);
         }
     }
-    else if (_menu == BATTLE_MENU.ACT_ACTION)
+    else if (__menu == BATTLE_MENU.ACT_ACTION)
     {
-        var action = Battle_GetMenuChoiceAction();
-        var len = _enemy_action_number[Battle_ConvertMenuChoiceEnemyToEnemySlot(Battle_GetMenuChoiceEnemy())];
-        if (len > 1 && input_horizontal != 0)
+        var _action = Battle_GetMenuChoiceAction(),
+			_len = __enemy_action_number[Battle_ConvertMenuChoiceEnemyToEnemySlot(Battle_GetMenuChoiceEnemy())];
+        if (_len > 1 && _input_horizontal != 0)
         {
-            action = posmod(action + input_horizontal, len);
-            Battle_SetMenuChoiceAction(action);
+            _action = posmod(_action + _input_horizontal, _len);
+            Battle_SetMenuChoiceAction(_action);
             audio_play_sound(snd_menu_switch, 50, false);
         }
-        if (len > 2 && input_vertical != 0)
+        if (_len > 2 && _input_vertical != 0)
         {
-            action = posmod(action + (input_vertical * 2), len);
-            Battle_SetMenuChoiceAction(action);
+            _action = posmod(_action + (_input_vertical * 2), _len);
+            Battle_SetMenuChoiceAction(_action);
             audio_play_sound(snd_menu_switch, 50, false);
         }
         
-        obj_battle_soul.x += (((obj_battle_board.x - obj_battle_board.left - 5 + 40) + ((action % 2) * 256)) - obj_battle_soul.x) / 3;
-        obj_battle_soul.y += (((obj_battle_board.y - obj_battle_board.up - 5 + 37) + (floor(action / 2) * 32)) - obj_battle_soul.y) / 3;
-        
-        if (input_cancel)
+		with (obj_battle_soul)
+		{
+			x = lerp(x, (obj_battle_board.x - obj_battle_board.left - 5 + 40) + ((_action % 2) * 256), 1/3);
+			y = lerp(y, (obj_battle_board.y - obj_battle_board.up - 5 + 37) + (floor(_action / 2) * 32), 1/3);
+		}
+		
+        if (_input_cancel)
             Battle_SetMenu(BATTLE_MENU.ACT_TARGET);
-        else if (input_confirm)
+        else if (_input_confirm)
         {
             audio_play_sound(snd_menu_confirm, 50, false);
             Battle_EndMenu();
         }
     }
-    else if (_menu == BATTLE_MENU.ITEM)
+    else if (__menu == BATTLE_MENU.ITEM)
     {
-        var slot = Battle_GetMenuChoiceItem();
-        var len = Item_Count();
+        var _slot = Battle_GetMenuChoiceItem(),
+			_len = Item_Count();
 		
 		var _item_scroll_mode = obj_battle_textwriter.item_scroll_mode;
 		
 		switch (_item_scroll_mode)
 		{
 			case BATTLE_MENU_ITEM.HORIZONTAL:
-		        if (len > 1 && input_horizontal != 0)
+		        if (_len > 1 && _input_horizontal != 0)
 		        {
-		            slot = posmod(slot + input_horizontal, len);
-		            Battle_SetMenuChoiceItem(slot);
+		            _slot = posmod(_slot + _input_horizontal, _len);
+		            Battle_SetMenuChoiceItem(_slot);
 		            audio_play_sound(snd_menu_switch, 50, false);
 		        }
-		        if (len > 2 && input_vertical != 0)
+		        if (_len > 2 && _input_vertical != 0)
 		        {
-		            slot = posmod(slot + (input_vertical * 2), len);
-		            Battle_SetMenuChoiceItem(slot);
+		            _slot = posmod(_slot + (_input_vertical * 2), _len);
+		            Battle_SetMenuChoiceItem(_slot);
 		            audio_play_sound(snd_menu_switch, 50, false);
 		        }
-				obj_battle_soul.x += (((obj_battle_board.x - obj_battle_board.left - 5 + 40) + ((slot % 2) * 256)) - obj_battle_soul.x) / 3;
-				obj_battle_soul.y += (((obj_battle_board.y - obj_battle_board.up - 5 + 37) + ((floor(slot / 2) % 2) * 32)) - obj_battle_soul.y) / 3;
+				
+				with (obj_battle_soul)
+				{
+					x = lerp(x, (obj_battle_board.x - obj_battle_board.left - 5 + 40) + ((_slot % 2) * 256), 1/3);
+					y = lerp(y, (obj_battle_board.y - obj_battle_board.up - 5 + 37) + ((floor(_slot / 2) % 2) * 32), 1/3);
+				}
 				break;
 			
 			case BATTLE_MENU_ITEM.VERTICAL:
-				if (len > 1 && input_vertical != 0)
+				if (_len > 1 && _input_vertical != 0)
 		        {
-		            slot = posmod(slot + input_vertical, len);
-		            Battle_SetMenuChoiceItem(slot);
+		            _slot = posmod(_slot + _input_vertical, _len);
+		            Battle_SetMenuChoiceItem(_slot);
 		            audio_play_sound(snd_menu_switch, 50, false);
 		        }
-				obj_battle_soul.x += ((obj_battle_board.x - obj_battle_board.left - 5 + 40) - obj_battle_soul.x) / 3;
-				obj_battle_soul.y += (((obj_battle_board.y - obj_battle_board.up - 5 + 37) + ((slot - _menu_choice_item_first) * 32)) - obj_battle_soul.y) / 3;
+				
+				with (obj_battle_soul)
+				{
+					x = lerp(x, (obj_battle_board.x - obj_battle_board.left - 5 + 40), 1/3);
+					y = lerp(y, (obj_battle_board.y - obj_battle_board.up - 5 + 37) + ((_slot - other.__menu_choice_item_first) * 32), 1/3);
+				}
 				break;
 		}
         
-        if (input_cancel)
+        if (_input_cancel)
             Battle_SetMenu(BATTLE_MENU.BUTTON);
-        else if (input_confirm)
+        else if (_input_confirm)
         {
             audio_play_sound(snd_menu_confirm, 50, false);
             Battle_EndMenu();
         }
     }
-    else if (_menu == BATTLE_MENU.MERCY)
+    else if (__menu == BATTLE_MENU.MERCY)
     {
-        if (input_vertical < 0)
+        if (_input_vertical < 0)
         {
-            var mercy = Battle_GetMenuChoiceMercy() - 1;
-            if (mercy >= 0)
+            var _mercy = Battle_GetMenuChoiceMercy() - 1;
+            if (_mercy >= 0)
             {
                 audio_play_sound(snd_menu_switch, 50, false);
-                Battle_SetMenuChoiceMercy(mercy);
+                Battle_SetMenuChoiceMercy(_mercy);
             }
         }
-        else if (input_vertical > 0)
+        else if (_input_vertical > 0)
         {
-            var mercy = Battle_GetMenuChoiceMercy() + 1;
-            if ((!Battle_IsMenuChoiceMercyOverride() && mercy <= _menu_mercy_flee_enabled) || (Battle_IsMenuChoiceMercyOverride() && mercy < Battle_GetMenuChoiceMercyOverrideNumber()))
+            var _mercy = Battle_GetMenuChoiceMercy() + 1;
+            if ((!Battle_IsMenuChoiceMercyOverride() && _mercy <= __menu_mercy_flee_enabled) || (Battle_IsMenuChoiceMercyOverride() && mercy < Battle_GetMenuChoiceMercyOverrideNumber()))
             {
                 audio_play_sound(snd_menu_switch, 50, false);
-                Battle_SetMenuChoiceMercy(mercy);
+                Battle_SetMenuChoiceMercy(_mercy);
             }
         }
         
-        obj_battle_soul.x += ((obj_battle_board.x - obj_battle_board.left - 5 + 40) - obj_battle_soul.x) / 3;
-        obj_battle_soul.y += ((obj_battle_board.y - obj_battle_board.up - 5 + 37 + 32 * _menu_choice_mercy) - obj_battle_soul.y) / 3;
-        
-        if (input_cancel)
+		with (obj_battle_soul)
+		{
+	        x = lerp(x, (obj_battle_board.x - obj_battle_board.left - 5 + 40), 1/3);
+	        y = lerp(y, (obj_battle_board.y - obj_battle_board.up - 5 + 37 + 32 * other.__menu_choice_mercy), 1/3);
+		}
+		
+        if (_input_cancel)
             Battle_SetMenu(BATTLE_MENU.BUTTON);
-        else if (input_confirm)
+        else if (_input_confirm)
         {
             audio_play_sound(snd_menu_confirm, 50, false);
             Battle_EndMenu();
@@ -211,32 +235,32 @@ if (_state == BATTLE_STATE.MENU)
     }
 }
 
-if (_state == BATTLE_STATE.DIALOG)
+if (__state == BATTLE_STATE.DIALOG)
 {
 	if (!obj_battle_textwriter.menu_dialog_visible) // If menu dialog not invisible
 	{
 	    if (!Dialog_IsEmpty())
-	        Battle_SetDialog(Dialog_Get() + "[pause][script, Battle_SetMenuDialogVisible, false]");
+	        Battle_SetDialog($"{Dialog_Get()}[pause][script, Battle_SetMenuDialogVisible, false]");
 	    else if (Battle_IsDialogAutoEnd())
 	        Battle_EndDialog();
 	}
 }
 
-if (_state == BATTLE_STATE.TURN_PREPARATION)
+if (__state == BATTLE_STATE.TURN_PREPARATION)
 {
     if ((Battle_IsTurnPreparationAutoEnd()) && (!instance_exists(obj_battle_dialog_enemy) && !Battle_IsBoardTransforming()))
         Battle_EndTurnPreparation();
 }
 
-if (_state == BATTLE_STATE.IN_TURN)
+if (__state == BATTLE_STATE.IN_TURN)
 {
-    if (_turn_time > 0)
-        _turn_time--;
-    else if (_turn_time == 0)
+    if (__turn_time > 0)
+        __turn_time--;
+    else if (__turn_time == 0)
         Battle_EndTurn();
 }
 
-if (_state == BATTLE_STATE.BOARD_RESETTING)
+if (__state == BATTLE_STATE.BOARD_RESETTING)
 {
     if (!Battle_IsBoardTransforming())
     {
@@ -245,24 +269,29 @@ if (_state == BATTLE_STATE.BOARD_RESETTING)
     }
 }
 
-if (_state == BATTLE_STATE.RESULT)
-    if (!instance_exists(obj_battle_controller))
-        Battle_End();
-
-if (_state != BATTLE_STATE.RESULT && Battle_GetEnemyNumber() == 0)
+if (__state == BATTLE_STATE.RESULT)
 {
+    if (!instance_exists(obj_battle_textwriter))
+        Battle_End();
+}
+
+if (__state != BATTLE_STATE.RESULT && Battle_GetEnemyNumber() == 0)
+{
+	show_debug_message(obj_battle_textwriter.menu_dialog_visible);
     Battle_SetState(BATTLE_STATE.RESULT);
     Battle_SetNextState(BATTLE_STATE.RESULT);
-    var text = lexicon_text("battle.result.won", Battle_GetRewardExp(), Battle_GetRewardGold());
+    var _exp = Battle_GetRewardExp(),
+		_gold = Battle_GetRewardGold(),
+		_text_won = lexicon_text("battle.result.won", _exp, _gold);
     Player_SetExp(Player_GetExp() + Battle_GetRewardExp());
     Player_SetGold(Player_GetGold() + Battle_GetRewardGold());
     if (Player_UpdateLv())
     {
-        text += "\n" + lexicon_text("battle.result.lv_up");
+        _text_won += $"\n{lexicon_text("battle.result.lv_up")}";
         audio_play_sound(snd_level_up, 50, false);
     }
-    text += "[pause][end]";
-    Battle_SetDialog(text);
+    _text_won += "[pause][end]";
+    Battle_SetDialog(_text_won);
 }
 
 
@@ -270,6 +299,6 @@ if (_state != BATTLE_STATE.RESULT && Battle_GetEnemyNumber() == 0)
 with (obj_battle_textwriter)
 {
 	menu_dialog_visible = true;
-	if (Battle_GetMenu() != BATTLE_MENU.BUTTON && (Battle_GetState() != BATTLE_STATE.DIALOG))
+	if (Battle_GetMenu() != BATTLE_MENU.BUTTON && (Battle_GetState() != BATTLE_STATE.DIALOG) && (Battle_GetState() != BATTLE_STATE.RESULT))
 		menu_dialog_visible = false;
 }

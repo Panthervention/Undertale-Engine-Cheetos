@@ -1,8 +1,11 @@
-function Battle_Flash(mode)
+///@func Battle_Flash(enable)
+///@desc With this function, you can trigger (sans's) flash effect (screen go dark with noise then go back to normal with noise).
+///@param {Bool}	enable		Set to enable (true/on) or disable (false/off) the (sans) flash effect.
+function Battle_Flash(_enable)
 {
-	with obj_global
+	with (obj_global)
 	{
-		switch mode
+		switch (_enable)
 		{
 			case true:
 				fader_color = c_black;
@@ -20,5 +23,3 @@ function Battle_Flash(mode)
 		}
 	}
 }
-
-

@@ -6,7 +6,7 @@ var ENCOUNTER = Flag_Get(FLAG_TYPE.TEMP, FLAG_TEMP.ENCOUNTER);
 var proc = 0;
 repeat (3)
 {
-    Battle_SetEnemy(_enemy_object[proc], proc);
+    Battle_SetEnemy(__enemy_object[proc], proc);
     proc += 1;
 }
 

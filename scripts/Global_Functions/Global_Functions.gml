@@ -34,8 +34,8 @@ function __game_restart() {
 	}
 }
 
-///@arg val1
-///@arg val2
+///@param val1
+///@param val2
 function posmod(a, b) {
 	// Always return positive modulo.
 	var value = a % b;
@@ -46,7 +46,7 @@ function posmod(a, b) {
 	return value;
 }
 	
-///@arg obj
+///@param obj
 function object_get_base_parent(obj) {
 	if (object_exists(obj))
 	{
@@ -69,24 +69,24 @@ function object_get_base_parent(obj) {
 	    return -1;
 }
 
-///@arg [halign]
-///@arg [valign]
+///@param [halign]
+///@param [valign]
 function draw_set_align(halign = fa_left, valign = fa_top) {
 	draw_set_halign(halign);
 	draw_set_valign(valign);
 }
 
-///@arg [font]
-///@arg [col]
+///@param [font]
+///@param [col]
 function draw_set_format(font = font_dt_mono, color = c_white) {
 	draw_set_font(font);
 	draw_set_color(color);
 }
 
-///@arg start
-///@arg target
-///@arg duration
-///@arg [delay]
+///@param start
+///@param target
+///@param duration
+///@param [delay]
 function Fader_Fade(start, target, duration, delay = 0) 
 {
 	with obj_global

@@ -1,9 +1,9 @@
-///@arg item
+///@param item
 function Item_IsValid(_item) {
     return is_struct(_item);
 }
 
-///@arg slot
+///@param slot
 function Item_IsSlotValid(_slot) {
 	return (_slot >= 0 && _slot < Item_Count() && _slot < global.inventory_capacity);
 }
@@ -12,9 +12,9 @@ function Item_Count() {
 	return array_length(Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.ITEM));
 }
 
-///@arg item
-///@arg event
-///@arg slot
+///@param item
+///@param event
+///@param slot
 function Item_CallEvent(_item, _event, _slot) {
 	if (Item_IsValid(_item))
 	{
@@ -94,7 +94,7 @@ function Item_CallEvent(_item, _event, _slot) {
 	}
 }
 
-///@arg slot
+///@param slot
 function Item_Get(_slot) {
 	if (Item_IsSlotValid(_slot))
 	{
@@ -139,8 +139,8 @@ function Item_Get(_slot) {
 	return -1;
 }
 
-///@arg slot
-///@arg item
+///@param slot
+///@param item
 function Item_Set(_slot, _item) {
 	if (_slot >= 0)
 	{
@@ -156,7 +156,7 @@ function Item_Set(_slot, _item) {
 	}
 }
 
-///@arg item
+///@param item
 function Item_Add(_item) {
 	if (Item_IsValid(_item))
 	{
@@ -170,7 +170,7 @@ function Item_Add(_item) {
 	}
 }
 
-///@arg slot
+///@param slot
 function Item_Remove(_slot) {
 	if (Item_IsValid(Item_Get(_slot)) && Item_Count() > 0)
 	{
@@ -180,7 +180,7 @@ function Item_Remove(_slot) {
 	}
 }
 
-///@arg item
+///@param item
 function Item_GetName(_item) {
 	if (Item_IsValid(_item))
 	{
@@ -218,7 +218,7 @@ function Player_GetArmor() {
 	return Flag_Get(FLAG_TYPE.STATIC,FLAG_STATIC.ITEM_ARMOR);
 }
 
-///@arg armor
+///@param armor
 function Player_SetArmor(armor) {
 	if (Item_IsValid(armor))
 	{
@@ -231,7 +231,7 @@ function Player_GetWeapon() {
 	return Flag_Get(FLAG_TYPE.STATIC,FLAG_STATIC.ITEM_WEAPON);
 }
 
-///@arg weapon
+///@param weapon
 function Player_SetWeapon(weapon) {
 	if (Item_IsValid(weapon))
 	{
@@ -240,8 +240,8 @@ function Player_SetWeapon(weapon) {
 	}
 }
 
-///@arg heal
-///@arg [new_line]
+///@param heal
+///@param [new_line]
 function Item_GetTextHeal(heal, new_line = true) {
 	var result =" ";
 		result += (new_line ? "\n" : "");
@@ -254,12 +254,12 @@ function Item_GetTextHeal(heal, new_line = true) {
 	return result;
 }
 
-///@arg name
+///@param name
 function Item_GetTextEat(name) {
 	return lexicon_text("item.eat", name);
 }
 
-///@arg name
+///@param name
 function Item_GetTextEquip(name) {
 	return lexicon_text("item.equip", name);
 }

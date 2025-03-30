@@ -1,12 +1,13 @@
 #region Menu Dialog
 
+///@return {String}
 function Battle_GetMenuDialog() {
-	return obj_battle_controller._menu_dialog;
+	return obj_battle_controller.__menu_dialog;
 }
 
-///@arg text
+///@param {String}	 text
 function Battle_SetMenuDialog(text) {
-	obj_battle_controller._menu_dialog = text;
+	obj_battle_controller.__menu_dialog = text;
 	return true;
 }
 
@@ -14,23 +15,22 @@ function Battle_SetMenuDialog(text) {
 
 #region Battle Dialog
 
-///@arg [text]
+///@param {String}	[text]
 function Battle_SetDialog(_text = "") {
-	with obj_battle_textwriter
+	with (obj_battle_textwriter)
 	{
-		var prefix = menu_string_prefix + menu_dialog_prefix;
-		text = prefix + _text;
+		var _prefix = menu_string_prefix + menu_dialog_prefix;
+		text = _prefix + _text;
 	}
 }
 
-///@arg enabled
+///@param enabled
 function Battle_SetDialogAutoEnd(enabled) {
-	obj_battle_controller._dialog_auto_end = enabled;
-	return true;
+	obj_battle_controller.__dialog_auto_end = enabled;
 }
 
 function Battle_IsDialogAutoEnd() {
-	return obj_battle_controller._dialog_auto_end;
+	return obj_battle_controller.__dialog_auto_end;
 }
 
 function Battle_EndDialog() {
@@ -39,10 +39,7 @@ function Battle_EndDialog() {
 	    Dialog_Clear();
 	    Battle_CallEnemyEvent(BATTLE_ENEMY_EVENT.DIALOG_END);
 	    Battle_GotoNextState();
-	    return true;
 	}
-	else
-	    return false;
 }
 
 #endregion

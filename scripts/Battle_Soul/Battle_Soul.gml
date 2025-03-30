@@ -1,8 +1,8 @@
 #region Config these
 
-///@arg soul_mode
-///@arg [effect]
-///@arg [angle]
+///@param soul_mode
+///@param [effect]
+///@param [angle]
 function Battle_SetSoulMode(SOUL = SOUL_MODE.RED, EFFECT = true, ANGLE = SOUL_DIR.DOWN)
 {
 	var color = c_red;
@@ -29,10 +29,10 @@ function Battle_SetSoulMode(SOUL = SOUL_MODE.RED, EFFECT = true, ANGLE = SOUL_DI
 	}
 }
 
-///@arg x
-///@arg y
-///@arg [effect]
-///@arg [effect_angle]
+///@param x
+///@param y
+///@param [effect]
+///@param [effect_angle]
 function Battle_SetSoulPos(X, Y, EFFECT = true, EFFECT_ANGLE = DIR.DOWN) 
 {
 	with obj_battle_soul
@@ -48,8 +48,8 @@ function Battle_SetSoulPos(X, Y, EFFECT = true, EFFECT_ANGLE = DIR.DOWN)
 	}
 }
 
-///@arg direction
-///@arg [slam_power]
+///@param direction
+///@param [slam_power]
 function Battle_SoulSlam(dir, slam_power = global.slam_power) 
 {
 	Battle_SetSoulMode(SOUL_MODE.BLUE, false, dir);

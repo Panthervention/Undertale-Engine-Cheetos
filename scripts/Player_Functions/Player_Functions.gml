@@ -1,8 +1,8 @@
 #region Vitality
 
 	#region HP
-	///@arg damage
-	///@arg [kr]
+	///@param damage
+	///@param [kr]
 	function Player_Hurt(damage, karma = 0) {	
 		if (damage >= 0)
 		{
@@ -21,7 +21,7 @@
 			Player_Heal(-damage); // Why the hell negative heal???
 	}
 
-	///@arg heal
+	///@param heal
 	function Player_Heal(heal) {
 		if (instance_exists(obj_battle_controller))
 			obj_battle_controller.kr_timer = 0
@@ -47,7 +47,7 @@
 		else Player_Hurt(-heal); // God pls save me why the hell this is needed?
 	}
 
-	///@arg hp
+	///@param hp
 	function Player_SetHp(hp) {
 		return Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.HP, hp);
 	}
@@ -56,7 +56,7 @@
 		return Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.HP);
 	}
 
-	///@arg hp_max
+	///@param hp_max
 	function Player_SetHpMax(hp_max) {
 		return Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.HP_MAX, hp_max);
 	}
@@ -67,7 +67,7 @@
 	#endregion
 	
 	#region KR
-	///@arg kr
+	///@param kr
 	function Player_SetKr(kr) {
 		return Flag_Set(FLAG_TYPE.TEMP, FLAG_TEMP.KR, kr);
 	}
@@ -81,9 +81,9 @@
 
 #region Miscellaneous
 
-///@arg base_damage
-///@arg [damage_min]
-///@arg [damage_max]
+///@param base_damage
+///@param [damage_min]
+///@param [damage_max]
 function Player_CalculateDamage(damage, MIN = 1, MAX = infinity) {
 	var hp = Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.HP);
 	var DEF = Player_GetDefTotal();
@@ -105,7 +105,7 @@ function Player_GetPlot() {
 	return Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.PLOT);
 }
 
-///@arg plot
+///@param plot
 function Player_SetPlot(plot) {
 	return Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.PLOT, plot);
 }
@@ -124,7 +124,7 @@ function Player_GetTextTyperChoice() {
 		return Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.NAME);
 	}
 
-	///@arg name
+	///@param name
 	function Player_SetName(name) {
 		return Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.NAME, name);
 	}
@@ -137,7 +137,7 @@ function Player_GetTextTyperChoice() {
 		return Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.LV);
 	}
 	
-	///@arg lv
+	///@param lv
 	function Player_SetLv(lv) {
 		return Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.LV, lv);
 	}
@@ -150,7 +150,7 @@ function Player_GetTextTyperChoice() {
 		return Flag_Get(FLAG_TYPE.STATIC,FLAG_STATIC.EXP);
 	}
 
-	///@arg exp
+	///@param exp
 	function Player_SetExp(Exp) {
 		return Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.EXP, Exp);
 	}
@@ -163,7 +163,7 @@ function Player_GetTextTyperChoice() {
 		return Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.ATK);
 	}
 
-	///@arg atk
+	///@param atk
 	function Player_SetAtk(atk) {
 		return Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.ATK, atk);
 	}
@@ -176,7 +176,7 @@ function Player_GetTextTyperChoice() {
 		return Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.DEF);
 	}
 	
-	///@arg def
+	///@param def
 	function Player_SetDef(def) {
 		return Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.DEF, def);
 	}
@@ -189,7 +189,7 @@ function Player_GetTextTyperChoice() {
 		return Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.SPD);
 	}
 	
-	///@arg spd
+	///@param spd
 	function Player_SetSpd(spd) {
 		return Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.SPD, spd);
 	}
@@ -202,7 +202,7 @@ function Player_GetTextTyperChoice() {
 		return Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.INV);
 	}
 	
-	///@arg inv
+	///@param inv
 	function Player_SetInv(inv) {
 		return Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.INV, inv);
 	}
@@ -217,7 +217,7 @@ function Player_GetTextTyperChoice() {
 			return Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.ATK_ITEM);
 		}
 
-		///@arg atk_item
+		///@param atk_item
 		function Player_SetAtkItem(atk) {
 			return Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.ATK_ITEM, atk);
 		}
@@ -230,7 +230,7 @@ function Player_GetTextTyperChoice() {
 			return Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.DEF_ITEM);
 		}
 		
-		///@arg def_item
+		///@param def_item
 		function Player_SetDefItem(def) {
 			return Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.DEF_ITEM, def);
 		}
@@ -243,7 +243,7 @@ function Player_GetTextTyperChoice() {
 			return Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.SPD_ITEM);
 		}
 		
-		///@arg spd_item
+		///@param spd_item
 		function Player_SetSpdItem(spd) {
 			return Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.SPD_ITEM, spd);
 		}
@@ -256,7 +256,7 @@ function Player_GetTextTyperChoice() {
 			return Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.INV_ITEM);
 		}
 		
-		///@arg inv_item
+		///@param inv_item
 		function Player_SetInvItem(inv) {
 			return Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.INV_ITEM, inv);
 		}
@@ -311,7 +311,7 @@ function Player_GetTextTyperChoice() {
 		return Flag_Get(FLAG_TYPE.STATIC,FLAG_STATIC.GOLD);
 	}
 
-	///@arg gold
+	///@param gold
 	function Player_SetGold(gold) {
 		return Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.GOLD, gold);
 	}
@@ -324,7 +324,7 @@ function Player_GetTextTyperChoice() {
 		return Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.KILLS);
 	}
 	
-	///@arg kills
+	///@param kills
 	function Player_SetKills(kills_count) {
 		return Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.KILLS, kills_count);
 	}
@@ -335,22 +335,22 @@ function Player_GetTextTyperChoice() {
 
 #region LV Up
 
-///@arg lv
+///@param lv
 function Player_GetLvHpMax(lv) {
 	return (lv % 20 == 0) ? 99 * lv : ((20 * (floor(lv / 20) + 1)) + ((lv - 1) * 4));
 }
 
-///@arg lv
+///@param lv
 function Player_GetLvAtk(lv) {
 	return 10 + (lv - 1) * 2;
 }
 
-///@arg lv
+///@param lv
 function Player_GetLvDef(lv) {
 	return 10 + ceil((lv-4) / 4);
 }
 
-///@arg lv
+///@param lv
 function Player_GetLvExp(lv){
 	if (lv > 0 && lv <= 20)
 	{
@@ -361,7 +361,7 @@ function Player_GetLvExp(lv){
 	return -1;
 }
 
-///@arg lv
+///@param lv
 function Player_LvUp(lv) {
 	Player_SetLv(lv);
 	Player_SetHpMax(Player_GetLvHpMax(lv));
@@ -387,7 +387,7 @@ function Player_UpdateLv() {
 
 #region Save - Load
 
-///@arg slot
+///@param slot
 function Player_Save(slot) {
 	Flag_SetSaveSlot(slot);
 	
@@ -406,7 +406,7 @@ function Player_Save(slot) {
 	return true;
 }
 
-///@arg slot
+///@param slot
 function Player_Load(slot) {
 	Flag_SetSaveSlot(slot);
 

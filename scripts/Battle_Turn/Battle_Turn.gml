@@ -1,4 +1,4 @@
-///@arg turn_obj/inst
+///@param turn_obj/inst
 function Battle_IsTurnValid(turn) {
 	if (!object_exists(turn) && instance_exists(turn))
 	    turn = turn.object_index;
@@ -9,22 +9,22 @@ function Battle_IsTurnValid(turn) {
 }
 
 function Battle_GetTurnNumber() {
-	return obj_battle_controller._turn_number;
+	return obj_battle_controller.__turn_number;
 }
 
-///@arg turn_number
+///@param turn_number
 function Battle_SetTurnNumber(turn_number) {
-	obj_battle_controller._turn_number = turn_number;
+	obj_battle_controller.__turn_number = turn_number;
 	return true;
 }
 
 function Battle_GetTurnTime() {
-	return obj_battle_controller._turn_time;
+	return obj_battle_controller.__turn_time;
 }
 
-///@arg time
+///@param time
 function Battle_SetTurnTime(time) {
-	obj_battle_controller._turn_time = time;
+	obj_battle_controller.__turn_time = time;
 	return true;
 }
 
@@ -62,27 +62,27 @@ function Battle_EndTurn() {
 	    return false;
 }
 
-///@arg info
-///@arg [default]
+///@param info
+///@param [default]
 function Battle_GetTurnInfo(INFO, DEFAULT = 0) {
-	return obj_battle_controller._turn_info[$ INFO] ?? DEFAULT;
+	return obj_battle_controller.__turn_info[$ INFO] ?? DEFAULT;
 }
 
-///@arg info
-///@arg value
+///@param info
+///@param value
 function Battle_SetTurnInfo(INFO, VALUE) {
-	obj_battle_controller._turn_info[$ INFO] = VALUE;
+	obj_battle_controller.__turn_info[$ INFO] = VALUE;
 	return true;
 }
 
-///@arg enabled
+///@param enabled
 function Battle_SetTurnPreparationAutoEnd(enabled) {
-	obj_battle_controller._dialog_enemy_auto_end = enabled;
+	obj_battle_controller.__dialog_enemy_auto_end = enabled;
 	return true;
 }
 
 function Battle_IsTurnPreparationAutoEnd() {	
-	return obj_battle_controller._dialog_enemy_auto_end;
+	return obj_battle_controller.__dialog_enemy_auto_end;
 }
 
 function Battle_EndTurnPreparation() {

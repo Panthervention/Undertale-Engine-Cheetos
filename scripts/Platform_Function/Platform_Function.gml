@@ -1,11 +1,11 @@
-///@arg x
-///@arg y
-///@arg hspeed
-///@arg vspeed
-///@arg length
-///@arg [out]
-///@arg [angle]
-///@arg [sticky]
+///@param x
+///@param y
+///@param hspeed
+///@param vspeed
+///@param length
+///@param [out]
+///@param [angle]
+///@param [sticky]
 function Bullet_Platform(X, Y, HSPEED, VSPEED, LENGTH, OUT = 0, ANGLE = 0, STICKY = true)
 {
 	var DEPTH = DEPTH_BATTLE.BULLET_LOW;

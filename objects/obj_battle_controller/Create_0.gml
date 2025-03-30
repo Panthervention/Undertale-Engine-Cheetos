@@ -1,8 +1,11 @@
 kr_timer = 0;
 
-global.menu_hurt = "de-activated";
-global.slam_power = 12.5;
-global.slam_damage = false;
+with (global)
+{
+	menu_hurt = "de-activated";
+	slam_power = 12.5;
+	slam_damage = false;
+}
 
 instance_create_depth(60, 270, DEPTH_BATTLE.UI_HIGH, obj_battle_textwriter);
 
@@ -28,66 +31,66 @@ ui_alpha = 1;
 #endregion
 
 #region TML Stuffs I don't understand and it's so :skull:
-var ENCOUNTER = Flag_Get(FLAG_TYPE.TEMP,FLAG_TEMP.ENCOUNTER);
-_enemy_object = [Encounter_GetEnemy(ENCOUNTER,0),
-				 Encounter_GetEnemy(ENCOUNTER,1), 
-				 Encounter_GetEnemy(ENCOUNTER,2)];
+var _encounter_id = Flag_Get(FLAG_TYPE.TEMP,FLAG_TEMP.ENCOUNTER);
+__enemy_object = [Encounter_GetEnemy(_encounter_id, 0),
+				 Encounter_GetEnemy(_encounter_id, 1), 
+				 Encounter_GetEnemy(_encounter_id, 2)];
 
 //敌人实例
-_enemy = [noone,noone,noone];
+__enemy = [noone,noone,noone];
 //敌人名字
-_enemy_name = ["","",""];
+__enemy_name = ["","",""];
 //敌人可饶恕状态
-_enemy_spareable = [false,false,false];
+__enemy_spareable = [false,false,false];
 
 //敌人行动列表
-_enemy_action_number = [0,0,0];
-_enemy_action_name = [ ["","","","","",""], ["","","","","",""], ["","","","","",""] ];
+__enemy_action_number = [0,0,0];
+__enemy_action_name = [ ["","","","","",""], ["","","","","",""], ["","","","","",""] ];
 //敌人中心位置
-_enemy_center_pos_x = [0,0,0];
-_enemy_center_pos_y = [0,0,0];
+__enemy_center_pos_x = [0,0,0];
+__enemy_center_pos_y = [0,0,0];
 
 //敌人属性
-_enemy_def = [0,0,0];
+__enemy_def = [0,0,0];
 
 //状态
-_state = -1;
-_state_next = -1;
+__state = -1;
+__state_next = -1;
 
 //菜单
-_menu = -1;
-_menu_choice_button = 0;
-_menu_choice_enemy = 0;
-_menu_choice_action = 0;
-_menu_choice_item = 0;
-_menu_choice_item_first = 0;
-_menu_choice_mercy = 0;
-_menu_choice_mercy_override = false;
-_menu_choice_mercy_override_number = 1;
-_menu_choice_mercy_override_name = ["","",""];
-_menu_fleeable = false;
-_menu_mercy_flee_enabled = Encounter_IsMenuMercyFleeEnabled(ENCOUNTER);
-_menu_dialog = Encounter_GetMenuDialog(ENCOUNTER);
+__menu = -1;
+__menu_choice_button = 0;
+__menu_choice_enemy = 0;
+__menu_choice_action = 0;
+__menu_choice_item = 0;
+__menu_choice_item_first = 0;
+__menu_choice_mercy = 0;
+__menu_choice_mercy_override = false;
+__menu_choice_mercy_override_number = 1;
+__menu_choice_mercy_override_name = ["","",""];
+__menu_fleeable = false;
+__menu_mercy_flee_enabled = Encounter_IsMenuMercyFleeEnabled(_encounter_id);
+__menu_dialog = Encounter_GetMenuDialog(_encounter_id);
 
-_menu_fight_damage = 0;
-_menu_fight_anim_time = 0;
-_menu_fight_damage_time = 0;
+__menu_fight_damage = 0;
+__menu_fight_anim_time = 0;
+__menu_fight_damage_time = 0;
 
-_menu_item_used_last = -1;
+__menu_item_used_last = -1;
 
-_turn_number = 0;
-_turn_time = -1;
-_turn_info = {};
+__turn_number = 0;
+__turn_time = -1;
+__turn_info = {};
 
-_dialog = [noone,noone];
-_dialog_auto_end = true;
-_dialog_enemy_auto_end = true;
+__dialog = [noone,noone];
+__dialog_auto_end = true;
+__dialog_enemy_auto_end = true;
 
-_reward_gold = 0;
-_reward_exp = 0;
+__reward_gold = 0;
+__reward_exp = 0;
 
-_player_temp_atk = 0;
-_player_temp_def = 0;
-_player_temp_spd = 0;
-_player_temp_inv = 0;
+__player_temp_atk = 0;
+__player_temp_def = 0;
+__player_temp_spd = 0;
+__player_temp_inv = 0;
 #endregion

@@ -12,7 +12,7 @@ function Flag_Uninit() {
 }
 
 // Saves flag data to respective file
-///@arg flag_type
+///@param flag_type
 function Flag_Save(_type) {
 	var _path = Flag_GetSavePath(_type)
     var _string = Flag_GetRawData(_type),
@@ -29,7 +29,7 @@ function Flag_Save(_type) {
 }
 
 // Loads flag data from a file
-///@arg flag_type
+///@param flag_type
 function Flag_Load(_type) {
 	var _path = Flag_GetSavePath(_type);
 	
@@ -52,9 +52,9 @@ function Flag_Load(_type) {
 }
 
 // Retrieves a specific flag value from its file
-///@arg flag_type
-///@arg flag_slot
-///@arg val_default
+///@param flag_type
+///@param flag_slot
+///@param val_default
 function Flag_Get(_type, _slot, _value_default = 0) {
     var struct = global._flag;
     if (struct[$ _type] != undefined) 
@@ -70,9 +70,9 @@ function Flag_Get(_type, _slot, _value_default = 0) {
 }
 
 // Sets a specific flag value
-///@arg flag_type
-///@arg flag_slot
-///@arg val
+///@param flag_type
+///@param flag_slot
+///@param val
 function Flag_Set(_type, _slot, _value) {
     global._flag[$ _type] ??= {};
     
@@ -81,7 +81,7 @@ function Flag_Set(_type, _slot, _value) {
 }
 
 // Gets the path for saving the flag data
-///@arg flag_type
+///@param flag_type
 function Flag_GetSavePath(_type) {
     var result = $"./savefiles/",
 		timeline = Flag_GetSaveSlot();
@@ -112,14 +112,14 @@ function Flag_GetSaveSlot() {
 }
 
 // Sets the current save slot
-///@arg save_slot
+///@param save_slot
 function Flag_SetSaveSlot(_slot) {
     Flag_Set(FLAG_TYPE.TEMP, FLAG_TEMP.SAVE_SLOT, _slot);
 	return true;
 }
 
 // Clears all data for a specific flag type
-///@arg flag_type
+///@param flag_type
 function Flag_Clear(_type) {
     if (global._flag[$ _type] != undefined)
     {
@@ -131,15 +131,15 @@ function Flag_Clear(_type) {
 }
 
 // Retrieves raw JSON data for a flag type
-///@arg flag_type
+///@param flag_type
 function Flag_GetRawData(_type) {
     global._flag[$ _type] ??= {}; // Ensure the type exists
     return SnapToJSON(global._flag[$ _type]);
 }
 
 // Sets raw data for a flag type
-///@arg flag_type
-///@arg flag_data
+///@param flag_type
+///@param flag_data
 function Flag_SetRawData(_type, _raw) {
     global._flag[$ _type] = _raw; // Directly update the struct in global._flag
     return true;

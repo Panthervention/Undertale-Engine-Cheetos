@@ -1,4 +1,4 @@
-///@arg room
+///@param room
 function Player_GetRoomName(_room)
 {
 	switch (_room)

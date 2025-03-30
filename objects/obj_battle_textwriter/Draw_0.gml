@@ -64,7 +64,7 @@ switch (menu_state)
 				var item_left = _prefix,
 					item_right = _prefix;
 		
-				var i = 0, proc = obj_battle_controller._menu_choice_item_first;
+				var i = 0, proc = obj_battle_controller.__menu_choice_item_first;
 				repeat (4)
 				{
 					var item = Item_Get(proc);
@@ -93,7 +93,7 @@ switch (menu_state)
 			case BATTLE_MENU_ITEM.VERTICAL:
 				#region
 				var item_name = menu_string_prefix,
-					i = obj_battle_controller._menu_choice_item_first;
+					i = obj_battle_controller.__menu_choice_item_first;
 				repeat(3)
 				{
 					var item = Item_Get(i);
@@ -107,7 +107,7 @@ switch (menu_state)
 				
 				#region Scroll Bar
 				var i = 0,
-				    item_chose_first = obj_battle_controller._menu_choice_item_first,
+				    item_chose_first = obj_battle_controller.__menu_choice_item_first,
 				    item_count = Item_Count(),
 				    item_current = Battle_GetMenuChoiceItem(),
 				    arrow_x = obj_battle_board.x + obj_battle_board.right - 16,

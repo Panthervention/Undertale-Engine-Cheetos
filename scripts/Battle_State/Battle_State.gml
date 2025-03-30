@@ -1,9 +1,9 @@
 function Battle_GetState() {
-    return obj_battle_controller._state;
+    return obj_battle_controller.__state;
 }
 
 function Battle_SetState(STATE) {
-    obj_battle_controller._state = STATE;
+    obj_battle_controller.__state = STATE;
 
     switch (STATE) {
         case BATTLE_STATE.MENU:
@@ -54,11 +54,11 @@ function Battle_SetState(STATE) {
 }
 
 function Battle_GetNextState() {
-    return obj_battle_controller._state_next;
+    return obj_battle_controller.__state_next;
 }
 
 function Battle_SetNextState(next_state) {
-    obj_battle_controller._state_next = next_state;
+    obj_battle_controller.__state_next = next_state;
     return true;
 }
 

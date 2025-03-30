@@ -22,7 +22,7 @@ function Dialog_IsEmpty() {
 	return ds_queue_empty(global._dialog_queue);
 }
 
-///@arg text
+///@param text
 function Dialog_Add(text) {
 	ds_queue_enqueue(global._dialog_queue, text);
 	return true;
@@ -33,7 +33,7 @@ function Dialog_Clear() {
 	return true;
 }
 
-///@arg [auto_end]
+///@param [auto_end]
 function Dialog_Start(auto_end = true) {
 	if (!instance_exists(obj_ui_dialog) && !Player_IsInBattle())
 	{

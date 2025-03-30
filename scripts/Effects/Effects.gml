@@ -1,6 +1,6 @@
-///@arg intensity
-///@arg duration
-///@arg [delay]
+///@param intensity
+///@param duration
+///@param [delay]
 function Screen_Blur(intensity, duration, delay = 0)
 {
 	instance_destroy(obj_blur_shader); // Only 1 can exists at a time!	
@@ -13,9 +13,9 @@ function Screen_Blur(intensity, duration, delay = 0)
 	return blur;
 }
 
-///@arg intensity
-///@arg duration
-///@arg [delay]
+///@param intensity
+///@param duration
+///@param [delay]
 function Screen_BlurKawase(intensity, duration, delay = 0)
 {
 	instance_destroy(obj_blur_kawase); // Only 1 can exists at a time!	

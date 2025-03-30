@@ -2,15 +2,15 @@ var input_horizontal = PRESS_HORIZONTAL,
 	input_confirm = PRESS_CONFIRM,
 	input_cancel = PRESS_CANCEL;
 
-if (_state == -1) // Initiate Saving UI
+if (__state == -1) // Initiate Saving UI
 {
     if (!instance_exists(obj_ui_dialog))
     {
-        _state = 0;
+        __state = 0;
 		Flag_Load(FLAG_TYPE.INFO);
     }
 }
-else if (_state == 0) // Saving
+else if (__state == 0) // Saving
 {
     if (input_horizontal != 0) // Option switching
 	{
@@ -21,7 +21,7 @@ else if (_state == 0) // Saving
     {
         if (_choice == 0) // Saved
         {
-            _state = 1;
+            __state = 1;
 			
 			Player_Save(0); // Save to slot 0
 			audio_play_sound(snd_save, 0, false);
@@ -39,7 +39,7 @@ else if (_state == 0) // Saving
     else if (input_confirm || input_cancel) // Closing Save UI
         instance_destroy();
 }
-else if (_state == 1) // Saved
+else if (__state == 1) // Saved
 {
     if (input_confirm || input_cancel) // Closing Save UI
         instance_destroy();

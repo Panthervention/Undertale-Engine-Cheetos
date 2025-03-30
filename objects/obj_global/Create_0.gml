@@ -38,13 +38,17 @@ global.__camera = new Global_Camera();
 #endregion
 
 #region		Border Variables
-border_enable = false;
-border_auto_capture = false;
-border_sprite = noone;
-border_sprite_previous = noone;
-border_alpha = 1;
+global.__border = {};
+#macro border global.__border
 
-Border_SetEnabled(true, true);
+with (border)
+{
+	enable = false;
+	auto_capture = false;
+	sprite = noone;
+	sprite_previous = noone;
+	alpha = 1;
+}
 #endregion
 
 #region		Debug Variables

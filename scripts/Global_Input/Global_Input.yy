@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"Global_Input",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Global_Input",
+  "parent":{
+    "name":"Global",
+    "path":"folders/Engine/Global.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

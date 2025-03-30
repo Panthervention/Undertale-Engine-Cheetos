@@ -3,12 +3,12 @@ var input_vertical = PRESS_VERTICAL,
 	input_confirm = PRESS_CONFIRM,
 	input_cancel = PRESS_CANCEL,
 	input_menu = PRESS_MENU;
-if (instance_exists(obj_ui_dialog) && _menu != -1)
-    _menu = -1;
-else if (_menu == -1 && !instance_exists(obj_ui_dialog))
+if (instance_exists(obj_ui_dialog) && __menu != -1)
+    __menu = -1;
+else if (__menu == -1 && !instance_exists(obj_ui_dialog))
     instance_destroy();
 
-switch (_menu)
+switch (__menu)
 {
     case 0:
         // Main menu navigation
@@ -21,9 +21,9 @@ switch (_menu)
         else if (input_confirm)
         {
             if (_choice == 0)
-				_menu = (Item_Count() > 0) ? 1 : 0;
+				__menu = (Item_Count() > 0) ? 1 : 0;
             else
-				_menu = _choice + 2;    
+				__menu = _choice + 2;    
             audio_play_sound(snd_menu_confirm, 0, false);
         }
 		else if (input_menu || input_cancel)
@@ -38,11 +38,11 @@ switch (_menu)
         }
         else if (input_confirm)
         {
-            _menu = 2;      
+            __menu = 2;      
             audio_play_sound(snd_menu_confirm, 0, false);
         }
         else if (input_cancel)
-            _menu = 0;
+            __menu = 0;
         break;
     case 2:
         // Item operation
@@ -53,29 +53,29 @@ switch (_menu)
         }
         else if (input_confirm)
         {
-            _menu = -1;       
+            __menu = -1;       
             Item_CallEvent(Item_Get(_choice_item), ITEM_EVENT.USE + _choice_item_operation, _choice_item);
             audio_play_sound(snd_menu_confirm, 0, false);
         }
         else if (input_cancel)
-            _menu = 1;
+            __menu = 1;
         break;
     case 3:
     case 4:
         // Phone menu and other menus with simple navigation
-        if (_menu == 4 && abs(input_vertical) == 1)
+        if (__menu == 4 && abs(input_vertical) == 1)
         {
             _choice_cell = posmod(_choice_cell + input_vertical, Cell_AddressCount());
             audio_play_sound(snd_menu_switch, 0, false);
         }
-        if (input_confirm && _menu == 4)
+        if (input_confirm && __menu == 4)
         {
             Cell_CallEvent(Cell_GetAdress(_choice_cell), CELL_EVENT.CALL, _choice_cell);
-            _menu = -1;
+            __menu = -1;
             audio_play_sound(snd_menu_confirm, 0, false);
         }
         else if (input_cancel)
-            _menu = 0;
+            __menu = 0;
         break;
 }
 

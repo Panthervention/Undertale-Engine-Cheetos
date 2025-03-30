@@ -1,56 +1,58 @@
-///@arg enable
-///@arg [auto_capture]
-function Border_SetEnabled(enable, auto_capture = false) 
+///@param enable
+///@param [auto_capture]
+function Border_SetEnabled(_enable, _auto_capture = false) 
 {
-	with obj_global
+	with (border)
 	{
-		if (enable)
+		if (_enable)
 		{
 		    window_set_size(960, 540);
-		    border_enable = true;
-			border_auto_capture = auto_capture;
-		    alarm[0] = 1;
+		    enable = true;
+			auto_capture = _auto_capture;
+			with (obj_global)
+				alarm[0] = 1;
 		}
 		else
 		{
 		    window_set_size(640, 480);
-		    border_enable = false;
-			border_auto_capture = false;
-		    alarm[0] = 1;
+		    enable = false;
+			auto_capture = false;
+		    with (obj_global)
+				alarm[0] = 1;
 		
-		    if (sprite_exists(border_sprite))
+		    if (sprite_exists(sprite))
 		    {
-		        sprite_flush(border_sprite);
-		        border_sprite = -1;
+		        sprite_flush(sprite);
+		        sprite = -1;
 		    }
-		    if (sprite_exists(border_sprite_previous))
+		    if (sprite_exists(sprite_previous))
 		    {
-		        sprite_flush(border_sprite_previous);
-		        border_sprite_previous = -1;
+		        sprite_flush(sprite_previous);
+		        sprite_previous = -1;
 		    }
 		}
 	}
 	return true;
 }
 
-///@arg sprite
-///@arg [fade]
-///@arg [time]
-function Border_SetSprite(sprite, fade = true, duration = 60)
+///@param sprite
+///@param [fade]
+///@param [time]
+function Border_SetSprite(_sprite, _fade = true, _duration = 60)
 {
-	with (obj_global)
+	with (border)
 	{
-		if (sprite != border_sprite_previous && sprite != border_sprite)
+		if (_sprite != sprite_previous && _sprite != sprite)
 		{
-		    if (sprite_exists(border_sprite_previous))
-		        sprite_flush(border_sprite_previous);
+		    if (sprite_exists(sprite_previous))
+		        sprite_flush(sprite_previous);
 		}
 
-		border_sprite_previous = border_sprite;
-		border_sprite = sprite;
+		sprite_previous = sprite;
+		sprite = _sprite;
 
-		if (fade)
-			TweenFire(id, "", 0, off, 0, duration, "_alpha", 0, 1);
+		if (_fade)
+			TweenFire(self, "", 0, off, 0, _duration, "alpha", 0, 1);
 	}
 
 	return true;
@@ -58,11 +60,11 @@ function Border_SetSprite(sprite, fade = true, duration = 60)
 
 function Border_IsEnabled()
 {
-	return obj_global.border_enable;
+	return border.enable;
 }
 
 function Border_GetSprite()
 {
-	return obj_global.border_sprite;
+	return border.sprite;
 }
 

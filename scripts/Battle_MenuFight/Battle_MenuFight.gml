@@ -1,14 +1,14 @@
 #region Damage
 
 function Battle_GetMenuFightDamage() {
-	return obj_battle_controller._menu_fight_damage;
+	return obj_battle_controller.__menu_fight_damage;
 }
 
-///@arg damage
+///@param damage
 function Battle_SetMenuFightDamage(damage) {
 	if (damage >= -1)
 	{
-	    obj_battle_controller._menu_fight_damage = damage;
+	    obj_battle_controller.__menu_fight_damage = damage;
 	    return true;
 	}
 	else
@@ -20,16 +20,16 @@ function Battle_SetMenuFightDamage(damage) {
 #region Anim Time
 
 function Battle_GetMenuFightAnimTime() {
-	return obj_battle_controller._menu_fight_anim_time;
+	return obj_battle_controller.__menu_fight_anim_time;
 }
 
-///@arg time
+///@param time
 function Battle_SetMenuFightAnimTime(TIME) {
 	var MENU = Battle_GetMenu();
 
 	if ((MENU == BATTLE_MENU.FIGHT_AIM || MENU == BATTLE_MENU.FIGHT_ANIM) && TIME >= -1)
 	{
-	    obj_battle_controller._menu_fight_anim_time = TIME;
+	    obj_battle_controller.__menu_fight_anim_time = TIME;
 	    return true;
 	}
 	else
@@ -41,10 +41,10 @@ function Battle_SetMenuFightAnimTime(TIME) {
 #region Damage Time
 
 function Battle_GetMenuFightDamageTime() {
-	return obj_battle_controller._menu_fight_damage_time;
+	return obj_battle_controller.__menu_fight_damage_time;
 }
 
-///@arg time
+///@param time
 function Battle_SetMenuFightDamageTime(TIME) {
 	var MENU = Battle_GetMenu();
 
@@ -52,7 +52,7 @@ function Battle_SetMenuFightDamageTime(TIME) {
 		  MENU == BATTLE_MENU.FIGHT_ANIM || 
 		  MENU == BATTLE_MENU.FIGHT_DAMAGE) && TIME >= -1)
 	{
-	    obj_battle_controller._menu_fight_damage_time = TIME;
+	    obj_battle_controller.__menu_fight_damage_time = TIME;
 	    return true;
 	}
 	else

@@ -1,29 +1,31 @@
 ///@desc KR Drain
-if global.kr_enable
+if (global.kr_enable)
 {
-	var kr_limit = 40,
-		kr_clamp = clamp(Player_GetKr(), 0, kr_limit),
-		kr_drain =  kr_timer >= 2  and Player_GetKr() >= 40 or
-					kr_timer >= 4  and Player_GetKr() >= 30 or 
-					kr_timer >= 10 and Player_GetKr() >= 20 or
-					kr_timer >= 30 and Player_GetKr() >= 10 or
-					kr_timer >= 60;
+	var _hp = Player_GetHp();
+	var _kr = Player_GetKr(),
+		_kr_limit = 40,
+		_kr_clamp = clamp(_kr, 0, _kr_limit),
+		_kr_drain = (kr_timer >= 2  && _kr >= 40) ||
+					(kr_timer >= 4  && _kr >= 30) || 
+					(kr_timer >= 10 && _kr >= 20) ||
+					(kr_timer >= 30 && _kr >= 10) ||
+					(kr_timer >= 60);
 					
-	Player_SetKr(kr_clamp);
-	if (Player_GetKr() >= (Player_GetHp() - 1))
-		Player_SetKr(Player_GetHp() - 1);
+	Player_SetKr(_kr_clamp);
+	if (_kr >= (_hp - 1))
+		Player_SetKr(_hp - 1);
 
-	if Player_GetKr() > 0 and Player_GetHp() > 1
+	if (_kr > 0 && _hp > 1)
 	{
 		kr_timer++;
 		
-		if kr_drain
+		if (_kr_drain)
 		{
 			kr_timer = 0;
-			Player_SetKr(Player_GetKr() - 1);
-			Player_SetHp(Player_GetHp() - 1);
+			Player_SetKr(_kr - 1);
+			Player_SetHp(_hp - 1);
 		}
-		if Player_GetHp() <= 0
+		if (_hp <= 0)
 			Player_SetHp(1);
 	}
 	else kr_timer = 0;

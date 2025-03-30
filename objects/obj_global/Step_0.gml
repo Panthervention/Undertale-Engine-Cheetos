@@ -44,13 +44,16 @@ camera.Update();
 #endregion
 
 #region		Display Border Logic
-if (border_enable)
+with (border)
 {
-    if (sprite_exists(border_sprite_previous) && border_alpha >= 1)
-    {
-        sprite_flush(border_sprite_previous);
-        border_sprite_previous = -1;
-    }
+	if (enable)
+	{
+	    if (sprite_exists(sprite_previous) && alpha >= 1)
+	    {
+	        sprite_flush(sprite_previous);
+	        sprite_previous = -1;
+	    }
+	}
 }
 #endregion
 

@@ -4,7 +4,7 @@ _hint = 0;
 audio_play_sound(snd_logo, 0, false);
 TweenFire(id, "", 0, false, 99, 1, "_hint>", 1); // Wait till the [Press Z or Enter]
 
-_menu = -1;
+__menu = -1;
 _mode = file_exists(Flag_GetSavePath(FLAG_TYPE.INFO));
 
 _color_instruction = c_silver;

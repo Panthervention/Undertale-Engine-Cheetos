@@ -514,6 +514,7 @@
     {"id":{"name":"Global_Configuration","path":"scripts/Global_Configuration/Global_Configuration.yy",},},
     {"id":{"name":"Global_Enum","path":"scripts/Global_Enum/Global_Enum.yy",},},
     {"id":{"name":"Global_Functions","path":"scripts/Global_Functions/Global_Functions.yy",},},
+    {"id":{"name":"Global_Input","path":"scripts/Global_Input/Global_Input.yy",},},
     {"id":{"name":"Global_Macro","path":"scripts/Global_Macro/Global_Macro.yy",},},
     {"id":{"name":"input_accessibility_global_cooldown_get","path":"scripts/input_accessibility_global_cooldown_get/input_accessibility_global_cooldown_get.yy",},},
     {"id":{"name":"input_accessibility_global_cooldown_set","path":"scripts/input_accessibility_global_cooldown_set/input_accessibility_global_cooldown_set.yy",},},
@@ -1121,9 +1122,9 @@
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
     {"roomId":{"name":"room_init","path":"rooms/room_init/room_init.yy",},},
+    {"roomId":{"name":"room_battle","path":"rooms/room_battle/room_battle.yy",},},
     {"roomId":{"name":"room_title_screen","path":"rooms/room_title_screen/room_title_screen.yy",},},
     {"roomId":{"name":"room_area_0","path":"rooms/room_area_0/room_area_0.yy",},},
-    {"roomId":{"name":"room_battle","path":"rooms/room_battle/room_battle.yy",},},
     {"roomId":{"name":"room_gameover","path":"rooms/room_gameover/room_gameover.yy",},},
     {"roomId":{"name":"room_shop","path":"rooms/room_shop/room_shop.yy",},},
     {"roomId":{"name":"room_prototype","path":"rooms/room_prototype/room_prototype.yy",},},

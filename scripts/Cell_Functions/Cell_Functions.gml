@@ -1,9 +1,9 @@
-///@arg cell
+///@param cell
 function Cell_IsValid(_cell) {
 	return is_struct(_cell);
 }
 
-///@arg address
+///@param address
 function Cell_IsAddressValid(_address) {
 	return (_address >= 0 && _address < Cell_AddressCount() && _address < 8);
 }
@@ -12,9 +12,9 @@ function Cell_AddressCount() {
 	return array_length(Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.CELL));
 }
 
-///@arg cell
-///@arg event
-///@arg address
+///@param cell
+///@param event
+///@param address
 function Cell_CallEvent(_cell, _event, _address) {
 	if (Cell_IsValid(_cell))
 	{
@@ -35,7 +35,7 @@ function Cell_CallEvent(_cell, _event, _address) {
 	}
 }
 
-///@arg address
+///@param address
 function Cell_GetAdress(_address) {
 	if (Cell_IsAddressValid(_address))
 	{
@@ -59,8 +59,8 @@ function Cell_GetAdress(_address) {
 		return -1;
 }
 
-///@arg address
-///@arg cell
+///@param address
+///@param cell
 function Cell_SetAddress(_address, _cell) {
 	if (_address >= 0)
 	{
@@ -75,7 +75,7 @@ function Cell_SetAddress(_address, _cell) {
 	}
 }
 
-///@arg cell
+///@param cell
 function Cell_AddAddress(_cell) {
 	if (Cell_IsValid(_cell))
 	{
@@ -88,7 +88,7 @@ function Cell_AddAddress(_cell) {
 	}
 }
 
-///@arg address
+///@param address
 function Cell_DeleteAddress(_address) {
 	if (Cell_IsValid(Cell_GetAdress(_address)) && Cell_AddressCount() > 0)
 	{
@@ -98,7 +98,7 @@ function Cell_DeleteAddress(_address) {
 	}
 }
 
-///@arg cell
+///@param cell
 function Cell_GetName(_cell) {
 	if (Cell_IsValid(_cell))
 		return (_cell[$ "name"] != undefined) ? _cell.name : "";

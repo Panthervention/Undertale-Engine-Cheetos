@@ -1,6 +1,6 @@
 depth = DEPTH_UI.PANEL;
 
-_state = -1;
+__state = -1;
 _choice = 0;
 
 _color_default = c_white;

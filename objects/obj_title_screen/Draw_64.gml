@@ -1,4 +1,4 @@
-if (_menu == -1) // Logo
+if (__menu == -1) // Logo
 {
 	draw_sprite_ext(spr_logo, 0, 320, 240, 2, 2, 0, c_white, 1);
 	if (_hint)
@@ -10,7 +10,7 @@ if (_menu == -1) // Logo
 		draw_set_color(c_white);
 	}
 }
-else if (_menu == 0) // Instruction - Main menu
+else if (__menu == 0) // Instruction - Main menu
 {
 	draw_set_format(font_crypt_of_tomorrow, c_gray);
 	draw_set_align(fa_middle, fa_bottom);
@@ -48,7 +48,7 @@ else if (_menu == 0) // Instruction - Main menu
 	}
 	draw_set_color(c_white);
 }
-else if (_menu == 1)
+else if (__menu == 1)
 {
 	draw_set_format(font_dt_sans, _color_default);
 	_menu_label_naming_title.draw(180, 60);
@@ -81,7 +81,7 @@ else if (_menu == 1)
 	draw_text_transformed_color(440, 400, _info_done, 2, 2, 0, _info_done_col, _info_done_col, _info_done_col, _info_done_col, 1);
 	draw_set_color(c_white);
 }
-else if (_menu == 2)
+else if (__menu == 2)
 {
 	draw_set_format(font_dt_sans, _color_default);
 	_menu_label_confirm_title.draw(180, 60);
@@ -92,10 +92,10 @@ else if (_menu == 2)
 	draw_text_transformed_color(460, 400, _info_yeso, 2, 2, 0, _info_yeso_col, _info_yeso_col, _info_yeso_col, _info_yeso_col, 1);
 	draw_set_color(c_white);
 }
-else if (_menu == 4) // Settings
+else if (__menu == 4) // Settings
 {
 	// Such emptiness... Maybe you can cook one up?
 }
 
-if (_menu >= 1 && _menu <= 3)
+if (__menu >= 1 && __menu <= 3)
 	_menu_label_naming_name.transform(_confirm_name_scale, _confirm_name_scale, _confirm_name_angle).draw(_confirm_name_x + _confirm_name_offset_x, _confirm_name_y + _confirm_name_offset_y);

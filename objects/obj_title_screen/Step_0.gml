@@ -3,12 +3,12 @@ var input_vertical = PRESS_VERTICAL,
 	input_confirm = PRESS_CONFIRM,
 	input_cancel = PRESS_CANCEL;
 	
-if (_menu == -1)
+if (__menu == -1)
 {
 	if (input_confirm)
-		_menu = 0;
+		__menu = 0;
 }
-else if (_menu == 0) // Instruction - Main menu
+else if (__menu == 0) // Instruction - Main menu
 {
 	if (_mode == 0) // Instruction Page
 	{
@@ -20,10 +20,10 @@ else if (_menu == 0) // Instruction - Main menu
 			switch (_choice)
 			{
 				case 0: // Begin
-					_menu = 1;
+					__menu = 1;
 					break;
 				case 1: // Setting
-					_menu = 4;
+					__menu = 4;
 					break;
 			}
 	    }
@@ -53,7 +53,7 @@ else if (_menu == 0) // Instruction - Main menu
 					break;
 				
 				case 1: // Reset
-					_menu = 2;
+					__menu = 2;
 					
 					if (TweenExists(_tween_confirm_name_x))
 						TweenDestroy(_tween_confirm_name_x);
@@ -75,13 +75,13 @@ else if (_menu == 0) // Instruction - Main menu
 					break;
 				
 				case 2: // Settings
-					_menu = 4;
+					__menu = 4;
 					break;
 			}
 	    }
 	}		
 }
-else if (_menu == 1) // Naming
+else if (__menu == 1) // Naming
 {
 	if (_choice_naming == 0)
 	{	
@@ -167,7 +167,7 @@ else if (_menu == 1) // Naming
 			switch (_choice_naming_command)
 			{
 				case 0: // Quit
-					_menu = 0;
+					__menu = 0;
 					break;
 					
 				case 1: // Backspace
@@ -180,7 +180,7 @@ else if (_menu == 1) // Naming
 				case 2: // Done
 					if (_naming_name != "") // Only proceed when name is not empty
 					{
-						_menu = 2;
+						__menu = 2;
 						
 						event_user(1); // Name validation checking
 						
@@ -223,7 +223,7 @@ else if (_menu == 1) // Naming
 		}
 	}
 }
-else if (_menu == 2) // Name Confirmation
+else if (__menu == 2) // Name Confirmation
 {
 	if (input_horizontal != 0)
 		_choice_confirm = (input_horizontal == 1 && _confirm_valid) ? 1 : 0
@@ -231,7 +231,7 @@ else if (_menu == 2) // Name Confirmation
 	{
 	    if (_choice_confirm == 0) // No
 		{
-	        _menu = (!_mode ? 1 : 0);
+	        __menu = (!_mode ? 1 : 0);
 			if (TweenExists(_tween_confirm_name_x))
 				TweenDestroy(_tween_confirm_name_x);
 			if (TweenExists(_tween_confirm_name_y))
@@ -244,7 +244,7 @@ else if (_menu == 2) // Name Confirmation
 		}
 	    else // Yes
 		{
-	        _menu = 3;
+	        __menu = 3;
 			audio_sound_set_track_position(audio_play_sound(snd_cymbal, 0, false), 1.4);
 			obj_global.fader_color = c_white;
 			Fader_Fade(0, 1, 240);
@@ -252,12 +252,12 @@ else if (_menu == 2) // Name Confirmation
 		}
 	}
 }
-else if (_menu == 4) // Settings
+else if (__menu == 4) // Settings
 {
 	// Such emptiness... Maybe you can cook one up?
 }
 
-if (_menu == 2 || _menu == 3)
+if (__menu == 2 || __menu == 3)
 {
     if (_confirm_name_update)
     {

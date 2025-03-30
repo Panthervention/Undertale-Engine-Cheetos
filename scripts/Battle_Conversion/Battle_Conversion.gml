@@ -1,4 +1,4 @@
-///@arg enemy_slot
+///@param enemy_slot
 function Battle_ConvertEnemySlotToMenuChoiceEnemy(ENEMY) {
 	if (instance_exists(Battle_GetEnemy(ENEMY)))
 	{
@@ -24,7 +24,7 @@ function Battle_ConvertEnemySlotToMenuChoiceEnemy(ENEMY) {
 	    return -1;
 }
 
-///@arg menu_choice_enemy
+///@param menu_choice_enemy
 function Battle_ConvertMenuChoiceEnemyToEnemySlot(CHOICE_ENEMY) {
 	if (CHOICE_ENEMY < Battle_GetEnemyNumber())
 	{

@@ -26,7 +26,7 @@ draw_text_transformed(84, 222, _label_stat, 2, 2, 0);
 if (_label_address_count > 0)
 	draw_text_transformed(84, 254, _label_cell, 2, 2, 0);
 
-if (_menu == 0) // Main Menu Navigation
+if (__menu == 0) // Main Menu Navigation
 {
 	var soul_y = 205 + 32 * _choice;
     draw_sprite_ext(spr_battle_soul, 0, 65, soul_y, 1, 1, 0, c_red, 1);
@@ -34,7 +34,7 @@ if (_menu == 0) // Main Menu Navigation
 #endregion
 
 #region Item
-else if (_menu == 1 || _menu == 2)
+else if (__menu == 1 || __menu == 2)
 {
     draw_sprite_ext(spr_pixel, 0, 188, 52, 346, 362, 0, _color, 1);
     draw_sprite_ext(spr_pixel, 0, 194, 58, 334, 350, 0, c_black, 1);
@@ -45,13 +45,13 @@ else if (_menu == 1 || _menu == 2)
 	draw_text_transformed(442, 360, _label_item_drop, 2, 2, 0);
 	
 	// Soul Navigation
-	if (_menu == 1)
+	if (__menu == 1)
 	{
 		var soul_y = 97 + 32 * _choice_item;
 		draw_sprite_ext(spr_battle_soul, 0, 217, soul_y, 1, 1, 0, c_red, 1);
 	}
 
-	if (_menu == 2)
+	if (__menu == 2)
 	{
 	    var X = [23, 119, 233],
 			soul_x = 194 + X[_choice_item_operation];
@@ -61,7 +61,7 @@ else if (_menu == 1 || _menu == 2)
 #endregion
 
 #region Full Stats
-else if (_menu == 3)
+else if (__menu == 3)
 {
     draw_sprite_ext(spr_pixel, 0, 188, 52, 346, 418, 0, _color, 1);
     draw_sprite_ext(spr_pixel, 0, 194, 58, 334, 406, 0, c_black, 1);
@@ -77,7 +77,7 @@ else if (_menu == 3)
 #endregion
 
 #region Cell
-else if (_menu == 4)
+else if (__menu == 4)
 {
     draw_sprite_ext(spr_pixel, 0, 188, 52, 346, 270, 0, _color, 1);
     draw_sprite_ext(spr_pixel, 0, 194, 58, 334, 258, 0, c_black, 1);

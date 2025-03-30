@@ -12,7 +12,7 @@ _color_theme = c_white;
 
 _prefix = "[scale, 2][font_dt_sans]";
 
-_menu = 0;
+__menu = 0;
 _choice = 0;
 _choice_item = 0;
 _choice_item_operation = 0;

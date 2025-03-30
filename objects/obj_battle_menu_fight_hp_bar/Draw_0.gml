@@ -1,4 +1,4 @@
-var DIALOG = obj_battle_controller._dialog[0];
+var DIALOG = obj_battle_controller.__dialog[0];
 
 if (instance_exists(DIALOG))
 {
