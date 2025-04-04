@@ -1,7 +1,7 @@
 #region Miscellaneous
-///@func Battle_CallEnemyEvent(enemy_event, enemy_slot)
+///@func Battle_CallEnemyEvent(enemy_event, [enemy_slot])
 ///@desc Run the actions or code that has been placed within one of the 14 built-in User Event.
-///@param {Real}	enemy_event		The BATTLE_ENEMY_EVENT enum or number of event to call, between 0 and 13.
+///@param {Real}	enemy_event		The BATTLE_ENEMY_EVENT enum or number of event to call (between 0 and 13).
 ///@param {Real}	[enemy_slot]	The slot of the enemy in the enemy array.
 function Battle_CallEnemyEvent(_enemy_event, _enemy_slot = -1) {
 	if (_enemy_slot == -1)
@@ -78,7 +78,7 @@ function Battle_GetEnemy(_enemy_slot) {
 }
 
 ///@func Battle_GetEnemyNumber()
-///@desc Return the amount of enemy present by the moment this is called.
+///@desc Return the amount of enemies.
 ///@return {Real}
 function Battle_GetEnemyNumber() {
 	var _i = 0, _n = 0; repeat (3)
@@ -174,7 +174,7 @@ function Battle_GetEnemyActionName(_enemy_slot, _action_slot) {
 ///@func Battle_SetEnemyActionName(enemy_slot, action_slot, action_name)
 ///@desc Set the action's name for specified [enemy, action] index.
 ///@param {Real}	enemy_slot		The index of the enemy array to get the enemy's action array.
-///@param {Real}	action_slot		The index of the enemy's action array to get the action name.
+///@param {Real}	action_slot		The index of the enemy's action array to get the action name. (0 to 5)
 ///@param {String}	action_name		The name you want to set to the action.
 function Battle_SetEnemyActionName(_enemy_slot, _action_slot, _action_name) {
 	if (instance_exists(Battle_GetEnemy(_enemy_slot)) && _action_slot >= 0 && _action_slot <= 5)
@@ -191,7 +191,7 @@ function Battle_GetEnemyActionNumber(_enemy_slot) {
 
 ///@func Battle_SetEnemyActionNumber(enemy_slot, action_number)
 ///@desc Assign the amount of action for the specified enemy array index.
-///@param {Real}	enemy_slot		The index of the enemy array to set the enemy's amount of action.
+///@param {Real}	enemy_slot		The index of the enemy array to set the enemy's amount of action. (1 to 6)
 ///@param {Real}	action_number	The amount of action you want to set to the enemy.
 function Battle_SetEnemyActionNumber(_enemy_slot, _action_number) {
 	if (instance_exists(Battle_GetEnemy(_enemy_slot)) && _action_number >= 0 && _action_number <= 6)

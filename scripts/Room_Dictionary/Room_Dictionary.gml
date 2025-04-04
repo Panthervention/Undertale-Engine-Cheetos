@@ -1,4 +1,7 @@
-///@param room
+///@func Player_GetRoomName(room)
+///@desc Return the assigned name corresponding to the room asset.
+///@param {Asset.GMRoom}	room	The current room to check and get its name.
+///@return {String}
 function Player_GetRoomName(_room)
 {
 	switch (_room)

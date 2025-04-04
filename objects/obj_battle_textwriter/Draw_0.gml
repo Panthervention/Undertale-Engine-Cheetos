@@ -2,13 +2,13 @@
 if (menu_dialog_visible)
 	event_inherited();
 
-var menu_state = Battle_GetMenu(), battle_state = Battle_GetState();
+var _menu_state = Battle_GetMenu(), _battle_state = Battle_GetState();
 
-if (battle_state != BATTLE_STATE.MENU && battle_state != BATTLE_STATE.DIALOG)
+if (_battle_state != BATTLE_STATE.MENU && _battle_state != BATTLE_STATE.DIALOG)
 	exit;
 
 var _prefix = menu_string_prefix;
-switch (menu_state)
+switch (_menu_state)
 {
 	default:
 		break;
@@ -16,42 +16,41 @@ switch (menu_state)
 	case BATTLE_MENU.FIGHT_TARGET:
 	case BATTLE_MENU.ACT_TARGET:
 		#region
-		var enemy_name = _prefix, i = 0;
+		var _enemy_name = _prefix, _i = 0;
 	    repeat (3)
 	    {
-	        var inst = Battle_GetEnemy(i);
-	        if (instance_exists(inst))
+	        var _enemy_instance = Battle_GetEnemy(_i);
+	        if (instance_exists(_enemy_instance))
 	        {
-	            if (Battle_IsEnemySpareable(i))
-	                enemy_name += "[c_yellow]";
-	            enemy_name += Battle_GetEnemyName(i) + "[c_white]\n";
+	            if (Battle_IsEnemySpareable(_i))
+	                _enemy_name += "[c_yellow]";
+	            _enemy_name += Battle_GetEnemyName(_i) + "[c_white]\n";
 	        }
-	        i ++;
+	        _i ++;
 	    }
-	    draw_text_scribble(100, 270, enemy_name);
+	    draw_text_scribble(100, 270, _enemy_name);
 		#endregion
 		break;
 		
     case BATTLE_MENU.ACT_ACTION:
 		#region
-		var ENEMY = Battle_ConvertMenuChoiceEnemyToEnemySlot(Battle_GetMenuChoiceEnemy());
+		var _enemy_slot = Battle_ConvertMenuChoiceEnemyToEnemySlot(Battle_GetMenuChoiceEnemy());
 
-		var action_count = Battle_GetEnemyActionNumber(ENEMY),
-			action_left = _prefix,
-			action_right = _prefix;
+		var _action_count = Battle_GetEnemyActionNumber(_enemy_slot),
+			_action_left = _prefix,
+			_action_right = _prefix;
 
-		var i = 0;
-		repeat (action_count)
+		var _i = 0; repeat (_action_count)
 		{
-		    if (i % 2 == 0)
-		        action_left += Battle_GetEnemyActionName(ENEMY, i) + "\n";
+		    if (_i % 2 == 0)
+		        _action_left += Battle_GetEnemyActionName(_enemy_slot, _i) + "\n";
 		    else
-		        action_right += Battle_GetEnemyActionName(ENEMY, i) + "\n";
-			i++;
+		        _action_right += Battle_GetEnemyActionName(_enemy_slot, _i) + "\n";
+			_i++;
 		}
 
-		draw_text_scribble(100, 270, action_left); // Column left
-		draw_text_scribble(356, 270, action_right); // Column right
+		draw_text_scribble(100, 270, _action_left); // Column left
+		draw_text_scribble(356, 270, _action_right); // Column right
 		#endregion
 		break;
 	
@@ -61,26 +60,25 @@ switch (menu_state)
 		{
 			case BATTLE_MENU_ITEM.HORIZONTAL:
 				#region
-				var item_left = _prefix,
-					item_right = _prefix;
+				var _item_left = _prefix,
+					_item_right = _prefix;
 		
-				var i = 0, proc = obj_battle_controller.__menu_choice_item_first;
-				repeat (4)
+				var _i = 0, _j = obj_battle_controller.__menu_choice_item_first; repeat (4)
 				{
-					var item = Item_Get(proc);
-					if (Item_IsValid(item))
+					var _item = Item_Get(_j);
+					if (Item_IsValid(_item))
 					{
-					    var itemText = "* " + Item_GetName(item) + "\n";
-					    if (i % 2 == 0)
-					        item_left += itemText;
+					    var _item_text = "* " + Item_GetName(_item) + "\n";
+					    if (_i % 2 == 0)
+					        _item_left += _item_text;
 					    else
-					        item_right += itemText;
-					    proc++;
+					        _item_right += _item_text;
+					    _j++;
 					}
-					i++
+					_i++
 				}
-				draw_text_scribble(100, 270, item_left); // Column left
-				draw_text_scribble(356, 270, item_right); // Column right
+				draw_text_scribble(100, 270, _item_left); // Column left
+				draw_text_scribble(356, 270, _item_right); // Column right
 		
 				if (Item_Count() > 4)
 				{
@@ -92,44 +90,42 @@ switch (menu_state)
 				break;
 			case BATTLE_MENU_ITEM.VERTICAL:
 				#region
-				var item_name = menu_string_prefix,
-					i = obj_battle_controller.__menu_choice_item_first;
-				repeat(3)
+				var _item_name = menu_string_prefix;
+				var	_i = obj_battle_controller.__menu_choice_item_first; repeat(3)
 				{
-					var item = Item_Get(i);
-					if (Item_IsValid(item))
+					var _item = Item_Get(_i);
+					if (Item_IsValid(_item))
 					{
-						item_name += "* " + Item_GetName(item) + "\n";
-						i++;
+						_item_name += "* " + Item_GetName(_item) + "\n";
+						_i++;
 					}
 				}
-				draw_text_scribble(100, 270, item_name);
+				draw_text_scribble(100, 270, _item_name);
 				
 				#region Scroll Bar
-				var i = 0,
-				    item_chose_first = obj_battle_controller.__menu_choice_item_first,
-				    item_count = Item_Count(),
-				    item_current = Battle_GetMenuChoiceItem(),
-				    arrow_x = obj_battle_board.x + obj_battle_board.right - 16,
-				    arrow_y = obj_battle_board.y,
-				    arrow_sine = 5 + (5 * sin(((current_time/1000) * 60) * 0.05)),
-				    half_height = (10 * (item_count - 1)) * 0.5; // Adjusted for even distribution
+				var _item_chose_first = obj_battle_controller.__menu_choice_item_first,
+				    _item_count = Item_Count(),
+				    _item_current = Battle_GetMenuChoiceItem(),
+				    _arrow_x = obj_battle_board.x + obj_battle_board.right - 16,
+				    _arrow_y = obj_battle_board.y,
+				    _arrow_sine = 5 + (5 * sin(((current_time/1000) * 60) * 0.05)),
+				    _half_height = (10 * (_item_count - 1)) * 0.5; // Adjusted for even distribution
 
-				repeat(item_count)
+				var _i = 0; repeat(_item_count)
 				{
-				    draw_sprite(spr_battle_menu_item_scrollbar_dot, i == item_current, arrow_x, arrow_y - half_height + (10 * i));
-				    i++;
+				    draw_sprite(spr_battle_menu_item_scrollbar_dot, _i == _item_current, _arrow_x, _arrow_y - _half_height + (10 * _i));
+				    _i++;
 				}
 
-				if(item_count > 3)
+				if (_item_count > 3)
 				{
 				    // Draw the upward arrow above the first dot
-				    if(item_chose_first != 0)
-				        draw_sprite(spr_battle_menu_item_scrollbar_arrow, 0, arrow_x, arrow_y - half_height - 10 - arrow_sine);
+				    if (_item_chose_first != 0)
+				        draw_sprite(spr_battle_menu_item_scrollbar_arrow, 0, _arrow_x, _arrow_y - _half_height - 10 - _arrow_sine);
     
 				    // Draw the downward arrow below the last dot
-				    if(item_chose_first != (item_count - 3))
-				        draw_sprite_ext(spr_battle_menu_item_scrollbar_arrow, 0, arrow_x, arrow_y + half_height + 10 + arrow_sine, 1, -1, 0, c_white, 1);
+				    if (_item_chose_first != (_item_count - 3))
+				        draw_sprite_ext(spr_battle_menu_item_scrollbar_arrow, 0, _arrow_x, _arrow_y + _half_height + 10 + _arrow_sine, 1, -1, 0, c_white, 1);
 				}
 				#endregion
 				
@@ -141,38 +137,37 @@ switch (menu_state)
 		
 	case BATTLE_MENU.MERCY:
 		#region
-		var mercy = _prefix;
+		var _mercy = _prefix;
 	    if (!Battle_IsMenuChoiceMercyOverride())
 	    {
-	        var i = 0;
+	        var _i = 0;
 	        repeat (3)
 	        {
-	            if (Battle_IsEnemySpareable(i))
+	            if (Battle_IsEnemySpareable(_i))
 	            {
-	                mercy += "[c_yellow]";
+	                _mercy += "[c_yellow]";
 	                break;
 	            }
-	            i++;
+	            _i++;
 	        }
-	        mercy += _label_spare;
+	        _mercy += __label_spare;
         
 	        if (Battle_IsMenuMercyFleeEnabled())
 	        {
-	            mercy += "\n[c_white]";
-	            mercy += _label_flee;
+	            _mercy += "\n[c_white]";
+	            _mercy += __label_flee;
 	        }
 	    }
 	    else
 	    {
-	        var i = 0;
-	        repeat (Battle_GetMenuChoiceMercyOverrideNumber())
+	        var _i = 0; repeat (Battle_GetMenuChoiceMercyOverrideNumber())
 	        {
-	            mercy += Battle_GetMenuChoiceMercyOverrideName(proc);
-	            mercy += "\n";
-	            i++;
+	            _mercy += Battle_GetMenuChoiceMercyOverrideName(_i);
+	            _mercy += "\n";
+	            _i++;
 	        }
 	    }
-		draw_text_scribble(100, 270, mercy);
+		draw_text_scribble(100, 270, _mercy);
 		#endregion
 		break;
 }

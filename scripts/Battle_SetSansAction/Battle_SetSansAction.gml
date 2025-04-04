@@ -1,6 +1,8 @@
-function Battle_SetSansAction(action)
+function Battle_SetSansAction(_action)
 {
-	obj_battle_enemy_sans.action = action;
-	obj_battle_enemy_sans._action_step=0;
-	return true;
+	with (obj_battle_enemy_sans)
+	{
+		action = _action;
+		__action_step = 0;
+	}
 }

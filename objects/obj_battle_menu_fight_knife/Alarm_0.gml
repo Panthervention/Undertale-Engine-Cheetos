@@ -1,2 +1,2 @@
-_aim_image = !_aim_image;
+__aim_image ^= 1;
 alarm[0] = 5;

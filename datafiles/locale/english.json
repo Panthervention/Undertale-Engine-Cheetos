@@ -35,7 +35,7 @@
                     "name" : "* Sans",
                     "check":
                     {
-                        "0": "* Sans[sleep, 20] - 1 ATK 1 DEF[sleep, 20]\n* Bro \"voluntarily\" become the dummy\n  to serve as a test subject.",
+                        "0": "* Sans[sleep, 20] - 1 ATK 1 DEF[sleep, 20]\n* Bro \"voluntarily\" become a dummy\n  to serve as a test subject.",
                         "1": "* Sans[sleep, 20] - 2 ATK 2 DEF[sleep, 20]\n* Nothing changes but this dialog."
                     },
                     "menu":

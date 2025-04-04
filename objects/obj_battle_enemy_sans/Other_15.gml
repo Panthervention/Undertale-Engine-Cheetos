@@ -6,10 +6,10 @@ switch (Battle_GetMenuChoiceButton())
 		// Check if enemy is dead and ready to be dusted
         //if (hp <= 0)
         //{
-        //    // Create particle effect
+		//	// Create particle effect
 		//	// Requires better handling because this is flawed!
-        //    var inst = instance_create_depth(x, y, 0, obj_battle_death_particle);
-        //    inst.sprite = sprite_index;
+        //    var _dust = instance_create_depth(x, y, 0, obj_battle_death_particle);
+        //    _dust.sprite = sprite_index;
         //    audio_play_sound(snd_vaporize, 0, false);
         //    instance_destroy();
         //}
@@ -20,7 +20,7 @@ switch (Battle_GetMenuChoiceButton())
         switch (Battle_GetMenuChoiceAction())
         {
             case 0: // Check
-                Dialog_Add(_check_dialog[_check_status]);
+                Dialog_Add(__check_dialog[__check_status]);
                 global.menu_hurt = "de-activated";
                 global.deadable = true;
                 break;

@@ -1,76 +1,81 @@
-#region Config these
-
-///@param soul_mode
-///@param [effect]
-///@param [angle]
-function Battle_SetSoulMode(SOUL = SOUL_MODE.RED, EFFECT = true, ANGLE = SOUL_DIR.DOWN)
+#region Configurable
+///@func Battle_SetSoulMode([soul_mode], [effect], [angle])
+///@desc Set the mode for the soul (red, blue, ...).
+///@param {Real}	[soul_mode]		The mode to set to the soul (Default: SOUL_MODE.RED).
+///@param {Bool}	[effect]		Whenever there will be effect when the soul mode is set. (Default: true)
+///@param {Real}	[angle]			The angle to set to the soul. (Default: SOUL_DIR.DOWN)
+function Battle_SetSoulMode(_soul = SOUL_MODE.RED, _effect = true, _angle = SOUL_DIR.DOWN)
 {
-	var color = c_red;
+	var _color = c_red;
 	
-	switch SOUL
+	switch (_soul)
 	{
-		case SOUL_MODE.BLUE:	color = c_blue;		break;
+		case SOUL_MODE.BLUE:	_color = c_blue;		break;
 	}
-	with obj_battle_soul
+	
+	with (obj_battle_soul)
 	{
-		if SOUL > 0 image_blend = color;
+		if (_soul > 0) image_blend = _color;
 		
-		mode = SOUL;
-		image_angle = ANGLE;
+		mode = _soul;
+		image_angle = _angle;
 		
 		fall_spd = 0;
 		fall_grav = 0;
-		if EFFECT
+		if (_effect)
 		{
 			effect = true;
-			effect_angle = ANGLE;
+			effect_angle = _angle;
 			event_perform(ev_alarm, 0);
 		}
 	}
 }
 
-///@param x
-///@param y
-///@param [effect]
-///@param [effect_angle]
-function Battle_SetSoulPos(X, Y, EFFECT = true, EFFECT_ANGLE = DIR.DOWN) 
+///@func Battle_SetSoulPos(x, y, [effect], [effect_angle])
+///@desc Set the position of the soul.
+///@param {Real}	x					The x coordinate to set to the soul.
+///@param {Real}	y					The y coordinate to set to the soul.
+///@param {Bool}	[effect]			Whenever there will be effect when the soul position is set. (Default: true)
+///@param {Real}	[effect_angle]		The angle of the effect. (Default: DIR.DOWN)
+function Battle_SetSoulPos(X, Y, _effect = true, _effect_angle = DIR.DOWN) 
 {
 	with obj_battle_soul
 	{
 		x = X;
 		y = Y;
-		if EFFECT 
+		if _effect 
 		{
 			effect = true;
-			effect_angle = EFFECT_ANGLE;
+			effect_angle = _effect_angle;
 			event_perform(ev_alarm, 0);
 		}
 	}
 }
 
-///@param direction
-///@param [slam_power]
-function Battle_SoulSlam(dir, slam_power = global.slam_power) 
+///@func Battle_SoulSlam(direction, [slam_power])
+///@desc Execute soul slamming (The animation when the soul get dunked down to a side of the board). 
+///@param {Real}	direction		The direction of the slam.
+///@param {Real}	[slam_power]	The power of the slam. (Default: base on global.slam_power value)
+function Battle_SoulSlam(_dir, _slam_power = global.slam_power)
 {
-	Battle_SetSoulMode(SOUL_MODE.BLUE, false, dir);
-	with obj_battle_soul
+	Battle_SetSoulMode(SOUL_MODE.BLUE, false, _dir);
+	with (obj_battle_soul)
 	{
 		on_ground = false;
 		on_ceil = false;
 		
 		slam = true;
-		fall_spd = slam_power;
+		fall_spd = _slam_power;
 	}
-	
-	var TARGET = obj_battle_enemy_sans;
-	with (TARGET)
-	{
-		if dir == SOUL_DIR.UP     action = SANS_ACTION.UP;
-		if dir == SOUL_DIR.DOWN   action = SANS_ACTION.DOWN;
-		if dir == SOUL_DIR.LEFT   action = SANS_ACTION.LEFT;
-		if dir == SOUL_DIR.RIGHT  action = SANS_ACTION.RIGHT;
 
-	    _action_step = 0;
+	with (obj_battle_enemy_sans)
+	{
+		if (_dir == SOUL_DIR.UP)     action = SANS_ACTION.UP;
+		if (_dir == SOUL_DIR.DOWN)   action = SANS_ACTION.DOWN;
+		if (_dir == SOUL_DIR.LEFT)   action = SANS_ACTION.LEFT;
+		if (_dir == SOUL_DIR.RIGHT)  action = SANS_ACTION.RIGHT;
+
+	    __action_step = 0;
 	    alarm[0] = 25;
 	}
 }
@@ -78,35 +83,34 @@ function Battle_SoulSlam(dir, slam_power = global.slam_power)
 #endregion
 
 #region Better not touch
-
+///@func Battle_IsSoulMoving()
+///@desc Return whenever the soul is moving or not.
+///@return {Bool}
 function Battle_IsSoulMoving()
 {
-	var soul = obj_battle_soul,
-		is_moving = false,
-		check_moving = [abs(soul.xprevious - soul.x),
-					    abs(soul.yprevious - soul.y)];
+	var _soul = obj_battle_soul,
+		_check_moving = [abs(_soul.xprevious - _soul.x),
+					     abs(_soul.yprevious - _soul.y)];
 		
-	if check_moving[0] > 0 or check_moving[1] > 0 is_moving = true;
-	return is_moving;
+	return (_check_moving[0] > 0 || _check_moving[1] > 0)
 }
 
+///@func Battle_CallSoulEventBulletCollision()
+///@desc Execute the User Event 0 (Bullet Collision) of the soul if the bullet object where this function executes is valid.
 function Battle_CallSoulEventBulletCollision()
 {
 	if (Battle_IsBulletValid(id))
 	{
 	    with (obj_battle_soul)
 	        event_user(BATTLE_SOUL_EVENT.BULLET_COLLISION);
-	    return true;
 	}
-	else
-	    return false;
 }
 
+///@func Battle_CallSoulEventHurt()
+///@desc Execute the User Event 1 (Hurt) of the soul (play hurt sound, reset invincibility).
 function Battle_CallSoulEventHurt()
 {
 	with (obj_battle_soul)
 	    event_user(BATTLE_SOUL_EVENT.HURT);
-	return true;
 }
-
 #endregion

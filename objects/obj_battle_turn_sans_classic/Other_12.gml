@@ -5,11 +5,11 @@ proceed = true;
 switch (turn)
 {	
 	case 0: // Intro attack
-		obj_battle_enemy_sans._head_image = 5;
+		obj_battle_enemy_sans.__head_image = 5;
 		break;
 	case 1: // Bone Gap attack
 	case 4: // Platform attack
-		obj_battle_enemy_sans._head_image = 0;
+		obj_battle_enemy_sans.__head_image = 0;
 		Player_SetKr(0);
 	    Player_SetHp(92);
 	    Battle_SetSoulPos(320, 385);
@@ -26,7 +26,7 @@ switch (turn)
 		Player_SetKr(0);
 	    Player_SetHp(92);
 	    Battle_SetBoardSize(135, 65, 195, 195); // Also a preset by Toby
-		obj_battle_enemy_sans._head_image = 0;
+		obj_battle_enemy_sans.__head_image = 0;
 		alarm[0] = 30;
 		break;
 	case 3: // Bone Stab

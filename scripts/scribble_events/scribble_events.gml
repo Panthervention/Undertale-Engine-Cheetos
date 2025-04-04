@@ -111,7 +111,7 @@ scribble_typists_add_event("script", method_execute);
 
 #region
 function set_sans_expression(_element, _parameter_array, _character_index) {	
-	obj_battle_enemy_sans._head_image = real(string_trim(_parameter_array[0]));
+	obj_battle_enemy_sans.__head_image = real(string_trim(_parameter_array[0]));
 }
 
 scribble_typists_add_event("sans_head", set_sans_expression);

@@ -1,1 +1,1 @@
-_body_image = 0;
+__body_image = 0;

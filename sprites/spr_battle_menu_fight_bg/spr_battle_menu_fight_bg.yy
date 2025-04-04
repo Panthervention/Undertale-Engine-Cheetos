@@ -2,9 +2,9 @@
   "$GMSprite":"",
   "%Name":"spr_battle_menu_fight_bg",
   "bboxMode":0,
-  "bbox_bottom":114,
-  "bbox_left":0,
-  "bbox_right":543,
+  "bbox_bottom":115,
+  "bbox_left":10,
+  "bbox_right":579,
   "bbox_top":0,
   "collisionKind":1,
   "collisionTolerance":0,
@@ -12,14 +12,15 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"fbd4f80b-be77-48ef-b83b-36749a56db9b","name":"fbd4f80b-be77-48ef-b83b-36749a56db9b","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"","%Name":"41deca64-0ea5-46db-be56-8b49a739986d","name":"41deca64-0ea5-46db-be56-8b49a739986d","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"","%Name":"9a7f8d34-16cb-40ab-9e0d-203584bf68b5","name":"9a7f8d34-16cb-40ab-9e0d-203584bf68b5","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
-  "height":115,
+  "height":116,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"b56a23df-8f3b-4558-9efd-4ff990b3f3ea","blendMode":0,"displayName":"default","isLocked":false,"name":"b56a23df-8f3b-4558-9efd-4ff990b3f3ea","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"aa7ed145-aaf8-4652-b634-49f8dd04a33d","blendMode":0,"displayName":"default","isLocked":false,"name":"aa7ed145-aaf8-4652-b634-49f8dd04a33d","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"spr_battle_menu_fight_bg",
   "nineSlice":{
@@ -68,7 +69,7 @@
     },
     "eventStubScript":null,
     "eventToFunction":{},
-    "length":1.0,
+    "length":2.0,
     "lockOrigin":false,
     "moments":{
       "$KeyframeStore<MomentsEventKeyframe>":"",
@@ -88,14 +89,17 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"fbd4f80b-be77-48ef-b83b-36749a56db9b","path":"sprites/spr_battle_menu_fight_bg/spr_battle_menu_fight_bg.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"bc37ee91-94a9-431c-9540-9008acfb0f01","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"41deca64-0ea5-46db-be56-8b49a739986d","path":"sprites/spr_battle_menu_fight_bg/spr_battle_menu_fight_bg.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"5ad155fb-e36a-46ca-9e85-31ade753f943","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"9a7f8d34-16cb-40ab-9e0d-203584bf68b5","path":"sprites/spr_battle_menu_fight_bg/spr_battle_menu_fight_bg.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"38978f92-464d-4c57-a799-5101f52ff99c","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,
     "volume":1.0,
-    "xorigin":272,
-    "yorigin":57,
+    "xorigin":295,
+    "yorigin":58,
   },
   "swatchColours":null,
   "swfPrecision":2.525,
@@ -105,5 +109,5 @@
   },
   "type":0,
   "VTile":false,
-  "width":544,
+  "width":590,
 }

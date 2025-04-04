@@ -44,28 +44,23 @@ draw_text_color(name_x + string_width(name), name_y, "   LV ", col_lv, col_lv, c
 draw_text_color(name_x + string_width(name + "   LV "), name_y, string(lv), col_lv_counter, col_lv_counter, col_lv_counter, col_lv_counter, ui_alpha);
 
 // Background bar
-CleanRectangle(hp_x, hp_y, hp_x + bar_hp_max, hp_y + 20)
-.Blend(col_hp_max, ui_alpha)
-.Draw();
+draw_sprite_ext(spr_pixel, 0, hp_x, hp_y, bar_hp_max, 20, 0, col_hp_max, ui_alpha);
+
 // HP bar
-CleanRectangle(hp_x, hp_y, hp_x + bar_hp, hp_y + 20)
-.Blend(col_hp, ui_alpha)
-.Draw();
+draw_sprite_ext(spr_pixel, 0, hp_x, hp_y, bar_hp, 20, 0, col_hp, ui_alpha);
 	
 draw_set_font(font_ut_hp); // Icon Font
 // HP Icon
 draw_text_color((hp_x - 31), hp_y + 5, hp_text, default_col, default_col, default_col, default_col, ui_alpha);
 
 // KR bar
-if global.kr_enable = true
+if (global.kr_enable)
 {
-	if round(kr) > 0
+	if (round(kr) > 0)
 	{
 		hp_text_col = col_kr;
-		// Draw the bard
-		CleanRectangle(hp_x + (hp * bar_multiplier) + 1, hp_y, (hp_x + (bar_hp + bar_kr)), hp_y + 20)
-		.Blend(col_kr, ui_alpha)
-		.Draw();
+		// Draw the bar
+		draw_sprite_ext(spr_pixel, 0, hp_x + bar_hp, hp_y, bar_kr, 20, 0, col_kr, ui_alpha);
 	}
 	else hp_text_col = c_white;
 		

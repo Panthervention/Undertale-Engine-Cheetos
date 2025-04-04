@@ -11,5 +11,5 @@ item_scroll_mode = BATTLE_MENU_ITEM.VERTICAL;
 depth = DEPTH_BATTLE.UI_HIGH;
 text = "";
 
-_label_spare = lexicon_text("battle.menu.mercy.spare");
-_label_flee = lexicon_text("battle.menu.mercy.flee");
+__label_spare = lexicon_text("battle.menu.mercy.spare");
+__label_flee = lexicon_text("battle.menu.mercy.flee");
