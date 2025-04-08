@@ -76,7 +76,7 @@ __menu_fight_damage = 0;
 __menu_fight_anim_time = 0;
 __menu_fight_damage_time = 0;
 
-__menu_item_used_last = -1;
+__menu_item_used_last = {};
 
 __turn_number = 0;
 __turn_time = -1;

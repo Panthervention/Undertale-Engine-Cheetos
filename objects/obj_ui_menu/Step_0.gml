@@ -1,8 +1,8 @@
-var input_vertical = PRESS_VERTICAL,
-	input_horizontal = PRESS_HORIZONTAL,
-	input_confirm = PRESS_CONFIRM,
-	input_cancel = PRESS_CANCEL,
-	input_menu = PRESS_MENU;
+var _input_vertical = PRESS_VERTICAL,
+	_input_horizontal = PRESS_HORIZONTAL,
+	_input_confirm = PRESS_CONFIRM,
+	_input_cancel = PRESS_CANCEL,
+	_input_menu = PRESS_MENU;
 if (instance_exists(obj_ui_dialog) && __menu != -1)
     __menu = -1;
 else if (__menu == -1 && !instance_exists(obj_ui_dialog))
@@ -12,13 +12,13 @@ switch (__menu)
 {
     case 0:
         // Main menu navigation
-        if (abs(input_vertical) == 1)
+        if (abs(_input_vertical) == 1)
         {
             var check = Cell_AddressCount() > 0 ? 2 : 1;
-            _choice = posmod(_choice + input_vertical, check + 1);
+            __choice = posmod(__choice + _input_vertical, check + 1);
             audio_play_sound(snd_menu_switch, 0, false);
         }
-        else if (input_confirm)
+        else if (_input_confirm)
         {
             if (_choice == 0)
 				__menu = (Item_Count() > 0) ? 1 : 0;
@@ -26,55 +26,55 @@ switch (__menu)
 				__menu = _choice + 2;    
             audio_play_sound(snd_menu_confirm, 0, false);
         }
-		else if (input_menu || input_cancel)
+		else if (_input_menu || _input_cancel)
 			instance_destroy();
         break;
     case 1:
         // Item selection
-        if (abs(input_vertical) == 1)
+        if (abs(_input_vertical) == 1)
         {
-            _choice_item = posmod(_choice_item + input_vertical, Item_Count());
+            __choice_item = posmod(__choice_item + _input_vertical, Item_Count());
             audio_play_sound(snd_menu_switch, 0, false);
         }
-        else if (input_confirm)
+        else if (_input_confirm)
         {
             __menu = 2;      
             audio_play_sound(snd_menu_confirm, 0, false);
         }
-        else if (input_cancel)
+        else if (_input_cancel)
             __menu = 0;
         break;
     case 2:
         // Item operation
-        if (abs(input_horizontal) == 1)
+        if (abs(_input_horizontal) == 1)
         {
-            _choice_item_operation = posmod(_choice_item_operation + input_horizontal, 3);
+            __choice_item_operation = posmod(__choice_item_operation + _input_horizontal, 3);
             audio_play_sound(snd_menu_switch, 0, false);
         }
-        else if (input_confirm)
+        else if (_input_confirm)
         {
             __menu = -1;       
-            Item_CallEvent(Item_Get(_choice_item), ITEM_EVENT.USE + _choice_item_operation, _choice_item);
+            Item_CallEvent(Item_Get(__choice_item), ITEM_EVENT.USE + __choice_item_operation, __choice_item);
             audio_play_sound(snd_menu_confirm, 0, false);
         }
-        else if (input_cancel)
+        else if (_input_cancel)
             __menu = 1;
         break;
     case 3:
     case 4:
         // Phone menu and other menus with simple navigation
-        if (__menu == 4 && abs(input_vertical) == 1)
+        if (__menu == 4 && abs(_input_vertical) == 1)
         {
-            _choice_cell = posmod(_choice_cell + input_vertical, Cell_AddressCount());
+            __choice_cell = posmod(__choice_cell + _input_vertical, Cell_AddressCount());
             audio_play_sound(snd_menu_switch, 0, false);
         }
-        if (input_confirm && __menu == 4)
+        if (_input_confirm && __menu == 4)
         {
-            Cell_CallEvent(Cell_GetAdress(_choice_cell), CELL_EVENT.CALL, _choice_cell);
+            Cell_CallEvent(Cell_GetAdress(__choice_cell), CELL_EVENT.CALL, __choice_cell);
             __menu = -1;
             audio_play_sound(snd_menu_confirm, 0, false);
         }
-        else if (input_cancel)
+        else if (_input_cancel)
             __menu = 0;
         break;
 }

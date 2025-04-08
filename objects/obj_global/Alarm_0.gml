@@ -1,2 +1,2 @@
-if !window_get_fullscreen()
+if (!window_get_fullscreen())
 	window_center();

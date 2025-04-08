@@ -95,14 +95,13 @@ function Battle_BoardTransform(_type, _old_values, _target_values, _ease, _mode,
 {
     var _properties = (_type == "move") ? ["x>", "y>"] : ["up>", "down>", "left>", "right>"];
     var _durations = [];
-    var _i, _j;
 
-    for (_i = 0, _j = array_length(_properties); _i < _j; _i++)
+    for (var _i = 0, _j = array_length(_properties); _i < _j; _i++)
         _durations[_i] = (_mode == BATTLE_TURN_BOARD_TRANSFORM_MODE.SPEED) ? round(abs((_target_values[_i] - _old_values[_i]) / _speed)) : _duration;
 
     with (obj_battle_board)
 	{
-        for (_i = 0, _j = array_length(_properties); _i < _j; _i++)
+        for (var _i = 0, _j = array_length(_properties); _i < _j; _i++)
             TweenFire(id, _ease, 0, off, 0, _durations[_i], _properties[_i], _target_values[_i]);
     }
 }

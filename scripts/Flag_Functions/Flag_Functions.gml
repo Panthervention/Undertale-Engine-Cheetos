@@ -1,13 +1,13 @@
 // Initializes the flag system
 function Flag_Init() {
-    global._flag = {};
+    global.__flag = {};
     Flag_Custom();
 	return true;
 }
 
 // Uninitializes the flag system
 function Flag_Uninit() {
-    global._flag = undefined; // Allow garbage collection
+    global.__flag = undefined; // Allow garbage collection
     return true;
 }
 
@@ -36,7 +36,7 @@ function Flag_Load(_type) {
 	if (!file_exists(_path))
 	{
         show_debug_message($"CHEETOS: Attempted to load flag type {_type} from non-existing file {_path}!");
-        return false;
+        exit;
     }
 	
     var _buffer = buffer_load(_path);
@@ -47,8 +47,6 @@ function Flag_Load(_type) {
     Flag_SetRawData(_type, _data);
 
     show_debug_message($"CHEETOS: Flag loaded from {_path}.");
-
-    return true;
 }
 
 // Retrieves a specific flag value from its file
@@ -56,7 +54,7 @@ function Flag_Load(_type) {
 ///@param flag_slot
 ///@param val_default
 function Flag_Get(_type, _slot, _value_default = 0) {
-    var struct = global._flag;
+    var struct = global.__flag;
     if (struct[$ _type] != undefined) 
     {
         var struct_f = struct[$ _type];
@@ -74,10 +72,9 @@ function Flag_Get(_type, _slot, _value_default = 0) {
 ///@param flag_slot
 ///@param val
 function Flag_Set(_type, _slot, _value) {
-    global._flag[$ _type] ??= {};
+    global.__flag[$ _type] ??= {};
     
-    global._flag[$ _type][$ _slot] = _value; // Set the value directly
-	return true;
+    global.__flag[$ _type][$ _slot] = _value; // Set the value directly
 }
 
 // Gets the path for saving the flag data
@@ -115,32 +112,25 @@ function Flag_GetSaveSlot() {
 ///@param save_slot
 function Flag_SetSaveSlot(_slot) {
     Flag_Set(FLAG_TYPE.TEMP, FLAG_TEMP.SAVE_SLOT, _slot);
-	return true;
 }
 
 // Clears all data for a specific flag type
 ///@param flag_type
 function Flag_Clear(_type) {
-    if (global._flag[$ _type] != undefined)
-    {
-        global._flag[$ _type] = {}; // Reset the struct directly
-        return true;
-    }
-    else
-        return false;
+    if (global.__flag[$ _type] != undefined)
+        global.__flag[$ _type] = {}; // Reset the struct directly
 }
 
 // Retrieves raw JSON data for a flag type
 ///@param flag_type
 function Flag_GetRawData(_type) {
-    global._flag[$ _type] ??= {}; // Ensure the type exists
-    return SnapToJSON(global._flag[$ _type]);
+    global.__flag[$ _type] ??= {}; // Ensure the type exists
+    return SnapToJSON(global.__flag[$ _type]);
 }
 
 // Sets raw data for a flag type
 ///@param flag_type
 ///@param flag_data
 function Flag_SetRawData(_type, _raw) {
-    global._flag[$ _type] = _raw; // Directly update the struct in global._flag
-    return true;
+    global.__flag[$ _type] = _raw; // Directly update the struct in global.__flag
 }

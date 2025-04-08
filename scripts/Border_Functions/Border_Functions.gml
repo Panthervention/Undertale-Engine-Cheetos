@@ -1,7 +1,8 @@
-///@param enable
-///@param [auto_capture]
-function Border_SetEnabled(_enable, _auto_capture = false) 
-{
+///@func Border_SetEnabled(enable, [auto_capture])
+///@desc Enable of disable the display border.
+///@param {Bool}	enable				Set to enable (true/on) or disable (false/off) the display border.	
+///@param {Bool}	[auto_capture]		Set to enable (true/on) or disable (false/off) the auto capture feature. (Default: false)
+function Border_SetEnabled(_enable, _auto_capture = false) {
 	with (border)
 	{
 		if (_enable)
@@ -9,16 +10,14 @@ function Border_SetEnabled(_enable, _auto_capture = false)
 		    window_set_size(960, 540);
 		    enable = true;
 			auto_capture = _auto_capture;
-			with (obj_global)
-				alarm[0] = 1;
+			obj_global.alarm[0] = 1;
 		}
 		else
 		{
 		    window_set_size(640, 480);
 		    enable = false;
 			auto_capture = false;
-		    with (obj_global)
-				alarm[0] = 1;
+		    obj_global.alarm[0] = 1;
 		
 		    if (sprite_exists(sprite))
 		    {
@@ -32,14 +31,14 @@ function Border_SetEnabled(_enable, _auto_capture = false)
 		    }
 		}
 	}
-	return true;
 }
 
-///@param sprite
-///@param [fade]
-///@param [time]
-function Border_SetSprite(_sprite, _fade = true, _duration = 60)
-{
+///@func Border_SetSprite(sprite, [fade], [duration])
+///@desc Set the sprite for the display border.
+///@param {Asset.GMSprite}		sprite		The index of the sprite to use as the border sprite.
+///@param {Bool}				[fade]		Whenever there should be fading effect. (Default: true)
+///@param {Real}				[time]		The duration of the fading effect if available. (Default: 60)
+function Border_SetSprite(_sprite, _fade = true, _duration = 60) {
 	with (border)
 	{
 		if (_sprite != sprite_previous && _sprite != sprite)
@@ -54,17 +53,19 @@ function Border_SetSprite(_sprite, _fade = true, _duration = 60)
 		if (_fade)
 			TweenFire(self, "", 0, off, 0, _duration, "alpha", 0, 1);
 	}
-
-	return true;
 }
 
-function Border_IsEnabled()
-{
+///@func Border_IsEnabled()
+///@desc Return whenever the display border is enable or not.
+///@return {Bool}
+function Border_IsEnabled() {
 	return border.enable;
 }
 
-function Border_GetSprite()
-{
+///@func Border_GetSprite()
+///@desc Return the currently set sprite of the display border.
+///@return {Asset.GMSprite}
+function Border_GetSprite() {
 	return border.sprite;
 }
 

@@ -289,7 +289,7 @@ function Battle_SetMenuChoiceItem(_slot, _call_event = true) {
 ///@desc Return the item that was last used.
 ///@return {Struct}
 function Battle_GetMenuItemUsedLast() {
-	return obj_battle_controller.__menu_item_used_last;
+	 obj_battle_controller.__menu_item_used_last;
 }
 #endregion
 

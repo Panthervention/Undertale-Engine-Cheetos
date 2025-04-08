@@ -1,4 +1,4 @@
-#region Base functions
+#region Base Functions
 function textwriter_end(_element, _parameter_array, _character_index) {
 	instance_destroy(id);
 }
@@ -109,7 +109,7 @@ scribble_typists_add_event("portrait_anim", set_portrait_anim);
 scribble_typists_add_event("script", method_execute);
 #endregion
 
-#region
+#region Misc Functions
 function set_sans_expression(_element, _parameter_array, _character_index) {	
 	obj_battle_enemy_sans.__head_image = real(string_trim(_parameter_array[0]));
 }

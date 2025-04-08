@@ -177,14 +177,14 @@ function Global_Camera() constructor {
 
 ///@function Camera_Shake(xtensity, ytensity, [xspeed], [yspeed], [xstep], [ystep], [xrandom], [yrandom])
 ///@desc Creating screen shaking effect.
-///@param {Real}	xtensity	Horizontal intensity
-///@param {Real}	ytensity	Vertical intensity
-///@param {Real}	[xspeed]	Horizontal speed
-///@param {Real}	[yspeed]	Vertical speed
-///@param {Real}	[xstep]		Horizontal intensity decrement per step
-///@param {Real}	[ystep]		Vertical intensity decrement per step
-///@param {Bool}	[xrandom]	Randomize horizontal shake
-///@param {Bool}	[yrandom]	Randomize vertical shake
+///@param {Real}	xtensity	Horizontal intensity.
+///@param {Real}	ytensity	Vertical intensity.
+///@param {Real}	[xspeed]	Horizontal speed. (Default: 0)
+///@param {Real}	[yspeed]	Vertical speed. (Default: 0)
+///@param {Real}	[xstep]		Horizontal intensity decrement per step. (Default: 1)
+///@param {Real}	[ystep]		Vertical intensity decrement per step. (Default: 1)
+///@param {Bool}	[xrandom]	Randomize horizontal shake. (Default: false)
+///@param {Bool}	[yrandom]	Randomize vertical shake. (Default: false)
 function Camera_Shake(_x, _y, _xspeed = 0, _yspeed = 0, _xstep = 1, _ystep = 1, _xrandom = false, _yrandom = false) 
 {
 	with (camera)
