@@ -1,6 +1,6 @@
 Flag_Clear(FLAG_TYPE.STATIC);
 Flag_Clear(FLAG_TYPE.DYNAMIC);
-Flag_Custom();
+Flag_Define();
 Player_SetName(_naming_name);
 obj_global.fader_color = c_black;
 Fader_Fade(1, 0, 20);

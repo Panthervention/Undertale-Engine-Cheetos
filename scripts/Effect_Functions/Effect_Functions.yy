@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"Flag_Custom",
+  "%Name":"Effect_Functions",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"Flag_Custom",
+  "name":"Effect_Functions",
   "parent":{
-    "name":"Flag",
-    "path":"folders/Engine/Global/Flag.yy",
+    "name":"Effects",
+    "path":"folders/Engine/Effects.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

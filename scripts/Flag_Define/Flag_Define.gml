@@ -1,4 +1,6 @@
-function Flag_Custom()
+///@func Flag_Define()
+///@desc Initialize default value for defined flag entries within this function.
+function Flag_Define()
 {
 	#region Static
 	Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.NAME, "CHARA");
