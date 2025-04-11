@@ -1,52 +1,62 @@
-// Initializes the encounter system
-function Encounter_Init() 
-{
-    global._encounter = {};
+///@func Encounter_Init()
+///@desc Initialize the encounter system.
+function Encounter_Init() {
+    global.__encounter = {};
     Encounter_Store_Load();
 }
 
-// Uninitializes the encounter system
-function Encounter_Uninit() 
-{
-    global._encounter = undefined; // Clear the global struct to allow garbage collection
-    return true;
+///@func Encounter_Uninit()
+///@desc Uninitialize the encounter system.
+function Encounter_Uninit() {
+    global.__encounter = undefined; // Clear the global struct to allow garbage collection
 }
 
-// Sets the details for a specific encounter
-function Encounter_Set(ID, enemy_0, enemy_1, enemy_2, menu_dialog, flee = true, quick = false, soul_x = 48, soul_y = 454) 
-{
-    if (ID >= 0)
-    {
-        if (global._encounter[$ ID] == undefined)
-            global._encounter[$ ID] = {};
+///@func Encounter_Set(encounter_id, enemy_0, enemy_1, enemy_2, menu_dialog, [fleeable], [quick], [soul_x], [soul_y]) 
+///@desc Set the properties for a specific encounter ID preset.
+///@param {Real}								encounter_id	The ID number of this encounter preset (must be equal or greater than 0).
+///@param {Asset.GMObject, Id.Instance}			enemy_0			The enemy object (or id instance of the enemy [NOT RECOMMENDED!]) on the left.
+///@param {Asset.GMObject, Id.Instance}			enemy_1			The enemy object (or id instance of the enemy [NOT RECOMMENDED!]) at the center.
+///@param {Asset.GMObject, Id.Instance}			enemy_2			The enemy object (or id instance of the enemy [NOT RECOMMENDED!]) on the right.
+///@param {String}								menu_dialog		The (initial) dialog of the menu.
+///@param {Bool}								[fleeable]		Whenever the player can flee or not. (Default: true)
+///@param {Bool}								[quick]			Whenever when the encounter exclaimation animation is quick or not. (Default: false)
+///@param {Real}								[soul_x]		The initial soul's x coordinate in the battle. (Default: 48)
+///@param {Real}								[soul_y]		The initial soul's y coordinate in the battle. (Default: 454)
+function Encounter_Set(_encounter_id, _enemy_0, _enemy_1, _enemy_2, _menu_dialog, _fleeable = true, _quick = false, _soul_x = 48, _soul_y = 454) {
+	if (_encounter_id < 0)
+		exit;
+	
+    if (global.__encounter[$ _encounter_id] == undefined)
+        global.__encounter[$ _encounter_id] = {};
 
-        var struct_e = global._encounter[$ ID];
-        struct_e[$ "enemy_0"] = enemy_0;
-        struct_e[$ "enemy_1"] = enemy_1;
-        struct_e[$ "enemy_2"] = enemy_2;
-        struct_e[$ "menu_dialog"] = menu_dialog;
-        struct_e[$ "menu_mercy_flee_enabled"] = flee;
-        struct_e[$ "quick"] = quick;
-        struct_e[$ "soul_x"] = soul_x;
-        struct_e[$ "soul_y"] = soul_y;
-
-        return true;
-    }
-    else
-        return false;
+    var _struct_encounter = global.__encounter[$ _encounter_id];
+	with (_struct_encounter)
+	{
+		enemy_0 = _enemy_0;
+		enemy_1 = _enemy_1;
+		enemy_2 = _enemy_2;
+		menu_dialog = _menu_dialog;
+		menu_mercy_flee_enabled = _fleeable;
+		quick = _quick;
+		soul_x = _soul_x;
+		soul_y = _soul_y;
+	}
 }
 
-// Starts an encounter
-function Encounter_Start(encounter, anim = true, exclam = true) 
-{
-    if (Encounter_IsExists(encounter))
+///@func Encounter_Start(encounter_id, [animation], [exclamation])
+///@desc Start an encounter with the given ID preset.
+///@param {Real}	encounter_id	The ID number of the encounter preset to start (must be equal or greater than 0).
+///@param {Bool}	[animation]		Whenever there will be encounter start animation.		
+///@param {Bool}	[exclamation]	Whenever there will be a [!] or [=))] sprite above the player character.
+function Encounter_Start(_encounter_id, _animation = true, _exclamation = true) {
+    if (Encounter_Exists(_encounter_id))
     {
         if (!instance_exists(obj_char_player))
-            anim = false;
+            _animation = false;
 
-        if (!anim)
+        if (!_animation)
         {
-            Flag_Set(FLAG_TYPE.TEMP, FLAG_TEMP.ENCOUNTER, encounter);
+            Flag_Set(FLAG_TYPE.TEMP, FLAG_TEMP.ENCOUNTER, _encounter_id);
             if (!Player_IsInBattle())
             {
                 Flag_Set(FLAG_TYPE.TEMP, FLAG_TEMP.BATTLE_ROOM_RETURN, room);
@@ -56,97 +66,110 @@ function Encounter_Start(encounter, anim = true, exclam = true)
         }
         else
         {
-            var inst = instance_create_depth(0, 0, 0, obj_encounter_anim);
-            inst._encounter = encounter;
-            inst._exclam = exclam;
-            inst._quick = Encounter_IsQuick(encounter);
-            inst._soul_x = Encounter_GetSoulX(encounter);
-            inst._soul_y = Encounter_GetSoulY(encounter);
+            var _encounter_anim = instance_create_depth(0, 0, 0, obj_encounter_anim);
+			with (_encounter_anim)
+			{
+				__encounter = _encounter_id;
+				__exclam = _exclamation;
+				__quick = Encounter_IsQuick(_encounter_id);
+				__soul_x = Encounter_GetSoulX(_encounter_id);
+				__soul_y = Encounter_GetSoulY(_encounter_id);
+			}
         }
-        return true;
     }
     else
-    {
-        show_debug_message($"Encounter ID {encounter} doesn't exists!");
-        return false;
-    }
+        show_debug_message($"CHEETOS: Encounter ID {_encounter_id} doesn't exists!");
 }
 
-// Retrieves an enemy from an encounter
-function Encounter_GetEnemy(ID, enemy) 
-{
-    if (Encounter_IsExists(ID) && Battle_IsEnemySlotValid(enemy))
+///@func Encounter_GetEnemy(encounter_id, enemy_slot)
+///@desc Return enemy id instance from an encounter preset or return -1 if the specified enemy slot doesn't have any enemy.
+///@param {Real}	encounter_id	The ID number of the encounter preset to get the enemy id instance (must be equal or greater than 0).
+///@param {Real}	enemy_slot		The enemy slot to get the id instance (between 0 and 2).
+///@return {Id.Instance}
+function Encounter_GetEnemy(_encounter_id, _enemy_slot) {
+    if (Encounter_Exists(_encounter_id) && Battle_IsEnemySlotValid(_enemy_slot))
     {
-        var struct_e = global._encounter[$ ID];
-       
-        return (object_exists(struct_e[$ $"enemy_{enemy}"]) ? struct_e[$ $"enemy_{enemy}"] : -1);
+        var _struct_encounter = global.__encounter[$ _encounter_id];      
+        return (object_exists(_struct_encounter[$ $"enemy_{_enemy_slot}"]) ? _struct_encounter[$ $"enemy_{_enemy_slot}"] : -1);
     }
     else
         return -1;
 }
 
-// Retrieves the menu dialog for an encounter
-function Encounter_GetMenuDialog(ID) 
-{
-    if (Encounter_IsExists(ID))
+///@func Encounter_GetMenuDialog(encounter_id)
+///@desc Return the menu dialog for an encounter preset.
+///@param {Real}	encounter_id	The ID number of the encounter preset to get the menu dialog (must be equal or greater than 0).
+///@return {String}
+function Encounter_GetMenuDialog(_encounter_id) {
+    if (Encounter_Exists(_encounter_id))
     {
-        var struct_e = global._encounter[$ ID];
-        return (is_string(struct_e[$ "menu_dialog"]) ? struct_e[$ "menu_dialog"] : "");
+        var _struct_encounter = global.__encounter[$ _encounter_id];
+        return (is_string(_struct_encounter[$ "menu_dialog"]) ? _struct_encounter[$ "menu_dialog"] : "");
     }
     else
         return "";
 }
 
-// Checks if mercy or flee options are enabled for an encounter
-function Encounter_IsMenuMercyFleeEnabled(ID) 
-{
-    if (Encounter_IsExists(ID))
+///@func Encounter_IsMenuMercyFleeEnabled(encounter_id)
+///@desc Return whenever if mercy or flee options are enabled for an encounter preset.
+///@param {Real}	encounter_id	The ID number of the encounter preset to check whenever the flee option is enabled or not (must be equal or greater than 0).
+///@return {Bool}
+function Encounter_IsMenuMercyFleeEnabled(_encounter_id) {
+    if (Encounter_Exists(_encounter_id))
     {
-        var struct_e = global._encounter[$ ID];
-        return (is_real(struct_e[$ "menu_mercy_flee_enabled"]) ? struct_e[$ "menu_mercy_flee_enabled"] : true);
+        var _struct_encounter = global.__encounter[$ _encounter_id];
+        return (is_real(_struct_encounter[$ "menu_mercy_flee_enabled"]) ? _struct_encounter[$ "menu_mercy_flee_enabled"] : true);
     }
     else
         return true;
 }
 
-// Checks if an encounter exists
-function Encounter_IsExists(encounter) 
-{
-    return (global._encounter[$ encounter] != undefined);
-}
-
-// Checks if an encounter is marked as quick
-function Encounter_IsQuick(ID) 
-{
-    if (Encounter_IsExists(ID))
+///@func Encounter_IsQuick(encounter_id)
+///@desc Check if the encounter animation of an encounter preset is marked as quick or not.
+///@param {Real}	encounter_id	The ID number of the encounter preset to check whenever the encounter animation is marked as quick or not (must be equal or greater than 0).
+///@return {Bool}
+function Encounter_IsQuick(_encounter_id) {
+    if (Encounter_Exists(_encounter_id))
     {
-        var struct_e = global._encounter[$ ID];
-        return (is_bool(struct_e[$ "quick"]) ? struct_e[$ "quick"] : false);
+        var _struct_encounter = global.__encounter[$ _encounter_id];
+        return (is_bool(_struct_encounter[$ "quick"]) ? _struct_encounter[$ "quick"] : false);
     }
     else
         return false;
 }
 
-// Retrieves the X position of the soul in an encounter
-function Encounter_GetSoulX(ID) 
-{
-    if (Encounter_IsExists(ID))
+///@func Encounter_GetSoulX(encounter_id) 
+///@desc Return the initial x coordinate of the soul in the battle of an encounter preset.
+///@param {Real}	encounter_id	The ID number of the encounter preset to get the initial x coordinate of the soul in the battle (must be equal or greater than 0).
+///@return {Real}
+function Encounter_GetSoulX(_encounter_id) {
+    if (Encounter_Exists(_encounter_id))
     {
-        var struct_e = global._encounter[$ ID];
-        return (is_real(struct_e[$ "soul_x"]) ? struct_e[$ "soul_x"] : 48);
+        var _struct_encounter = global.__encounter[$ _encounter_id];
+        return (is_real(_struct_encounter[$ "soul_x"]) ? _struct_encounter[$ "soul_x"] : 48);
 	}
 	else
 		return 48;
 }
 
-// Retrieves the Y position of the soul in an encounter
-function Encounter_GetSoulY(ID)
-{
-	if (Encounter_IsExists(ID))
+///@func Encounter_GetSoulY(encounter_id) 
+///@desc Return the initial y coordinate of the soul in the battle of an encounter preset.
+///@param {Real}	encounter_id	The ID number of the encounter preset to get the initial y coordinate of the soul in the battle (must be equal or greater than 0).
+///@return {Real}
+function Encounter_GetSoulY(_encounter_id) {
+	if (Encounter_Exists(_encounter_id))
 	{
-		var struct_e = global._encounter[$ ID];
-		return (is_real(struct_e[$ "soul_y"]) ? struct_e[$ "soul_y"] : 454);
+		var _struct_encounter = global.__encounter[$ _encounter_id];
+		return (is_real(_struct_encounter[$ "soul_y"]) ? _struct_encounter[$ "soul_y"] : 454);
 	}
 	else
 		return 454;
+}
+
+///@func Encounter_Exists(encounter_id)
+///@desc Check if an encounter preset exists.
+///@param {Real}	encounter_id	The ID number of the encounter preset to check if it exists (must be equal or greater than 0).
+///@return {Bool}
+function Encounter_Exists(_encounter_id) {
+    return (global.__encounter[$ _encounter_id] != undefined);
 }

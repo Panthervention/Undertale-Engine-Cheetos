@@ -75,8 +75,7 @@ function Flag_Get(_type, _entry, _value_default = 0) {
 ///@param {Real}	flag_entry	The flag entry to set the data to (ex: FLAG_STATIC.HP).
 ///@param {Any}		val			The value to assign to the flag entry.
 function Flag_Set(_type, _entry, _value) {
-    global.__flag[$ _type] ??= {};
-    
+    global.__flag[$ _type] ??= {}; 
     global.__flag[$ _type][$ _entry] = _value; // Set the value directly
 }
 

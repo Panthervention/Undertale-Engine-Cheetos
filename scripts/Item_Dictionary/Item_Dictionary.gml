@@ -51,9 +51,9 @@ enum ITEM {
 function Item() constructor {
 	// Compulsory variables
 	item_id = ITEM.TEMPLATE;
-	type = ITEM_TYPE.CONSUMABLE; // Either consumable or equipment
-	uses = 1; // Only needed when the type is consumable
-	type_equipment = ""; // Either "weapon" or "armor"
+	type = ITEM_TYPE.CONSUMABLE;	// Either consumable or equipment
+	uses = 1;						// Only needed when the type is consumable
+	type_equipment = "";			// Either "weapon" or "armor"
 	name = "Cheetos";
 	name_short = "RTF";
 	name_short_serious = "Eden";
@@ -61,7 +61,7 @@ function Item() constructor {
 	#region Non-compulsory variables
 	desc_info = undefined;			// This is a template for your item
 	desc_use_before = undefined;	// This dialog plays before the "You ate ..."
-	desc_use_after = undefined;	// This dialog plays after the "You healed x HP"
+	desc_use_after = undefined;		// This dialog plays after the "You healed x HP"
 		
 	heal = undefined;
 	atk = undefined;
@@ -194,17 +194,22 @@ function Item() constructor {
 	#endregion
 #endregion
 
+///@func Dictionary_Item_Init()
+///@desc Initialize data about item dictionary.
 function Dictionary_Item_Init() {
 	// Used as a base for comparison with the item in the inventory
-	global._dictionary_item = [];
-	global._dictionary_item[ITEM.TEMPLATE]		= item_template;
-	global._dictionary_item[ITEM.PIE]			= item_pie;
-	global._dictionary_item[ITEM.NOODLES]		= item_noodles;
-	global._dictionary_item[ITEM.STEAK]			= item_steak;
-	global._dictionary_item[ITEM.SNOW]			= item_snow;
-	global._dictionary_item[ITEM.L_HERO]		= item_lhero;
-	global._dictionary_item[ITEM.STICK]			= weapon_stick;
-	global._dictionary_item[ITEM.BANDAGE]		= armor_bandage;
-	global._dictionary_item[ITEM.TOY_KNIFE]		= weapon_toy_knife;
-	global._dictionary_item[ITEM.RIBBON]		= armor_ribbon;
+	with (global)
+	{
+		__dictionary_item = [];
+		__dictionary_item[ITEM.TEMPLATE]	= item_template;
+		__dictionary_item[ITEM.PIE]			= item_pie;
+		__dictionary_item[ITEM.NOODLES]		= item_noodles;
+		__dictionary_item[ITEM.STEAK]		= item_steak;
+		__dictionary_item[ITEM.SNOW]		= item_snow;
+		__dictionary_item[ITEM.L_HERO]		= item_lhero;
+		__dictionary_item[ITEM.STICK]		= weapon_stick;
+		__dictionary_item[ITEM.BANDAGE]		= armor_bandage;
+		__dictionary_item[ITEM.TOY_KNIFE]	= weapon_toy_knife;
+		__dictionary_item[ITEM.RIBBON]		= armor_ribbon;
+	}
 }

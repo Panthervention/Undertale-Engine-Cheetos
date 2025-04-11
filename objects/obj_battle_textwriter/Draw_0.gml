@@ -117,15 +117,12 @@ switch (_menu_state)
 				    _i++;
 				}
 
-				if (_item_count > 3)
+				if (_item_count > 1)
 				{
 				    // Draw the upward arrow above the first dot
-				    if (_item_chose_first != 0)
-				        draw_sprite(spr_battle_menu_item_scrollbar_arrow, 0, _arrow_x, _arrow_y - _half_height - 10 - _arrow_sine);
-    
+					draw_sprite(spr_battle_menu_item_scrollbar_arrow, 0, _arrow_x, _arrow_y - _half_height - 10 - _arrow_sine);
 				    // Draw the downward arrow below the last dot
-				    if (_item_chose_first != (_item_count - 3))
-				        draw_sprite_ext(spr_battle_menu_item_scrollbar_arrow, 0, _arrow_x, _arrow_y + _half_height + 10 + _arrow_sine, 1, -1, 0, c_white, 1);
+					draw_sprite_ext(spr_battle_menu_item_scrollbar_arrow, 0, _arrow_x, _arrow_y + _half_height + 10 + _arrow_sine, 1, -1, 0, c_white, 1);
 				}
 				#endregion
 				

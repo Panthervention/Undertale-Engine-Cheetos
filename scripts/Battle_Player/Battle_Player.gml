@@ -1,52 +1,56 @@
-function Battle_GetPlayerTempAtk()
-{
-	var atk = obj_battle_controller.__player_temp_atk;
-	return atk;
+///@func Battle_GetPlayerTempAtk()
+///@desc Return the temporary ATK (attack) in the battle.
+///@return {Real}
+function Battle_GetPlayerTempAtk() {
+	return obj_battle_controller.__player_temp_atk;
 }
 
-function Battle_GetPlayerTempDef()
-{
-	var def = obj_battle_controller.__player_temp_def;
-	return def;
+///@func Battle_GetPlayerTempDef()
+///@desc Return the temporary DEF (defense) in the battle.
+///@return {Real}
+function Battle_GetPlayerTempDef() {
+	return obj_battle_controller.__player_temp_def;
 }
 
-function Battle_GetPlayerTempSpd()
-{
-	var spd = obj_battle_controller.__player_temp_spd;
-	return spd;
+///@func Battle_GetPlayerTempSpd()
+///@desc Return the temporary SPD (speed) in the battle.
+///@return {Real}
+function Battle_GetPlayerTempSpd() {
+	return obj_battle_controller.__player_temp_spd;
 }
 
-function Battle_GetPlayerTempInv()
-{
-	var inv = obj_battle_controller.__player_temp_inv;
-	return inv;
+///@func Battle_GetPlayerTempInv()
+///@desc Return the temporary INV (invincibility) in the battle.
+///@return {Real}
+function Battle_GetPlayerTempInv() {
+	return obj_battle_controller.__player_temp_inv;
 }
 
-///@param atk
-function Battle_SetPlayerTempAtk(atk)
-{
-	obj_battle_controller.__player_temp_atk = atk;
-	return true;
+///@func Battle_SetPlayerTempAtk(atk)
+///@desc Set the temporary ATK (attack) in the battle.
+///@param {Real}	atk		The amount of ATK (attack) to set.
+function Battle_SetPlayerTempAtk(_atk) {
+	obj_battle_controller.__player_temp_atk = _atk;
 }
 
-///@param def
-function Battle_SetPlayerTempDef(def)
-{
-	obj_battle_controller.__player_temp_def = def;
-	return true;
+///@func Battle_SetPlayerTempDef(def)
+///@desc Set the temporary DEF (defense) in the battle.
+///@param {Real}	def		The amount of DEF (defense) to set.
+function Battle_SetPlayerTempDef(_def) {
+	obj_battle_controller.__player_temp_def = _def;
 }
 
-///@param spd
-function Battle_SetPlayerTempSpd(spd)
-{
-	obj_battle_controller.__player_temp_spd = spd;
-	return true;
+///@func Battle_SetPlayerTempSpd(spd)
+///@desc Set the temporary SPD (speed) in the battle.
+///@param {Real}	spd		The amount of SPD (speed) to set.
+function Battle_SetPlayerTempSpd(_spd) {
+	obj_battle_controller.__player_temp_spd = _spd;
 }
 
-///@param inv
-function Battle_SetPlayerTempInv(inv)
-{
-	obj_battle_controller.__player_temp_inv = inv;
-	return true;
+///@func Battle_SetPlayerTempInv(inv)
+///@desc Set the temporary INV (invincibility) in the battle.
+///@param {Real}	inv		The amount of INV (invincibility) to set.
+function Battle_SetPlayerTempInv(_inv) {
+	obj_battle_controller.__player_temp_inv = _inv;
 }
 

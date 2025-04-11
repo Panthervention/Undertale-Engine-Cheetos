@@ -421,7 +421,7 @@ function draw_text_outline(x, y, str, outline_color=c_black, outline_alpha=1, ou
 	var _old_alpha = draw_get_alpha();
 	draw_set_color(outline_color);
 	draw_set_alpha(outline_alpha);
-	var _fid = Tau / fidelity,
+	var _fid = Tau / fidelity;
 	for(var i = 0; i < Tau; i += _fid) {
 		draw_text(x+cos(i)*outline_size, y-sin(i)*outline_size, str);
 	}
@@ -432,7 +432,7 @@ function draw_text_outline(x, y, str, outline_color=c_black, outline_alpha=1, ou
 
 
 function draw_text_outline_gradient(x, y, str, outline_color1=c_black, outline_color2=c_black, outline_color3=c_black, outline_color4=c_black, outline_alpha=1, outline_size=1, fidelity=4) {
-	var _fid = Tau / fidelity,
+	var _fid = Tau / fidelity;
 	for(var i = 0; i < Tau; i += _fid) {
 		draw_text_color(x+cos(i)*outline_size, y-sin(i)*outline_size, str, outline_color1, outline_color2, outline_color3, outline_color4, outline_alpha);
 	}

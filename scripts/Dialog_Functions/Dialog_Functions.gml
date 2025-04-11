@@ -1,46 +1,51 @@
+///@func Dialog_Init()
+///@desc Initialize the dialog queue.
 function Dialog_Init() {
-	global._dialog_queue = ds_queue_create();
-	return true;
+	global.__dialog_queue = ds_queue_create();
 }
 
+///@func Dialog_Uninit()
+///@desc Uninitialize the dialog queue.
 function Dialog_Uninit() {
-	if (ds_exists(global._dialog_queue, ds_type_queue))
-	{
-		ds_queue_destroy(global._dialog_queue);
-		return true;
-	}
-	else
-		return false;
+	if (ds_exists(global.__dialog_queue, ds_type_queue))
+		ds_queue_destroy(global.__dialog_queue);
 }
 
+///@func Dialog_Get()
+///@desc Return the dialog in the queue and dequeue that dialog.
+///@return {String}
 function Dialog_Get() {
-	var text = ds_queue_dequeue(global._dialog_queue);
-	return (is_string(text) ? text : "");
+	var _text = ds_queue_dequeue(global.__dialog_queue);
+	return (is_string(_text) ? _text : "");
 }
 
+///@func Dialog_IsEmpty()
+///@desc Return whenever the dialog queue is empty.
+///@return {Bool}
 function Dialog_IsEmpty() {
-	return ds_queue_empty(global._dialog_queue);
+	return ds_queue_empty(global.__dialog_queue);
 }
 
-///@param text
-function Dialog_Add(text) {
-	ds_queue_enqueue(global._dialog_queue, text);
-	return true;
+///@func Dialog_Add(text)
+///@desc Add the text string to the dialog queue.
+///@param {String}		text	The text string to add to the dialog queue.
+function Dialog_Add(_text) {
+	ds_queue_enqueue(global.__dialog_queue, _text);
 }
 
+///@func Dialog_Clear()
+///@desc Clear the dialog queue.
 function Dialog_Clear() {
-	ds_queue_clear(global._dialog_queue);
-	return true;
+	ds_queue_clear(global.__dialog_queue);
 }
 
-///@param [auto_end]
-function Dialog_Start(auto_end = true) {
+///@func Dialog_Start([auto_end])
+///@desc Start displaying the dialog.
+///@param {Bool}	[auto_end]		Whenever the dialog will be able to disappear via player confirm input.
+function Dialog_Start(_auto_end = true) {
 	if (!instance_exists(obj_ui_dialog) && !Player_IsInBattle())
 	{
-	    var dialog = instance_create_depth(0, 0, 0, obj_ui_dialog);
-		dialog._auto_end = auto_end;
-	    return true;
+	    var _dialog = instance_create_depth(0, 0, 0, obj_ui_dialog);
+		_dialog.__auto_end = _auto_end;
 	}
-	else
-	    return false;
 }

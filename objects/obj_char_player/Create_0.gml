@@ -12,9 +12,9 @@ res_move_sprite[DIR.LEFT] = spr_char_frisk_right;
 res_move_sprite[DIR.RIGHT] = spr_char_frisk_right;
 
 moveable = true;
-_moveable_dialog = true;
-_moveable_menu = true;
-_moveable_save = true;
-_moveable_warp = true;
-_moveable_encounter = true;
-_moveable_box = true;
+__moveable_dialog = true;
+__moveable_menu = true;
+__moveable_save = true;
+__moveable_warp = true;
+__moveable_encounter = true;
+__moveable_box = true;

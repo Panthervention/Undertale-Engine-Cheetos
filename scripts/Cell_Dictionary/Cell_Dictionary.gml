@@ -15,13 +15,17 @@ enum CELL_EVENT {
 	#macro cell_box_a	new Cell_BoxA()
 	#macro cell_box_b	new Cell_BoxB()
 	#endregion
-
-	function Dictionary_Cell_Init() {
-		global._dictionary_cell = [];
 	
-		global._dictionary_cell[CELL_ADDRESS.TORIEL_PHONE]	= cell_toriel;
-		global._dictionary_cell[CELL_ADDRESS.BOX_A]			= cell_box_a;
-		global._dictionary_cell[CELL_ADDRESS.BOX_B]			= cell_box_b;
+	///@func Dictionary_Cell_Init()
+	///@desc Initialize data about cell dictionary.
+	function Dictionary_Cell_Init() {
+		with (global)
+		{
+			__dictionary_cell = [];	
+			__dictionary_cell[CELL_ADDRESS.TORIEL_PHONE]	= cell_toriel;
+			__dictionary_cell[CELL_ADDRESS.BOX_A]			= cell_box_a;
+			__dictionary_cell[CELL_ADDRESS.BOX_B]			= cell_box_b;
+		}
 	}
 
 	#region Cells

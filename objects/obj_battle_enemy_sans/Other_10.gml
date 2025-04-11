@@ -1,5 +1,5 @@
 ///@desc Init
-Battle_SetMenuMercyFleeEnabled(true);
+Battle_SetMenuMercyFleeEnabled(false);
 Battle_SetEnemyName(__enemy_slot, "* Sans");
 
 Battle_SetEnemyActionNumber(__enemy_slot, 1);

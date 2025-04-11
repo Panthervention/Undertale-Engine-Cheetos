@@ -1,4 +1,4 @@
-var can_move = (moveable && _moveable_dialog && _moveable_menu && _moveable_save && _moveable_box && _moveable_warp && _moveable_encounter);
+var can_move = (moveable && __moveable_dialog && __moveable_menu && __moveable_save && __moveable_box && __moveable_warp && __moveable_encounter);
 if (can_move)
 {
     if (input_check("up"))

@@ -1,19 +1,19 @@
-depth = -12000;//DEPTH_UI.ENCOUNTER_ANIM;
+depth = -12000;	// DEPTH_UI.ENCOUNTER_ANIM;
 
-_encounter = -1;
-_exclam = true;
-_quick = false;
-_soul_x = 48;
-_soul_y = 454;
+__encounter = -1;
+__exclam = true;
+__quick = false;
+__soul_x = 48;
+__soul_y = 454;
 
-_draw_soul = false;
-_draw_soul_x = 0;
-_draw_soul_y = 0;
-_draw_player = false;
-_draw_black = false;
-_flash = 0;
+__draw_soul = false;
+__draw_soul_x = 0;
+__draw_soul_y = 0;
+__draw_player = false;
+__draw_black = false;
+__flash = 0;
 
 if (instance_exists(obj_char_player))
-    obj_char_player._moveable_encounter = false;
+    obj_char_player.__moveable_encounter = false;
 
 alarm[0] = 1;

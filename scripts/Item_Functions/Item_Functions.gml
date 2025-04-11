@@ -1,20 +1,31 @@
-///@param item
+///@func Item_IsValid(item)
+///@desc Return whenever the specified item struct is a valid item or not.
+///@param {Struct.Item}		item		The item struct to check for validation.
+///@return {Bool}
 function Item_IsValid(_item) {
-    return is_struct(_item);
+    return is_instanceof(_item, Item);
 }
 
-///@param slot
+///@func Item_IsSlotValid(slot)
+///@desc Return whenever the specified inventory slot number is valid or not.
+///@param {Real}	slot	The slot number to check for validation.
+///@return {Bool}
 function Item_IsSlotValid(_slot) {
 	return (_slot >= 0 && _slot < Item_Count() && _slot < global.inventory_capacity);
 }
 
+///@func Item_Count()
+///@desc Return the amount of item in the inventory.
+///@return {Real}
 function Item_Count() {
 	return array_length(Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.ITEM));
 }
 
-///@param item
-///@param event
-///@param slot
+///@func Item_CallEvent(item, event, slot)
+///@desc Run the specified event of the given item struct.
+///@param {Struct.Item}		item		The item struct to execute the event.
+///@param {Real}			event		The item event to execute (base on ITEM_EVENT enum or between 0 and 2).
+///@param {Real}			slot		The inventory slot of the item.
 function Item_CallEvent(_item, _event, _slot) {
 	if (Item_IsValid(_item))
 	{
@@ -94,7 +105,10 @@ function Item_CallEvent(_item, _event, _slot) {
 	}
 }
 
-///@param slot
+///@func Item_Get(slot)
+///@desc Return the item struct at the specified inventory slot or return -1 if the item does not exist.
+///@param {Real}	slot	The inventory slot to get the item struct.
+///@return {Struct.Item}
 function Item_Get(_slot) {
 	if (Item_IsSlotValid(_slot))
 	{
@@ -102,7 +116,7 @@ function Item_Get(_slot) {
 			_item = _inventory_temp[_slot];
 		if (Item_IsValid(_item))
 		{
-			var _item_base = global._dictionary_item[_item.item_id];
+			var _item_base = global.__dictionary_item[_item.item_id];
 			with _item
 			{
 				if (name != _item_base.name)
@@ -139,8 +153,10 @@ function Item_Get(_slot) {
 	return -1;
 }
 
-///@param slot
-///@param item
+///@func Item_Set(slot, item)
+///@desc Set the item struct to the specified inventory slot.
+///@param {Real}			slot		The inventory slot to set the item struct to.
+///@param {Struct.Item}		item		The item struct to set to the inventory slot.
 function Item_Set(_slot, _item) {
 	if (_slot >= 0)
 	{
@@ -156,7 +172,9 @@ function Item_Set(_slot, _item) {
 	}
 }
 
-///@param item
+///@func Item_Add(item)
+///@desc Add an item struct to the inventory.
+///@param {Struct.Item}		item	The item struct to add to the inventory.
 function Item_Add(_item) {
 	if (Item_IsValid(_item))
 	{
@@ -170,7 +188,9 @@ function Item_Add(_item) {
 	}
 }
 
-///@param slot
+///@func Item_Remove(slot)
+///@desc Remove an item struct from the specified inventory slot
+///@param {Real}	slot	The inventory slot that has the item need to be removed.
 function Item_Remove(_slot) {
 	if (Item_IsValid(Item_Get(_slot)) && Item_Count() > 0)
 	{
@@ -180,7 +200,9 @@ function Item_Remove(_slot) {
 	}
 }
 
-///@param item
+///@func Item_GetName(item)
+///@desc Return the name of the specified item struct.
+///@param {Struct.Item}		item	The item struct to get the name.
 function Item_GetName(_item) {
 	if (Item_IsValid(_item))
 	{
@@ -203,6 +225,8 @@ function Item_GetName(_item) {
 		return "";
 }
 
+///@func Player_UpdateStatsEquipment(item)
+///@desc Update player equipment stats from specified item struct.
 function Player_UpdateStatsEquipment(_item) {
 	if (_item[$ "atk"] != undefined)
 		Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.ATK_ITEM, _item.atk);
@@ -214,24 +238,34 @@ function Player_UpdateStatsEquipment(_item) {
 		Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.INV_ITEM, _item.inv);
 }
 
+///@func Player_GetArmor()
+///@desc Return the armor item struct that's currently equipped.
+///@return {Struct.Item}
 function Player_GetArmor() {
 	return Flag_Get(FLAG_TYPE.STATIC,FLAG_STATIC.ITEM_ARMOR);
 }
 
-///@param armor
-function Player_SetArmor(armor) {
-	if (Item_IsValid(armor))
+///@func Player_SetArmor(armor)
+///@desc Equip the specified armor item struct.
+///@param {Struct.Item}		armor		The armor item struct to equip.
+function Player_SetArmor(_armor) {
+	if (Item_IsValid(_armor))
 	{
-		Flag_Set(FLAG_TYPE.STATIC,FLAG_STATIC.ITEM_ARMOR, armor);
-		Player_UpdateStatsEquipment(armor);
+		Flag_Set(FLAG_TYPE.STATIC,FLAG_STATIC.ITEM_ARMOR, _armor);
+		Player_UpdateStatsEquipment(_armor);
 	}
 }
 
+///@func Player_GetWeapon()
+///@desc Return the weapon item struct that's currently equipped.
+///@return {Struct.Item}
 function Player_GetWeapon() {
 	return Flag_Get(FLAG_TYPE.STATIC,FLAG_STATIC.ITEM_WEAPON);
 }
 
-///@param weapon
+///@func Player_SetWeapon(weapon)
+///@desc Equip the specified weapon item struct.
+///@param {Struct.Item}		weapon		The weapon item struct to equip.
 function Player_SetWeapon(weapon) {
 	if (Item_IsValid(weapon))
 	{
@@ -240,28 +274,39 @@ function Player_SetWeapon(weapon) {
 	}
 }
 
-///@param heal
-///@param [new_line]
-function Item_GetTextHeal(heal, new_line = true) {
-	var result =" ";
-		result += (new_line ? "\n" : "");
+///@func Item_GetTextHeal(heal, [new_line])
+///@desc Return the healing dialog base on the specified amount of HP.
+///		 [Your HP was maxed out.] if the heal can fully recover HP or
+///		 [You recovered x HP.] if the heal can only recover the x amount of HP.
+///@param {Real}	heal			The amount of heal of the item.
+///@param {Bool}	[new_line]		Whenever the healing dialog will go down to the new line. (Default: true)
+///@return {String}
+function Item_GetTextHeal(_heal, _new_line = true) {
+	var _result =" ";
+		_result += (_new_line ? "\n" : "");
 	
-	var hp = Flag_Get(FLAG_TYPE.STATIC,FLAG_STATIC.HP),
-		hp_max = Flag_Get(FLAG_TYPE.STATIC,FLAG_STATIC.HP_MAX);
+	var _hp = Flag_Get(FLAG_TYPE.STATIC,FLAG_STATIC.HP),
+		_hp_max = Flag_Get(FLAG_TYPE.STATIC,FLAG_STATIC.HP_MAX);
 	
-	result += (hp + heal >= hp_max) ? lexicon_text("item.heal.full") : lexicon_text("item.heal.part", heal);
+	_result += (_hp + _heal >= _hp_max) ? lexicon_text("item.heal.full") : lexicon_text("item.heal.part", _heal);
 	
-	return result;
+	return _result;
 }
 
-///@param name
-function Item_GetTextEat(name) {
-	return lexicon_text("item.eat", name);
+///@func Item_GetTextEat(name)
+///@desc Return the item consume dialog with the item's name along.
+///@param {String}		name	The name of the item.
+///@return {String}
+function Item_GetTextEat(_name) {
+	return lexicon_text("item.eat", _name);
 }
 
-///@param name
-function Item_GetTextEquip(name) {
-	return lexicon_text("item.equip", name);
+///@func Item_GetTextEquip(name)
+///@desc Return the item equip dialog with the item's name along.
+///@param {String}		name	The name of the item.
+///@return {String}
+function Item_GetTextEquip(_name) {
+	return lexicon_text("item.equip", _name);
 }
 
 

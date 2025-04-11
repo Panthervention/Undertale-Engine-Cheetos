@@ -175,7 +175,7 @@ if (STATE == BATTLE_STATE.TURN_PREPARATION or STATE == BATTLE_STATE.IN_TURN)
 			{
 				var soul_x = x,
 					soul_y = y;
-				with platform_check
+				with (platform_check)
 				{
 					soul_x += lengthdir_x(0.1, image_angle + 90);
 					soul_y += lengthdir_y(0.1, image_angle + 90);
@@ -188,7 +188,7 @@ if (STATE == BATTLE_STATE.TURN_PREPARATION or STATE == BATTLE_STATE.IN_TURN)
 		if (instance_exists(platform_check) && !h_spd && !v_spd)
 		{
 			var soul_x = x,
-				soul_y = y,
+				soul_y = y;
 			with (platform_check)
 			{
 				if (sticky)
