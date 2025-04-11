@@ -14,7 +14,7 @@ switch (turn)
 		break;
 	case 4: // Top Line platform
 		#region
-		Bullet_Platform(-20, 297, 2, 0, 160);
+		Bullet_Platform(-20, 297, 160, 2, 0);
 		alarm[1] = 140;
 		#endregion
 		break;
