@@ -12,12 +12,8 @@ text_wrapwidth = room_width - x;
 
 #region Private properties
 // Should be taken with care and caution
-
 gui = false;
-if (instance_exists(obj_char_player))
-    top = (obj_char_player.y - camera.y > 130 + obj_char_player.sprite_height);
-else
-	top = false;
+top = (instance_exists(obj_char_player)) ? (obj_char_player.y - camera.y > 130 + obj_char_player.sprite_height) : false;
 
 #region Portrait
 portrait = noone;

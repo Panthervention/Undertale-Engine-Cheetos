@@ -34,7 +34,7 @@ if (state == 0)
 		for (var i = 0; i < 3; i++)
 			_blaster[i] = _target[i];
 		
-		alarm[0] = max(1, time_pause);
+		alarm[0] = max(1, time_delay);
 	}
 	
 	with (blaster)
@@ -72,8 +72,7 @@ if (state == 4)
 	_blaster[5] = _blaster[2] - 180;
 	with (blaster)
 	{
-		var rx = 0;
-		var ry = 0;
+		var _rx = 0, _ry = 0;
 		
 		if (_blaster[6] != 0)
 		{
@@ -81,10 +80,10 @@ if (state == 4)
 			_blaster[1] += lengthdir_y(_blaster[6], _blaster[5]);
 		}
 		
-		var spr_width = (sprite_get_width(sprite_index) / 2);
+		var _spr_width = (sprite_get_width(sprite_index) / 2);
 		_beam[2] = _blaster[2];
-		_beam[0] = _blaster[0] + lengthdir_x(spr_width * _blaster[3], _beam[2]) + rx;
-		_beam[1] = _blaster[1] + lengthdir_y(spr_width * _blaster[3], _beam[2]) + ry;
+		_beam[0] = _blaster[0] + lengthdir_x(_spr_width * _blaster[3], _beam[2]) + _rx;
+		_beam[1] = _blaster[1] + lengthdir_y(_spr_width * _blaster[3], _beam[2]) + _ry;
 	}
 	
 	if (_timer[0] == 0)
@@ -95,7 +94,7 @@ if (state == 4)
 			if (blurring)
 				Screen_Blur(_blaster[4], time_blast);
 		}
-		if (release_sound)
+		if (blast_sound)
 		{
 			audio_stop_sound(snd_gb_release);
 			var beam_up_sfx = audio_play_sound(snd_gb_release, 0, 0);
@@ -106,7 +105,7 @@ if (state == 4)
 			audio_sound_pitch(beam_sfx_a, 1.2);
 			audio_sound_gain(beam_sfx_a, 0.8, 0);
 	
-			release_sound = 0;
+			blast_sound = 0;
 		}
 	}
 	
@@ -124,13 +123,29 @@ if (state == 4)
 		_beam[4] *= sqrt(0.8);
 		_beam[5] -= 0.05;
 		
-		if _beam[4] <= 0.05 destroy = 1;
+		if (_beam[4] <= 0.05)
+			destroy = true;
 	}
 	
-	if ((_beam[5] >= 0.8 and _beam[4] > 0.05) && place_meeting(x, y, obj_battle_soul))
+	if ((_beam[5] >= 0.8 && _beam[4] > 0.05) && place_meeting(x, y, obj_battle_soul))
 		Battle_CallSoulEventBulletCollision();
 	
-	auto_destroy();
+	var _cam = view_camera[0],
+		_view_x = camera_get_view_x(_cam),
+		_view_y = camera_get_view_y(_cam),
+		_view_w = camera_get_view_width(_cam),
+		_view_h = camera_get_view_height(_cam);
+	
+	var _bb_u = sprite_get_bbox_top(blaster.sprite_index) * blaster.image_yscale,
+		_bb_d = sprite_get_bbox_bottom(blaster.sprite_index) * blaster.image_yscale,
+		_bb_l = sprite_get_bbox_left(blaster.sprite_index) * blaster.image_xscale,
+		_bb_r = sprite_get_bbox_right(blaster.sprite_index) * blaster.image_xscale;
+	if (destroy && !point_in_rectangle(blaster.x, blaster.y, _view_x - _bb_l, _view_y - _bb_u, _view_w + _bb_r, _view_h + _bb_d))
+	{
+		speed = 0;
+		if (timer_exit >= time_stay)
+			instance_destroy();
+	}	
 		
 	#region Reassign variable value back from local vars
 	with (blaster)

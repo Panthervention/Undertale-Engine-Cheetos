@@ -1,21 +1,21 @@
-var input_vertical = PRESS_VERTICAL,
-	input_horizontal = PRESS_HORIZONTAL,
-	input_confirm = PRESS_CONFIRM,
-	input_cancel = PRESS_CANCEL;
+var _input_vertical = PRESS_VERTICAL,
+	_input_horizontal = PRESS_HORIZONTAL,
+	_input_confirm = PRESS_CONFIRM,
+	_input_cancel = PRESS_CANCEL;
 	
 if (__menu == -1)
 {
-	if (input_confirm)
+	if (_input_confirm)
 		__menu = 0;
 }
 else if (__menu == 0) // Instruction - Main menu
 {
-	if (_mode == 0) // Instruction Page
+	if (__mode == 0) // Instruction Page
 	{
-		if (input_vertical != 0)
-			_choice = posmod(_choice + input_vertical, 2);
+		if (_input_vertical != 0)
+			__choice = posmod(__choice + _input_vertical, 2);
 
-	    else if (input_confirm)
+	    else if (_input_confirm)
 	    {
 			switch (_choice)
 			{
@@ -30,16 +30,16 @@ else if (__menu == 0) // Instruction - Main menu
 	}
 	else // Main Menu
 	{
-		if (_choice != 2 && input_horizontal != 0)
+		if (_choice != 2 && _input_horizontal != 0)
 		{
-			_choice = posmod(_choice + input_horizontal, 2);
-			_choice_previous = _choice;
+			__choice = posmod(_choice + _input_horizontal, 2);
+			__choice_previous = _choice;
 		}
 		
-		else if (input_vertical != 0)
-			_choice = (input_vertical == 1) ? 2 : _choice_previous;
+		else if (_input_vertical != 0)
+			__choice = (_input_vertical == 1) ? 2 : __choice_previous;
 
-	    else if (input_confirm)
+	    else if (_input_confirm)
 	    {
 			switch (_choice)
 			{
@@ -55,23 +55,23 @@ else if (__menu == 0) // Instruction - Main menu
 				case 1: // Reset
 					__menu = 2;
 					
-					if (TweenExists(_tween_confirm_name_x))
-						TweenDestroy(_tween_confirm_name_x);
-					if (TweenExists(_tween_confirm_name_y))
-						TweenDestroy(_tween_confirm_name_y);
-					if (TweenExists(_tween_confirm_name_scale))
-						TweenDestroy(_tween_confirm_name_scale);
-					_tween_confirm_name_x = TweenFire(id, "", 0, off, 0, 270, "_confirm_name_x>", 200);
-					_tween_confirm_name_y = TweenFire(id, "", 0, off, 0, 270, "_confirm_name_y>", 230);
-					_tween_confirm_name_scale = TweenFire(id, "", 0, off, 0, 270, "_confirm_name_scale>", 7);
+					if (TweenExists(__tween_confirm_name_x))
+						TweenDestroy(__tween_confirm_name_x);
+					if (TweenExists(__tween_confirm_name_y))
+						TweenDestroy(__tween_confirm_name_y);
+					if (TweenExists(__tween_confirm_name_scale))
+						TweenDestroy(__tween_confirm_name_scale);
+					__tween_confirm_name_x = TweenFire(id, "", 0, off, 0, 270, "__confirm_name_x>", 200);
+					__tween_confirm_name_y = TweenFire(id, "", 0, off, 0, 270, "__confirm_name_y>", 230);
+					__tween_confirm_name_scale = TweenFire(id, "", 0, off, 0, 270, "__confirm_name_scale>", 7);
 		                    
-		            _naming_name = Flag_Get(FLAG_TYPE.INFO, FLAG_INFO.NAME, lexicon_text("ui.save.name.empty"));
-		            _confirm_title = lexicon_text("menu.confirm.title.reset"); // A name has already been chosen.
+		            __naming_name = Flag_Get(FLAG_TYPE.INFO, FLAG_INFO.NAME, lexicon_text("ui.save.name.empty"));
+		            __confirm_title = lexicon_text("menu.confirm.title.reset"); // A name has already been chosen.
 					
-					_menu_label_confirm_title = scribble(_confirm_title).starting_format("font_dt_sans", c_white).transform(2, 2, 0);
-					_menu_label_confirm_title.build(true);
-					_menu_label_naming_name	  = scribble(_naming_name)	.starting_format("font_dt_mono", c_white).transform(2, 2, 0);
-					_menu_label_naming_name.build(true);
+					__menu_label_confirm_title = scribble(__confirm_title).starting_format("font_dt_sans", c_white).transform(2, 2, 0);
+					__menu_label_confirm_title.build(true);
+					__menu_label_naming_name	  = scribble(__naming_name)	.starting_format("font_dt_mono", c_white).transform(2, 2, 0);
+					__menu_label_naming_name.build(true);
 					break;
 				
 				case 2: // Settings
@@ -83,164 +83,164 @@ else if (__menu == 0) // Instruction - Main menu
 }
 else if (__menu == 1) // Naming
 {
-	if (_choice_naming == 0)
+	if (__choice_naming == 0)
 	{	
 		#region Letter navigation
-		if (input_horizontal != 0)
-			_choice_naming_letter = posmod(_choice_naming_letter + input_horizontal, 52);
+		if (_input_horizontal != 0)
+			__choice_naming_letter = posmod(__choice_naming_letter + _input_horizontal, 52);
 
-	    else if (input_vertical != 0)
+	    else if (_input_vertical != 0)
 		{
-			if (input_vertical > 0) // Down pressed
+			if (_input_vertical > 0) // Down pressed
 			{
-				if (_choice_naming_letter >= 21 && _choice_naming_letter <= 25)
-				    _choice_naming_letter += 5;
-				else if (_choice_naming_letter >= 19 && _choice_naming_letter <= 20)
-				    _choice_naming_letter += 12;
-				else if (_choice_naming_letter >= 45)
+				if (__choice_naming_letter >= 21 && __choice_naming_letter <= 25)
+				    __choice_naming_letter += 5;
+				else if (__choice_naming_letter >= 19 && __choice_naming_letter <= 20)
+				    __choice_naming_letter += 12;
+				else if (__choice_naming_letter >= 45)
 				{
-					_choice_naming = 1;
-					var naming_command = [2, 2, 0, 0, 1, 1, 1];
-					_choice_naming_command = naming_command[_choice_naming_letter - 45];
+					__choice_naming = 1;
+					var _naming_command = [2, 2, 0, 0, 1, 1, 1];
+					__choice_naming_command = _naming_command[__choice_naming_letter - 45];
 				}
 				else
-				    _choice_naming_letter += 7;
+				    __choice_naming_letter += 7;
 			}
 			else // Up pressed
 			{
-				if (_choice_naming_letter <= 6)
+				if (__choice_naming_letter <= 6)
 				{
-				    _choice_naming = 1;
-					_choice_naming_command = floor(_choice_naming_letter * 0.5);
+				    __choice_naming = 1;
+					__choice_naming_command = floor(__choice_naming_letter * 0.5);
 				}
-				else if (_choice_naming_letter >= 26 && _choice_naming_letter <= 32)
-				    _choice_naming_letter -= (_choice_naming_letter < 31) ? 5 : 12;
+				else if (__choice_naming_letter >= 26 && __choice_naming_letter <= 32)
+				    __choice_naming_letter -= (__choice_naming_letter < 31) ? 5 : 12;
 				else
-				    _choice_naming_letter -= 7;
+				    __choice_naming_letter -= 7;
 			}
 		}
 		#endregion
-	    else if (input_confirm) // Letter add
+	    else if (_input_confirm) // Letter add
 	    {
-	        if (string_length(_naming_name) < _naming_length_limit)
+	        if (string_length(__naming_name) < __naming_length_limit)
 	        {
-	            var text = _naming_letter[# ((_choice_naming_letter) % 26), 0];
-	            _naming_name += (_choice_naming_letter < 26 ? text : string_lower_buffer(text));
-				_menu_label_naming_name	= scribble(_naming_name).starting_format("font_dt_mono", c_white).transform(2, 2, 0);
-				_menu_label_naming_name.build(true);
+	            var _text = __naming_letter[# ((__choice_naming_letter) % 26), 0];
+	            __naming_name += (__choice_naming_letter < 26 ? _text : string_lower_buffer(_text));
+				__menu_label_naming_name	= scribble(__naming_name).starting_format("font_dt_mono", c_white).transform(2, 2, 0);
+				__menu_label_naming_name.build(true);
 	        }
 	    }
-	    else if (input_cancel) // Letter remove
+	    else if (_input_cancel) // Letter remove
 	    {
-	        if (string_length(_naming_name) > 0)
+	        if (string_length(__naming_name) > 0)
 			{
-	            _naming_name = string_delete(_naming_name, string_length(_naming_name), 1);
-				_menu_label_naming_name	  = scribble(_naming_name)	.starting_format("font_dt_mono", c_white).transform(2, 2, 0);
-				_menu_label_naming_name.build(true);
+	            __naming_name = string_delete(__naming_name, string_length(__naming_name), 1);
+				__menu_label_naming_name	  = scribble(__naming_name)	.starting_format("font_dt_mono", c_white).transform(2, 2, 0);
+				__menu_label_naming_name.build(true);
 			}
 	    }
 	}
 	else
 	{
-		if (input_horizontal != 0)
-			_choice_naming_command = posmod(_choice_naming_command + input_horizontal, 3);
+		if (_input_horizontal != 0)
+			__choice_naming_command = posmod(__choice_naming_command + _input_horizontal, 3);
  
-		else if (input_vertical != 0)
+		else if (_input_vertical != 0)
 		{
-			switch (_choice_naming_command)
+			switch (__choice_naming_command)
 			{
 			    case 0:
-			        _choice_naming_letter = (input_vertical > 0) ? 0 : 47;
+			        __choice_naming_letter = (_input_vertical > 0) ? 0 : 47;
 			        break;
 			    case 1:
-			        _choice_naming_letter = (input_vertical > 0) ? 2 : 49;
+			        __choice_naming_letter = (_input_vertical > 0) ? 2 : 49;
 			        break;
 			    case 2:
-			        _choice_naming_letter = (input_vertical > 0) ? 5 : 45;
+			        __choice_naming_letter = (_input_vertical > 0) ? 5 : 45;
 			        break;
 			}
-			_choice_naming = 0;
+			__choice_naming = 0;
 		}
 			
-	    else if (input_confirm)
+	    else if (_input_confirm)
 	    {
-			switch (_choice_naming_command)
+			switch (__choice_naming_command)
 			{
 				case 0: // Quit
 					__menu = 0;
 					break;
 					
 				case 1: // Backspace
-					if (string_length(_naming_name) > 0) // Letter remove
-						_naming_name = string_delete(_naming_name, string_length(_naming_name), 1);
-						_menu_label_naming_name	= scribble(_naming_name).starting_format("font_dt_mono", c_white).transform(2, 2, 0);
-						_menu_label_naming_name.build(true);
+					if (string_length(__naming_name) > 0) // Letter remove
+						__naming_name = string_delete(__naming_name, string_length(__naming_name), 1);
+						__menu_label_naming_name	= scribble(__naming_name).starting_format("font_dt_mono", c_white).transform(2, 2, 0);
+						__menu_label_naming_name.build(true);
 					break;
 					
 				case 2: // Done
-					if (_naming_name != "") // Only proceed when name is not empty
+					if (__naming_name != "") // Only proceed when name is not empty
 					{
 						__menu = 2;
 						
 						event_user(1); // Name validation checking
 						
-						if (TweenExists(_tween_confirm_name_x))
-							TweenDestroy(_tween_confirm_name_x);
-						if (TweenExists(_tween_confirm_name_y))
-							TweenDestroy(_tween_confirm_name_y);
-						if (TweenExists(_tween_confirm_name_scale))
-							TweenDestroy(_tween_confirm_name_scale);
-						_tween_confirm_name_x = TweenFire(id, "", 0, off, 0, 270, "_confirm_name_x>", 200);
-						_tween_confirm_name_y = TweenFire(id, "", 0, off, 0, 270, "_confirm_name_y>", 230);
-						_tween_confirm_name_scale = TweenFire(id, "", 0, off, 0, 270, "_confirm_name_scale>", 7);
+						if (TweenExists(__tween_confirm_name_x))
+							TweenDestroy(__tween_confirm_name_x);
+						if (TweenExists(__tween_confirm_name_y))
+							TweenDestroy(__tween_confirm_name_y);
+						if (TweenExists(__tween_confirm_name_scale))
+							TweenDestroy(__tween_confirm_name_scale);
+						__tween_confirm_name_x = TweenFire(id, "", 0, off, 0, 270, "__confirm_name_x>", 200);
+						__tween_confirm_name_y = TweenFire(id, "", 0, off, 0, 270, "__confirm_name_y>", 230);
+						__tween_confirm_name_scale = TweenFire(id, "", 0, off, 0, 270, "__confirm_name_scale>", 7);
 					}
 					break;
 			}
 	    }
-	    else if (input_cancel)
+	    else if (_input_cancel)
 	    {
-	        if (string_length(_naming_name) > 0) // Letter remove
+	        if (string_length(__naming_name) > 0) // Letter remove
 			{
-	            _naming_name = string_delete(_naming_name, string_length(_naming_name), 1);
-				_menu_label_naming_name	= scribble(_naming_name).starting_format("font_dt_mono", c_white).transform(2, 2, 0);
-				_menu_label_naming_name.build(true);
+	            __naming_name = string_delete(__naming_name, string_length(__naming_name), 1);
+				__menu_label_naming_name	= scribble(__naming_name).starting_format("font_dt_mono", c_white).transform(2, 2, 0);
+				__menu_label_naming_name.build(true);
 			}
 	    }
 	}
-	if (_naming_shake_buffer > 0)
-		_naming_shake_buffer --;
+	if (__naming_shake_buffer > 0)
+		__naming_shake_buffer --;
 	else
 	{
-		_naming_shake_buffer = _naming_shake_buffer_asign;
+		__naming_shake_buffer = __naming_shake_buffer_asign;
 		var i = 0;
 		repeat (26)
 		{
-			_naming_letter_shake_x[# i, 0] = random_range(-1, 1);
-			_naming_letter_shake_x[# i, 1] = random_range(-1, 1);
-			_naming_letter_shake_y[# i, 0] = random_range(-1, 1);
-			_naming_letter_shake_y[# i, 1] = random_range(-1, 1);
+			__naming_letter_shake_x[# i, 0] = random_range(-1, 1);
+			__naming_letter_shake_x[# i, 1] = random_range(-1, 1);
+			__naming_letter_shake_y[# i, 0] = random_range(-1, 1);
+			__naming_letter_shake_y[# i, 1] = random_range(-1, 1);
 			i++;
 		}
 	}
 }
 else if (__menu == 2) // Name Confirmation
 {
-	if (input_horizontal != 0)
-		_choice_confirm = (input_horizontal == 1 && _confirm_valid) ? 1 : 0
-	else if (input_confirm)
+	if (_input_horizontal != 0)
+		__choice_confirm = (_input_horizontal == 1 && __confirm_valid) ? 1 : 0
+	else if (_input_confirm)
 	{
-	    if (_choice_confirm == 0) // No
+	    if (__choice_confirm == 0) // No
 		{
 	        __menu = (!_mode ? 1 : 0);
-			if (TweenExists(_tween_confirm_name_x))
-				TweenDestroy(_tween_confirm_name_x);
-			if (TweenExists(_tween_confirm_name_y))
-				TweenDestroy(_tween_confirm_name_y);
-			if (TweenExists(_tween_confirm_name_scale))
-				TweenDestroy(_tween_confirm_name_scale);
-			_confirm_name_x = 280;
-			_confirm_name_y = 110;
-			_confirm_name_scale = 2;
+			if (TweenExists(__tween_confirm_name_x))
+				TweenDestroy(__tween_confirm_name_x);
+			if (TweenExists(__tween_confirm_name_y))
+				TweenDestroy(__tween_confirm_name_y);
+			if (TweenExists(__tween_confirm_name_scale))
+				TweenDestroy(__tween_confirm_name_scale);
+			__confirm_name_x = 280;
+			__confirm_name_y = 110;
+			__confirm_name_scale = 2;
 		}
 	    else // Yes
 		{
@@ -259,18 +259,18 @@ else if (__menu == 4) // Settings
 
 if (__menu == 2 || __menu == 3)
 {
-    if (_confirm_name_update)
+    if (__confirm_name_update)
     {
-        _confirm_name_offset_x = random_range(-1, 1);
-        _confirm_name_offset_y = random_range(-1, 1);
-        _confirm_name_angle = random_range(-1, 1);
+        __confirm_name_offset_x = random_range(-1, 1);
+        __confirm_name_offset_y = random_range(-1, 1);
+        __confirm_name_angle = random_range(-1, 1);
     }
-    _confirm_name_update = !_confirm_name_update;
+    __confirm_name_update = !__confirm_name_update;
 }
 else
 {
-	_confirm_name_offset_x = 0;
-	_confirm_name_offset_y = 0;
-	_confirm_name_angle = 0;
-	_confirm_name_update = true;
+	__confirm_name_offset_x = 0;
+	__confirm_name_offset_y = 0;
+	__confirm_name_angle = 0;
+	__confirm_name_update = true;
 }

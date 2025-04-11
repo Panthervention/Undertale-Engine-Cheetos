@@ -53,8 +53,8 @@ function posmod(_a, _b) {
 }
 
 ///@func object_get_base_parent(obj)
-///@desc Return the object index of the root parent that has been assigned to the specified object,
-///		 or else return -100 if the specified object has no assigned parent, or else return -1 if
+///@desc Return the object index of the root parent that has been assigned to the
+///		 specified object, or else return -100 if the specified object has no assigned parent, or else return -1 if 
 ///		 the object being checked does not exist.
 ///@param {Asset.GMObject}		obj		The index of the object to check.
 ///@return {Asset.GMObject}

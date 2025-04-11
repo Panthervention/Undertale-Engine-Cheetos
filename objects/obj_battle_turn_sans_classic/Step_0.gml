@@ -42,8 +42,8 @@ switch (turn)
 		{
 			timer = 571;
 			proceed = false;
-			var dialog = instance_create_depth(420, (obj_battle_enemy_sans.y - 100), 0, obj_battle_dialog_enemy);
-		    dialog.text = $"[voice, snd_text_voice_sans, 1][font_sans]{lexicon_text($"battle.enemy.sans.turn.0.1")}";
+			var _dialog = instance_create_depth(420, (obj_battle_enemy_sans.y - 100), 0, obj_battle_dialog_enemy);
+		    _dialog.text = $"[voice, snd_text_voice_sans, 1][font_sans]{lexicon_text($"battle.enemy.sans.turn.0.1")}";
 		}
 		else if (timer == 571 && !instance_exists(obj_battle_dialog_enemy))
 			Battle_EndTurn();
@@ -53,11 +53,10 @@ switch (turn)
 		#region
 		if (timer == 20)
 		{
-			var i = 0;
-			repeat (8)
+			var _i = 0; repeat (8)
 			{
-				Bullet_BoneGapH(120 - (i * 120), 355, 3, 20);
-				Bullet_BoneGapH(520 + (i++ * 120), 355, -3, 20);
+				Bullet_BoneGapH(120 - (_i * 120), 355, 3, 20);
+				Bullet_BoneGapH(520 + (_i++ * 120), 355, -3, 20);
 			}
 		}
 		else if (timer == 450)

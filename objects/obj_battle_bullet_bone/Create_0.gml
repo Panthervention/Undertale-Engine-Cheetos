@@ -12,7 +12,7 @@ vspeed = 0;
 hspeed = 0;
 duration = -1;
 mode = 0;
-out = 0;
+mask = true;
 alarm[0] = 1;
 
 len = 0;

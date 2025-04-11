@@ -19,7 +19,7 @@ warn_color = c_red;
 warn_alpha_filled = 0.25;
 
 time_warn = 18;
-time_move = 5;
+time_stab = 5;
 time_stay = 16;
 
 sound_warn = true;

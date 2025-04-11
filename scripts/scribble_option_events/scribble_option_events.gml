@@ -1,5 +1,19 @@
-// This entire script is dedicated to store events of options from dialogs
-// So hopefully you won't need a separate script for that
+/*
+	******************************************************************************
+	This entire script is dedicated to store events of options from dialog,
+	so hopefully you won't need a separate script for that.
+	Maybe I will rework the dialog system someday, if I have the guts to...
+	______________________________________________________________________________
+	Tag												|		Functionality
+													|
+	[option, n]										|		The position of the option number n in the text.
+													|		Ex: "[option, 0]Yes          [option, 1]No"
+													|
+	[option_event, n, n+1]							|		The function event that happens when the option is chosen.
+													|		Ex: "[option_event, function1, function2]"
+													|		Choosing Yes will execute function 1 and choosing No will execute function2.
+	******************************************************************************
+*/
 
 #region Option Functions (Don't touch without caring taken)
 function set_option(_element, _parameter_array, _character_index) {
@@ -27,6 +41,7 @@ scribble_typists_add_event("option", set_option);
 scribble_typists_add_event("option_event", set_option_event);
 #endregion
 
+#region Option stuffs
 function option_box_yes() {
 	if (!instance_exists(obj_ui_box) && (Item_Count() > 0 || Box_ItemCount(0) > 0))
 	{
@@ -54,3 +69,4 @@ function option_sans_fight_yes() {
 function option_sans_fight_nope() {
 	text = lexicon_text("overworld.sans.dialog.weary");
 }
+#endregion

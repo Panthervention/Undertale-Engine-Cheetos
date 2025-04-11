@@ -1,250 +1,262 @@
 #region Most basic bone function
-///@param x
-///@param y
-///@param len
-///@param hsp
-///@param vsp
-///@param [type]
-///@param [out]
-///@param [mode]
-///@param [angle]
-///@param [rot]
-///@param [auto_destroy]
-///@param [duration]
-function Bullet_Bone(X, Y, LENGTH, HSPEED, VSPEED, TYPE = 0, OUT = 0, MODE = 0, ANGLE = 90, ROTATE = 0, DESTROYABLE = true, DURATION = -1)
+///@func Bullet_Bone(x, y, length, hspeed, vspeed, [type], [mask], [mode], [angle], [rotate], [auto_destroy], [duration])
+///@desc Create a bone.
+///@param {Real}	x					The x coordinate the bone will be created at.
+///@param {Real}	y					The y coordinate the bone will be created at.
+///@param {Real}	length				The length of the bone (in pixel).
+///@param {Real}	hspeed				The horizontal speed of the bone.
+///@param {Real}	vspeed				The vertical speed of the bone.
+///@param {Real}	[type]				The type (color) of the bone (between 0 and 2 which is white, blue and orange respectively). (Default: 0)
+///@param {Bool}	[mask]				Whenever the bone will only be drawn within the board or not. (Default: true)
+///@param {Real}	[mode]				The operation mode of the bone. (Default: 0)
+///@param {Real}	[angle]				The initial angle of the bone. (Default: 90)
+///@param {Real}	[rotate]			The rotation speed of the bone. (Default: 0)
+///@param {Bool}	[auto_destroy]		Whenever the bone will automatically destroy itself if it goes outside the screen or not. (Default: true)
+///@param {Real}	[duration]			The duration the bone will stay before getting destroyed. (Default: -1)
+function Bullet_Bone(_x, _y, _length, _hspeed, _vspeed, _type = 0, _mask = true, _mode = 0, _angle = 90, _rotate = 0, _auto_destroy = true, _duration = -1)
 {
-	var DEPTH = DEPTH_BATTLE.BULLET_MID;
+	var _depth = DEPTH_BATTLE.BULLET_MID;
 	
-	var bone = instance_create_depth(X, Y, DEPTH, obj_battle_bullet_bone);
-	with bone
+	var _bone = instance_create_depth(_x, _y, _depth, obj_battle_bullet_bone);
+	with (_bone)
 	{
-		x = X;
-		y = Y;
-		hspeed = HSPEED;
-		vspeed = VSPEED;
-		image_angle = ANGLE;
+		x = _x;
+		y = _y;
+		hspeed = _hspeed;
+		vspeed = _vspeed;
+		image_angle = _angle;
 		
-		length = LENGTH;
-		rotate = ROTATE;
-		type = TYPE;
-		duration = DURATION;
-		mode = MODE;
-		out = OUT;
+		length = _length;
+		rotate = _rotate;
+		type = _type;
+		duration = _duration;
+		mode = _mode;
+		out = !_mask;
 		
-		destroyable = DESTROYABLE;
+		destroyable = _auto_destroy;
 	}
-	return bone;
+	return _bone;
 }
-
 #endregion
 
-#region Stick to board's size
-
-///@param x
-///@param len
-///@param hsp
-///@param [type]
-///@param [out]
-///@param [rot]
-///@param [auto_destroy]
-///@param [duration]
-function Bullet_BoneTop(X, LENGTH, HSPEED, TYPE = 0, OUT = 0, ROTATE = 0, DESTROYABLE = true, DURATION = -1)
+#region Stick to board's side
+///@func Bullet_BoneTop(x, length, hspeed, [type], [mask], [rotate], [auto_destroy], [duration])
+///@desc Create a bone at the top side of the board.
+///@param {Real}	x					The x coordinate the bone will be created at.
+///@param {Real}	length				The length of the bone (in pixel).
+///@param {Real}	hspeed				The horizontal speed of the bone.
+///@param {Real}	[type]				The type (color) of the bone (between 0 and 2 which is white, blue and orange respectively). (Default: 0)
+///@param {Bool}	[mask]				Whenever the bone will only be drawn within the board or not. (Default: true)
+///@param {Real}	[rotate]			The rotation speed of the bone. (Default: 0)
+///@param {Bool}	[auto_destroy]		Whenever the bone will automatically destroy itself if it goes outside the screen or not. (Default: true)
+///@param {Real}	[duration]			The duration the bone will stay before getting destroyed. (Default: -1)
+function Bullet_BoneTop(_x, _length, _hspeed, _type = 0, _mask = true, _rotate = 0, _auto_destroy = true, _duration = -1)
 {
-	var Y = (obj_battle_board.y - obj_battle_board.up) + (LENGTH / 2);
-	var VSPEED = 0;
-	var ANGLE = 90;
-	var MODE = 0;
-	var bone = Bullet_Bone(X, Y, LENGTH, HSPEED, VSPEED, TYPE, OUT, MODE, ANGLE, ROTATE, DESTROYABLE, DURATION);
-	return bone;
+	var _y = (obj_battle_board.y - obj_battle_board.up) + (_length / 2),
+		_vspeed = 0,
+		_angle = 90,
+		_mode = 0;
+	var _bone = Bullet_Bone(_x, _y, _length, _hspeed, _vspeed, _type, _mask, _mode, _angle, _rotate, _auto_destroy, _duration);
+	return _bone;
 }
 
-///@param x
-///@param len
-///@param hsp
-///@param [type]
-///@param [out]
-///@param [rot]
-///@param [auto_destroy]
-///@param [duration]
-function Bullet_BoneBottom(X, LENGTH, HSPEED, TYPE = 0, OUT = 0, ROTATE = 0, DESTROYABLE = true, DURATION = -1)
-{	var Y = (obj_battle_board.y + obj_battle_board.down) - (LENGTH / 2);
-	var VSPEED = 0;
-	var ANGLE = 90;
-	var MODE = 0;
-	var bone = Bullet_Bone(X, Y, LENGTH, HSPEED, VSPEED, TYPE, OUT, MODE, ANGLE, ROTATE, DESTROYABLE, DURATION);
-	return bone;
+///@func Bullet_BoneBottom(x, length, hspeed, [type], [mask], [rotate], [auto_destroy], [duration])
+///@desc Create a bone at the bottom side of the board.
+///@param {Real}	x					The x coordinate the bone will be created at.
+///@param {Real}	length				The length of the bone (in pixel).
+///@param {Real}	hspeed				The horizontal speed of the bone.
+///@param {Real}	[type]				The type (color) of the bone (between 0 and 2 which is white, blue and orange respectively). (Default: 0)
+///@param {Bool}	[mask]				Whenever the bone will only be drawn within the board or not. (Default: true)
+///@param {Real}	[rotate]			The rotation speed of the bone. (Default: 0)
+///@param {Bool}	[auto_destroy]		Whenever the bone will automatically destroy itself if it goes outside the screen or not. (Default: true)
+///@param {Real}	[duration]			The duration the bone will stay before getting destroyed. (Default: -1)
+function Bullet_BoneBottom(_x, _length, _hspeed, _type = 0, _mask = true, _rotate = 0, _auto_destroy = true, _duration = -1)
+{	var _y = (obj_battle_board.y + obj_battle_board.down) - (_length / 2),
+		_vspeed = 0,
+		_angle = 90,
+		_mode = 0;
+	var _bone = Bullet_Bone(_x, _y, _length, _hspeed, _vspeed, _type, _mask, _mode, _angle, _rotate, _auto_destroy, _duration);
+	return _bone;
 }
 
-///@param y
-///@param len
-///@param vsp
-///@param [type]
-///@param [out]
-///@param [rot]
-///@param [auto_destroy]
-///@param [duration]
-function Bullet_BoneLeft(Y, LENGTH, VSPEED, TYPE = 0, OUT = 0, ROTATE = 0, DESTROYABLE = true, DURATION = -1)
+///@func Bullet_BoneLeft(y, length, vspeed, [type], [mask], [rotate], [auto_destroy], [duration])
+///@desc Create a bone at the left side of the board.
+///@param {Real}	y					The y coordinate the bone will be created at.
+///@param {Real}	length				The length of the bone (in pixel).
+///@param {Real}	vspeed				The vertical speed of the bone.
+///@param {Real}	[type]				The type (color) of the bone (between 0 and 2 which is white, blue and orange respectively). (Default: 0)
+///@param {Bool}	[mask]				Whenever the bone will only be drawn within the board or not. (Default: true)
+///@param {Real}	[rotate]			The rotation speed of the bone. (Default: 0)
+///@param {Bool}	[auto_destroy]		Whenever the bone will automatically destroy itself if it goes outside the screen or not. (Default: true)
+///@param {Real}	[duration]			The duration the bone will stay before getting destroyed. (Default: -1)
+function Bullet_BoneLeft(_y, _length, _vspeed, _type = 0, _mask = true, _rotate = 0, _auto_destroy = true, _duration = -1)
 {
-	var X = (obj_battle_board.x - obj_battle_board.left) + (LENGTH / 2);
-	var HSPEED = 0;
-	var ANGLE = 0;
-	var MODE = 0;
-	var bone = Bullet_Bone(X, Y, LENGTH, HSPEED, VSPEED, TYPE, OUT, MODE, ANGLE, ROTATE, DESTROYABLE, DURATION);
-	return bone;
+	var _x = (obj_battle_board.x - obj_battle_board.left) + (_length / 2),
+		_hspeed = 0,
+		_angle = 0,
+		_mode = 0;
+	var _bone = Bullet_Bone(_x, _y, _length, _hspeed, _vspeed, _type, _mask, _mode, _angle, _rotate, _auto_destroy, _duration);
+	return _bone;
 }
 
-///@param y
-///@param len
-///@param vsp
-///@param [type]
-///@param [out]
-///@param [rot]
-///@param [auto_destroy]
-///@param [duration]
-function Bullet_BoneRight(Y, LENGTH, VSPEED, TYPE = 0, OUT = 0, ROTATE = 0, DESTROYABLE = true, DURATION = -1)
+///@func Bullet_BoneRight(y, length, vspeed, [type], [mask], [rotate], [auto_destroy], [duration])
+///@desc Create a bone at the right side of the board.
+///@param {Real}	y					The y coordinate the bone will be created at.
+///@param {Real}	length				The length of the bone (in pixel).
+///@param {Real}	vspeed				The vertical speed of the bone.
+///@param {Real}	[type]				The type (color) of the bone (between 0 and 2 which is white, blue and orange respectively). (Default: 0)
+///@param {Bool}	[mask]				Whenever the bone will only be drawn within the board or not. (Default: true)
+///@param {Real}	[rotate]			The rotation speed of the bone. (Default: 0)
+///@param {Bool}	[auto_destroy]		Whenever the bone will automatically destroy itself if it goes outside the screen or not. (Default: true)
+///@param {Real}	[duration]			The duration the bone will stay before getting destroyed. (Default: -1)
+function Bullet_BoneRight(_y, _length, _vspeed, _type = 0, _mask = true, _rotate = 0, _auto_destroy = true, _duration = -1)
 {
-	var X = (obj_battle_board.x + obj_battle_board.right) - (LENGTH / 2);
-	var HSPEED = 0;
-	var ANGLE = 0;
-	var MODE = 0;
-	var bone = Bullet_Bone(X, Y, LENGTH, HSPEED, VSPEED, TYPE, OUT, MODE, ANGLE, ROTATE, DESTROYABLE, DURATION);
-	return bone;
+	var _x = (obj_battle_board.x + obj_battle_board.right) - (_length / 2),
+		_hspeed = 0,
+		_angle = 0,
+		_mode = 0;
+	var _bone = Bullet_Bone(_x, _y, _length, _hspeed, _vspeed, _type, _mask, _mode, _angle, _rotate, _auto_destroy, _duration);
+	return _bone;
 }
-
 #endregion
 
 #region Bone in Sine Wave
-
-///@param y
-///@param x_gap
-///@param vsp
-///@param space
-///@param amount
-///@param gap
-///@param udf
-///@param uds
-///@param [type]
-///@param [out]
-function Bullet_BoneWaveV(Y, X_GAP, VSPEED, SPACE, AMOUNT, GAP, UDF, UDS, TYPE = 0, OUT = 0)
+///@func Bullet_BoneWaveV(y, x_gap, vspeed, space, amount, gap, amplitude, frequency, [type], [mask])
+///@desc Create vertical bone gaps in sine wave pattern.
+///@param {Real}	y			The original y coordinate of the wave.
+///@param {Real}	x_gap		The base x coordinate of the gap.
+///@param {Real}	vspeed		The vertical speed of the bone wave.
+///@param {Real}	space		The space between each bone gap.
+///@param {Real}	amount		The amount of bone gaps in the wave.
+///@param {Real}	gap			The size of the gap (in pixel).
+///@param {Real}	amplitude	The amplitude of the bone wave.
+///@param {Real}	frequency	The frequency of the bone wave.
+///@param {Real}	[type]		The type (color) of the bone (between 0 and 2 which is white, blue and orange respectively). (Default: 0)
+///@param {Bool}	[mask]		Whenever the bone will only be drawn within the board or not. (Default: true)
+function Bullet_BoneWaveV(_y, _x_gap, _vspeed, _space, _amount, _gap, _amplitude, _frequency, _type = 0, _mask = false)
 {
-	var SIN = 0;
-	var DIRECTION = sign(VSPEED);
-	var bone = [];
-	for (var i = 0; i < AMOUNT; ++i)
+	var _sine = 0,
+		_direction = sign(_vspeed),
+		_bone = [];
+	var _i = 0; repeat (_amount)
 	{
-		SIN += (UDS * 0.5);
-		Y -= (SPACE * DIRECTION);
+		_sine += _frequency;
+		_y -= (_space * _direction);
 		
-		var X = X_GAP + (sin(SIN) * UDF);
-		bone[i] = Bullet_BoneGapV(X, Y, VSPEED, GAP);
+		var _x = _x_gap + (sin(_sine) * _amplitude);
+		_bone[_i] = Bullet_BoneGapV(_x, _y, _vspeed, _gap, _type, _mask);
+		_i++;
 	}
-	return bone;
+	return _bone;
 }
 
-///@param x
-///@param y_gap
-///@param hsp
-///@param space
-///@param amount
-///@param gap
-///@param udf
-///@param uds
-///@param [type]
-///@param [out]
-function Bullet_BoneWaveH(X, Y_GAP, HSPEED, SPACE, AMOUNT, GAP, UDF, UDS, TYPE = 0, OUT = 0)
+///@func Bullet_BoneWaveH(x, y_gap, hspeed, space, amount, gap, amplitude, frequency, [type], [mask])
+///@desc Create horizontal bone gaps in sine wave pattern.
+///@param {Real}	x			The original x coordinate of the wave.
+///@param {Real}	y_gap		The base y coordinate of the gap.
+///@param {Real}	hspeed		The horizontal speed of the bone wave.
+///@param {Real}	space		The space between each bone gap.
+///@param {Real}	amount		The amount of bone gaps in the wave.
+///@param {Real}	gap			The size of the gap (in pixel).
+///@param {Real}	amplitude	The amplitude of the bone wave.
+///@param {Real}	frequency	The frequency of the bone wave.
+///@param {Real}	[type]		The type (color) of the bone (between 0 and 2 which is white, blue and orange respectively). (Default: 0)
+///@param {Bool}	[mask]		Whenever the bone will only be drawn within the board or not. (Default: true)
+function Bullet_BoneWaveH(_x, _y_gap, _hspeed, _space, _amount, _gap, _amplitude, _frequency, _type = 0, _mask = true)
 {
-	var SIN = 0;
-	var DIRECTION = sign(HSPEED);
-	var bone = [];
-	for (var i = 0; i < AMOUNT; ++i)
+	var _sine = 0,
+		_direction = sign(_hspeed),
+		_bone = [];
+	var _i = 0; repeat (_amount)
 	{
-		SIN += (UDS);
-		X -= (SPACE * DIRECTION);
+		_sine += _frequency;
+		_x -= (_space * _direction);
 		
-		var Y = Y_GAP + (sin(SIN) * UDF);
-		bone[i] = Bullet_BoneGapH(X, Y, HSPEED, GAP);
+		var _y = _y_gap + (sin(_sine) * _amplitude);
+		_bone[_i] = Bullet_BoneGapH(_x, _y, _hspeed, _gap, _type, _mask);
 	}
-	return bone;
+	return _bone;
 }
-
 #endregion
 
 #region Bone Gap
-
-///@param x
-///@param y
-///@param vsp
-///@param x_gap
-///@param [type]
-///@param [out]
-///@param [auto_destroy]
-///@param [duration]
-function Bullet_BoneGapV(X, Y, VSPEED, X_GAP, TYPE = 0, OUT = 0, DESTROYABLE = true, DURATION = -1)
+///@func Bullet_BoneGapV(x_gap, y, vspeed, gap, [type], [mask], [auto_destroy], [duration])
+///@desc Create a vertical bone gap.
+///@param {Real}	x_gap				The base x coordinate of the gap.
+///@param {Real}	y					The y coordinate the bone gap will be created at.
+///@param {Real}	vspeed				The vertical speed of the bone gap.
+///@param {Real}	gap					The size of the gap (in pixel).
+///@param {Real}	[type]				The type (color) of the bone (between 0 and 2 which is white, blue and orange respectively). (Default: 0)
+///@param {Bool}	[mask]				Whenever the bone will only be drawn within the board or not. (Default: true)
+///@param {Bool}	[auto_destroy]		Whenever the bone will automatically destroy itself if it goes outside the screen or not. (Default: true)
+///@param {Real}	[duration]			The duration the bone will stay before getting destroyed. (Default: -1)
+function Bullet_BoneGapV(_x_gap, _y, _vspeed, _gap, _type = 0, _mask = true, _auto_destroy = true, _duration = -1)
 {
-	var bone = [];
-	var board = obj_battle_board;
-	var board_x = board.y;
-	var board_margin = [board.left, board.right];
-	var GAP = X_GAP / 2;
-	var LENGTH_L = X - board_x + board_margin[0] - GAP;
-	var LENGTH_R = board_x + board_margin[1] - GAP - X;
+	var _bone = [],
+		_board = obj_battle_board,
+		_board_x = _board.x,
+		_board_margin = [_board.left, _board.right],
+		_x = _gap / 2,
+		_length_left = _x_gap - _board_x + _board_margin[0] - _x,
+		_length_right = _board_x + _board_margin[1] - _x - _x_gap;
 	
-	bone[0] = Bullet_BoneLeft(Y, LENGTH_L, VSPEED, TYPE, OUT, 0, DESTROYABLE, DURATION);
-	bone[1] = Bullet_BoneRight(Y, LENGTH_R, VSPEED, TYPE, OUT, 0, DESTROYABLE, DURATION);
-	return bone;
+	_bone[0] = Bullet_BoneLeft(_y, _length_left, _vspeed, _type, _mask, 0, _auto_destroy, _duration);
+	_bone[1] = Bullet_BoneRight(_y, _length_right, _vspeed, _type, _mask, 0, _auto_destroy, _duration);
+	return _bone;
 }
 
-///@param x
-///@param y
-///@param hsp
-///@param y_gap
-///@param [type]
-///@param [out]
-///@param [auto_destroy]
-///@param [duration]
-function Bullet_BoneGapH(X, Y, HSPEED, Y_GAP, TYPE = 0, OUT = 0, DESTROYABLE = true, DURATION = -1)
+///@func Bullet_BoneGapH(x, y_gap, hspeed, gap, [type], [mask], [auto_destroy], [duration])
+///@desc Create a horizontal bone gap.
+///@param {Real}	x					The x coordinate the bone gap will be created at.
+///@param {Real}	y_gap				The base y coordinate of the gap.
+///@param {Real}	hspeed				The horizontal speed of the bone gap.
+///@param {Real}	gap					The size of the gap (in pixel).
+///@param {Real}	[type]				The type (color) of the bone (between 0 and 2 which is white, blue and orange respectively). (Default: 0)
+///@param {Bool}	[mask]				Whenever the bone will only be drawn within the board or not. (Default: true)
+///@param {Bool}	[auto_destroy]		Whenever the bone will automatically destroy itself if it goes outside the screen or not. (Default: true)
+///@param {Real}	[duration]			The duration the bone will stay before getting destroyed. (Default: -1)		
+function Bullet_BoneGapH(_x, _y_gap, _hspeed, _gap, _type = 0, _mask = true, _auto_destroy = true, _duration = -1)
 {
-	var bone = [];
-	var board = obj_battle_board;
-	var board_y = board.y;
-	var board_margin = [board.up, board.down];
-	var GAP = Y_GAP / 2;
-	var LENGTH_T = Y - board_y + board_margin[0] - GAP;
-	var LENGTH_B = board_y + board_margin[1] - GAP - Y;
+	var _bone = [],
+		_board = obj_battle_board,
+		_board_y = _board.y,
+		_board_margin = [_board.up, _board.down],
+		_y = _gap / 2,
+		_length_top = _y_gap - _board_y + _board_margin[0] - _y,
+		_length_bottom = _board_y + _board_margin[1] - _y - _y_gap;
 
-	bone[0] = Bullet_BoneTop(X, LENGTH_T, HSPEED, TYPE, OUT, 0, DESTROYABLE, DURATION);
-	bone[1] = Bullet_BoneBottom(X, LENGTH_B, HSPEED, TYPE, OUT, 0, DESTROYABLE, DURATION);
-	return bone;
+	_bone[0] = Bullet_BoneTop(_x, _length_top, _hspeed, _type, _mask, 0, _auto_destroy, _duration);
+	_bone[1] = Bullet_BoneBottom(_x, _length_bottom, _hspeed, _type, _mask, 0, _auto_destroy, _duration);
+	return _bone;
 }
-
 #endregion
 
 #region Bone Wall
-
-///@param dir
-///@param height
-///@param delay
-///@param stay
-///@param [type]
-///@param [duration]
-///@param [warn_sound]
-function Bullet_BoneWall(DIRECTION, HEIGHT, DELAY, HOLD, TYPE = 0, MOVE = 5, WARN_SOUND = true)
+///@func Bullet_BoneWall(dir, height, delay, stay, [type], [stab], [warning])
+///@desc Create a bone wall at the specified direction of the board.
+///@param {Real}	dir			The direction of the bone wall (base on DIR enum or either 0, 90, 180 and 270).
+///@param {Real}	height		The height of the bone wall.
+///@param {Real}	delay		The delay duration until the bone wall stab.
+///@param {Real}	stay		The duration which the bone wall stay before going away.
+///@param {Real}	[type]		The type (color) of the bone (between 0 and 2 which is white, blue and orange respectively). (Default: 0)
+///@param {Real}	[stab]		The duration it takes for the stabbing/unstabbing animation.
+///@param {Bool}	[warning]	Whenever there will be a warning sound or not. (Default: true)
+function Bullet_BoneWall(_direction, _height, _delay_duration, _stay_duration, _type = 0, _stab_duration = 5, _warning_sound = true)
 {
-	var DEPTH = DEPTH_BATTLE.BULLET_MID;
+	var _depth = DEPTH_BATTLE.BULLET_MID;
 	
-	var wall = instance_create_depth(0, 0, DEPTH, obj_battle_bullet_bonewall);
-	with wall
+	var _wall = instance_create_depth(0, 0, _depth, obj_battle_bullet_bonewall);
+	with (_wall)
 	{
-		dir = DIRECTION;
-		target_height = HEIGHT;
-		time_warn = DELAY;
-		time_stay = HOLD;
-		time_move = MOVE;
-		type = TYPE;
-		sound_warn = WARN_SOUND;
+		dir = _direction;
+		target_height = _height;
+		time_warn = _delay_duration;
+		time_stay = _stay_duration;
+		time_stab = _stab_duration;
+		type = _type;
+		sound_warn = _warning_sound;
 	}
 	
-	return wall;
+	return _wall;
 }
-
 #endregion

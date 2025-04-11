@@ -1,3 +1,50 @@
+/*
+	******************************************************************************
+	The custom string format for scribble text via obj_textwriter and its children
+	BASE FUNCTIONS
+	______________________________________________________________________________
+	Tag												|		Functionality
+	______________________________________________________________________________
+	[end]											|		Instantly ends the dialog and destroy the obj_textwriter itself.
+													|
+	[instant]										|		Skip the typewriter effect to the end of the text instantly.
+													|
+	[refresh]										|		Refresh the textwriter, is dangerous and need to be used cautiously.
+													|
+	[visible, bool]									|		Set enable (true) or disable (false) the visibility
+													|		of the obj_textwriter (which is the text itself).
+													|
+	[skippable, bool]								|		Whenever the dialog can be skipped via player input or not.
+													|
+	[voice, sound, pitch]							|		Set an audio asset as the dialog voice with given pitch.
+													|
+	[sleep, real]									|		
+	[wait, real]									|		Pause the text typewriter effect for the given duration in frame.
+	[fdelay, real]									|
+													|
+	[gui, bool]										|		Whenever the text will be rendered in Draw event or Draw GUI event.
+													|
+	[depth, real]									|		Set the depth of the obj_textwriter (which is the text itself).
+													|
+	[portrait, real]								|		Set a sprite as the portrait of the dialog at given image index.
+													|
+	[portrait_scale, xscale, yscale]				|		Set the scale of the portrait image.
+													|
+	[portrait_anim, speed, index1, index2, ...]		|		Set a sprite as the portrait of the dialog and then circle around given
+													|		specified indexes at given speed value, or one can say... portrait with
+													|		talking animation.
+													|
+	[script, script_name, param1, param2, ...]		|		Execute a function right in the string with the input parameter.
+													|		Ex: "[script, Player_Heal, 99]"
+													|
+	______________________________________________________________________________					
+	MISCELLANEOUS FUNCTIONS
+	______________________________________________________________________________	
+	Tag												|		Functionality
+	[sans_head, index]								|		Set the index of sans's face in the battle.
+						
+	****************************************************************************** 
+*/
 #region Base Functions
 function textwriter_end(_element, _parameter_array, _character_index) {
 	instance_destroy(id);
@@ -19,10 +66,6 @@ function set_visible(_element, _parameter_array, _character_index) {
 
 function set_skippable(_element, _parameter_array, _character_index) {	
 	text_skippable = bool(string_trim(_parameter_array[0]));
-}
-
-function set_dialog_box(_element, _parameter_array, _character_index) {
-	dialog_box = bool(string_trim(_parameter_array[0]));
 }
 
 function set_text_gui(_element, _parameter_array, _character_index) {
@@ -61,8 +104,6 @@ function set_portrait_anim(_element, _parameter_array, _character_index) {
 		array_push(portrait_index_array, parameter[i]);
 }
 
-
-
 // CANNOT EXECUTE FUNCTIONS THAT ARE DECLARED OUTSIDE SCRIPTS
 function method_execute(_element, _parameter_array, _character_index) {
 	var parameter = [];
@@ -72,24 +113,24 @@ function method_execute(_element, _parameter_array, _character_index) {
 }
 
 scribble_add_macro("voice", function(voice, pitch) {
-	var str = "[typistSoundPerChar," + string_trim(voice) + "," + string_trim(pitch) + "," + string_trim(pitch) + "," + " ]";
-	return str;
+	var _str = $"[typistSoundPerChar,{string_trim(voice)},{string_trim(pitch)},{string_trim(pitch)}, ]";
+	return _str;
 });
 
 scribble_add_macro("clear", function() {
-	var str = "[/page]";
-	return str;
+	var _str = "[/page]";
+	return _str;
 });
 
-#region [delay, milisecond] alternatives but it takes frame
-var delay_alternative = function(delay) {
-	var str = "[delay," + string(floor((delay / 60) * 1000)) + "]";
-	return str;
+#region [delay, milisecond] alternatives which takes frame instead
+var _delay_alternative = function(delay) {
+	var _str = "[delay," + string(floor((delay / 60) * 1000)) + "]";
+	return _str;
 };
 
-scribble_add_macro("sleep", delay_alternative);
-scribble_add_macro("wait", delay_alternative);
-scribble_add_macro("fdelay", delay_alternative);
+scribble_add_macro("sleep", _delay_alternative);
+scribble_add_macro("wait", _delay_alternative);
+scribble_add_macro("fdelay", _delay_alternative);
 #endregion
 
 scribble_typists_add_event("end", textwriter_end);
@@ -98,7 +139,6 @@ scribble_typists_add_event("refresh", textwriter_refresh);
 
 scribble_typists_add_event("visible", set_visible);
 scribble_typists_add_event("skippable", set_skippable);
-scribble_typists_add_event("dialog_box", set_dialog_box);
 scribble_typists_add_event("gui", set_text_gui);
 scribble_typists_add_event("depth", set_text_depth);
 

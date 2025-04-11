@@ -1,10 +1,10 @@
 if (__menu == -1) // Logo
 {
 	draw_sprite_ext(spr_logo, 0, 320, 240, 2, 2, 0, c_white, 1);
-	if (_hint)
+	if (__hint)
 	{
 		draw_set_format(font_crypt_of_tomorrow, c_gray);
-		draw_set_align(fa_middle, fa_center);
+		draw_set_align(fa_center, fa_middle);
 	    draw_text_transformed(320, 360, _info_input_request, 2, 2, 0);
 		draw_set_align(); // No input >> reset align to default
 		draw_set_color(c_white);
@@ -13,7 +13,7 @@ if (__menu == -1) // Logo
 else if (__menu == 0) // Instruction - Main menu
 {
 	draw_set_format(font_crypt_of_tomorrow, c_gray);
-	draw_set_align(fa_middle, fa_bottom);
+	draw_set_align(fa_center, fa_middle);
     draw_text_transformed(320, 475, _info_copyright, 2, 2, 0);
 	draw_set_align();
 	draw_set_color(c_white);

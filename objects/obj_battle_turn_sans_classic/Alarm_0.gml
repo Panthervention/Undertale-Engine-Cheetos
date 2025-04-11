@@ -4,22 +4,22 @@ switch (turn)
 		#region
 		// I tried to make this one least uncanny as possible
 		// but as you can see, Toby's power is just beyond comprehension
-		var theta = random_range(-90, 270);
-		var soul = [obj_battle_soul.x + 8, obj_battle_soul.y + 8];
-		var vec_start = [soul[0] + lengthdir_x(400, theta), soul[1] + lengthdir_y(300, theta)];
-		var vec_target = [soul[0] + lengthdir_x(200, theta), soul[1] + lengthdir_y(200, theta)];
+		var _theta = random_range(-90, 270),
+			_soul_pos = [obj_battle_soul.x + 8, obj_battle_soul.y + 8],
+			_vec_start = [_soul_pos[0] + lengthdir_x(400, _theta), _soul_pos[1] + lengthdir_y(300, _theta)],
+			_vec_target = [_soul_pos[0] + lengthdir_x(200, _theta), _soul_pos[1] + lengthdir_y(200, _theta)];
 		
-		if (vec_target[0] > 440)		vec_target[0] = 440;
-		else if (vec_target[0] < 40)	vec_target[0] = 40;
-		if (vec_target[1] > 590)		vec_target[1] = 590;
-		else if (vec_target[1] < 50)	vec_target[1] = 50;
+		if (_vec_target[0] > 440)		_vec_target[0] = 440;
+		else if (_vec_target[0] < 40)	_vec_target[0] = 40;
+		if (_vec_target[1] > 590)		_vec_target[1] = 590;
+		else if (_vec_target[1] < 50)	_vec_target[1] = 50;
 		
-		var rot = 1;
-		if (theta > 90) rot = -1;
+		var _rot = 1;
+		if (_theta > 90) _rot = -1;
 		
-		var angle_target = point_direction(vec_target[0], vec_target[1], soul[0], soul[1]);
-		Bullet_Blaster(spr_gb, vec_start[0], vec_start[1], (angle_target + (270 * rot)), 2, 1,
-								vec_target[0], vec_target[1], angle_target, 16, 10, 30);
+		var _angle_target = point_direction(_vec_target[0], _vec_target[1], _soul_pos[0], _soul_pos[1]);
+		Bullet_Blaster(spr_gb, _vec_start[0], _vec_start[1], (_angle_target + (270 * _rot)), 2, 1,
+								_vec_target[0], _vec_target[1], _angle_target, 16, 10, 30);
 		alarm[0] = 10;
 		#endregion
 		break;
@@ -28,8 +28,8 @@ switch (turn)
 		if (slam < slam_max)
 		{
 			slam_side = irandom(3);
-			var wall_dir = [SOUL_DIR.UP, SOUL_DIR.DOWN, SOUL_DIR.LEFT, SOUL_DIR.RIGHT];
-			Battle_SoulSlam(wall_dir[slam_side]);
+			var _wall_dir = [SOUL_DIR.UP, SOUL_DIR.DOWN, SOUL_DIR.LEFT, SOUL_DIR.RIGHT];
+			Battle_SoulSlam(_wall_dir[slam_side]);
 			alarm[1] = 10;
 		}
 		else

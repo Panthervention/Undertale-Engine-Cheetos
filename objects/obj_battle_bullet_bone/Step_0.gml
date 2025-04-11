@@ -1,6 +1,7 @@
-if timer > 0 timer--;
-
 image_angle += rotate;
+
+if (timer > 0)
+	timer--;
 
 if (lenable)
 {

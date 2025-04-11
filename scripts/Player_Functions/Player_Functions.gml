@@ -252,7 +252,7 @@ function Player_GetInv() {
 	return Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.INV);
 }
 
-///@func Player_GetInv()
+///@func Player_SetInv()
 ///@desc Set player's INV (invincibility).
 ///@param {Real}	inv		The amount of INV (invincibility) to set.
 function Player_SetInv(inv) {

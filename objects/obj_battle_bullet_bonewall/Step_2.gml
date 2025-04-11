@@ -72,10 +72,10 @@ if (active)
 		audio_stop_sound(snd_bonewall);
 		audio_play_sound(snd_bonewall, 50, false);
 		
-		if (time_move > 0)
+		if (time_stab > 0)
 		{
-			TweenFire(id, "", 0, off, 0, time_move, "height>", target_height);
-			TweenFire(id, "", 0, off, time_move + time_stay, time_move, "height>", height - target_height);
+			TweenFire(id, "", 0, off, 0, time_stab, "height>", target_height);
+			TweenFire(id, "", 0, off, time_stab + time_stay, time_stab, "height>", height - target_height);
 		}
 		else
 		{
@@ -86,7 +86,7 @@ if (active)
 	if (state == 3)
 	{
 		timer++;
-		if (timer > ((time_move * 2) + time_stay))
+		if (timer > ((time_stab * 2) + time_stay))
 			instance_destroy();
 	}
 }
