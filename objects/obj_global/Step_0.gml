@@ -34,7 +34,8 @@ if (keyboard_check(vk_escape))
 }
 else
 {
-	if quit_timer > 0 quit_timer -= 2;
+	if (quit_timer > 0)
+		quit_timer -= 2;
 	else quit_timer = 0
 }
 #endregion
@@ -58,7 +59,11 @@ with (border)
 #endregion
 
 #region		Debug Logic
-if allow_debug && !released && (keyboard_check_pressed(vk_f3))
+if mouse_check_button_pressed(mb_left)
+{
+	show_debug_message(Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.ITEM));
+}
+if (allow_debug && !released && keyboard_check_pressed(vk_f3))
 	global.debug ^= 1;
 if (global.debug)
 {
@@ -74,10 +79,10 @@ if (global.debug)
 	{
 		if (!debug_fps_lock)
 		{
-			var game_speed = game_get_speed(gamespeed_fps);
-			game_set_speed(max(1, game_speed + _input_horizontal * 5), gamespeed_fps);
-			if keyboard_check_pressed(ord("F")) game_set_speed(600, gamespeed_fps);
-			if keyboard_check_pressed(ord("R")) game_set_speed(60, gamespeed_fps);
+			var _game_speed = game_get_speed(gamespeed_fps);
+			game_set_speed(max(1, _game_speed + _input_horizontal * 5), gamespeed_fps);
+			if (keyboard_check_pressed(ord("F"))) game_set_speed(600, gamespeed_fps);
+			if (keyboard_check_pressed(ord("R"))) game_set_speed(60, gamespeed_fps);
 		}
 		if (keyboard_check_pressed(ord("H")))
 		{
@@ -88,9 +93,9 @@ if (global.debug)
 	}
 	if (keyboard_check(vk_control))
 	{
-		if keyboard_check_pressed(ord("L"))
+		if (keyboard_check_pressed(ord("L")))
 			debug_fps_lock ^= 1;
-		if keyboard_check_pressed(ord("H"))
+		if (keyboard_check_pressed(ord("H")))
 			global.show_hitbox ^= 1;
 	}
 		
@@ -102,24 +107,19 @@ if (global.debug)
 			
 		if (keyboard_check(vk_shift))
 		{
-			if keyboard_check_pressed(ord("E")) and instance_exists(obj_battle_turn)
+			if (keyboard_check_pressed(ord("E")) && instance_exists(obj_battle_turn))
 			{
 				Battle_EndTurn();
 				Battle_SetTurnNumber(_turn_current);
-				if instance_exists(obj_battle_bullet)
+				if (instance_exists(obj_battle_bullet))
 					instance_destroy(obj_battle_bullet);
 				cam_angle = 0;
 				fader_alpha = 0;
 				audio_resume_all();
-				with obj_battle_controller
+				with (all)
 					TweenDestroy({target: id});
-				with obj_battle_turn
-					TweenDestroy({target: id});
-				with obj_battle_bullet
-					TweenDestroy({target: id});
-				with obj_battle_board
+				with (obj_battle_board)
 				{
-					TweenDestroy({target: id});
 					x = 320;
 					y = 320;
 					up = 65;
@@ -127,12 +127,11 @@ if (global.debug)
 					left = 283;
 					right = 283;
 				}
-				with obj_battle_soul
+				with (obj_battle_soul)
 				{
 					hor_lock = false;
 					ver_lock = false;
 					fall_multi = 1;
-					TweenDestroy({target: id});
 				}
 			}
 		}

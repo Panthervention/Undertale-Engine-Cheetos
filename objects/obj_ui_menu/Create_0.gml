@@ -1,12 +1,11 @@
 depth = DEPTH_UI.PANEL;
 
+__top = false;
 if (instance_exists(obj_char_player))
 {
     __top = (obj_char_player.y - camera.y > 130 + obj_char_player.sprite_height);
 	obj_char_player.__moveable_menu = false;
 }
-else
-    __top = false;
 
 __color_theme = c_white;
 

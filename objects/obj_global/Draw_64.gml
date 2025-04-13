@@ -1,9 +1,9 @@
 #region Debug
-if global.debug
+if (global.debug)
 {
-	var c_debug = merge_color(c_lime, c_green, 0.5),
-		fps_locked = debug_fps_lock ? "(Locked)" : "(Unlocked)",
-		game_speed = game_get_speed(gamespeed_fps);
+	var _col_debug = merge_color(c_lime, c_green, 0.5),
+		_fps_locked = debug_fps_lock ? "(Locked)" : "(Unlocked)",
+		_game_speed = game_get_speed(gamespeed_fps);
 	
 	// Drawing background
 	draw_set_color(c_white);
@@ -12,11 +12,11 @@ if global.debug
 	
 	draw_set_font(font_dt_sans);
 	draw_set_alpha(1);
-	draw_set_color(c_debug);
+	draw_set_color(_col_debug);
 	draw_text(5, 0, "DEBUG");
 	draw_text(5, 10, "----------------------------------------");
 	draw_text(5, 20, $"FPS: {fps} ({global.__fps_real}/{global.__fps_average}) ({global.__fps_min}/{global.__fps_max})");
-	draw_text(5, 35, $"Speed: {game_speed} ({game_speed / 60}x) {fps_locked}");
+	draw_text(5, 35, $"Speed: {_game_speed} ({_game_speed / 60}x) {_fps_locked}");
 	draw_text(5, 50, $"Room: {room_get_name(room)}");
 	draw_text(5, 65, $"Instances: {instance_count}");
 	draw_text(5, 80, $"Mouse Coords: {mouse_x}x ; {mouse_y}y");
@@ -33,14 +33,10 @@ if global.debug
 #endregion
 
 #region Fader
-
-	draw_sprite_ext(spr_pixel, 0, 0, 0, 640, 480, 0, fader_color, fader_alpha);
-
+draw_sprite_ext(spr_pixel, 0, 0, 0, 640, 480, 0, fader_color, fader_alpha);
 #endregion
 
 #region Quitting Message
-
-	if quit_timer >= 1 
-		draw_sprite_ext(spr_quitting, quit_timer / 14, 4, 4, 2, 2, 0, c_white, quit_timer / 30);
-
+if (quit_timer >= 1)
+	draw_sprite_ext(spr_quitting, quit_timer / 14, 4, 4, 2, 2, 0, c_white, quit_timer / 30);
 #endregion

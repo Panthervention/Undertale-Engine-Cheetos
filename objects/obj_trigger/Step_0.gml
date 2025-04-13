@@ -1,24 +1,24 @@
-var user = user_char;
-var result = false;
+var _user = user_char;
+var _result = false;
 if (instance_exists(obj_char))
 {
     with (obj_char)
     {
-        if (char_id == user || user == -1)
+        if (char_id == _user || _user == -1)
         {
-            result = place_meeting(x, y, other);
-            if (result)
+            _result = place_meeting(x, y, other);
+            if (_result)
                 break;
         }
     }
 }
-if (!_triggered && result)
+if (!__triggered && _result)
 {
     event_user(0);
-    _collided_previous = true;
+    __collided_previous = true;
 }
-else if (_triggered && _collided_previous && !result)
+else if (__triggered && __collided_previous && !_result)
 {
     event_user(1);
-    _collided_previous = false;
+    __collided_previous = false;
 }

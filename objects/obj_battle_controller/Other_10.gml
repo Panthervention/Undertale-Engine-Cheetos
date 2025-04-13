@@ -6,18 +6,18 @@ var _button_pos = button_pos;
 var _button_alpha = button_alpha;
 var _button_scale = button_scale;
 var _button_color = button_color; 
-var STATUS = Battle_GetState();
-var MENU = Battle_GetMenu(); 
+var _battle_state = Battle_GetState();
+var _menu_state = Battle_GetMenu(); 
 
 for (var i = 0; i < array_length(_button_spr); ++i) // Button create
 {
 	if (Item_Count() <= 0 && i == 2) // If no item left then button commit gray
 		button_color_target[2] = [ [54,54,54],[54,54,54] ];
 	
-	var status_check = ( STATUS == BATTLE_STATE.MENU
-						 && MENU != BATTLE_MENU.FIGHT_AIM
-						 && MENU != BATTLE_MENU.FIGHT_ANIM
-						 && MENU != BATTLE_MENU.FIGHT_DAMAGE);
+	var status_check = ( _battle_state == BATTLE_STATE.MENU
+						 && _menu_state != BATTLE_MENU.FIGHT_AIM
+						 && _menu_state != BATTLE_MENU.FIGHT_ANIM
+						 && _menu_state != BATTLE_MENU.FIGHT_DAMAGE);
 	var select = (Battle_GetMenuChoiceButton() == i && status_check) // Check if the button is chosen
 	
 	draw_sprite_ext(_button_spr[i], select, _button_pos[i][0], _button_pos[i][1], _button_scale[i], _button_scale[i], 0, make_color_rgb(_button_color[i][0],_button_color[i][1],_button_color[i][2]), _button_alpha[i]);
@@ -26,7 +26,7 @@ for (var i = 0; i < array_length(_button_spr); ++i) // Button create
 	{
 		if _button_slot == i // The chosen button
 		{
-			if (MENU == BATTLE_MENU.BUTTON)
+			if (_menu_state == BATTLE_MENU.BUTTON)
 			{
 				_button_scale[_button_slot] += (button_scale_target[1] - _button_scale[_button_slot]) / 6;
 				_button_alpha[_button_slot] += (button_alpha_target[1] - _button_alpha[_button_slot]) / 6;

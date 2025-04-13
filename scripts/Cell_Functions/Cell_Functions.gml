@@ -3,7 +3,7 @@
 ///@param {Struct.Cell}		cell	The cell address struct to check for validation.
 ///@return {Bool}
 function Cell_IsValid(_cell) {
-	return is_instanceof(_cell, Cell);
+	return is_struct(_cell);
 }
 
 ///@func Cell_IsAddressValid(address)

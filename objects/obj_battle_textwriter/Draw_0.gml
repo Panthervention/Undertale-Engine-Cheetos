@@ -16,8 +16,8 @@ switch (_menu_state)
 	case BATTLE_MENU.FIGHT_TARGET:
 	case BATTLE_MENU.ACT_TARGET:
 		#region
-		var _enemy_name = _prefix, _i = 0;
-	    repeat (3)
+		var _enemy_name = _prefix;
+		var _i = 0; repeat (3)
 	    {
 	        var _enemy_instance = Battle_GetEnemy(_i);
 	        if (instance_exists(_enemy_instance))
@@ -27,8 +27,11 @@ switch (_menu_state)
 	            _enemy_name += Battle_GetEnemyName(_i) + "[c_white]\n";
 	        }
 	        _i ++;
-	    }
-	    draw_text_scribble(100, 270, _enemy_name);
+		}
+		// This is modified scribble behavior!
+		// Original scribble cannot do this unless you "return _element"!
+		var _enemy_label = draw_text_scribble(100, 270, _enemy_name);
+		enemy_name_width_max = _enemy_label.get_width(); // Retrieve the max name width among enemmies
 		#endregion
 		break;
 		

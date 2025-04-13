@@ -13,3 +13,5 @@ text = "";
 
 __label_spare = lexicon_text("battle.menu.mercy.spare");
 __label_flee = lexicon_text("battle.menu.mercy.flee");
+
+enemy_name_width_max = 0;

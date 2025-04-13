@@ -2,7 +2,7 @@ Flag_Load(FLAG_TYPE.INFO);
 
 __hint = 0;
 audio_play_sound(snd_logo, 0, false);
-TweenFire(id, "", 0, false, 99, 1, "_hint>", 1); // Wait till the [Press Z or Enter]
+TweenFire(id, "", 0, false, 99, 1, "__hint>", 1); // Wait till the [Press Z or Enter]
 
 __menu = -1;
 __mode = file_exists(Flag_GetSavePath(FLAG_TYPE.INFO));

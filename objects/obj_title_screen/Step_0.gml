@@ -17,7 +17,7 @@ else if (__menu == 0) // Instruction - Main menu
 
 	    else if (_input_confirm)
 	    {
-			switch (_choice)
+			switch (__choice)
 			{
 				case 0: // Begin
 					__menu = 1;
@@ -30,10 +30,10 @@ else if (__menu == 0) // Instruction - Main menu
 	}
 	else // Main Menu
 	{
-		if (_choice != 2 && _input_horizontal != 0)
+		if (__choice != 2 && _input_horizontal != 0)
 		{
-			__choice = posmod(_choice + _input_horizontal, 2);
-			__choice_previous = _choice;
+			__choice = posmod(__choice + _input_horizontal, 2);
+			__choice_previous = __choice;
 		}
 		
 		else if (_input_vertical != 0)
@@ -41,7 +41,7 @@ else if (__menu == 0) // Instruction - Main menu
 
 	    else if (_input_confirm)
 	    {
-			switch (_choice)
+			switch (__choice)
 			{
 				case 0: // Continue
 					Player_Load(0);
@@ -231,7 +231,7 @@ else if (__menu == 2) // Name Confirmation
 	{
 	    if (__choice_confirm == 0) // No
 		{
-	        __menu = (!_mode ? 1 : 0);
+	        __menu = (!__mode ? 1 : 0);
 			if (TweenExists(__tween_confirm_name_x))
 				TweenDestroy(__tween_confirm_name_x);
 			if (TweenExists(__tween_confirm_name_y))

@@ -1,63 +1,62 @@
 ///@desc Name Check 
-var text = "";
-var valid = true;
-switch (string_lower(_naming_name))
+var _text = "", _valid = true;
+switch (string_lower(__naming_name))
 {
 	default:
-		text = lexicon_text("menu.confirm.title.default");
+		_text = lexicon_text("menu.confirm.title.default");
 		break;
 	case "aaaaaa":
-		text = lexicon_text("menu.confirm.title.aaaaaa");
+		_text = lexicon_text("menu.confirm.title.aaaaaa");
 		break;
 	case "alphys":
-		text = lexicon_text("menu.confirm.title.alphys");
-		valid = false;
+		_text = lexicon_text("menu.confirm.title.alphys");
+		_valid = false;
 		break;
 	case "alphy":
-		text = lexicon_text("menu.confirm.title.alphy");
+		_text = lexicon_text("menu.confirm.title.alphy");
 		break;
 	case "asgore":
-		text = lexicon_text("menu.confirm.title.asgore");
-		valid = false;
+		_text = lexicon_text("menu.confirm.title.asgore");
+		_valid = false;
 		break;
 	case "toriel":
-		text = lexicon_text("menu.confirm.title.toriel");
-		valid = false;
+		_text = lexicon_text("menu.confirm.title.toriel");
+		_valid = false;
 		break;
 	case "asriel":
-		text = lexicon_text("menu.confirm.title.asriel");
-		valid = false;
+		_text = lexicon_text("menu.confirm.title.asriel");
+		_valid = false;
 		break;
 	case "flowey":
-		text = lexicon_text("menu.confirm.title.flowey");
-		valid = false;
+		_text = lexicon_text("menu.confirm.title.flowey");
+		_valid = false;
 		break;
 	case "sans":
-		text = lexicon_text("menu.confirm.title.sans");
-		valid = false;
+		_text = lexicon_text("menu.confirm.title.sans");
+		_valid = false;
 		break;
 	case "papyru":
-		text = lexicon_text("menu.confirm.title.papyru");
+		_text = lexicon_text("menu.confirm.title.papyru");
 		break;
 	case "undyne":
-		text = lexicon_text("menu.confirm.title.undyne");
-		valid = false;
+		_text = lexicon_text("menu.confirm.title.undyne");
+		_valid = false;
 		break;
 	case "mtt":
 	case "metta":
 	case "mett":
-		text = lexicon_text("menu.confirm.title.mtt");
+		_text = lexicon_text("menu.confirm.title.mtt");
 		break;
 	case "chara":
-		text = lexicon_text("menu.confirm.title.chara");
+		_text = lexicon_text("menu.confirm.title.chara");
 		break;
 	case "frisk":
-		text = lexicon_text("menu.confirm.title.frisk");
+		_text = lexicon_text("menu.confirm.title.frisk");
 		break;
 }
 
-_confirm_title = text;
-_confirm_valid = valid;
+__confirm_title = _text;
+__confirm_valid = _valid;
 
-_menu_label_confirm_title = scribble(_confirm_title).starting_format("font_dt_sans", c_white).transform(2, 2, 0);
-_menu_label_confirm_title.build(true);
+__menu_label_confirm_title = scribble(__confirm_title).starting_format("font_dt_sans", c_white).transform(2, 2, 0);
+__menu_label_confirm_title.build(true);

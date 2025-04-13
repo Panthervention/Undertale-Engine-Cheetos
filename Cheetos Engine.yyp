@@ -1123,9 +1123,9 @@
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
     {"roomId":{"name":"room_init","path":"rooms/room_init/room_init.yy",},},
-    {"roomId":{"name":"room_battle","path":"rooms/room_battle/room_battle.yy",},},
     {"roomId":{"name":"room_title_screen","path":"rooms/room_title_screen/room_title_screen.yy",},},
     {"roomId":{"name":"room_area_0","path":"rooms/room_area_0/room_area_0.yy",},},
+    {"roomId":{"name":"room_battle","path":"rooms/room_battle/room_battle.yy",},},
     {"roomId":{"name":"room_gameover","path":"rooms/room_gameover/room_gameover.yy",},},
     {"roomId":{"name":"room_shop","path":"rooms/room_shop/room_shop.yy",},},
     {"roomId":{"name":"room_prototype","path":"rooms/room_prototype/room_prototype.yy",},},

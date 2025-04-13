@@ -1,61 +1,53 @@
-var proc = 0;
-repeat (4)
+var _i = 0; repeat (4)
 {
-    if (move[proc] > 0)
+    if (move[_i] > 0)
     {
         if (!dir_locked)
-            dir = proc;
-        var move_x = 0;
-        var move_y = 0;
-        if (proc == DIR.UP || proc == DIR.DOWN)
-            move_y = 0.05 * (proc == DIR.UP ? -1 : 1);
-        else if (proc == DIR.LEFT || proc == DIR.RIGHT)
-            move_x = 0.05 * (proc == DIR.LEFT ? -1 : 1);
-        repeat (move_speed[proc] * 20)
+            dir = _i;
+        var _move_x = 0, _move_y = 0;
+        if (_i == DIR.UP || _i == DIR.DOWN)
+            _move_y = move_speed[_i] * (_i == DIR.UP ? -1 : 1);
+        else if (_i == DIR.LEFT || _i == DIR.RIGHT)
+            _move_x = move_speed[_i] * (_i == DIR.LEFT ? -1 : 1);
+        var _moveable = true;
+        if (collision)
         {
-            var cmove = true;
-            if (collision)
+            var _list = __collision_list;
+            ds_list_clear(_list);
+            var _n = instance_place_list(x + _move_x, y + _move_y, obj_block, _list, false);
+            var _j = 0; repeat (_n)
             {
-                var list = _collision_list;
-                ds_list_clear(list);
-                var num = instance_place_list(x + move_x, y + move_y, obj_block, list, false);
-                var procl = 0;
-                repeat (num)
+                var _collision = _list[| _j];
+                if (instance_exists(_collision))
                 {
-                    var inst = list[| procl];
-                    if (instance_exists(inst))
+                    if (_collision.block_enabled)
                     {
-                        if (inst.block_enabled)
-                        {
-                            cmove = false;
-                            break;
-                        }
+                        _moveable = false;
+                        break;
                     }
-                    procl += 1;
                 }
+                _j += 1;
             }
-            if (cmove)
-            {
-                x += move_x;
-                y += move_y;
-            }
-            else
-                break;
         }
-        move[proc] -= 1;
+        if (_moveable)
+        {
+            x += _move_x;
+            y += _move_y;
+        }
+        move[_i] -= 1;
     }
-    proc += 90;
+    _i += 90;
 }
 
-var refresh = ((dir != _dir_previous || talking != _talking_previous || (move[dir] > 0) != (_move_previous > 0)) && !res_override);
-if (refresh)
+var _refresh = ((dir != __dir_previous || talking != __talking_previous || (move[dir] > 0) != (__move_previous > 0)) && !res_override);
+if (_refresh)
 {
     if (move[DIR.UP] > 0 || move[DIR.DOWN] > 0 || move[DIR.LEFT] > 0 || move[DIR.RIGHT] > 0)
     {
         sprite_index = res_move_sprite[dir];
         image_index = res_move_image[dir];
         image_speed = res_move_speed[dir];
-        image_xscale *= ((res_move_flip_x[dir] && sign(image_xscale)==1) || (!res_move_flip_x[dir] && sign(image_xscale)==-1) ? -1 : 1);
+        image_xscale *= ((res_move_flip_x[dir] && sign(image_xscale) == 1) || (!res_move_flip_x[dir] && sign(image_xscale) == -1) ? -1 : 1);
     }
     else if (talking)
     {
@@ -73,6 +65,6 @@ if (refresh)
     }
 }
 
-_talking_previous = talking;
-_dir_previous = dir;
-_move_previous = move[dir];
+__talking_previous = talking;
+__dir_previous = dir;
+__move_previous = move[dir];

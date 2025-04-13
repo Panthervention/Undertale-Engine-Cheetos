@@ -4,20 +4,17 @@ if (global.inv > 0)
 	global.inv--;
 	if (Player_GetInv() > 3)
 	{
-		if image_speed == 0
+		if (image_speed == 0)
 		{
 			image_speed = 1/2;
 			image_index = 1;
 		}
 	}
 }
-else
+else if (image_speed != 0)
 {
-	if (image_speed != 0)
-	{
-		image_speed = 0;
-		image_index = 0;
-	}
+	image_speed = 0;
+	image_index = 0;
 }
 #endregion
 
@@ -45,7 +42,7 @@ if (STATE == BATTLE_STATE.TURN_PREPARATION or STATE == BATTLE_STATE.IN_TURN)
 	}
 	#endregion
 	
-	if follow_board
+	if (follow_board)
 	{
 		x += board_x - board.xprevious;
 		y += board_y - board.yprevious;

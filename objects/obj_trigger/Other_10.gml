@@ -1,2 +1,2 @@
 ///@desc Trigger
-_triggered = true;
+__triggered = true;

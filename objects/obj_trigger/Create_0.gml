@@ -1,3 +1,3 @@
 user_char = -1;
-_triggered = false;
-_collided_previous = false;
+__triggered = false;
+__collided_previous = false;

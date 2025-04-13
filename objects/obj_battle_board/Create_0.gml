@@ -22,10 +22,12 @@ bg_color = c_black;
 #region	Private Functions
 __point_xy = function(_point_x, _point_y)
 {
-	var _angle = -image_angle;
+	var _angle = image_angle;
 	
-	__point_x = ((_point_x - x) * dcos(_angle)) - ((_point_y - y) * dsin(_angle)) + x;
-	__point_y = ((_point_y - y) * dcos(_angle)) + ((_point_x - x) * dsin(_angle)) + y;
+	//__point_x = ((_point_x - x) * dcos(_angle)) - ((_point_y - y) * dsin(_angle)) + x;
+	//__point_y = ((_point_y - y) * dcos(_angle)) + ((_point_x - x) * dsin(_angle)) + y;
+	__point_x = lengthdir_x(_point_x - x, _angle) + lengthdir_y(_point_y - y, -_angle) + x;
+	__point_y = lengthdir_x(_point_y - y, _angle) - lengthdir_y(_point_x - x, -_angle) + y;
 }
 #endregion
 

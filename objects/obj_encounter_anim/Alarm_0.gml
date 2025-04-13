@@ -1,4 +1,4 @@
-if (Encounter_IsExists(__encounter) && instance_exists(obj_char_player))
+if (Encounter_Exists(__encounter) && instance_exists(obj_char_player))
 {
     if (__exclam)
     {

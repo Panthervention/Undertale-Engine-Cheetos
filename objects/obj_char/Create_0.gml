@@ -17,10 +17,9 @@ move[DIR.RIGHT] = 0;
 
 collision = true;
 
-_collision_list = ds_list_create();
+__collision_list = ds_list_create();
 
-var proc = 0;
-repeat (4)
+var proc = 0; repeat (4)
 {
     res_idle_sprite[proc] = (sprite_exists(sprite_index) ? sprite_index : spr_fallback_default);
     res_idle_image[proc] = 0;
@@ -42,6 +41,6 @@ repeat (4)
 
 res_override = false;
 
-_talking_previous = !talking;
-_dir_previous = -1;
-_move_previous = -1;
+__talking_previous = !talking;
+__dir_previous = -1;
+__move_previous = -1;

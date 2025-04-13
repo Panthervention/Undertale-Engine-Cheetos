@@ -1,5 +1,4 @@
 /// @description Game Display
-
 with (border)
 {
 	var _display_width = display_get_width(),

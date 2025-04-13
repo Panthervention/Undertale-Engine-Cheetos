@@ -1,1 +1,1 @@
-ds_list_destroy(_collision_list);
+ds_list_destroy(__collision_list);

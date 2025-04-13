@@ -1,5 +1,5 @@
-var can_move = (moveable && __moveable_dialog && __moveable_menu && __moveable_save && __moveable_box && __moveable_warp && __moveable_encounter);
-if (can_move)
+var _moveable = (moveable && __moveable_dialog && __moveable_menu && __moveable_save && __moveable_box && __moveable_warp && __moveable_encounter);
+if (_moveable)
 {
     if (input_check("up"))
         move[DIR.UP] = 1.5;
@@ -37,25 +37,25 @@ if (can_move)
 	
     if (PRESS_CONFIRM)
     {
-        var inst = noone;
+        var _collision = noone;
 		switch (dir)
 		{
 			case DIR.UP:
-	            inst = collision_rectangle(x - sprite_width / 2 + 4, y - 5, x + sprite_width / 2 - 4, y - sprite_height + 5, obj_char, false, true);
+	            _collision = collision_rectangle(x - sprite_width / 2 + 4, y - 5, x + sprite_width / 2 - 4, y - sprite_height + 5, obj_char, false, true);
 				break;
 			case DIR.DOWN:
-				inst = collision_rectangle(x - sprite_width / 2 + 4, y - sprite_height + 20, x + sprite_width / 2 - 4, y + 15, obj_char, false, true);
+				_collision = collision_rectangle(x - sprite_width / 2 + 4, y - sprite_height + 20, x + sprite_width / 2 - 4, y + 15, obj_char, false, true);
 				break;
 	        case DIR.LEFT:
-	            inst = collision_rectangle(x, y - sprite_height + 19, x + sprite_width / 2 - 15, y, obj_char, false, true);
+	            _collision = collision_rectangle(x, y - sprite_height + 19, x + sprite_width / 2 - 15, y, obj_char, false, true);
 				break;
 	        case DIR.RIGHT:
-	            inst = collision_rectangle(x, y - sprite_height + 19, x + sprite_width / 2 + 15, y, obj_char, false, true);
+	            _collision = collision_rectangle(x, y - sprite_height + 19, x + sprite_width / 2 + 15, y, obj_char, false, true);
 				break;
 		}
-        if (instance_exists(inst))
+        if (instance_exists(_collision))
         {
-            with (inst)
+            with (_collision)
                 event_user(0);
         }
     }

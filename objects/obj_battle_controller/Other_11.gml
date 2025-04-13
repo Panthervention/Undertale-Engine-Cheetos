@@ -1,87 +1,85 @@
-/// @description UI (vital bars, name, LV)
-var hp_x = ui_x; //global.kr_enable != true ? ui_x : (ui_x - 20); (UT Mechanic, but I don't feel like using this)
-var hp_y = ui_y;
+/// @description UI (vital bars, _name, LV)
+var _hp_x = ui_x; //global.kr_enable != true ? ui_x : (ui_x - 20); (UT Mechanic, but I don't feel like using this)
+var _hp_y = ui_y;
 	
-var name_x = ui_x - 245;
-var name_y = ui_y;
+var _name_x = ui_x - 245;
+var _name_y = ui_y;
 	
-var default_col = c_white;
+var _col_default = c_white;
 	
-var name = Player_GetName();
-var col_name = c_white;
+var _name = Player_GetName();
+var _col_name = c_white;
 	
-var lv = Player_GetLv();
-var col_lv = c_white;
-var col_lv_counter = c_white;
+var _lv = Player_GetLv();
+var _col_lv = c_white;
+var _col_lv_counter = c_white;
 	
-var hp = global.hp;
-var hp_max = global.hp_max;
-var kr = global.kr;
+var _hp = global.hp;
+var _hp_max = global.hp_max;
+var _kr = global.kr;
 	
-if kr > hp - 1
-	kr = hp - 1;
+if (_kr > _hp - 1)
+	_kr = _hp - 1;
 	
-var bar_multiplier = 1.2; // Default multiplier from UNDERTALE
-var bar_hp = hp * bar_multiplier;
-var bar_hp_max = hp_max * bar_multiplier;
-var bar_kr = -(kr * bar_multiplier);
+var _bar_multiplier = 1.2; // Default multiplier from UNDERTALE
+var _bar_hp = _hp * _bar_multiplier;
+var _bar_hp_max = _hp_max * _bar_multiplier;
+var _bar_kr = -(_kr * _bar_multiplier);
 
-var col_hp = c_yellow;
-var col_hp_max = merge_color(c_red, c_maroon, 0.5); // Smh not red :lmao:
-var col_kr = c_fuchsia;
+var _col_hp = c_yellow;
+var _col_hp_max = merge_color(c_red, c_maroon, 0.5); // Smh not red :lmao:
+var _col_kr = c_fuchsia;
 	
-var hp_text_col = c_white;
-var hp_text = "HP";
-var kr_text = "KR";
+var _col_hp_icon = c_white;
+var _hp_icon = "HP";
+var _kr_icon = "KR";
 
 draw_set_font(font_mars_needs_cunnilingus); // Name - LV Font
 draw_set_alpha(ui_alpha);
 // Name
-draw_text_color(name_x, name_y, name, col_name, col_name, col_name, col_name, ui_alpha);
+draw_text_color(_name_x, _name_y, _name, _col_name, _col_name, _col_name, _col_name, ui_alpha);
 // LV Icon
-draw_text_color(name_x + string_width(name), name_y, "   LV ", col_lv, col_lv, col_lv, col_lv, ui_alpha);
+draw_text_color(_name_x + string_width(_name), _name_y, "   LV ", _col_lv, _col_lv, _col_lv, _col_lv, ui_alpha);
 // LV Counter
-draw_text_color(name_x + string_width(name + "   LV "), name_y, string(lv), col_lv_counter, col_lv_counter, col_lv_counter, col_lv_counter, ui_alpha);
+draw_text_color(_name_x + string_width(_name + "   LV "), _name_y, string(_lv), _col_lv_counter, _col_lv_counter, _col_lv_counter, _col_lv_counter, ui_alpha);
 
 // Background bar
-draw_sprite_ext(spr_pixel, 0, hp_x, hp_y, bar_hp_max, 20, 0, col_hp_max, ui_alpha);
+draw_sprite_ext(spr_pixel, 0, _hp_x, _hp_y, _bar_hp_max, 20, 0, _col_hp_max, ui_alpha);
 
 // HP bar
-draw_sprite_ext(spr_pixel, 0, hp_x, hp_y, bar_hp, 20, 0, col_hp, ui_alpha);
+draw_sprite_ext(spr_pixel, 0, _hp_x, _hp_y, _bar_hp, 20, 0, _col_hp, ui_alpha);
 	
 draw_set_font(font_ut_hp); // Icon Font
 // HP Icon
-draw_text_color((hp_x - 31), hp_y + 5, hp_text, default_col, default_col, default_col, default_col, ui_alpha);
+draw_text_color((_hp_x - 31), _hp_y + 5, _hp_icon, _col_default, _col_default, _col_default, _col_default, ui_alpha);
 
 // KR bar
 if (global.kr_enable)
 {
-	if (round(kr) > 0)
+	if (round(_kr) > 0)
 	{
-		hp_text_col = col_kr;
+		_col_hp_icon = _col_kr;
 		// Draw the bar
-		draw_sprite_ext(spr_pixel, 0, hp_x + bar_hp, hp_y, bar_kr, 20, 0, col_kr, ui_alpha);
+		draw_sprite_ext(spr_pixel, 0, _hp_x + _bar_hp, _hp_y, _bar_kr, 20, 0, _col_kr, ui_alpha);
 	}
-	else hp_text_col = c_white;
+	else _col_hp_icon = c_white;
 		
 	// Draw icon
-	draw_text_color((hp_x + 10) + (hp_max * bar_multiplier), hp_y + 5, kr_text, hp_text_col, hp_text_col, hp_text_col, hp_text_col, ui_alpha);
+	draw_text_color((_hp_x + 10) + (_hp_max * _bar_multiplier), _hp_y + 5, _kr_icon, _col_hp_icon, _col_hp_icon, _col_hp_icon, _col_hp_icon, ui_alpha);
 }
 
 // Zeropadding
-var hp_counter = string(round(hp));
-var hp_max_counter = string(round(hp_max));
-if round(hp) < 10 hp_counter = "0" + string(round(hp));
-if round(hp_max) < 10 hp_max_counter = "0" + string(round(hp_max));
+var _hp_counter = $"{(round(_hp) < 10) ? "0" : ""}{round(_hp)}";
+var _hp_max_counter = $"{(round(_hp_max) < 10) ? "0" : ""}{round(_hp_max)}";
 
 // This line below supports multiple digits for Zeropadding, but I just personally don't like it. 
-// var hp_counter = string_replace_all(string_format(round(hp), string_length(string(hp_max)), 0), " ", "0");
+// var hp_counter = string_replace_all(string_format(round(_hp), string_length(string(_hp_max)), 0), " ", "0");
 
 // Draw the health counter
-draw_set_color(hp_text_col);
+draw_set_color(_col_hp_icon);
 draw_set_font(font_mars_needs_cunnilingus); // Counter Font
-var offset = global.kr_enable <= false ? 15 : (20 + string_width(kr_text));
-draw_text((hp_x + offset) + (hp_max * bar_multiplier), hp_y, hp_counter + " / " + hp_max_counter);
+var _offset = (!global.kr_enable) ? 15 : (20 + string_width(_kr_icon));
+draw_text((_hp_x + _offset) + (_hp_max * _bar_multiplier), _hp_y, $"{_hp_counter} / {_hp_max_counter}");
 
 draw_set_alpha(1);
 draw_set_color(c_white);

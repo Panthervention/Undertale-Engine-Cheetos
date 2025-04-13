@@ -1,18 +1,17 @@
 depth = DEPTH_UI.PANEL;
 
-_color = c_white;
+__color = c_white;
 
-_box_slot = 0;
-_choice_mode = 0;
-_choice_item = 0;
-
+__box_slot = 0;
+__choice_mode = 0;
+__choice_item = 0;
 
 if (instance_exists(obj_char_player))
-    obj_char_player._moveable_box = false;
+    obj_char_player.__moveable_box = false;
 
-_label_inventory = lexicon_text("ui.box.inventory");
-_label_box		 = lexicon_text("ui.box.box");
-_label_finish	 = lexicon_text("ui.box.finish");
+__label_inventory	= lexicon_text("ui.box.inventory");
+__label_box			= lexicon_text("ui.box.box");
+__label_finish		= lexicon_text("ui.box.finish");
 
-_prefix = "[scale, 2][font_dt_sans]";
+__prefix = "[scale, 2][font_dt_sans]";
 event_user(0); // Update item label

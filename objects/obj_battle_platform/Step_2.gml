@@ -1,7 +1,7 @@
 xdelta = x - xprevious;
 ydelta = y - yprevious;
 
-if destroyable
+if (destroyable)
 {
 	var destroy = false;
 	var end_point = length;

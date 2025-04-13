@@ -28,8 +28,8 @@ if (__label_address_count > 0)
 
 if (__menu == 0) // Main Menu Navigation
 {
-	var soul_y = 205 + 32 * _choice;
-    draw_sprite_ext(spr_battle_soul, 0, 65, soul_y, 1, 1, 0, c_red, 1);
+	var _soul_y = 205 + 32 * __choice;
+    draw_sprite_ext(spr_battle_soul, 0, 65, _soul_y, 1, 1, 0, c_red, 1);
 }
 #endregion
 

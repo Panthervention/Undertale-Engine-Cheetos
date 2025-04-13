@@ -20,10 +20,10 @@ switch (__menu)
         }
         else if (_input_confirm)
         {
-            if (_choice == 0)
+            if (__choice == 0)
 				__menu = (Item_Count() > 0) ? 1 : 0;
             else
-				__menu = _choice + 2;    
+				__menu = __choice + 2;    
             audio_play_sound(snd_menu_confirm, 0, false);
         }
 		else if (_input_menu || _input_cancel)

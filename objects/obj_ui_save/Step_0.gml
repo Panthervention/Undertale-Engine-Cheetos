@@ -19,7 +19,7 @@ else if (__state == 0) // Saving
 	}
     else if (_input_confirm)
     {
-        if (_choice == 0) // Saved
+        if (__choice == 0) // Saved
         {
             __state = 1;
 			
