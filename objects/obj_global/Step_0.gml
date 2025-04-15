@@ -59,10 +59,6 @@ with (border)
 #endregion
 
 #region		Debug Logic
-if mouse_check_button_pressed(mb_left)
-{
-	show_debug_message(Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.ITEM));
-}
 if (allow_debug && !released && keyboard_check_pressed(vk_f3))
 	global.debug ^= 1;
 if (global.debug)

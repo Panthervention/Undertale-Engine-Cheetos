@@ -28,8 +28,8 @@ switch (turn)
 		if (slam < slam_max)
 		{
 			slam_side = irandom(3);
-			var _wall_dir = [SOUL_DIR.UP, SOUL_DIR.DOWN, SOUL_DIR.LEFT, SOUL_DIR.RIGHT];
-			Battle_SoulSlam(_wall_dir[slam_side]);
+			var _dir = [DIR.UP, DIR.DOWN, DIR.LEFT, DIR.RIGHT];
+			Battle_SoulSlam(_dir[slam_side]);
 			alarm[1] = 10;
 		}
 		else

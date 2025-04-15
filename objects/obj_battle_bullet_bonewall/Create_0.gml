@@ -7,7 +7,6 @@ active = false;
 timer = 0;
 
 type = 0;
-type_warn = 1;
 
 state = 0;
 dir = 0;

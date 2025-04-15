@@ -3,11 +3,11 @@ if (round(global.hp) <= 0)
 {
 	if (!global.debug)
 	{
-		var camera_x = camera.x,
-			camera_y = camera.y;
+		var _camera_x = camera.x,
+			_camera_y = camera.y;
 			
-		Flag_Set(FLAG_TYPE.TEMP, FLAG_TEMP.GAMEOVER_SOUL_X, x - camera_x);
-		Flag_Set(FLAG_TYPE.TEMP, FLAG_TEMP.GAMEOVER_SOUL_Y, y - camera_y);
+		Flag_Set(FLAG_TYPE.TEMP, FLAG_TEMP.GAMEOVER_SOUL_X, x - _camera_x);
+		Flag_Set(FLAG_TYPE.TEMP, FLAG_TEMP.GAMEOVER_SOUL_Y, y - _camera_y);
 		room_goto(room_gameover);
 	}
 	else

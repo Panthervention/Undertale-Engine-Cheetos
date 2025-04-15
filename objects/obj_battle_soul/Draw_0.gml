@@ -1,14 +1,13 @@
-var STATE = Battle_GetState();
-var MENU = Battle_GetMenu();
+var _battle_state = Battle_GetState(), _menu_state = Battle_GetMenu();
 if (
-	STATE == BATTLE_STATE.IN_TURN or 
-	STATE == BATTLE_STATE.TURN_PREPARATION or 
-   (STATE == BATTLE_STATE.MENU     and MENU != BATTLE_MENU.FIGHT_AIM and 
-    MENU != BATTLE_MENU.FIGHT_ANIM and MENU != BATTLE_MENU.FIGHT_DAMAGE)
+	_battle_state == BATTLE_STATE.IN_TURN || 
+	_battle_state == BATTLE_STATE.TURN_PREPARATION || 
+   (_battle_state == BATTLE_STATE.MENU    && _menu_state != BATTLE_MENU.FIGHT_AIM && 
+    _menu_state != BATTLE_MENU.FIGHT_ANIM && _menu_state != BATTLE_MENU.FIGHT_DAMAGE)
    )
-	draw_self();
+	draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle + 90, image_blend, image_alpha);
 
-if effect
+if (effect)
 {
 	var _sprite = sprite_index;
 	var _xscale = effect_xscale;
@@ -18,6 +17,6 @@ if effect
 	var _color = image_blend;
 	var _x = effect_x;
 	var _y = effect_y;
-	draw_sprite_ext(_sprite,0,_x,_y,_xscale,_yscale,_angle,_color,_alpha);
+	draw_sprite_ext(_sprite, 0, _x, _y, _xscale, _yscale, _angle + 90, _color, _alpha);
 }
 

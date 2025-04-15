@@ -6,6 +6,7 @@ lexicon_language_set("English");
 lexicon_index_fallback_language_set("English");
 #endregion
 
+Input_Init();
 Flag_Init();
 Encounter_Init();
 Dialog_Init();

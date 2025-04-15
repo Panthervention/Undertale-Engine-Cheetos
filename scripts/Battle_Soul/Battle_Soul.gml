@@ -3,8 +3,8 @@
 ///@desc Set the mode for the soul (red, blue, ...).
 ///@param {Real}	[soul_mode]		The mode to set to the soul (Default: SOUL_MODE.RED).
 ///@param {Bool}	[effect]		Whenever there will be effect when the soul mode is set. (Default: true)
-///@param {Real}	[angle]			The angle to set to the soul. (Default: SOUL_DIR.DOWN)
-function Battle_SetSoulMode(_soul = SOUL_MODE.RED, _effect = true, _angle = SOUL_DIR.DOWN)
+///@param {Real}	[angle]			The angle to set to the soul. (Default: DIR.DOWN)
+function Battle_SetSoulMode(_soul = SOUL_MODE.RED, _effect = true, _angle = DIR.DOWN)
 {
 	var _color = c_red;
 	
@@ -18,7 +18,7 @@ function Battle_SetSoulMode(_soul = SOUL_MODE.RED, _effect = true, _angle = SOUL
 		if (_soul > 0) image_blend = _color;
 		
 		mode = _soul;
-		image_angle = _angle;
+		image_angle = _angle % 360;
 		
 		fall_spd = 0;
 		fall_grav = 0;
@@ -70,10 +70,10 @@ function Battle_SoulSlam(_dir, _slam_power = global.slam_power)
 
 	with (obj_battle_enemy_sans)
 	{
-		if (_dir == SOUL_DIR.UP)     action = SANS_ACTION.UP;
-		if (_dir == SOUL_DIR.DOWN)   action = SANS_ACTION.DOWN;
-		if (_dir == SOUL_DIR.LEFT)   action = SANS_ACTION.LEFT;
-		if (_dir == SOUL_DIR.RIGHT)  action = SANS_ACTION.RIGHT;
+		if		(_dir == DIR.UP)		action = SANS_ACTION.UP;
+		else if (_dir == DIR.DOWN)		action = SANS_ACTION.DOWN;
+		else if (_dir == DIR.LEFT)		action = SANS_ACTION.LEFT;
+		else if (_dir == DIR.RIGHT)		action = SANS_ACTION.RIGHT;
 
 	    __action_step = 0;
 	    alarm[0] = 25;

@@ -37,9 +37,6 @@
     "name":"spr_char_sans_down",
     "path":"sprites/spr_char_sans_down/spr_char_sans_down.yy",
   },
-  "spriteMaskId":{
-    "name":"spr_char_sans_mask",
-    "path":"sprites/spr_char_sans_mask/spr_char_sans_mask.yy",
-  },
+  "spriteMaskId":null,
   "visible":true,
 }

@@ -40,9 +40,6 @@
     "name":"spr_char_frisk_down",
     "path":"sprites/spr_char_frisk_down/spr_char_frisk_down.yy",
   },
-  "spriteMaskId":{
-    "name":"spr_char_frisk_mask",
-    "path":"sprites/spr_char_frisk_mask/spr_char_frisk_mask.yy",
-  },
+  "spriteMaskId":null,
   "visible":true,
 }

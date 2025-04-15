@@ -27,13 +27,14 @@ switch (Battle_GetMenu())
         }
         break;
     case BATTLE_MENU.FIGHT_DAMAGE:
-        if (Battle_GetMenuFightDamage() != 1)
+        if (Battle_GetMenuFightDamage() >= 0)
         {
             if (Battle_GetTurnNumber() != 24)
             {
 				// Dodged so miss
                 var _miss = instance_create_depth(320, (y - 185), 0, obj_battle_damage);
-                _miss.damage = -2;
+                _miss.damage = "MISS";
+				_miss.color = c_gray;
             }
             else
             {

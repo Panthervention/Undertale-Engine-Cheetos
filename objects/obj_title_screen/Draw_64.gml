@@ -13,7 +13,7 @@ if (__menu == -1) // Logo
 else if (__menu == 0) // Instruction - Main menu
 {
 	draw_set_format(font_crypt_of_tomorrow, c_gray);
-	draw_set_align(fa_center, fa_middle);
+	draw_set_align(fa_center, fa_bottom);
     draw_text_transformed(320, 475, __info_copyright, 2, 2, 0);
 	draw_set_align();
 	draw_set_color(c_white);
@@ -22,8 +22,8 @@ else if (__menu == 0) // Instruction - Main menu
 	if (__mode == 0) // Instruction Page
 	{
 		var _info_instruction_col = __color_instruction,
-			_info_begin_col = __choice == 0 ? __color_chosen : __color_default,
-			_info_settings_col = __choice == 1 ? __color_chosen : __color_default;
+			_info_begin_col = (__choice == 0) ? __color_chosen : __color_default,
+			_info_settings_col = (__choice == 1) ? __color_chosen : __color_default;
 			
 		draw_text_transformed_color(170, 40, __info_instruction, 2, 2, 0, _info_instruction_col, _info_instruction_col, _info_instruction_col, _info_instruction_col, 1);
 		draw_text_transformed_color(170, 344, __info_begin, 2, 2, 0, _info_begin_col, _info_begin_col, _info_begin_col, _info_begin_col, 1);
@@ -34,9 +34,9 @@ else if (__menu == 0) // Instruction - Main menu
 		// The Ruins Entrance background
 		draw_sprite_ext(spr_bg_area_1, 0, 320, -240, 2, 2, 0, c_white, 1);
 		
-		var _info_continue_col  = __choice == 0 ? __color_chosen : __color_default,
-			_info_reset_col		= __choice == 1 ? __color_chosen : __color_default,
-			_info_settings_col	= __choice == 2 ? __color_chosen : __color_default;
+		var _info_continue_col  = (__choice == 0) ? __color_chosen : __color_default,
+			_info_reset_col		= (__choice == 1) ? __color_chosen : __color_default,
+			_info_settings_col	= (__choice == 2) ? __color_chosen : __color_default;
 		draw_text_transformed(140, 124, __info_name, 2, 2, 0);
 		draw_text_transformed(308, 124, __info_lv, 2, 2, 0);
 		draw_text_transformed(452, 124, __info_timer, 2, 2, 0);
@@ -73,9 +73,9 @@ else if (__menu == 1)
 	}
 	#endregion
 
-	var _info_quit_col		= __choice_naming != 0 && __choice_naming_command == 0 ? __color_chosen : __color_default,
-		_info_backspace_col	= __choice_naming != 0 && __choice_naming_command == 1 ? __color_chosen : __color_default,
-		_info_done_col		= __choice_naming != 0 && __choice_naming_command == 2 ? __color_chosen : __color_default;
+	var _info_quit_col		= (__choice_naming != 0) && __choice_naming_command == 0 ? __color_chosen : __color_default,
+		_info_backspace_col	= (__choice_naming != 0) && __choice_naming_command == 1 ? __color_chosen : __color_default,
+		_info_done_col		= (__choice_naming != 0) && __choice_naming_command == 2 ? __color_chosen : __color_default;
 	draw_text_transformed_color(120, 400, __info_quit, 2, 2, 0, _info_quit_col, _info_quit_col, _info_quit_col, _info_quit_col, 1); 
 	draw_text_transformed_color(240, 400, __info_backspace, 2, 2, 0, _info_backspace_col, _info_backspace_col, _info_backspace_col, _info_backspace_col, 1);
 	draw_text_transformed_color(440, 400, __info_done, 2, 2, 0, _info_done_col, _info_done_col, _info_done_col, _info_done_col, 1);
@@ -86,7 +86,7 @@ else if (__menu == 2)
 	draw_set_format(font_dt_sans, __color_default);
 	__menu_label_confirm_title.draw(180, 60);
 	
-	var _info_nope_col	= __choice_confirm == 0 ? __color_chosen : __color_default,
+	var _info_nope_col	= (__choice_confirm == 0) ? __color_chosen : __color_default,
 		_info_yeso_col	= __confirm_valid ? (__choice_confirm ? __color_chosen : __color_default) : c_dkgray;
 	draw_text_transformed_color(146, 400, __info_nope, 2, 2, 0, _info_nope_col, _info_nope_col, _info_nope_col, _info_nope_col, 1);
 	draw_text_transformed_color(460, 400, __info_yeso, 2, 2, 0, _info_yeso_col, _info_yeso_col, _info_yeso_col, _info_yeso_col, 1);

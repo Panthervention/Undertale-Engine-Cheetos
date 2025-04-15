@@ -2,59 +2,58 @@ if (active)
 {
 	if (time_warn <= 0)
 	{
-		var spr = bone_index,
-			spr_width = sprite_get_width(spr);
+		var _spr = bone_index,
+			_spr_width = sprite_get_width(_spr);
 
-		var board = obj_battle_board,
-			board_x = board.x,
-			board_y = board.y,
-			board_u = board_y - board.up,
-			board_d = board_y + board.down,
-			board_l = board_x - board.left,
-			board_r = board_x + board.right;
+		var _board = obj_battle_board,
+			_board_x = _board.x,
+			_board_y = _board.y,
+			_board_u = _board_y - _board.up,
+			_board_d = _board_y + _board.down,
+			_board_l = _board_x - _board.left,
+			_board_r = _board_x + _board.right;
 			
-		var soul = obj_battle_soul;
+		var _soul = obj_battle_soul;
 			
-		var wall_angle = 0,
-			wall_head = (spr_width / 2) - 1;
+		var _wall_angle = 0,
+			_wall_head = (_spr_width / 2) - 1;
 		
-		if (dir == DIR.UP or dir == DIR.DOWN)
+		if (dir == DIR.UP || dir == DIR.DOWN)
 		{
-			wall_angle = BONE.VERTICAL;
+			_wall_angle = BONE.VERTICAL;
 			
-			var bone_y = 0;
+			var _bone_y = 0;
 			
 			if (dir == DIR.UP)
-				bone_y = [(board_u - wall_head) + (height / 2), board_u, (board_u - wall_head + height) - 1];
-			if (dir == DIR.DOWN)
-				bone_y = [(board_d + wall_head) - (height / 2), board_d, (board_d + wall_head - height) - 1];
+				_bone_y = [(_board_u - _wall_head) + (height / 2), _board_u, (_board_u - _wall_head + height) - 1];
+			else if (dir == DIR.DOWN)
+				_bone_y = [(_board_d + _wall_head) - (height / 2), _board_d, (_board_d + _wall_head - height) - 1];
 				
-			if !global.inv && collision_rectangle(board_l + 2, bone_y[1], board_r - 3, bone_y[2], soul, false, true)
+			if (!global.inv && collision_rectangle(_board_l + 2, _bone_y[1], _board_r - 3, _bone_y[2], _soul, false, true))
 			{
-				var white = type != 1 || type != 2,
-					blue = type == 1 && Battle_IsSoulMoving(),
-					orange = type == 2 && !Battle_IsSoulMoving();
-				if (white || blue || orange)
+				var _white = type != 1 || type != 2,
+					_blue = type == 1 && Battle_IsSoulMoving(),
+					_orange = type == 2 && !Battle_IsSoulMoving();
+				if (_white || _blue || _orange)
 					Battle_CallSoulEventBulletCollision();
 			}	
-		}
-		
-		if (dir == DIR.LEFT or dir == DIR.RIGHT)
+		}		
+		else if (dir == DIR.LEFT || dir == DIR.RIGHT)
 		{
-			wall_angle = BONE.HORIZONTAL;
+			_wall_angle = BONE.HORIZONTAL;
 			
-			var bone_x = 0;
+			var _bone_x = 0;
 			if (dir == DIR.LEFT)
-				bone_x = [(board_l - wall_head) + (height / 2), board_l, (board_l - wall_head + height) - 1];
-			if (dir == DIR.RIGHT)
-				bone_x = [(board_r + wall_head) - (height / 2), board_r, (board_r + wall_head - height) - 1];
+				_bone_x = [(_board_l - _wall_head) + (height / 2), _board_l, (_board_l - _wall_head + height) - 1];
+			else if (dir == DIR.RIGHT)
+				_bone_x = [(_board_r + _wall_head) - (height / 2), _board_r, (_board_r + _wall_head - height) - 1];
 
-			if !global.inv && collision_rectangle(bone_x[1], board_u + 2, bone_x[2], board_d - 3, soul, false, true)
+			if (!global.inv && collision_rectangle(_bone_x[1], _board_u + 2, _bone_x[2], _board_d - 3, _soul, false, true))
 			{
-				var white = type != 1 || type != 2,
-					blue = type == 1 && Battle_IsSoulMoving(),
-					orange = type == 2 && !Battle_IsSoulMoving();
-				if (white || blue || orange)
+				var _white = type != 1 || type != 2,
+					_blue = type == 1 && Battle_IsSoulMoving(),
+					_orange = type == 2 && !Battle_IsSoulMoving();
+				if (_white || _blue || _orange)
 					Battle_CallSoulEventBulletCollision();
 			}
 		}

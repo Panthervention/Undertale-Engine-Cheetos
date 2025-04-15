@@ -2,133 +2,129 @@ if (!active)
 	exit;
 else
 {
-	var spr = bone_index,
-		spr_outline = bone_index_outline,
-		spr_index = bone_sub,
-		spr_width = sprite_get_width(spr),
-		spr_height = sprite_get_height(spr) + 2;
+	var _spr = bone_index,
+		_spr_outline = bone_index_outline,
+		_spr_index = bone_sub,
+		_spr_width = sprite_get_width(_spr),
+		_spr_height = sprite_get_height(_spr) + 2;
 	
-	var color = ((type == 1) ? c_aqua : ((type == 2) ? c_orange : c_white)),
-		color_outline = color;
+	var _color = ((type == 1) ? c_aqua : ((type == 2) ? c_orange : c_white)),
+		_color_outline = _color;
 	
-	var board = obj_battle_board,
-		board_x = board.x,
-		board_y = board.y,
-		board_u = board_y - board.up,
-		board_d = board_y + board.down,
-		board_l = board_x - board.left,
-		board_r = board_x + board.right;
+	var _board = obj_battle_board,
+		_board_x = _board.x,
+		_board_y = _board.y,
+		_board_u = _board_y - _board.up,
+		_board_d = _board_y + _board.down,
+		_board_l = _board_x - _board.left,
+		_board_r = _board_x + _board.right;
 
 	if (time_warn > 0)
 	{
-		if (type_warn == 1)
-		{
-			var x1 = 0,
-				y1 = 0,
-				x2 = 0,
-				y2 = 0;
+		var _x1 = 0,
+			_y1 = 0,
+			_x2 = 0,
+			_y2 = 0;
 		
-			if (dir == DIR.UP or dir == DIR.DOWN)
+		if (dir == DIR.UP || dir == DIR.DOWN)
+		{
+			_x1 = _board_l + 2;
+			_x2 = _board_r - 3;
+			
+			if (dir == DIR.UP)
 			{
-				x1 = board_l + 2;
-				x2 = board_r - 3;
-			
-				if (dir == DIR.UP)
-				{
-					y1 = board_u + 2;
-					y2 = board_u + target_height - 2;
-				}
-				if (dir == DIR.DOWN)
-				{
-					y1 = board_d - 2;
-					y2 = board_d - target_height + 2;
-				}
+				_y1 = _board_u + 2;
+				_y2 = _board_u + target_height - 2;
 			}
-			if (dir == DIR.LEFT or dir == DIR.RIGHT)
+			else if (dir == DIR.DOWN)
 			{
-				y1 = board_u + 2;
-				y2 = board_d - 3;
-			
-				if (dir == DIR.LEFT)
-				{
-					x1 = board_l + 2;
-					x2 = board_l + target_height - 2;
-				}
-				if (dir == DIR.RIGHT)
-				{
-					x1 = board_r - 2;
-					x2 = board_r - target_height;
-				}
+				_y1 = _board_d - 2;
+				_y2 = _board_d - target_height + 2;
 			}
-			
-			Battle_BoardMaskSet(true);
-			draw_set_alpha(warn_alpha_filled);
-			draw_set_color(warn_color);
-			draw_rectangle(x1, y1, x2, y2, false);
-			
-			draw_set_alpha(1);
-			draw_set_color(warn_color);
-			draw_rectangle(x1, y1, x2, y2, true);
-			Battle_BoardMaskReset();
 		}
-		if (type_warn == 2)
-			draw_sprite_ext(spr_pap_gasta_hand, 0, 520, 135, warn_scale, warn_scale, dir, c_white, warn_alpha);	
+		else if (dir == DIR.LEFT || dir == DIR.RIGHT)
+		{
+			_y1 = _board_u + 2;
+			_y2 = _board_d - 3;
+			
+			if (dir == DIR.LEFT)
+			{
+				_x1 = _board_l + 2;
+				_x2 = _board_l + target_height - 2;
+			}
+			else if (dir == DIR.RIGHT)
+			{
+				_x1 = _board_r - 2;
+				_x2 = _board_r - target_height;
+			}
+		}
+			
+		Battle_BoardMaskSet(true);
+		draw_set_alpha(warn_alpha_filled);
+		draw_set_color(warn_color);
+		draw_rectangle(_x1, _y1, _x2, _y2, false);
+			
+		draw_set_alpha(1);
+		draw_set_color(warn_color);
+		draw_rectangle(_x1, _y1, _x2, _y2, true);
+		Battle_BoardMaskReset();
+		
 		draw_set_alpha(1);
 		draw_set_color(c_white);
 	}
 	else
 	{
 		Battle_BoardMaskSet(true);
-		var wall_angle = 0,
-			wall_head = (spr_width / 2) - 1,
-			wall_height = target_height > 0 ? ((target_height / spr_width) + ((wall_head / spr_width) * 2)) : 0;
+		var _wall_angle = 0,
+			_wall_head = (_spr_width / 2) - 1,
+			_wall_height = target_height > 0 ? ((target_height / _spr_width) + ((_wall_head / _spr_width) * 2)) : 0;
 		
-		if (dir == DIR.UP or dir == DIR.DOWN)
+		if (dir == DIR.UP || dir == DIR.DOWN)
 		{
-			wall_angle = BONE.VERTICAL;
+			_wall_angle = BONE.VERTICAL;
 			
-			var bone_y = 0;
+			var _bone_y = 0;
 			
 			if (dir == DIR.UP)
-				bone_y = [(board_u - wall_head) + (height / 2), board_u, (board_u - wall_head + height) - 1];
-			if (dir == DIR.DOWN)
-				bone_y = [(board_d + wall_head) - (height / 2), board_d, (board_d + wall_head - height) - 1];
+				_bone_y = [(_board_u - _wall_head) + (height / 2), _board_u, (_board_u - _wall_head + height) - 1];
+			else if (dir == DIR.DOWN)
+				_bone_y = [(_board_d + _wall_head) - (height / 2), _board_d, (_board_d + _wall_head - height) - 1];
 	
-			for (var i = board_l - spr_height, n = board_r + spr_height, u = spr_height; i < n; i += u)
+			for (var _i = _board_l - _spr_height, _n = _board_r + _spr_height, u = _spr_height; _i < _n; _i += u)
 			{
-				draw_sprite_ext(spr, spr_index,	i, bone_y[0], wall_height, 1, wall_angle, color, image_alpha);
-				draw_sprite_ext(spr_outline, spr_index,	i, bone_y[0], wall_height, 1, wall_angle, color_outline, image_alpha);
+				draw_sprite_ext(_spr, _spr_index,	_i, _bone_y[0], _wall_height, 1, _wall_angle, _color, image_alpha);
+				draw_sprite_ext(_spr_outline, _spr_index,	_i, _bone_y[0], _wall_height, 1, _wall_angle, _color_outline, image_alpha);
 			}
 			if (global.show_hitbox)
 			{
 				draw_set_color(c_green);
 				draw_set_alpha(0.25);
-				draw_rectangle(board_l + 2, bone_y[1], board_r - 3, bone_y[2], false);
+				draw_rectangle(_board_l + 2, _bone_y[1], _board_r - 3, _bone_y[2], false);
 				draw_set_alpha(1);
 				draw_set_color(c_white);
 			}
 		}
-		if (dir == DIR.LEFT or dir == DIR.RIGHT)
+		else if (dir == DIR.LEFT || dir == DIR.RIGHT)
 		{
-			wall_angle = BONE.HORIZONTAL;
+			_wall_angle = BONE.HORIZONTAL;
 			
-			var bone_x = 0;
+			var _bone_x = 0;
 			if (dir == DIR.LEFT)
-				bone_x = [(board_l - wall_head) + (height / 2), board_l, (board_l - wall_head + height) - 1];
-			if (dir == DIR.RIGHT)
-				bone_x = [(board_r + wall_head) - (height / 2), board_r, (board_r + wall_head - height) - 1];
+				_bone_x = [(_board_l - _wall_head) + (height / 2), _board_l, (_board_l - _wall_head + height) - 1];
+			else if (dir == DIR.RIGHT)
+				_bone_x = [(_board_r + _wall_head) - (height / 2), _board_r, (_board_r + _wall_head - height) - 1];
 				
-			for (var i = board_u - spr_height, n = board_r + spr_height, u = spr_height; i < n; i += u)
+			for (var _i = _board_u - _spr_height, _n = _board_r + _spr_height, u = _spr_height; _i < _n; _i += u)
 			{
-				draw_sprite_ext(spr, spr_index, bone_x[0], i, wall_height, 1, wall_angle, color, image_alpha);
-				draw_sprite_ext(spr_outline, spr_index, bone_x[0], i, wall_height, 1, wall_angle, color_outline, image_alpha);
+				draw_sprite_ext(_spr, _spr_index, _bone_x[0], _i, _wall_height, 1, _wall_angle, _color, image_alpha);
+				draw_sprite_ext(_spr_outline, _spr_index, _bone_x[0], _i, _wall_height, 1, _wall_angle, _color_outline, image_alpha);
 			}
 			
 			if (global.show_hitbox)
 			{
 				draw_set_color(c_green);
 				draw_set_alpha(0.25);
-				draw_rectangle(bone_x[1], board_u + 2, bone_x[2], board_d - 3, false);
+				draw_rectangle(_bone_x[1], _board_u + 2, _bone_x[2], _board_d - 3, false);
 				draw_set_alpha(1);
 				draw_set_color(c_white);
 			}

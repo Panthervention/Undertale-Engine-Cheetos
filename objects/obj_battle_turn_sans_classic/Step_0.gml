@@ -9,7 +9,7 @@ switch (turn)
 		if (timer == 15)
 			Battle_Flash(off);
 		if (timer == 45)
-			Battle_SoulSlam(SOUL_DIR.DOWN);
+			Battle_SoulSlam(DIR.DOWN);
 		else if (timer == 75)
 		{
 			Bullet_BoneWall(DIR.DOWN, 55, 12, 60);
