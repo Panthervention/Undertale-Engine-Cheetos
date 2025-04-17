@@ -1,7 +1,7 @@
 depth = DEPTH_BATTLE.SOUL;
 image_speed = 0;
 image_blend = c_red;
-image_angle = DIR.DOWN
+image_angle = DIR.DOWN;
 
 follow_board = false;
 
@@ -12,7 +12,7 @@ with (global)
 	kr_enable = false;
 }
 
-mode = SOUL_MODE.RED;
+mode = SOUL.RED;
 
 fall_spd = 0;
 fall_grav = 0;
@@ -30,12 +30,17 @@ moveable = true;
 hor_lock = false;
 ver_lock = false;
 
-effect = false;
-effect_xscale = 1;
-effect_yscale = 1;
-effect_alpha = 1;
-effect_angle = image_angle;
-effect_x = x;
-effect_y = y;
+input_rotateable = false;
+
+after_effect_angle = image_angle;
+
+__after_effect_system = part_system_create();
+__after_effect_type = part_type_create();
+
+part_system_depth(__after_effect_system, depth - 1);
+part_type_sprite(__after_effect_type, sprite_index, false, false, false);
+part_type_life(__after_effect_type, 1/0.035, 1/0.035);
+part_type_size(__after_effect_type, 1, 1, 0.15, 0);
+part_type_alpha2(__after_effect_type, 1, 0);
 
 tween = noone;

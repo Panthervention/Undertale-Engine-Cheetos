@@ -267,17 +267,10 @@ enum PLOT
 #endregion
 
 #region Soul
-enum SOUL_MODE
+enum SOUL
 {
 	RED = 1,
 	BLUE = 2,
-}
-enum SOUL_DIR
-{
-	DOWN = 0,
-	UP = 180,
-	LEFT = 270,
-	RIGHT = 90,
 }
 #endregion
 

@@ -1,0 +1,2 @@
+part_type_destroy(__after_effect_type);
+part_system_destroy(__after_effect_system);

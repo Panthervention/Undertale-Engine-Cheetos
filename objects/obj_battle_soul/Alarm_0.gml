@@ -1,9 +1,4 @@
-audio_play_sound(snd_ding, 1, false)
-effect_xscale = 1;
-effect_yscale = 1;
-effect_alpha = 1;
-effect_angle = image_angle;
-effect_x = x;
-effect_y = y;
-event_perform(ev_alarm,1);
-
+///@desc After Effect
+audio_play_sound(snd_ding, 1, false);
+part_type_orientation(__after_effect_type, after_effect_angle, after_effect_angle, 0, 0, 0);
+part_particles_create_color(__after_effect_system, x, y, __after_effect_type, image_blend, 1);

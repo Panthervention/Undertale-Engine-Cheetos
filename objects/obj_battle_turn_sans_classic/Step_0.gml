@@ -16,7 +16,7 @@ switch (turn)
 			Bullet_BoneWaveH(-160, 310, 6, 24, 20, 45, 28, 1/3);
 		}
 		else if (timer == 115)
-			Battle_SetSoulMode(SOUL_MODE.RED);
+			Battle_SetSoulMode(SOUL.RED);
 		else if (timer == 136)
 			audio_play_sound(snd_gb_charge, 0, false);
 		else if (timer == 210 || timer == 310)

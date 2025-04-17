@@ -5,7 +5,7 @@ var _button_spr = button_spr;
 var _button_pos = button_pos;
 var _button_alpha = button_alpha;
 var _button_scale = button_scale;
-var _button_color = button_color; 
+var _button_color = button_color;
 var _battle_state = Battle_GetState();
 var _menu_state = Battle_GetMenu(); 
 
@@ -22,7 +22,7 @@ for (var i = 0; i < array_length(_button_spr); ++i) // Button create
 	
 	draw_sprite_ext(_button_spr[i], select, _button_pos[i][0], _button_pos[i][1], _button_scale[i], _button_scale[i], 0, make_color_rgb(_button_color[i][0],_button_color[i][1],_button_color[i][2]), _button_alpha[i]);
 	
-	if status_check // Animation updating because fuck yes
+	if status_check // Animation updating
 	{
 		if _button_slot == i // The chosen button
 		{
@@ -53,3 +53,9 @@ for (var i = 0; i < array_length(_button_spr); ++i) // Button create
 		_button_color[i][2] += ((button_color_target[i][0][2]) - (_button_color[i][2])) / 6;
 	}
 }
+
+button_spr = _button_spr;
+button_pos = _button_pos;
+button_alpha = _button_alpha;
+button_scale = _button_scale;
+button_color = _button_color;

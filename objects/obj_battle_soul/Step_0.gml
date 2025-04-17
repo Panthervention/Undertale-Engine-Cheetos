@@ -18,12 +18,21 @@ else if (image_speed != 0)
 }
 #endregion
 
-#region Soul Movement (idk why but to maintain full functionality it has to be this way)
-var _battle_state = Battle_GetState();
+#region Soul Movement
+var _battle_state = Battle_GetState(), _menu_state = Battle_GetMenu();
+if (_battle_state == BATTLE_STATE.MENU && _menu_state == BATTLE_MENU.BUTTON)
+{
+	var _button_pos = obj_battle_controller.button_pos,
+		_button_scale = obj_battle_controller.button_scale,
+		_button = Battle_GetMenuChoiceButton();
+	x = lerp(x, _button_pos[_button][0] - round(38 + (_button_scale[_button] - 1.0) * 45), 1/3);
+	y = lerp(y, _button_pos[_button][1] + 1, 1/3);
+}
 if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_STATE.IN_TURN)
 {
 	image_angle %= 360;
-	var _angle = (image_angle + 90) % 360;
+	var _angle = image_angle,
+		_angle_compensation = (_angle + 90) % 360;
 	
 	var _hspeed = (!hor_lock) ? CHECK_HORIZONTAL : 0,
 		_vspeed = (!ver_lock) ? CHECK_VERTICAL   : 0,
@@ -58,14 +67,15 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 	
 	switch (mode)
 	{
-		case SOUL_MODE.RED:			
+		case SOUL.RED:  #region
 			if (!hor_lock)
-				x += (_hspeed * _mspeed) * dcos(_angle);
+				x += (_hspeed * _mspeed) * (input_rotateable ? dcos(_angle_compensation) : 1);
 			if (!ver_lock)
-				y += (_vspeed * _mspeed) * dcos(_angle);
+				y += (_vspeed * _mspeed) * (input_rotateable ? dcos(_angle_compensation) : 1);
 			break;
+		#endregion
 			
-		case SOUL_MODE.BLUE:			
+		case SOUL.BLUE:	#region
 			var _jump_input = 0,
 				_move_input = 0;
 			
@@ -94,8 +104,8 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_dir = point_direction(_board_x, _board_y, x, y) - _board_dir,
 				_r_x = lengthdir_x(_dist, _dir) + _board_x,
 				_r_y = lengthdir_y(_dist, _dir) + _board_y,
-				_displace_x = lengthdir_x(_x_offset + (_board_thickness / 2), _angle - 90) + (2 * dcos((_board_angle % 90) - 90)),
-				_displace_y = lengthdir_y(_y_offset + (_board_thickness / 2), _angle - 90) + (2 * dsin(_board_angle % 90));
+				_displace_x = lengthdir_x(_x_offset + (_board_thickness / 2), _angle) + (2 * dcos(_board_angle % 90)),
+				_displace_y = lengthdir_y(_y_offset + (_board_thickness / 2), _angle) + (2 * dsin((_board_angle % 90) + 90));
 			
 			var _sin = dsin(_board_angle),
 				_cos = dcos(_board_angle);
@@ -141,8 +151,7 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			#region Collision processing
 			var _platform_check_position = array_create(4, 0);
 			#region Input and collision check of different directions of soul
-			// Up
-			if (_angle == 180)
+			if (_angle == DIR.UP)
 			{
 				if (_board_exists)
 				{
@@ -156,8 +165,7 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_jump_input = CHECK_DOWN;
 				_move_input = _hspeed * -_mspeed;
 			}
-			// Down
-			else if (_angle == 0)
+			else if (_angle == DIR.DOWN)
 			{
 				if (_board_exists)
 				{
@@ -171,8 +179,7 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_jump_input = CHECK_UP;
 				_move_input = _hspeed * _mspeed;
 			}
-			// Left
-			else if (_angle == 270)
+			else if (_angle == DIR.LEFT)
 			{
 				if (_board_exists)
 				{
@@ -186,8 +193,7 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_jump_input = CHECK_RIGHT;
 				_move_input = _vspeed * _mspeed;
 			}
-			// Right
-			else if (_angle == 90)
+			else if (_angle == DIR.RIGHT)
 			{
 				if (_board_exists)
 				{
@@ -221,8 +227,8 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_on_platform = true;
 				while position_meeting(x + _platform_check_position[1], y + _platform_check_position[3], obj_battle_platform)
 				{
-					x -= lengthdir_y(0.1, _angle);
-					y -= lengthdir_x(0.1, _angle);
+					x -= lengthdir_y(0.1, _angle_compensation);
+					y -= lengthdir_x(0.1, _angle_compensation);
 				}
 			}
 			
@@ -268,9 +274,9 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			#endregion
 			
 			// Rotate the movement by the soul's angle
-			var _move_x = lengthdir_x(_move_input, _angle) - lengthdir_y(_fall_spd, _angle),
-				_move_y = lengthdir_y(_move_input, _angle) + lengthdir_x(_fall_spd, _angle);
-
+			var _move_x = lengthdir_x(_move_input, _angle_compensation) - lengthdir_y(_fall_spd, _angle_compensation),
+				_move_y = lengthdir_y(_move_input, _angle_compensation) + lengthdir_x(_fall_spd, _angle_compensation);
+			
 			on_ground = _on_ground;
 			on_ceil = _on_ceil;
 			on_platform = _on_platform;
@@ -285,6 +291,7 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				y += _move_y;
 			} 
 			break;
+		#endregion
 	}
 	#region Soul clamping (aka the soul stay inside the board)
 	// Collision check for the main bullet board
@@ -303,6 +310,6 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 	}
 	#endregion
 	
-	image_angle = (_angle - 90) % 360;
+	image_angle = _angle;
 }
 #endregion

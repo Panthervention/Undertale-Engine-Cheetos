@@ -13,7 +13,7 @@ switch (turn)
 		Player_SetKr(0);
 	    Player_SetHp(92);
 	    Battle_SetSoulPos(320, 385);
-		Battle_SetSoulMode(SOUL_MODE.BLUE);
+		Battle_SetSoulMode(SOUL.BLUE);
 	    Battle_SetBoardSize(65, 65, 180, 180); // A preset by Toby
 		if (turn == 4)
 		{

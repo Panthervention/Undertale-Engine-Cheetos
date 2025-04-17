@@ -16,12 +16,6 @@ if (__state == BATTLE_STATE.MENU)
             audio_play_sound(snd_menu_switch, 50, false);
         }
 		
-		with (obj_battle_soul)
-		{
-	        x = lerp(x, _button_pos[_button][0] - 47, 1/3);
-	        y = lerp(y, _button_pos[_button][1] + 1, 1/3);
-		}
-		
         if (_input_confirm)
         {
             audio_play_sound(snd_menu_confirm, 50, false);
