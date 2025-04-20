@@ -3,17 +3,68 @@ var _input_vertical = PRESS_VERTICAL,
 	_input_confirm = PRESS_CONFIRM,
 	_input_cancel = PRESS_CANCEL;
 
+with (ui_info)
+{
+	hp = global.hp;
+	hp_max = global.hp_max;
+	kr = global.kr;
+	
+	if (Player_GetName() != name)
+		name = Player_GetName();
+	if (Player_GetLv() != lv)
+		lv = Player_GetLv();
+}
+
+with (ui_button)
+{
+	var _duration = 15;
+	
+	var _battle_state = Battle_GetState(), _menu_state = Battle_GetMenu(), _button = Battle_GetMenuChoiceButton();
+	
+	var _status_check = ( _battle_state == BATTLE_STATE.MENU
+						&& _menu_state != BATTLE_MENU.FIGHT_AIM
+						&& _menu_state != BATTLE_MENU.FIGHT_ANIM
+						&& _menu_state != BATTLE_MENU.FIGHT_DAMAGE);
+	var _i = 0, _n = count(); repeat (_n)
+	{
+		
+		if (_status_check)
+		{
+			if (_i == _button)
+				lerp_timer[_i] = min(lerp_timer[_i] + 1, _duration);	// Increase timer if it's below "_duration"
+			else
+				lerp_timer[_i] = max(lerp_timer[_i] - 1, 0);			// Decrease timer if it's above 0
+		}
+		else
+			lerp_timer[_i] = max(lerp_timer[_i] - 1, 0);				// Decrease timer if it's above 0
+		
+		if (alpha_override[_i] != 1)
+			alpha[_i] = alpha_override[_i];
+				
+		// if no item then color_target[2] = array_create(2, c_ltgray);
+		lerp_scale[_i] = EaseOutQuad(lerp_timer[_i], 0, 1, _duration);
+		color[_i] = merge_color(color_idle, color_active, lerp_scale[_i]);
+		color[_i] = merge_color(c_black, color[_i], alpha[_i]);
+		scale[_i] = lerp(scale_idle, scale_active, lerp_scale[_i]);
+		alpha[_i] = lerp(alpha_idle, alpha_active, lerp_scale[_i]);
+		_i++;
+	}
+}
+
 if (__state == BATTLE_STATE.MENU)
 {
     if (__menu == BATTLE_MENU.BUTTON)
     {
-        var _button_pos = button_pos,
-			_button = Battle_GetMenuChoiceButton();
+        var _button = Battle_GetMenuChoiceButton(),
+			_button_state = ui_button.correspond,
+			_button_count = ui_button.count();
         if (_input_horizontal != 0)
         {
-            _button = posmod(_button + _input_horizontal, 4);
+            _button = _button_state[posmod(_button + _input_horizontal, _button_count)];
             Battle_SetMenuChoiceButton(_button);
             audio_play_sound(snd_menu_switch, 50, false);
+			
+			ui_button.reset_timer();
         }
 		
         if (_input_confirm)
@@ -21,19 +72,19 @@ if (__state == BATTLE_STATE.MENU)
             audio_play_sound(snd_menu_confirm, 50, false);
             switch (Battle_GetMenuChoiceButton())
             {
-                case 0:
+                case BATTLE_BUTTON.FIGHT:
                     Battle_SetMenu(BATTLE_MENU.FIGHT_TARGET);
                     break;
-                case 1:
+                case BATTLE_BUTTON.ACT:
                     Battle_SetMenu(BATTLE_MENU.ACT_TARGET);
                     break;
-                case 2:
+                case BATTLE_BUTTON.ITEM:
                     if (Item_Count() > 0)
                         Battle_SetMenu(BATTLE_MENU.ITEM);
                     else
                         audio_stop_sound(snd_menu_confirm);
                     break;
-                case 3:
+                case BATTLE_BUTTON.MERCY:
                     Battle_SetMenu(BATTLE_MENU.MERCY);
                     break;
             }
@@ -269,7 +320,7 @@ if (__state == BATTLE_STATE.RESULT)
         Battle_End();
 }
 
-if (__state != BATTLE_STATE.RESULT && Battle_GetEnemyNumber() == 0)
+if (__state != BATTLE_STATE.RESULT && Battle_GetEnemyNumber() <= 0)
 {
 	show_debug_message(obj_battle_textwriter.menu_dialog_visible);
     Battle_SetState(BATTLE_STATE.RESULT);

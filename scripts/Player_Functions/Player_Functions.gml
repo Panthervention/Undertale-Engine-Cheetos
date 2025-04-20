@@ -460,13 +460,18 @@ function Player_LvUp(lv) {
 }
 
 ///@func Player_UpdateLv()
-///@desc Update the current LV for the player and execute Player_LvUp() if needed.
+///@desc Update the current LV for the player and execute Player_LvUp() if needed, and return
+///		 whenever the player can level up or not.
+///@return {Bool}
 function Player_UpdateLv() {
-	while ( Player_GetLvExp(Player_GetLv() + 1) != -1 && 
-			Player_GetExp() >= Player_GetLvExp(Player_GetLv() + 1) )
+	var _lv_up = (Player_GetLvExp(Player_GetLv() + 1) != -1 && Player_GetExp() >= Player_GetLvExp(Player_GetLv() + 1));
+	if (_lv_up)
 	{
-	    Player_LvUp(Player_GetLv() + 1);
+		while (Player_GetLvExp(Player_GetLv() + 1) != -1 && Player_GetExp() >= Player_GetLvExp(Player_GetLv() + 1))
+			Player_LvUp(Player_GetLv() + 1);
+		return true;
 	}
+	return false;
 }
 #endregion
 

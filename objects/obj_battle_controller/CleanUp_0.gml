@@ -1,3 +1,9 @@
+delete ui_info;
+delete ui_button;
+
+ui_info = undefined;
+ui_button = undefined;
+
 delete __turn_info;
 delete __menu_item_used_last;
 

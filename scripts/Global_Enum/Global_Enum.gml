@@ -55,6 +55,14 @@ enum BATTLE_MENU
 	ITEM,
 	MERCY,
 }
+
+enum BATTLE_BUTTON
+{
+	FIGHT,
+	ACT,
+	ITEM,
+	MERCY,
+}
 	
 enum BATTLE_MENU_ITEM
 {

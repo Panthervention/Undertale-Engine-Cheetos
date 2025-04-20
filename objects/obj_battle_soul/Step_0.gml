@@ -22,11 +22,11 @@ else if (image_speed != 0)
 var _battle_state = Battle_GetState(), _menu_state = Battle_GetMenu();
 if (_battle_state == BATTLE_STATE.MENU && _menu_state == BATTLE_MENU.BUTTON)
 {
-	var _button_pos = obj_battle_controller.button_pos,
-		_button_scale = obj_battle_controller.button_scale,
+	var _button_pos = obj_battle_controller.ui_button.position,
+		_button_scale = obj_battle_controller.ui_button.scale,
 		_button = Battle_GetMenuChoiceButton();
-	x = lerp(x, _button_pos[_button][0] - round(38 + (_button_scale[_button] - 1.0) * 45), 1/3);
-	y = lerp(y, _button_pos[_button][1] + 1, 1/3);
+	x = lerp(x, _button_pos[_button * 2] - (38 * _button_scale[_button]), 1/3);
+	y = lerp(y, _button_pos[_button * 2 + 1] + 1, 1/3);
 }
 if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_STATE.IN_TURN)
 {

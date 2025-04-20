@@ -1,61 +1,42 @@
-/// @description Button Display
+/// @description Battle Button
 
-var _button_slot = Battle_GetMenuChoiceButton();
-var _button_spr = button_spr;
-var _button_pos = button_pos;
-var _button_alpha = button_alpha;
-var _button_scale = button_scale;
-var _button_color = button_color;
-var _battle_state = Battle_GetState();
-var _menu_state = Battle_GetMenu(); 
-
-for (var i = 0; i < array_length(_button_spr); ++i) // Button create
+with (ui_button)
 {
-	if (Item_Count() <= 0 && i == 2) // If no item left then button commit gray
-		button_color_target[2] = [ [54,54,54],[54,54,54] ];
+	var _button_spr		= sprite,
+		_button_pos		= position,
+		_button_alpha	= alpha,
+		_button_scale	= scale,
+		_button_color	= color,
+		_button_angle	= angle;
 	
-	var status_check = ( _battle_state == BATTLE_STATE.MENU
-						 && _menu_state != BATTLE_MENU.FIGHT_AIM
-						 && _menu_state != BATTLE_MENU.FIGHT_ANIM
-						 && _menu_state != BATTLE_MENU.FIGHT_DAMAGE);
-	var select = (Battle_GetMenuChoiceButton() == i && status_check) // Check if the button is chosen
+	var _battle_state = Battle_GetState(), _menu_state = Battle_GetMenu(), _button = Battle_GetMenuChoiceButton();
 	
-	draw_sprite_ext(_button_spr[i], select, _button_pos[i][0], _button_pos[i][1], _button_scale[i], _button_scale[i], 0, make_color_rgb(_button_color[i][0],_button_color[i][1],_button_color[i][2]), _button_alpha[i]);
-	
-	if status_check // Animation updating
+	var _i = 0, _n = count();
+	if (sprite_background)
 	{
-		if _button_slot == i // The chosen button
+		shader_set(shd_black_mask); // Prevent background cover the buttons
+		repeat (_n) // Initialize buttons
 		{
-			if (_menu_state == BATTLE_MENU.BUTTON)
-			{
-				_button_scale[_button_slot] += (button_scale_target[1] - _button_scale[_button_slot]) / 6;
-				_button_alpha[_button_slot] += (button_alpha_target[1] - _button_alpha[_button_slot]) / 6;
-				_button_color[_button_slot][0] += (button_color_target[_button_slot][1][0] - _button_color[_button_slot][0]) / 6;
-				_button_color[_button_slot][1] += (button_color_target[_button_slot][1][1] - _button_color[_button_slot][1]) / 6;
-				_button_color[_button_slot][2] += (button_color_target[_button_slot][1][2] - _button_color[_button_slot][2]) / 6;					
-			}
+			var _status_check = ( _battle_state == BATTLE_STATE.MENU
+								&& _menu_state != BATTLE_MENU.FIGHT_AIM
+								&& _menu_state != BATTLE_MENU.FIGHT_ANIM
+								&& _menu_state != BATTLE_MENU.FIGHT_DAMAGE);
+			var _button_is_chosen = (_button == _i) && _status_check;
+			// Draw the button by array order
+			var _button_background_color = merge_color(c_white, c_black, 0.5 - (_button_alpha[_i] / 2));
+			draw_sprite_ext(_button_spr[_i], _button_is_chosen, _button_pos[_i * 2], _button_pos[_i * 2 + 1], _button_scale[_i], _button_scale[_i], _button_angle[_i], _button_background_color, 1);
 		}
-		else // Other buttons if they aren't chosen
-		{
-			_button_scale[i] += (button_scale_target[0] - _button_scale[i]) / 6;
-			_button_alpha[i] += (button_alpha_target[0] - _button_alpha[i]) / 6;
-			_button_color[i][0] += ((button_color_target[i][0][0]) - (_button_color[i][0])) / 6;
-			_button_color[i][1] += ((button_color_target[i][0][1]) - (_button_color[i][1])) / 6;
-			_button_color[i][2] += ((button_color_target[i][0][2]) - (_button_color[i][2])) / 6;
-		}
+		shader_reset();
 	}
-	else // If the menu state is over
+	
+	repeat (_n)
 	{
-		_button_scale[i] += (button_scale_target[0] - _button_scale[i]) / 6;
-		_button_alpha[i] += (button_alpha_target[0] - _button_alpha[i]) / 6;
-		_button_color[i][0] += ((button_color_target[i][0][0]) - (_button_color[i][0])) / 6;
-		_button_color[i][1] += ((button_color_target[i][0][1]) - (_button_color[i][1])) / 6;
-		_button_color[i][2] += ((button_color_target[i][0][2]) - (_button_color[i][2])) / 6;
+		var _status_check = ( _battle_state == BATTLE_STATE.MENU
+							&& _menu_state != BATTLE_MENU.FIGHT_AIM
+							&& _menu_state != BATTLE_MENU.FIGHT_ANIM
+							&& _menu_state != BATTLE_MENU.FIGHT_DAMAGE);
+		var _button_is_chosen = (_button == _i) && _status_check;
+		draw_sprite_ext(_button_spr[_i], _button_is_chosen, _button_pos[_i * 2], _button_pos[_i * 2 + 1], _button_scale[_i], _button_scale[_i], _button_angle[_i], _button_color[_i], 1);
+		_i++;
 	}
 }
-
-button_spr = _button_spr;
-button_pos = _button_pos;
-button_alpha = _button_alpha;
-button_scale = _button_scale;
-button_color = _button_color;
