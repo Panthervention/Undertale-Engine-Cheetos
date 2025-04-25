@@ -1,3 +1,4 @@
+depth = DEPTH_BATTLE.UI;
 kr_timer = 0;
 
 with (global)
@@ -11,6 +12,7 @@ instance_create_depth(60, 270, DEPTH_BATTLE.UI_HIGH, obj_battle_textwriter);
 
 ui_info = {};
 ui_button = {};
+ui_fight = {};
 
 with (ui_info)
 {
@@ -81,6 +83,83 @@ with (ui_button)
 	lerp_scale			= array_create(count(), 0);
 	lerp_timer			= array_create(count(), 0);
 	sprite_background	= false;
+}
+
+with (ui_fight)
+{
+	visible = false;
+	// DO NOT CHANGE THE FUNCTION NAMES UNLESS YOU KNOW WHAT YOU ARE DOING!
+	initialize = function()
+	{
+		visible = true;
+		
+		sprite_index = spr_battle_menu_fight_bg;
+		image_index = 0; // 0 for the pixelated - 1 for the HD
+		x = obj_battle_board.x;
+		y = obj_battle_board.y;
+		image_xscale = 1;
+		image_yscale = 1;
+		image_angle = 0;
+		image_blend = c_white;
+		image_alpha = 1;
+		
+		global.menu_hurt = "de-activated";
+		global.deadable = true;
+
+		__dir = choose(DIR.LEFT, DIR.RIGHT);
+		__input_acceptable = 1;
+		__aim_x = 0;
+		__aim_image = 0;
+		__aim_angle = 0;
+		__aim_confirm = false;
+
+		__effect = false;
+		__effect_xscale = 1;
+		__effect_yscale = 1;
+		__effect_alpha = 1;
+		__effect_color = c_white;
+
+		__aim_x = (__dir == DIR.LEFT) ?
+				 (x - obj_battle_board.left - sprite_get_width(spr_battle_menu_fight_recticle) / 2):
+				 (x + obj_battle_board.right + sprite_get_width(spr_battle_menu_fight_recticle) / 2);
+		__aim_x_change = (__dir == DIR.LEFT) ?
+						 (obj_battle_board.left + obj_battle_board.right + sprite_get_width(spr_battle_menu_fight_recticle)):
+						-(obj_battle_board.left + obj_battle_board.right + sprite_get_width(spr_battle_menu_fight_recticle));
+		__aim_x_target = __aim_x + __aim_x_change;
+		__aim_x_tween = TweenFire(self, "", 0, off, 0, 90, "__aim_x>", __aim_x_target);
+	}
+	
+	// Run on BATTLE_MENU.FIGHT_ANIM menu state
+	anim = function()
+	{
+		if ((Battle_GetMenuFightDamage() >= 0) && __aim_confirm == true)
+		{
+			__aim_confirm = 10;
+		    var _enemy_slot = Battle_ConvertMenuChoiceEnemyToEnemySlot(Battle_GetMenuChoiceEnemy()),
+				_enemy_x = Battle_GetEnemyCenterPosX(_enemy_slot),
+				_enemy_y = Battle_GetEnemyCenterPosY(_enemy_slot);
+    
+			var _knife = instance_create_depth(_enemy_x, _enemy_y, 0, obj_battle_menu_fight_anim_knife);
+		}
+	}
+	
+	// Run on BATTLE_MENU.FIGHT_DAMAGE menu state
+	damage = function()
+	{
+		
+	}
+	
+	finish = function()
+	{
+		var _duration = 30;
+		TweenFire(self, "", 0, off, 0, _duration, "image_xscale>", 0);
+		TweenFire(self, "", 0, off, 0, _duration, "image_alpha>", 0);
+		
+		other.alarm[1] = _duration;
+		
+		global.menu_hurt = "activated";
+		global.deadable = false;
+	}
 }
 
 #region Private Variables, tamper cautiously!

@@ -22,7 +22,8 @@ if ((keyboard_check_pressed(vk_f2)) && !global.f2_locked)
 if (keyboard_check_pressed(vk_f4) && !keyboard_check(vk_alt) && !keyboard_check(vk_control) && !keyboard_check(vk_shift))
 {
 	window_set_fullscreen(!window_get_fullscreen());
-	alarm[0] = 1;
+	if (!window_get_fullscreen())
+		alarm[0] = 1;
 	display_set_gui_maximize();
 }
 	
@@ -36,7 +37,8 @@ else
 {
 	if (quit_timer > 0)
 		quit_timer -= 2;
-	else quit_timer = 0
+	else
+		quit_timer = 0
 }
 #endregion
 
@@ -59,18 +61,19 @@ with (border)
 #endregion
 
 #region		Debug Logic
+with (global)
+{
+	__fps_real = floor(fps_real);
+	__fps_average = fps_average;
+	__fps_min = min(max(__fps_min, 0), __fps_real);
+	__fps_max = max(__fps_max, __fps_real);
+}
+
 if (allow_debug && !released && keyboard_check_pressed(vk_f3))
 	global.debug ^= 1;
 if (global.debug)
 {
 	var _input_horizontal = PRESS_HORIZONTAL;
-	with (global)
-	{
-		__fps_real = floor(fps_real);
-		__fps_average = fps_average;
-		__fps_min = min(max(__fps_min, 0), __fps_real);
-		__fps_max = max(__fps_max, __fps_real);
-	}
 	if (keyboard_check(vk_shift))
 	{
 		if (!debug_fps_lock)

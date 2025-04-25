@@ -6,4 +6,3 @@ if (_turn >= 0 && _turn <= 5)
     _dialog.text = $"[voice, snd_text_voice_sans, 1][font_sans]{lexicon_text($"battle.enemy.sans.turn.{_turn}")}";
 else
 	_dialog.text = $"[voice, snd_text_voice_sans, 1][font_sans]{lexicon_text($"battle.enemy.sans.turn.empty")}";
-

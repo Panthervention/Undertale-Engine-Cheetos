@@ -36,21 +36,16 @@ function Battle_SetMenu(_menu, _call_event = true) {
 	{
 	    Battle_SetMenuFightAnimTime(0);
 	    Battle_SetMenuFightDamageTime(0);
-    
-	    var _menu_fight = Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.BATTLE_MENU_FIGHT_OBJ);
-	    if (object_exists(_menu_fight))
-	    {
-	        if (_menu_fight == obj_battle_menu_fight || object_get_base_parent(_menu_fight) == obj_battle_menu_fight)
-	            instance_create_depth(320, 320, 0, _menu_fight);
-	    }
+		
+		obj_battle_controller.ui_fight.initialize();
 	}
  
 	if (_menu == BATTLE_MENU.ACT_ACTION)
 	{
-	    var ENEMY = Battle_ConvertMenuChoiceEnemyToEnemySlot(Battle_GetMenuChoiceEnemy());
-	    var num = Battle_GetEnemyActionNumber(ENEMY);
+	    var _enemy_slot = Battle_ConvertMenuChoiceEnemyToEnemySlot(Battle_GetMenuChoiceEnemy());
+	    var _enemy_action_count = Battle_GetEnemyActionNumber(_enemy_slot);
 
-	    if (Battle_GetMenuChoiceAction() >= num)
+	    if (Battle_GetMenuChoiceAction() >= _enemy_action_count)
 	        Battle_SetMenuChoiceAction(0, false);
 	}
 
@@ -82,22 +77,10 @@ function Battle_SetMenu(_menu, _call_event = true) {
 	    Battle_CallEnemyEvent(BATTLE_ENEMY_EVENT.MENU_SWITCH);
 
 	if (_menu == BATTLE_MENU.FIGHT_ANIM)
-	{
-	    if (instance_exists(obj_battle_menu_fight))
-	    {
-	        with (obj_battle_menu_fight)
-	            event_user(BATTLE_MENU_FIGHT_EVENT.ANIM);
-	    }
-	}
+		obj_battle_controller.ui_fight.anim();
 
 	if (_menu == BATTLE_MENU.FIGHT_DAMAGE)
-	{
-	    if (instance_exists(obj_battle_menu_fight))
-	    {
-	        with (obj_battle_menu_fight)
-	            event_user(BATTLE_MENU_FIGHT_EVENT.DAMAGE);
-	    }
-	}
+		obj_battle_controller.ui_fight.damage();
 }
 
 ///@func Battle_EndMenu()
@@ -118,13 +101,7 @@ function Battle_EndMenu() {
 	    }
     
 	    if (_button == BATTLE_MENU_CHOICE_BUTTON.FIGHT)
-	    {
-	        if (instance_exists(obj_battle_menu_fight))
-	        {
-	            with (obj_battle_menu_fight)
-	                event_user(BATTLE_MENU_FIGHT_EVENT.END);
-	        }
-	    }
+			obj_battle_controller.ui_fight.finish();
 
 	    if (_button == BATTLE_MENU_CHOICE_BUTTON.MERCY && _mercy == BATTLE_MENU_CHOICE_MERCY.FLEE)
 	    {

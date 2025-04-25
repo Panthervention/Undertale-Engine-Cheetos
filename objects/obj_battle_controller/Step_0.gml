@@ -41,7 +41,7 @@ with (ui_button)
 		if (alpha_override[_i] != 1)
 			alpha[_i] = alpha_override[_i];
 				
-		// if no item then color_target[2] = array_create(2, c_ltgray);
+		// If no item then color_target[2] = array_create(2, c_ltgray);
 		lerp_scale[_i] = EaseOutQuad(lerp_timer[_i], 0, 1, _duration);
 		color[_i] = merge_color(color_idle, color_active, lerp_scale[_i]);
 		color[_i] = merge_color(c_black, color[_i], alpha[_i]);
@@ -117,6 +117,53 @@ if (__state == BATTLE_STATE.MENU)
             Battle_SetMenu(BATTLE_MENU.FIGHT_AIM);
         }
     }
+	else if (__menu == BATTLE_MENU.FIGHT_AIM)
+	{
+		with (ui_fight)
+		{
+			if (__input_acceptable)
+			{
+			    if (__aim_x == __aim_x_target)
+				{
+			        Battle_SetMenuFightDamage(-1);
+			        Battle_EndMenuFightAim();
+			        __input_acceptable = false;
+					__aim_confirm = true;
+			    }
+    
+			    if (_input_confirm && __input_acceptable && !__aim_confirm)
+			    {
+					__input_acceptable = false;
+					__aim_confirm = true;
+			        TweenDestroy(__aim_x_tween);
+			        __effect = true;
+			        other.alarm[0] = 1;
+        
+			        var _atk = Player_GetAtkTotal(),
+						_def = Battle_GetEnemyDEF(Battle_ConvertMenuChoiceEnemyToEnemySlot(Battle_GetMenuChoiceEnemy())),
+						_distance = point_distance(x, y, __aim_x, y),
+						_width = sprite_get_width(sprite_index) * 0.5;
+		
+			        var _damage = _atk - _def + random(2);
+
+			        if (_distance <= 12)
+			            _damage *= 2.2;
+			        else
+			            _damage *= (1 - _distance / _width) * 2;
+			
+			        _damage = round(_damage);
+		
+			        if (_damage <= 0)
+			            _damage = 1;
+        
+			        Battle_SetMenuFightDamage(_damage);
+			        Battle_SetMenuFightAnimTime(50);
+			        Battle_SetMenuFightDamageTime(45);
+			        Battle_EndMenuFightAim();
+			    }
+			}
+		}
+	}
     else if (__menu == BATTLE_MENU.FIGHT_ANIM)
     {
         if (__menu_fight_anim_time > 0)

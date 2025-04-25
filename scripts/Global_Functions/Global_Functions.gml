@@ -101,17 +101,20 @@ function draw_set_format(font = font_dt_mono, color = c_white) {
 
 ///@func Fader_Fade(start, target, duration, [delay])
 ///@desc Create screen fade (in/out) effect.
-///@param {Real}	start		The initial alpha value (between 0 and 1).
-///@param {Real}	target		The target alpha value (between 0 and 1).
-///@param {Real}	duration	The duration of the fading effect.
-///@param {Real}	[delay]		The delay before the fading effect start. (Default: 0)
-function Fader_Fade(_start, _target, _duration, _delay = 0) 
+///@param {Real}				start		The initial alpha value (between 0 and 1).
+///@param {Real}				target		The target alpha value (between 0 and 1).
+///@param {Real}				duration	The duration of the fading effect.
+///@param {Real}				[delay]		The delay before the fading effect start. (Default: 0)
+///@param {String, Function}	[ease]		The easing of the fade effect. (Default: "" aka "linear")
+///@param {Constant.Color}		[color]		The color of the fade effect. (Default: c_black)
+function Fader_Fade(_start, _target, _duration, _delay = 0, _ease = "", _color = c_black) 
 {
 	with (obj_global)
 	{	
 		if (TweenExists(fader_tween))
 			TweenDestroy(fader_tween);
-		fader_tween = TweenFire(id, "", 0, off, _delay, _duration, "fader_alpha", _start, _target);
+		fader_tween = TweenFire(id, _ease, 0, off, _delay, _duration, "fader_alpha", _start, _target);
+		fader_color = _color;
 	}
 }
 

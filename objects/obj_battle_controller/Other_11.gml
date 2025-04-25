@@ -1,4 +1,4 @@
-/// @description Battle Info
+/// @description UI - Battle Info
 with (ui_info)
 {
 	var _color_final = image_blend, _alpha_final = image_alpha;

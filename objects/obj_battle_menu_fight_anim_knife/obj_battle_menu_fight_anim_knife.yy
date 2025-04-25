@@ -9,8 +9,8 @@
   "name":"obj_battle_menu_fight_anim_knife",
   "overriddenProperties":[],
   "parent":{
-    "name":"Slice",
-    "path":"folders/Engine/Battle/Menu/Fight/Slice.yy",
+    "name":"Fight",
+    "path":"folders/Engine/Battle/Menu/Fight.yy",
   },
   "parentObjectId":null,
   "persistent":false,

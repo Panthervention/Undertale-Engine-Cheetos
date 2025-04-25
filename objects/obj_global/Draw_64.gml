@@ -21,7 +21,7 @@ if (global.debug)
 	draw_text(5, 65, $"Instances: {instance_count}");
 	draw_text(5, 80, $"Mouse Coords: {mouse_x}x ; {mouse_y}y");
 	draw_text(5, 90, "----------------------------------------");
-	if Player_IsInBattle()
+	if (Player_IsInBattle())
 	{
 		draw_text(5, 100, $"Turn: {Battle_GetTurnNumber()}{instance_exists(obj_battle_turn) ? $" - Timer: {obj_battle_turn.timer}" : "" }");
 		if (instance_exists(obj_battle_soul))

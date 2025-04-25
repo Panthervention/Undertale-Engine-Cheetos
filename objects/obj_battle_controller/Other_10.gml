@@ -1,4 +1,4 @@
-/// @description Battle Button
+/// @description UI - Battle Button
 
 with (ui_button)
 {
@@ -7,15 +7,15 @@ with (ui_button)
 		_button_alpha	= alpha,
 		_button_scale	= scale,
 		_button_color	= color,
-		_button_angle	= angle;
+		_button_angle	= angle,
+		_button_count = count();
 	
 	var _battle_state = Battle_GetState(), _menu_state = Battle_GetMenu(), _button = Battle_GetMenuChoiceButton();
 	
-	var _i = 0, _n = count();
 	if (sprite_background)
 	{
 		shader_set(shd_black_mask); // Prevent background cover the buttons
-		repeat (_n) // Initialize buttons
+		var _i = 0; repeat (_button_count) // Initialize buttons
 		{
 			var _status_check = ( _battle_state == BATTLE_STATE.MENU
 								&& _menu_state != BATTLE_MENU.FIGHT_AIM
@@ -29,7 +29,7 @@ with (ui_button)
 		shader_reset();
 	}
 	
-	repeat (_n)
+	var _i = 0; repeat (_button_count)
 	{
 		var _status_check = ( _battle_state == BATTLE_STATE.MENU
 							&& _menu_state != BATTLE_MENU.FIGHT_AIM
