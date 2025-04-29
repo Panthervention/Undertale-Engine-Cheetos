@@ -1,12 +1,12 @@
 Flag_Set(FLAG_TYPE.TEMP, FLAG_TEMP.TRIGGER_WARP_LANDMARK, target_landmark);
 if (instance_exists(obj_char_player))
 {
-    var pdir = DIR.DOWN;
+    var _player_dir = DIR.DOWN;
     if (player_dir == -1)
-        pdir = obj_char_player.dir;
+        _player_dir = obj_char_player.dir;
     else
-        pdir = player_dir;
-    Flag_Set(FLAG_TYPE.TEMP, FLAG_TEMP.TRIGGER_WARP_DIR, pdir);
+        _player_dir = player_dir;
+    Flag_Set(FLAG_TYPE.TEMP, FLAG_TEMP.TRIGGER_WARP_DIR, _player_dir);
 }
 
 room_goto(target_room);

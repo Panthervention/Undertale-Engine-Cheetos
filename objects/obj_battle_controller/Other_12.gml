@@ -6,7 +6,8 @@ with (ui_fight)
 	
 	Battle_BoardMaskSet(true, true);
 	draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
-	draw_sprite_ext(spr_battle_menu_fight_recticle, __aim_image, __aim_x, y, 1, 1, __aim_angle, c_white, 1);
+	if (image_alpha == 1)
+		draw_sprite(spr_battle_menu_fight_recticle, __aim_image, __aim_x, y);
 	Battle_BoardMaskReset();
 
 	Battle_BoardMaskSet(true, false);

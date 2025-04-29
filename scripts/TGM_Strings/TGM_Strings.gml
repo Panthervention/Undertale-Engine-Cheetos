@@ -5,42 +5,87 @@
 /// @param {string} str Text string.
 /// @param {string} char The character to convert.
 /// @returns {string} 
-function string_password(str, char="*") {
-	return string_repeat(char, string_length(str));
+function string_password(_str, _char="*") {
+	return string_repeat(_char, string_length(_str));
+}
+
+/// @func string_contains(_str, _subStr)
+/// @desc Returns a boolean indicating whether the substring was found within the string.
+/// @arg {String} str Text string.
+/// @arg {String} substr The substring you want to search for within the string.
+/// @returns {Bool}
+function string_contains(_str, _subStr) {
+	return string_pos(_subStr, _str) > 0;
 }
 
 /// @desc Adds some zeros to the string.
 /// @param {string} str Text string.
-/// @param {real} zero_amount The amount of zeros to be added.
+/// @param {real} zeroAmount The amount of zeros to be added.
 /// @returns {string} 
-function string_zeros(str, zero_amount) {
-	return string_replace_all(string_format(str, zero_amount, 0), " ", "0");
+function string_zeros(_str, _zeroAmount) {
+	return string_replace_all(string_format(_str, _zeroAmount, 0), " ", "0");
+}
+
+/// @desc Formats a number that represents money in the game, in a beautiful way, adding surfixes like K, M, B, T. Also supports negative numbers.
+/// @param {String} prefix The cash prefix. Example: "$".
+/// @param {Real} decimals Number of decimals.
+/// @param {Bool} remove_zeroes If true, will remove all decimal zeroes.
+/// @returns {String}
+function string_currency_prettify(_cash, _prefix="$", _decimals=0, _removeZeroes=true) {
+	static _suffixes = ["", "K", "M", "B", "T"];
+	var _cashAbs = abs(_cash),
+		_negativeSymbol = "";
+	if (_cash < 0) {
+		_negativeSymbol = "-";
+	}
+	if (_cashAbs < 1000) {
+		return _prefix + _negativeSymbol + string_format(_cashAbs, 0, _decimals);
+	} else {
+		var _pos = floor(log10(_cashAbs) / 3), // number of digits divided by 3
+			_dividor = power(10, _pos * 3),
+			_value = _cashAbs / _dividor;
+		if (_removeZeroes) {
+			var _fractional = string_replace(string_replace_all(frac(_value), "0", ""), ".", "");
+			_decimals = string_length(_fractional);
+		}
+		return _prefix + _negativeSymbol + string_format(_value, 0, _decimals) + _suffixes[_pos];
+	}
+}
+
+/// @desc Calculates the reading time of a string (useful for dialogues). Returns the value in seconds. Multiply by the game's FPS (example: 60) to obtain the value in frames.
+/// @param {String} string The string/text to get estimated time.
+/// @param {Real} charsPerMinute The average reading speed.
+function string_get_read_time(_string, _charsPerMinute=1000) {
+	var _minutes = string_length(_string) / _charsPerMinute;
+	return ceil(_minutes * 60); // return in seconds
 }
 
 /// @desc Add an ellipsis to the string if it is longer than the given width.
-/// @param {string} str Text string.
-/// @param {real} width The maximum text width.
+/// @param {String} str Text string.
+/// @param {Real} width The maximum text width.
+/// @param {String} suffix The suffix to add after the string, if the text does not reach the width.
 /// @returns {string} 
-function string_limit(str, width) {
-	var _len = width / string_width("M");
-	return string_width(str) < width ? str : string_copy(str, 1, _len) + "...";
+function string_limit(_str, _width, _suffix="...") {
+	var _len = _width / string_width("M");
+	return string_width(_str) < _width ? _str : string_copy(_str, 1, _len) + "...";
 }
 
 /// @desc Add an ellipsis to the string if it is longer than the given width, for non-monospace fonts.
-/// @param {string} str Text string.
-/// @param {real} width The maximum text width.
+/// @param {String} str Text string.
+/// @param {Real} width The maximum text width.
+/// @param {String} suffix The suffix to add after the string, if the text does not reach the width.
 /// @returns {string} 
-function string_limit_nonmono(str, width) {
-	if (string_width(str) < width) return str;
-	var _str = "", _char = "",
-	i = 1, isize = string_length(str), _ww = 0;
+function string_limit_nonmono(_str, _width, _suffix="...") {
+	if (string_width(_str) < _width) return _str;
+	var _strFinal = "", _char = "",
+	i = 1, isize = string_length(_str), _ww = 0;
 	repeat(isize) {
-		_char = string_char_at(str, i);
+		_char = string_char_at(_str, i);
 		_ww += string_width(_char);
-		if (_ww < width) _str += _char;
+		if (_ww < _width) _strFinal += _char;
 		++i;
 	}
-	return _str + "...";
+	return _strFinal + _suffix;
 }
 
 /// @desc Leave each character in the string with random case.
@@ -50,198 +95,81 @@ function string_limit_nonmono(str, width) {
 /// @param {bool} skip_char Define if will skip a character.
 /// @param {string} char The character to skip.
 /// @returns {string} 
-function string_random_letter_case(str, first_is_upper=true, sequence=1, skip_char=true, char=" ") {
-	var _str_final = "", _f1 = undefined, _f2 = undefined;
-	if (first_is_upper) {
+function string_random_letter_case(_str, _firstIsUpper=true, _sequence=1, _skipChar=true, _char=" ") {
+	var _strFinal = "", _f1 = undefined, _f2 = undefined;
+	if (_firstIsUpper) {
 		_f1 = string_lower;
 		_f2 = string_upper;
 	} else {
 		_f1 = string_upper;
 		_f2 = string_lower;
 	}
-	var i = 1, isize = string_length(str), _index = 1;
+	var i = 1, isize = string_length(_str), _index = 1;
 	repeat(isize) {
-		var _char = string_char_at(str, i);
-		_str_final += (_index % (sequence+1) == 0) ? _f1(_char) : _f2(_char);
-		if (!skip_char || _char != char) _index++;
+		var _chr = string_char_at(_str, i);
+		_strFinal += (_index % (_sequence + 1) == 0) ? _f1(_chr) : _f2(_chr);
+		if (!_skipChar || _chr != _char) _index++;
 		++i;
 	}
-	return _str_final;
+	return _strFinal;
 }
 
 /// @desc Capitalize the first letter of the string
 /// @param {string} str Text string.
 /// @returns {string} 
-function string_first_letter_upper_case(str) {
-	var _string = string_lower(str),
-	_str_final = "",
-	i = 1, isize = string_length(str);
+function string_first_letter_upper_case(_str) {
+	var _string = string_lower(_str),
+	_strFinal = "",
+	i = 1, isize = string_length(_str);
 	repeat(isize) {
 		var _char = string_char_at(_string, i);
-		_str_final += (i == 1) ? string_upper(_char) : _char;
+		_strFinal += (i == 1) ? string_upper(_char) : _char;
 		++i;
 	}
-	return _str_final;
+	return _strFinal;
 }
 
 /// @desc Capitalizes each word in the string.
 /// @param {string} str Text string.
 /// @returns {string} 
-function string_word_first_letter_upper_case(str) {
-	var _string = string_lower(str),
-	_str_final = "",
-	i = 1, isize = string_length(str);
+function string_proper_case(_str) {
+	var _string = string_lower(_str),
+	_strFinal = "",
+	i = 1, isize = string_length(_str), _char = "", _pchar = "";
 	repeat(isize) {
-		var _char = string_char_at(_string, i);
-		var _pchar = string_char_at(_string, i-1);
-		_str_final += (_pchar == " " || i == 1) ? string_upper(_char) : _char;
+		_char = string_char_at(_string, i);
+		_strFinal += (_pchar == " " || i == 1) ? string_upper(_char) : _char;
+		_pchar = _char;
 		++i;
 	}
-	return _str_final;
+	return _strFinal;
 }
 
 /// @desc Uppercase letters become lowercase and vice-versa.
 /// @param {string} str Text string.
 /// @returns {string} 
-function string_case_reverse(str) {
-	var _str_final = "",
-	i = 1, isize = string_length(str);
+function string_case_reverse(_str) {
+	var _strFinal = "",
+	i = 1, isize = string_length(_str), _char = "", _charUpper = "", _charLower = "";
 	repeat(isize) {
-		var _char = string_char_at(str, i),
-		_char_upper = string_upper(_char),
-		_char_lower = string_lower(_char);
-		_str_final += (_char == _char_upper) ? _char_lower : _char_upper;
+		_char = string_char_at(_str, i);
+		_charUpper = string_upper(_char);
+		_charLower = string_lower(_char);
+		_strFinal += (_char == _charUpper) ? _charLower : _charUpper;
 		++i;
 	}
-	return _str_final;
+	return _strFinal;
 }
 
 /// @desc Put string characters in reverse order.
 /// @param {string} str Text string.
 /// @returns {string} 
-function string_reverse(str) {
-	var _str_final = "",
-	isize = string_length(str), i = isize;
+function string_reverse(_str) {
+	var _strFinal = "",
+	isize = string_length(_str), i = isize;
 	repeat(isize) {
-		_str_final += string_char_at(str, i);
+		_strFinal += string_char_at(_str, i);
 		--i;
 	}
-	return _str_final;
-}
-/**
-	Converts a string to an array
-	@param {string} string	The string to convert the array to
- */
-function string_to_array(str) {
-	gml_pragma("forceinline");
-	var i = 1, n = string_length(str), arr = [];
-	repeat n array_push(arr, string_copy(str, i++, 1));
-	return arr;
-}
-/**
-	Converts a array to a string
-	@param {Array<string>} array	The array to convert the string to
-*/
-function array_to_string(arr) {
-	gml_pragma("forceinline");
-	var i = 0, n = array_length(arr), txt = "";
-	repeat n txt += arr[i++];
-	return txt;
-}
-
-// replaces all Unicode escapes in a string with corresponding characters
-function string_replace_unicode(str) {
-	gml_pragma("forceinline");
-    var ucode_idx = string_pos_ext("\\u", str, 0);
-    while ucode_idx >= 1 {
-        // replace a Unicode escape with its corresponding character
-        var hex = string_copy(str, ucode_idx + 2, 4),
-			character = chr_from_hex(hex);
-        str = string_copy(str, 1, ucode_idx - 1) + character + string_delete(str, 1, ucode_idx + 3);
-        // the next Unicode sequence will be after the recently found one
-        ucode_idx = string_pos_ext("\\u", str, ucode_idx);
-    }
-    return str;
-}
-
-// parses a hexadecimal number to a corresponding character
-function chr_from_hex(str) {
-	gml_pragma("forceinline");
-    str = string_upper(str);
-    var result = 0, length = string_length(str);
-    for (var i = 1; i <= length; i++) {
-        var c = string_char_at(str, i), val = string_pos(c, "0123456789ABCDEF")-1;
-        result = (result << 4) + val;
-    }
-    return chr(result);
-}
-
-/**
-	Returns a given value as a string of hexadecimal digits.
-	Hexadecimal strings can be padded to a minimum length.
-	Note: If the given value is negative, it will
-	be converted using its two's complement form.
-	@param  {real}      dec		integer
-	@param  {real}      len		minimum number of digits
-*/
-function dec_to_hex(dec, len = 1) {
-	gml_pragma("forceinline");
-    var hex = "";
-
-    if (dec < 0) {
-        len = max(len, ceil(logn(16, 2 * abs(dec))));
-    }
-
-    var dig = "0123456789ABCDEF";
-    while (len-- || dec) {
-        hex = string_char_at(dig, (dec & $F) + 1) + hex;
-        dec = dec >> 4;
-    }
-
-    return hex;
-}
-
-function buffer_read_utf8(_buffer) { // To help read UTF8 strings
-	var _value = buffer_read(_buffer, buffer_u8);
-	if ((_value & 0xE0) == 0xC0) { //two-byte
-		_value  = (_value & 0x1F) <<  6;
-		_value += (buffer_read(_buffer, buffer_u8) & 0x3F);
-	} else if ((_value & 0xF0) == 0xE0) { //three-byte
-		_value  = ( _value & 0x0F) << 12;
-		_value += (buffer_read(_buffer, buffer_u8) & 0x3F) <<  6;
-		_value +=  buffer_read(_buffer, buffer_u8) & 0x3F;
-	} else if ((_value & 0xF8) == 0xF0)  { //four-byte
-		_value  = (_value & 0x07) << 18;
-		_value += (buffer_read(_buffer, buffer_u8) & 0x3F) << 12;
-		_value += (buffer_read(_buffer, buffer_u8) & 0x3F) <<  6;
-		_value +=  buffer_read(_buffer, buffer_u8) & 0x3F;
-	}
-		
-	return _value;	
-}
-
-// Lowers a string using the buffer method, this is faster than the built-in string_lower()
-// Credits to TabularElf
-function string_lower_buffer(_string) {
-	gml_pragma("forceinline");
-	static _strBuffer = buffer_create(1024, buffer_grow, 1);
-	
-	// Exit early
-	var _len = string_byte_length(_string)
-	if (_len == 0) return _string;
-	
-	buffer_seek(_strBuffer, buffer_seek_start, 0);
-	buffer_write(_strBuffer, buffer_text, _string);
-	buffer_seek(_strBuffer, buffer_seek_start, 0);
-	repeat(_len) {
-		var _value = buffer_read_utf8(_strBuffer);
-		if (_value >= 0x41) && (_value <= 0x5A) {
-			buffer_seek(_strBuffer, buffer_seek_relative, -1);
-			buffer_write(_strBuffer, buffer_u8, _value + 32);
-		}
-	}
-	
-	buffer_write(_strBuffer, buffer_u8, 0); // NULL byte, so we can read back what we've changed.
-	buffer_seek(_strBuffer, buffer_seek_start, 0);
-	return buffer_read(_strBuffer, buffer_text);
+	return _strFinal;
 }

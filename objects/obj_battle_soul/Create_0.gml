@@ -43,4 +43,3 @@ part_type_life(__after_effect_type, 1/0.035, 1/0.035);
 part_type_size(__after_effect_type, 1, 1, 0.15, 0);
 part_type_alpha2(__after_effect_type, 1, 0);
 
-tween = noone;

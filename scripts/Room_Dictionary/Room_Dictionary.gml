@@ -4,11 +4,13 @@
 ///@return {String}
 function Player_GetRoomName(_room)
 {
+	static _room_name = "";
 	switch (_room)
 	{
 	    case -1:
-	        return "--";
+	        _room_name = "--";
 	    case room_area_0:
-	        return lexicon_text("overworld.white_space.room_name");
+	        _room_name = lexicon_text("overworld.white_space.room_name");
 	}
+	return _room_name;
 }

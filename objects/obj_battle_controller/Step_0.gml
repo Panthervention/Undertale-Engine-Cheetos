@@ -70,7 +70,7 @@ if (__state == BATTLE_STATE.MENU)
         if (_input_confirm)
         {
             audio_play_sound(snd_menu_confirm, 50, false);
-            switch (Battle_GetMenuChoiceButton())
+            switch (_button)
             {
                 case BATTLE_BUTTON.FIGHT:
                     Battle_SetMenu(BATTLE_MENU.FIGHT_TARGET);
@@ -111,7 +111,7 @@ if (__state == BATTLE_STATE.MENU)
         if (_input_cancel)
             Battle_SetMenu(BATTLE_MENU.BUTTON);
         
-        if (_input_confirm)
+        else if (_input_confirm)
         {
             audio_play_sound(snd_menu_confirm, 50, false);
             Battle_SetMenu(BATTLE_MENU.FIGHT_AIM);

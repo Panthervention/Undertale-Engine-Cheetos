@@ -24,7 +24,8 @@ function Input_Init()
 		check_movement		= 0;
 		check_confirm		= 0;
 		check_cancel		= 0;
-		check_pause 		= 0;
+		
+		timer = 0;
 	}
 
 	with (global)
@@ -45,31 +46,29 @@ function Input_Init()
 		__hash_check_movement = variable_get_hash("check_movement");
 		__hash_check_confirm = variable_get_hash("check_confirm");
 		__hash_check_cancel = variable_get_hash("check_cancel");
-		__hash_check_pause = variable_get_hash("check_pause");
 	}
 
 	#region Input Processing
 	global.__input_timesource = time_source_create(time_source_game, 1, time_source_units_frames, function()
 	{
 		with (input_function)
-		{
-			check_up			= input_check("up");
-			check_down			= input_check("down");
-			check_left			= input_check("left");
-			check_right			= input_check("right");
+		{			
+			check_up			= InputCheck(INPUT_VERB.UP);
+			check_down			= InputCheck(INPUT_VERB.DOWN);
+			check_left			= InputCheck(INPUT_VERB.LEFT);
+			check_right			= InputCheck(INPUT_VERB.RIGHT);
 	
-			press_vertical		= input_check_opposing_pressed("up", "down");
-			press_horizontal	= input_check_opposing_pressed("left", "right");
-			press_confirm		= input_check_pressed("confirm");
-			press_cancel		= input_check_pressed("cancel");
-			press_menu			= input_check_pressed("menu");
+			press_vertical		= InputOpposingPressed(INPUT_VERB.UP, INPUT_VERB.DOWN);
+			press_horizontal	= InputOpposingPressed(INPUT_VERB.LEFT, INPUT_VERB.RIGHT);
+			press_confirm		= InputPressed(INPUT_VERB.CONFIRM);
+			press_cancel		= InputPressed(INPUT_VERB.CANCEL);
+			press_menu			= InputPressed(INPUT_VERB.MENU);
 
-			check_vertical		= input_check_opposing("up", "down");
-			check_horizontal	= input_check_opposing("left", "right");
+			check_vertical		= InputOpposing(INPUT_VERB.UP, INPUT_VERB.DOWN);
+			check_horizontal	= InputOpposing(INPUT_VERB.LEFT, INPUT_VERB.RIGHT);
 			check_movement		= (check_vertical != 0 || check_horizontal != 0);
-			check_confirm		= input_check("confirm");
-			check_cancel		= input_check("cancel");
-			check_pause 		= (input_check("pause") || input_check_double("pause"));
+			check_confirm		= InputCheck(INPUT_VERB.CONFIRM);
+			check_cancel		= InputCheck(INPUT_VERB.CANCEL);
 		}	
 	}, [], -1, time_source_expire_after);
 	time_source_start(global.__input_timesource);
@@ -96,7 +95,6 @@ function Input_Uninit()
 #macro CHECK_IS_MOVING		struct_get_from_hash(input_function, global.__hash_check_movement)
 #macro CHECK_CONFIRM		struct_get_from_hash(input_function, global.__hash_check_confirm)
 #macro CHECK_CANCEL			struct_get_from_hash(input_function, global.__hash_check_cancel)
-#macro CHECK_PAUSE			struct_get_from_hash(input_function, global.__hash_check_pause)
 
 #macro CHECK_UP				struct_get_from_hash(input_function, global.__hash_check_up)
 #macro CHECK_DOWN			struct_get_from_hash(input_function, global.__hash_check_down)
