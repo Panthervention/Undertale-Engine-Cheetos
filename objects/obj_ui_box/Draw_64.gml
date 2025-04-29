@@ -39,4 +39,4 @@ scribble($"{__prefix}{_item_inventory}").draw(68, 72);
 scribble($"{__prefix}{_item_box}").draw(370, 72);
 draw_set_color(c_white);
 
-draw_sprite_ext(spr_battle_soul, 0, 49 + 302 * __choice_mode, 91 + 32 * __choice_item, 1, 1, 0, c_red, 1);
+draw_sprite_ext(spr_battle_soul, 0, 49 + 302 * __choice_mode, 91 + 32 * __choice_item, 1, 1, DIR.DOWN, c_red, 1);

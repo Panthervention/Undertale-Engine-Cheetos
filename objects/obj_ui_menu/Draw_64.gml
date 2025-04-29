@@ -29,7 +29,7 @@ if (__label_address_count > 0)
 if (__menu == 0) // Main Menu Navigation
 {
 	var _soul_y = 205 + 32 * __choice;
-    draw_sprite_ext(spr_battle_soul, 0, 65, _soul_y, 1, 1, 0, c_red, 1);
+    draw_sprite_ext(spr_battle_soul, 0, 65, _soul_y, 1, 1, DIR.DOWN, c_red, 1);
 }
 #endregion
 
@@ -48,14 +48,14 @@ else if (__menu == 1 || __menu == 2)
 	if (__menu == 1)
 	{
 		var _soul_y = 97 + 32 * __choice_item;
-		draw_sprite_ext(spr_battle_soul, 0, 217, _soul_y, 1, 1, 0, c_red, 1);
+		draw_sprite_ext(spr_battle_soul, 0, 217, _soul_y, 1, 1, DIR.DOWN, c_red, 1);
 	}
 
 	if (__menu == 2)
 	{
 	    var _xpreset = [23, 119, 233],
 			_soul_x = 194 + _xpreset[__choice_item_operation];
-	    draw_sprite_ext(spr_battle_soul, 0, _soul_x, 377, 1, 1, 0, c_red, 1);
+	    draw_sprite_ext(spr_battle_soul, 0, _soul_x, 377, 1, 1, DIR.DOWN, c_red, 1);
 	}
 }
 #endregion
@@ -86,7 +86,7 @@ else if (__menu == 4)
 	
 	// Soul Navigation
 	var _soul_y = 97 + 32 * __choice_cell;
-	draw_sprite_ext(spr_battle_soul, 0, 217, _soul_y, 1, 1, 0, c_red, 1);
+	draw_sprite_ext(spr_battle_soul, 0, 217, _soul_y, 1, 1, DIR.DOWN, c_red, 1);
 }
 #endregion
 draw_set_color(c_white);

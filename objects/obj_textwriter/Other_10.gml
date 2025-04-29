@@ -41,7 +41,7 @@ if (sprite_exists(portrait))
 
 #region Option Dialog (Dialog Branching)
 if (option_exist && text_typist.get_state() == 1)
-	draw_sprite_ext(spr_battle_soul, 0, text_x + option_x[option] - 16, text_y + option_y[option], 1, 1, 0, c_red, 1);
+	draw_sprite_ext(spr_battle_soul, 0, text_x + option_x[option] - 16, text_y + option_y[option], 1, 1, DIR.DOWN, c_red, 1);
 
 #endregion
 

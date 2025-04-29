@@ -17,7 +17,7 @@ if (__state == 0 || __state == 1)
 		draw_text_transformed(170, 240, __save, 2, 2, 0);
 		draw_text_transformed(350, 240, __return, 2, 2, 0);
 		var _soul_x = (__choice == 0) ? 151 : 331;
-		draw_sprite_ext(spr_battle_soul, 0, _soul_x, 255, 1, 1, 0, c_red, 1);
+		draw_sprite_ext(spr_battle_soul, 0, _soul_x, 255, 1, 1, DIR.DOWN, c_red, 1);
 	}
 	else
 		draw_text_transformed(170, 240, __saved, 2, 2, 0);
