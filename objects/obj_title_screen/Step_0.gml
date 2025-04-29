@@ -125,7 +125,7 @@ else if (__menu == 1) // Naming
 	        if (string_length(__naming_name) < __naming_length_limit)
 	        {
 	            var _text = __naming_letter[# ((__choice_naming_letter) % 26), 0];
-	            __naming_name += (__choice_naming_letter < 26 ? _text : string_lower_buffer(_text));
+	            __naming_name += (__choice_naming_letter < 26 ? _text : string_lower(_text));
 				__menu_label_naming_name	= scribble(__naming_name).starting_format("font_dt_mono", c_white).transform(2, 2, 0);
 				__menu_label_naming_name.build(true);
 	        }
@@ -247,7 +247,7 @@ else if (__menu == 2) // Name Confirmation
 	        __menu = 3;
 			audio_sound_set_track_position(audio_play_sound(snd_cymbal, 0, false), 1.4);
 			obj_global.fader_color = c_white;
-			Fader_Fade(0, 1, 240);
+			Fader_Fade(0, 1, 240, c_white);
 			alarm[0] = 240;
 		}
 	}

@@ -1,17 +1,17 @@
 var _moveable = (moveable && __moveable_dialog && __moveable_menu && __moveable_save && __moveable_box && __moveable_warp && __moveable_encounter);
 if (_moveable)
 {
-    if (input_check("up"))
+    if (CHECK_UP)
         move[DIR.UP] = 1.5;
-    else if (input_check("down"))
+    if (CHECK_DOWN)
         move[DIR.DOWN] = 1.5;
-    if (input_check("left"))
+    if (CHECK_LEFT)
         move[DIR.LEFT] = 1.5;
-    else if (input_check("right"))
+    if (CHECK_RIGHT)
         move[DIR.RIGHT] = 1.5;
 		
 	#region Sprinting
-	if (input_check("cancel"))
+	if (CHECK_CANCEL)
 	{
 	    move_speed[DIR.UP] = 3;
 	    move_speed[DIR.DOWN] = 3;
@@ -22,7 +22,7 @@ if (_moveable)
 	    res_move_speed[DIR.LEFT] = 1 / 2;
 	    res_move_speed[DIR.RIGHT] = 1 / 2;
 	}
-	else if (!input_check("cancel"))
+	else
 	{
 	    move_speed[DIR.UP] = 1.5;
 	    move_speed[DIR.DOWN] = 1.5;

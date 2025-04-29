@@ -99,15 +99,15 @@ function draw_set_format(font = font_dt_mono, color = c_white) {
 	draw_set_color(color);
 }
 
-///@func Fader_Fade(start, target, duration, [delay])
+///@func Fader_Fade(start, target, duration, [color], [delay], [ease])
 ///@desc Create screen fade (in/out) effect.
 ///@param {Real}				start		The initial alpha value (between 0 and 1).
 ///@param {Real}				target		The target alpha value (between 0 and 1).
 ///@param {Real}				duration	The duration of the fading effect.
+///@param {Constant.Color}		[color]		The color of the fade effect. (Default: c_black)
 ///@param {Real}				[delay]		The delay before the fading effect start. (Default: 0)
 ///@param {String, Function}	[ease]		The easing of the fade effect. (Default: "" aka "linear")
-///@param {Constant.Color}		[color]		The color of the fade effect. (Default: c_black)
-function Fader_Fade(_start, _target, _duration, _delay = 0, _ease = "", _color = c_black) 
+function Fader_Fade(_start, _target, _duration, _color = c_black, _delay = 0, _ease = "") 
 {
 	with (obj_global)
 	{	

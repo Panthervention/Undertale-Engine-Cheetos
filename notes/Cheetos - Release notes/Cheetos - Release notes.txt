@@ -1,0 +1,67 @@
+********************************************************************************
+									DISCLAIMER
+		Not	everything will be listed in the release notes. Please check						
+		  the commit history and see the code for yourself if you have	
+		 specific fixes you are waiting for or need more information on
+		 why something in your project may be behaving differently as of
+								the current release.
+********************************************************************************
+
+
+
+********************************************************************************
+									RELEASE NOTES
+********************************************************************************
+
+v1.2.0	- 
+- Enforced naming convention thoughout the engine.
+- Updated IDE to 2024.13.1.193, Runtime 2024.13.1.242.
+- Updated Scribble to v9.5.0.
+- Updated Input to v10.0.7.
+- Updated TurboGML to v5.
+- Updated Feather support for all engine's function.
+- Updated documentation for custom Scribble formatting.
+- Updated Global_Input.
+- Updated the soul processing functionality. Now image_angle can and will point exactly corresponding with the DIR enum.
+- Updated the battle fight menu target sprites from ilovecookies, but it appears the sprites still need calibration.
+- Renamed Flag_Custom to Flag_Define.
+- Renamed Effects to Effect_Functions.
+- Rewrite logic for the Battle Info and Battle Button rendering and controls.
+- Created BATTLE_BUTTON enum for usages.
+- Changed Bullet_Platform parameter order. Please improvise and adjust your code accordingly to the new parameter order.
+- Changed Bullet Functions parameter name from "out" to "mask". Now if you want the bone to only be drawn within the board, "mask" need to be true instead of "out" = false like before.
+- Changed SOUL_MODE enum name to just SOUL.
+- Changed the soul's after effect system from Draw event based to particle system based.
+- Modified draw_text_scribble and draw_text_scribble_ext so they return scribble itself.
+- Moved soul positioning for BATTLE_STATE.MENU to the soul itself for the best synchronization.
+- Fixed obj_battle_menu_fight_bar and obj_shaker.
+- Deprecated the SOUL_DIR as a result of the soul's update.
+- Deprecated BATTLE_MENU_FIGHT_EVENT enum and FLAG_STATIC.BATTLE_MENU_FIGHT_OBJ as they are no longer needed.
+- Deprecated spr_battle_damage and spr_battle_damage_miss. Now we will use Hachiro font directly for damage display (font_damage).
+- Deprecated unused code remnants.
+
+v1.1.1	- 18/03/2025
+- Removed [refresh] tag from `menu_dialog_prefix` variable in obj_battle_textwriter that caused the textwriter to crash.
+
+v1.1	- 18/03/2025
+- Updated Input to v8.1.2
+- Updated Lexicon to v3.0.8
+- Updated CleanShape to v1.2.0
+- Updated Scribble to v9.3.5
+- Updated SNAP to v7.0.2
+- Removed some unused code remnants
+- Fixed Dimensional Box behavior
+- Fixed obj_ui_save (you could only press C/X or Shift/Ctrl to close the save menu)
+- Removed ".scale_to_box(text_wrapwidth, infinity)" in obj_textwriter (thanks devotzzes)
+- Implemented better Kawase (also thanks devotzzes)
+- FIXED CAMERA JITTERING with better code logic implemented. (now instead of obj_global.cam_x you can do camera.x again)
+- Enhanced battle board logic.
+- Implemented auto capture border.
+- Removed Minecraft music background.
+
+v1.0.2	- 28/07/2024
+- Miscellaneous adjustments.
+- Updated runtime to v2024.6.1.208
+
+v1.0	- 04/06/2024
+- Engine repository publicly released.

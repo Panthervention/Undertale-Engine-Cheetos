@@ -42,7 +42,7 @@ var _i = 0; repeat (26)
 	    _char_count_y = _i div 7;
 
 	__naming_letter[# _i, 0] = string_char_at(_letters, _i + 1);
-	__naming_letter[# _i, 1] = string_lower_buffer(string_char_at(_letters, _i + 1));
+	__naming_letter[# _i, 1] = string_lower(string_char_at(_letters, _i + 1));
 	__naming_letter_x[# _i, 0] = 120 + (_char_count_x * 64);
 	__naming_letter_x[# _i, 1] = 120 + (_char_count_x * 64);
 	__naming_letter_y[# _i, 0] = 152 + (_char_count_y * 28);
