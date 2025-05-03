@@ -4,6 +4,11 @@
 // incur a slight performance penalty.
 #macro INPUT_MAX_PLAYERS  1
 
+// Whether the library should perform extra checks to validate parameters for functions. This will
+// catch small mistakes but also incurs a performance penalty. If you want maximum speed from the
+// library, set this macro to `false`.
+#macro INPUT_SAFETY_CHECKS  true
+
 ////////////////
 //            //
 //  Checkers  //
@@ -88,7 +93,7 @@
 // How long to wait before automatically cancelling rebinding, measured in milliseconds. An
 // automatic timeout is important to ensure that players don't softlock their game if a device
 // that is being rebound becomes unresponsive.
-#macro INPUT_REBIND_TIMEOUT  5000
+#macro INPUT_REBIND_TIMEOUT  3000
 
 // Whether various noisy, error-prone inputs will report a device as active and trigger a hotswap.
 // Because these inputs are unreliable, it is recommended that they are set to `false`. However, if

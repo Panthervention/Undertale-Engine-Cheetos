@@ -8,8 +8,8 @@ if (state == 0)
 	if (charge_sound)
 	{
 		audio_stop_sound(snd_gb_charge);
-		var blaster_sfx = audio_play_sound(snd_gb_charge, 0, 0);
-		audio_sound_pitch(blaster_sfx, 1.2);
+		var _blaster_sfx = audio_play_sound(snd_gb_charge, 0, 0);
+		audio_sound_pitch(_blaster_sfx, 1.2);
 	
 		charge_sound = 0;
 	}
@@ -97,13 +97,13 @@ if (state == 4)
 		if (blast_sound)
 		{
 			audio_stop_sound(snd_gb_release);
-			var beam_up_sfx = audio_play_sound(snd_gb_release, 0, 0);
-			audio_sound_pitch(beam_up_sfx, 1.2);
+			var _beam_up_sfx = audio_play_sound(snd_gb_release, 0, 0);
+			audio_sound_pitch(_beam_up_sfx, 1.2);
 	
 			audio_stop_sound(snd_gb_release2);
-			var beam_sfx_a = audio_play_sound(snd_gb_release2, 0, 0);
-			audio_sound_pitch(beam_sfx_a, 1.2);
-			audio_sound_gain(beam_sfx_a, 0.8, 0);
+			var _beam_sfx_a = audio_play_sound(snd_gb_release2, 0, 0);
+			audio_sound_pitch(_beam_sfx_a, 1.2);
+			audio_sound_gain(_beam_sfx_a, 0.8, 0);
 	
 			blast_sound = 0;
 		}

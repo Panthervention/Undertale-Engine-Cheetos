@@ -3,24 +3,24 @@
   "%Name":"spr_battle_menu_fight_bg",
   "bboxMode":0,
   "bbox_bottom":119,
-  "bbox_left":0,
-  "bbox_right":567,
-  "bbox_top":0,
+  "bbox_left":2,
+  "bbox_right":565,
+  "bbox_top":2,
   "collisionKind":1,
   "collisionTolerance":0,
   "DynamicTexturePage":false,
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"0d6a3706-626a-474b-89f3-4acd7493e103","name":"0d6a3706-626a-474b-89f3-4acd7493e103","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"4e877202-fd8d-4972-973f-ae37e43ccde6","name":"4e877202-fd8d-4972-973f-ae37e43ccde6","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"","%Name":"06af3570-a362-476e-bdac-0d3647ca8478","name":"06af3570-a362-476e-bdac-0d3647ca8478","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"","%Name":"ceecba19-d392-4b6d-ae4a-670546f093da","name":"ceecba19-d392-4b6d-ae4a-670546f093da","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
   "height":120,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"08cedb03-5955-4bd3-a966-954861defcca","blendMode":0,"displayName":"default","isLocked":false,"name":"08cedb03-5955-4bd3-a966-954861defcca","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"5b0755c7-52c3-4d14-aaec-d222be344dbe","blendMode":0,"displayName":"default","isLocked":false,"name":"5b0755c7-52c3-4d14-aaec-d222be344dbe","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"spr_battle_menu_fight_bg",
   "nineSlice":{
@@ -91,11 +91,11 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"0d6a3706-626a-474b-89f3-4acd7493e103","path":"sprites/spr_battle_menu_fight_bg/spr_battle_menu_fight_bg.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"2018b2bc-705b-4794-a6d9-93944d165c96","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"06af3570-a362-476e-bdac-0d3647ca8478","path":"sprites/spr_battle_menu_fight_bg/spr_battle_menu_fight_bg.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"ac5a8cb3-1a37-490c-8273-f868a97a2db4","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"4e877202-fd8d-4972-973f-ae37e43ccde6","path":"sprites/spr_battle_menu_fight_bg/spr_battle_menu_fight_bg.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"09f9dcb7-06ee-4156-8d9e-b5953f57ec8b","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"ceecba19-d392-4b6d-ae4a-670546f093da","path":"sprites/spr_battle_menu_fight_bg/spr_battle_menu_fight_bg.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"388ed1a3-262a-4bb9-a002-dd59e280fa5e","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

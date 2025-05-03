@@ -1,0 +1,26 @@
+********************************************************************************
+								DEBUG MANUAL
+			This is a basic manual for the engine's Debug feature (F3).
+				To make debug activation accessible, you need:
+					+ __CHEETOS_ALLOW_DEBUG set to <true>
+					+ __CHEETOS_DEBUG returns <true>
+					+ __CHEETOS_RELEASE returns <false>
+		The configuration can be found inside Global_Configuration script.
+********************************************************************************
+
+********************************************************************************
+									CONTENT
+********************************************************************************
+		The debug logic processing can be found inside obj_global. 
+		You can make your own debug functionality if you wanted to.
+________________________________________________________________________________
+Keybind						|		Functionality
+________________________________________________________________________________
+Shift + F					|		Speed up the game 10 times. (600 FPS)
+Shift + R					|		Reset game speed back to normal. (60 FPS)
+Shift + H					|		Set the player's HP to max and clear all status.
+Shift + E					|		(Battle-only) End the current attack instantly.
+Ctrl + L					|		Lock/unlock the game speed.
+Ctrl + H					|		(Battle-only) Show the bullet's hitbox.
+Ctrl + Left/Right/A/S		|		(Battle-only) Increase/decrease the turn number.
+

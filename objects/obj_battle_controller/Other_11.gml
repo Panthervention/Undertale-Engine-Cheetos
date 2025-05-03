@@ -1,6 +1,9 @@
 /// @description UI - Battle Info
 with (ui_info)
 {
+	if (image_alpha <= 0)
+		exit;
+	
 	var _color_final = image_blend, _alpha_final = image_alpha;
 	
 	var _kr_enable = global.kr_enable;

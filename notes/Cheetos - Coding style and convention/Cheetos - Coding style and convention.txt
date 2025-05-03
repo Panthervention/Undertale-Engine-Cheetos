@@ -1,0 +1,240 @@
+********************************************************************************
+								INTRODUCTION
+					This is the coding guideline with standards
+					which Cheetos Edition follows, a MUST READ!
+				This guideline exists in order to keep the code
+						consistent and conclusively clean!
+	- Inspired and referenced from SamSpadeGameDev's "Code Style" video -
+				https://www.youtube.com/watch?v=o2tMpuKqCm8
+********************************************************************************
+
+
+
+********************************************************************************
+									CONTENT
+********************************************************************************
+I. What's code style:
+- It is the way your code will look like.
+- Consists of universal rules and guidelines that the project follows.
+- VERY VITAL to any projects you are going to contribute.
+
+The following consists of example of good code and bad code:
+/// Good code:
+var _player_inv_frame = Player_GetInv();
+
+// Deal 1 damage to player if their invincibility frame is equal or lower than 0
+if (_player_inv_frame <= 0)
+{
+	_player_inv_frame = 60; // Reset inv frame
+	Player_Hurt(1);
+}
+
+// Proceed Game Over if player's health is less or equal 0
+if (Player_GetHp() <= 0)
+	room_goto(room_gameover);
+
+/// Bad code:
+var fi, hp;
+fi = get_fi ()
+h = get_h ()
+if fi<=0
+{
+fi=60
+hurt(1)
+}
+if (h <= 0){
+room_goto(over);
+}
+
+II. Why it matters?
+- Easier to ask for help due to comprehendable code and people might understand what you are trying to do.
+Nobody can't help if even you can't understand nor explaining it.
+- Team/Community contribution. You certainly love seeing readable code that its purpose is understandable,
+and why it has to be that way.
+- Your future self, because in no world you want to be clueless about your own code in the future.
+
+III. And what's the good code style?
+- EASILY UNDERSTANDABLE!
+- READABILITY (due to strict consistency).
+- There's no right or wrong or even a true answer, but the most profiting one.
+- There are solutions that are better and worse.
+- As introduced, there are basic elements to consider:
+	+ Identation
+	+ Whitespace
+	+ Capitalization
+	+ Naming convention
+	+ Comments (pattern)
+
+IV. The standards in Cheetos Edition:
+	1/ Identation:
+	* Tl,dr: We go with ALLMAN IDENTATION - using tabs, not spaces, for every level of indent.
+	
+	* The lengthy explanation:
+	What's "Allman Identation"? Basically:
+	if (foo)
+	{
+		bar();
+		while (baz(a, b, c))
+			qux();
+	}
+	This is Allman Identation. But with a little modification that:
+	For single line code with condition like:
+		while (baz(a, b, c))
+			qux();
+	We won't apply the bracket as in the normal Allman identation like the following:
+		while (baz(a, b, c))
+		{
+			qux();
+		}
+
+	There's also "K & R Identation", which you might have seen in projects like the base TML Engine itself:
+	if (foo) {
+		bar();
+		while (baz(a, b, c)) {
+			qux();
+		}
+	}
+	Each identation has their own pros and cons, and normally it's up to preference.
+	BUT, in Cheetos Edition, you are obligated to use Allman Identation for the sake of
+	readability and consistency.
+
+	2/ Whitespace
+		Tl,dr: NO WHITESPACE IS WAR CRIME!
+	// No white space
+	for(var _i=0; _i<10;_i++)
+		print("current index: "+string(_i));
+	
+	// With white space
+	for (var _i = 0; _i < 10; _i++)
+		print("current index: " + string(_i));
+
+	You might have seen projects that code with no whitespace like the base TML Engine (again), and
+	it brings more harms than goods due to readability traded off with code width, which
+	for obvious reasons just isn't worth it.
+
+	So, DO NOT, please DO NOT FORGET WHITESPACE!
+
+	3/ Capitalization
+
+	// snake_case
+	variable
+	variable_name
+	another_variable_name
+
+	// camelCase
+	variable
+	variableName
+	anotherVariableName
+
+	In Cheetos Edition, we go with snake case capitalization for variable naming,
+	but the Camel_CaseFunction() of classic TML functions will be kept for engine's functions.
+
+	4/ Naming Convention
+		(The crucial part)
+	In Cheetos Edition, this is how variable naming is done:
+	- Object:					obj_name
+	- Sprite:					spr_name
+	- Shader:					shd_name
+	- Sound:					
+		+ For SFX:				snd_name
+		+ For BGM:				bgm_name
+		+ For text sound:		voice_name
+	- Font:						font_name
+	- Room:						room_name
+	- Path:						path_name
+	- Tile Set:					tile_name
+	- Particle:					part_name
+	- Animation curve:			anim_name
+	- Timeline:					timeline_name
+	- Sequence:					sequence_name
+	- Script, function, and constructor:
+		The Camel_Case naming is kept like the base TML Engine.
+		To me, script is considered as a file like a library, and is different from function.
+		A script will contain many functions related to its purpose.
+	- Instance variables:
+		+ Public variables:		my_variable
+		+ Private variables:	__my_variable
+		A public variable can be accessed from other sources like an object and the likes,
+		while a private variable should never be accessed outside its scope (like within the object or struct...). 
+	- Local variables:			_my_variable (all local vars in this engine, aside from Extensions,
+											  should be written with the underscore ( _ ) as prefix.
+											  No exception, and that include iteration variables like i, j, k!)
+	- Function and Constructor parameter:
+								_my_parameter
+		Example: my_add_function(_param_1, _param_2)
+				 {
+					return (_param_1 + _param_2);
+				 }
+	- Macro:					MY_MACRO
+	- Enum and its members:		MY_ENUM
+								{
+									ENUM_1,
+									ENUM_2,
+									ENUM_3
+								}
+	And you, as the end-user/contributor, it's an obligation to follow this naming convention.
+
+	5/ Comments
+	- Placement of comments:
+		a/
+		// Loops through values 0-9 and print output to console window
+		for (var _i = 0; _i < 10; _i++)
+			print($"current index: {_i}")
+	
+		b/
+		for (var _i = 0; _i < 10; _i++) // Loops through values 0-9
+			print($"current index: {_i}") // Print output to console window
+	
+		c/
+		for (var _i = 0; _i < 10; _i++)		// Loops through values 0-9
+			print($"current index: {_i}")	// Print output to console window
+	There are 3 ways for you to place the comments, and fortunately, it's situational to use one in the three.
+	Just make sure the placement of the comment makes sense and maintain readability.
+	Although, it is preferred if the first option is chosen.
+
+	- Point of the comments:
+		+ Informative and conclusive, and not unnecessarily long.
+		+ Don't comment very obvious things.
+		+ Comment less obvious things.
+		+ Example:
+		// Add 1 to a variable (this is obvious)
+		variable++; or variable += 1;
+	
+		// The debug macro is used to toggle debugging
+		// <on> and <off> throughout the project
+		// If <true>, debug reports and tests will run. If <false>, they won't.
+		// (These are the good comments.)
+		#macro __CHEETOS_ALLOW_DEBUG true
+
+	- Tips and tricks:
+		+ It is recommended to write comment first, but doesn't necessarily have to be.
+		+ [Ctrl + K] to commentify the chosen code region, and [Ctrl + Shift + K] to uncomment.
+		+ /* Alternative comment with open and close. */
+		  /*
+			Anything between these brackets is a comments.
+			Now, you can comment multiple lines!
+		  */
+V. GameMaker Language (GML) Flexibility
+// No parentheses and all in the same line
+if right && up variable++
+
+// Parentheses, no bracket, and new line
+if right and up
+	variable++
+
+// Parentheses, bracket, semicolon and new line.
+// This is what Cheetos Edition follows.
+// You are obligated to follow this!
+// (Also for single line code like this, as mentioned, curly bracket for the codeblock is optional.)
+if (right && up)
+{
+	variable++;
+}
+
+VI. Summary
+	From this note, you should familiar yourself with the listed conventions, stylings,...
+	And most importantly...
+	BE CONSISTENT (at least between projects)!
+	It will help you in a long run, not just this UNDERTALE Engine but future projects on your own.
+	
+	Thank you for reading to this end. I hope the standards will be followed and respected!

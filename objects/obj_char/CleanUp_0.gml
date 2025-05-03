@@ -1,1 +1,3 @@
-ds_list_destroy(__collision_list);
+delete move;
+delete move_speed;
+delete resource;

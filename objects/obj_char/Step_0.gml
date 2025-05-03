@@ -1,70 +1,50 @@
+// Movement processing
 var _i = 0; repeat (4)
 {
-    if (move[_i] > 0)
-    {
-        if (!dir_locked)
-            dir = _i;
-        var _move_x = 0, _move_y = 0;
-        if (_i == DIR.UP || _i == DIR.DOWN)
-            _move_y = move_speed[_i] * (_i == DIR.UP ? -1 : 1);
-        else if (_i == DIR.LEFT || _i == DIR.RIGHT)
-            _move_x = move_speed[_i] * (_i == DIR.LEFT ? -1 : 1);
-        var _moveable = true;
-        if (collision)
-        {
-            var _list = __collision_list;
-            ds_list_clear(_list);
-            var _n = instance_place_list(x + _move_x, y + _move_y, obj_block, _list, false);
-            var _j = 0; repeat (_n)
-            {
-                var _collision = _list[| _j];
-                if (instance_exists(_collision))
-                {
-                    if (_collision.block_enabled)
-                    {
-                        _moveable = false;
-                        break;
-                    }
-                }
-                _j += 1;
-            }
-        }
-        if (_moveable)
-        {
-            x += _move_x;
-            y += _move_y;
-        }
-        move[_i] -= 1;
-    }
-    _i += 90;
+	var _dir = __dir_list[_i];
+	
+	if (move[$ _dir] > 0)
+	{
+		if (!dir_locked)
+			dir = _dir;
+		
+		var _move_speed = move_speed[$ _dir],
+			_dx = ((_dir == DIR.RIGHT) - (_dir == DIR.LEFT)) * _move_speed,
+			_dy = ((_dir == DIR.DOWN) - (_dir == DIR.UP)) * _move_speed;
+		
+		var _collision = instance_place(x + _dx, y + _dy, obj_block);
+		if (!collision || _collision == noone || !_collision.block_enabled)
+		{
+			x += _dx;
+			y += _dy;
+		}
+		
+		move[$ _dir]--;
+	}
+	_i++;
 }
 
-var _refresh = ((dir != __dir_previous || talking != __talking_previous || (move[dir] > 0) != (__move_previous > 0)) && !res_override);
-if (_refresh)
+// Determine current animation state
+var _is_moving = (move[$ dir] > 0),
+	_is_talking = talking;
+	
+// Bitwise trickery: 0 = idle, 1 = move, 2 = talk
+var _state = (_is_talking << 1) | (_is_moving && !_is_talking);
+
+if (!resource_override && (_state != __previous_state || dir != __previous_dir))
 {
-    if (move[DIR.UP] > 0 || move[DIR.DOWN] > 0 || move[DIR.LEFT] > 0 || move[DIR.RIGHT] > 0)
-    {
-        sprite_index = res_move_sprite[dir];
-        image_index = res_move_image[dir];
-        image_speed = res_move_speed[dir];
-        image_xscale *= ((res_move_flip_x[dir] && sign(image_xscale) == 1) || (!res_move_flip_x[dir] && sign(image_xscale) == -1) ? -1 : 1);
-    }
-    else if (talking)
-    {
-        sprite_index = res_talk_sprite[dir];
-        image_index = res_talk_image[dir];
-        image_speed = res_talk_speed[dir];
-        image_xscale *= ((res_talk_flip_x[dir] && sign(image_xscale) == 1) || (!res_talk_flip_x[dir] && sign(image_xscale) == -1) ? -1 : 1);
-    }
-    else
-    {
-        sprite_index = res_idle_sprite[dir];
-        image_index = res_idle_image[dir];
-        image_speed = res_idle_speed[dir];
-        image_xscale *= ((res_idle_flip_x[dir] && sign(image_xscale) == 1) || (!res_idle_flip_x[dir] && sign(image_xscale) == -1) ? -1 : 1);
-    }
+	var _resource = __resource_list[_state][$ dir];
+	sprite_index = _resource.sprite_index;
+	image_index = _resource.image_index;
+	image_speed = _resource.image_speed;
+	
+	var _flip = _resource.flip_horizontally;
+	if ((_flip && image_xscale > 0) || (!_flip && image_xscale < 0))
+		image_xscale = -image_xscale;
 }
 
-__talking_previous = talking;
-__dir_previous = dir;
-__move_previous = move[dir];
+// Update for next frame comparison
+__previous_dir = dir;
+__previous_move = move[$ dir];
+__previous_state = _state;
+__previous_talking = talking;

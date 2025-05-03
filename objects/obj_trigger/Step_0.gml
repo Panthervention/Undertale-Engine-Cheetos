@@ -1,5 +1,5 @@
-var _user = user_char;
-var _result = false;
+var _user = user_char,
+	_result = false;
 if (instance_exists(obj_char))
 {
     with (obj_char)

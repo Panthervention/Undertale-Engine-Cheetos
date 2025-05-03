@@ -7,6 +7,5 @@ blur_iteration_max = 4;
 blur_intensity = 0;
 blur_intensity_max = 1;
 blur_surf_final = application_surface;
-blur_surf = noone;
 
 kawase = new Kawase(blur_resolution_x, blur_resolution_y, blur_iteration_max);

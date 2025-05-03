@@ -86,11 +86,8 @@ function Battle_SoulSlam(_dir, _slam_power = global.slam_power)
 ///@return {Bool}
 function Battle_IsSoulMoving()
 {
-	var _soul = obj_battle_soul,
-		_check_moving = [abs(_soul.xprevious - _soul.x),
-					     abs(_soul.yprevious - _soul.y)];
-		
-	return (_check_moving[0] > 0 || _check_moving[1] > 0)
+	with (obj_battle_soul)
+		return (abs(x - xprevious) >= 0.01 || abs(y - yprevious) >= 0.01);
 }
 
 ///@func Battle_CallSoulEventBulletCollision()
