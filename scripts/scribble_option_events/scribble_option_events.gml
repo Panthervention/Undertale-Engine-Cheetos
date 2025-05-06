@@ -17,24 +17,23 @@
 
 #region Option Functions (Don't touch without caring taken)
 function set_option(_element, _parameter_array, _character_index) {
-	if !option_exist
+	if (!option_exist)
 		option_exist = true;
-	var index = real(string_trim(_parameter_array[0])),
-		left = text_writer.get_glyph_data(_character_index).left,
-		middle = (text_writer.get_glyph_data(_character_index).top 
-				+ text_writer.get_glyph_data(_character_index).bottom) * 0.5;
-	option_x[index] = left;
-	option_y[index] = middle; // The initiate top-left is 0 regardless where scribble is called!
-	option_amount = max(index + 1, option_amount);
+	var _index = real(string_trim(_parameter_array[0])),
+		_left = text_writer.get_glyph_data(_character_index).left,
+		_middle = (text_writer.get_glyph_data(_character_index).top + text_writer.get_glyph_data(_character_index).bottom) / 2;
+	option_x[_index] = _left;
+	option_y[_index] = _middle; // The initiate top-left is 0 regardless where scribble is called!
+	option_amount = max(_index + 1, option_amount);
 }
 
 // CANNOT EXECUTE FUNCTIONS THAT ARE DECLARED OUTSIDE SCRIPTS
 function set_option_event(_element, _parameter_array, _character_index) {
-	var parameter = [];
-	for (var i = 0, n = array_length(_parameter_array); i < n; i++)
+	var _parameter = [];
+	for (var _i = 0, _n = array_length(_parameter_array); _i < _n; _i++)
 	{
-		parameter[i] = string_trim(_parameter_array[i]);
-		option_event[i] = asset_get_index(parameter[i]);
+		_parameter[_i] = string_trim(_parameter_array[_i]);
+		option_event[_i] = asset_get_index(_parameter[_i]);
 	}
 }
 scribble_typists_add_event("option", set_option);
@@ -50,9 +49,9 @@ function option_box_yes() {
 	}
 	else
 	{
-		var rand = irandom(2),
-			dialog = lexicon_text($"ui.box.inventory.empty.{rand}");
-		Dialog_Add(dialog);
+		var _rand = irandom(2),
+			_dialog = lexicon_text($"ui.box.inventory.empty.{_rand}");
+		Dialog_Add(_dialog);
 		Dialog_Start();
 	}
 }

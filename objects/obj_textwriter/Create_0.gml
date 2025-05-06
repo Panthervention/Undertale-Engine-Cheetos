@@ -4,7 +4,7 @@ text = "";
 text_writer = scribble(text, string(id));
 text_typist = scribble_typist()
 	.in(0.5, 0) // Default speed of Undertale, which is 30 characters/s
-	.sound_per_char(snd_text_voice_default, 1, 1, " ");
+	.sound_per_char(voice_default, 1, 1," ", 1);
 
 text_skippable = on;
 text_wrapwidth = room_width - x;

@@ -16,7 +16,7 @@
 													|
 	[skippable, bool]								|		Whenever the dialog can be skipped via player input or not.
 													|
-	[voice, sound, pitch]							|		Set an audio asset as the dialog voice with given pitch.
+	[voice, sound, (pitch), (gain)]					|		Set an audio asset as the dialog voice. Pitch and gain are optional.
 													|
 	[sleep, real]									|		
 	[wait, real]									|		Pause the text typewriter effect for the given duration in frame.
@@ -77,45 +77,54 @@ function set_text_depth(_element, _parameter_array, _character_index) {
 }
 
 function set_portrait(_element, _parameter_array, _character_index) {
-	var parameter = [];
-	for (var i = 0, n = array_length(_parameter_array); i < n; i++)
-		parameter[i] = string_trim(_parameter_array[i]);
+	var _parameter = [];
+	for (var _i = 0, _n = array_length(_parameter_array); _i < _n; _i++)
+		_parameter[_i] = string_trim(_parameter_array[_i]);
 	
 	portrait = asset_get_index(parameter[0]);
 	portrait_index = real(parameter[1]);
 }
 
 function set_portrait_scale(_element, _parameter_array, _character_index) {
-	var parameter = [];
-	for (var i = 0, n = array_length(_parameter_array); i < n; i++)
-		parameter[i] = string_trim(_parameter_array[i]);
-	portrait_xscale = real(parameter[0]);
-	portrait_yscale = real(parameter[1]);
+	var _parameter = [];
+	for (var _i = 0, _n = array_length(_parameter_array); _i < _n; _i++)
+		_parameter[_i] = string_trim(_parameter_array[_i]);
+	portrait_xscale = real(_parameter[0]);
+	portrait_yscale = real(_parameter[1]);
 }
 
 function set_portrait_anim(_element, _parameter_array, _character_index) {
-	var parameter = [];
-	for (var i = 0, n = array_length(_parameter_array); i < n; i++)
-		parameter[i] = string_trim(_parameter_array[i]);
+	var _parameter = [];
+	for (var _i = 0, _n = array_length(_parameter_array); _i < _n; _i++)
+		_parameter[_i] = string_trim(_parameter_array[_i]);
 	
-	portrait = asset_get_index(parameter[0]);
-	portrait_speed = real(parameter[1]);
-	for (var i = 2, n = array_length(_parameter_array); i < n; i++)
-		array_push(portrait_index_array, parameter[i]);
+	portrait = asset_get_index(_parameter[0]);
+	portrait_speed = real(_parameter[1]);
+	for (var _i = 2, _n = array_length(_parameter_array); _i < _n; _i++)
+		array_push(portrait_index_array, _parameter[_i]);
 }
 
 // CANNOT EXECUTE FUNCTIONS THAT ARE DECLARED OUTSIDE SCRIPTS
 function method_execute(_element, _parameter_array, _character_index) {
-	var parameter = [];
-	for (var i = 0, n = array_length(_parameter_array); i < n; i++)
-		parameter[i] = string_trim(_parameter_array[i]);
-	script_execute_ext(asset_get_index(parameter[0]), parameter, 1);
+	var _parameter = [];
+	for (var _i = 0, _n = array_length(_parameter_array); _i < _n; _i++)
+		_parameter[_i] = string_trim(_parameter_array[_i]);
+	script_execute_ext(asset_get_index(_parameter[0]), _parameter, 1);
 }
 
-scribble_add_macro("voice", function(voice, pitch) {
-	var _str = $"[typistSoundPerChar,{string_trim(voice)},{string_trim(pitch)},{string_trim(pitch)}, ]";
-	return _str;
-});
+function set_voice(_element, _parameter_array, _character_index)
+{
+	var _parameter = [undefined, undefined, undefined];
+	for (var _i = 0, _n = array_length(_parameter_array); _i < _n; _i++)
+		_parameter[_i] = string_trim(_parameter_array[_i]);
+	
+	if (is_undefined(_parameter[1]))
+		_parameter[1] = 1;
+	else if (is_undefined(_parameter[2]))
+		_parameter[2] = 1;
+	
+	text_typist.sound_per_char(asset_get_index(_parameter[0]), _parameter[1], _parameter[1], " ", _parameter[2]);
+}
 
 scribble_add_macro("clear", function() {
 	var _str = "[/page]";
@@ -137,6 +146,7 @@ scribble_typists_add_event("end", textwriter_end);
 scribble_typists_add_event("instant", textwriter_skip);
 scribble_typists_add_event("refresh", textwriter_refresh);
 
+scribble_typists_add_event("voice", set_voice);
 scribble_typists_add_event("visible", set_visible);
 scribble_typists_add_event("skippable", set_skippable);
 scribble_typists_add_event("gui", set_text_gui);

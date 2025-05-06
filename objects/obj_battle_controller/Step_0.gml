@@ -8,7 +8,7 @@ with (ui_info)
 	hp = global.hp;
 	hp_max = global.hp_max;
 	kr = global.kr;
-	
+		
 	if (Player_GetName() != name)
 		name = Player_GetName();
 	if (Player_GetLv() != lv)

@@ -4,6 +4,9 @@ with (global)
 	hp = EaseOutQuad(refill_speed, hp, Player_GetHp() - hp, 1);
 	hp_max = EaseOutQuad(refill_speed, hp_max, Player_GetHpMax() - hp_max, 1);
 	kr = EaseOutQuad(refill_speed, kr, Player_GetKr() - kr, 1);
+	
+	if (kr > hp - 1)
+		kr = hp - 1;
 }
 #endregion
 

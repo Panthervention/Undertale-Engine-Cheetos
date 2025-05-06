@@ -1,7 +1,7 @@
 // Feather disable all
+
 /// @param name
 /// @param function
-
 function scribble_add_macro(_name, _function)
 {
     static _system                = __scribble_initialize();

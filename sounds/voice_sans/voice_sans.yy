@@ -1,6 +1,6 @@
 {
   "$GMSound":"",
-  "%Name":"snd_text_voice_toriel",
+  "%Name":"voice_sans",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -9,8 +9,8 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":0.5,
-  "name":"snd_text_voice_toriel",
+  "duration":0.14117914,
+  "name":"voice_sans",
   "parent":{
     "name":"Voices",
     "path":"folders/Engine/Global/Text/Voices.yy",
@@ -19,7 +19,7 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"snd_text_voice_toriel",
+  "soundFile":"voice_sans",
   "type":1,
   "volume":1.0,
 }

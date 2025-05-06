@@ -1,8 +1,7 @@
 // Movement processing
 var _i = 0; repeat (4)
 {
-	var _dir = __dir_list[_i];
-	
+	var _dir = __dir_list[_i];	
 	if (move[$ _dir] > 0)
 	{
 		if (!dir_locked)

@@ -28,6 +28,8 @@ v1.2.0	-
 - Renamed Effects to Effect_Functions.
 - Rewritten logic for the Battle Info and Battle Button rendering and controls.
 - Rewritten logic for the obj_char and its children.
+- Rewritten logic for the obj_gameover.
+- Rewritten logic for the "voice" tag of obj_textwriter. Now the 'pitch' and 'gain' can be optional.
 - Created BATTLE_BUTTON enum for usages.
 - Changed Bullet_Platform parameter order. Please improvise and adjust your code accordingly to the new parameter order.
 - Changed Bullet Functions parameter name from "out" to "mask". Now if you want the bone to only be drawn within the board, "mask" need to be true instead of "out" = false like before.

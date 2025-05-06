@@ -26,8 +26,8 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"Soul",
-    "path":"folders/Engine/Battle/Soul.yy",
+    "name":"Sprites",
+    "path":"folders/Engine/Battle/Soul/Sprites.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

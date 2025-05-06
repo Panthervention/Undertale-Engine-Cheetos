@@ -1,7 +1,5 @@
+///@desc Soul shatters
 image_alpha = 0;
-repeat(6)
-	instance_create_depth(x, y, 0, obj_gameover_shard);
-
+__soul_shard_render = true;
 audio_play_sound(snd_break_1, 0, false);
-
-alarm[2] = 100;
+alarm[2] = 120;

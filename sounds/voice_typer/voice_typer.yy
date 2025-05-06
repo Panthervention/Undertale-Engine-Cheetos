@@ -1,6 +1,6 @@
 {
   "$GMSound":"",
-  "%Name":"snd_text_voice_default",
+  "%Name":"voice_typer",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -9,8 +9,8 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":0.060476,
-  "name":"snd_text_voice_default",
+  "duration":0.26,
+  "name":"voice_typer",
   "parent":{
     "name":"Voices",
     "path":"folders/Engine/Global/Text/Voices.yy",
@@ -19,7 +19,7 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"snd_text_voice_default",
+  "soundFile":"voice_typer",
   "type":1,
   "volume":1.0,
 }
