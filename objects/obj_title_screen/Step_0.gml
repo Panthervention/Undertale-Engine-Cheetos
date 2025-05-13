@@ -254,7 +254,35 @@ else if (__menu == 2) // Name Confirmation
 }
 else if (__menu == 4) // Settings
 {
-	// Such emptiness... Maybe you can cook one up?
+	__choice_setting = posmod(__choice_setting + _input_vertical, 4);
+	switch (__choice_setting)
+	{
+		case 0: // Exit
+			if (_input_confirm)
+				__menu = 0;
+			break;
+		case 1: // Language
+			break;
+		case 2: // Volume
+			if (_input_horizontal != 0)
+			{
+				__setting_mastervolume = clamp(__setting_mastervolume + _input_horizontal * 5, 0, 100);
+				audio_master_gain(__setting_mastervolume / 100);
+				Flag_Set(FLAG_TYPE.SETTINGS, FLAG_SETTINGS.VOLUME, __setting_mastervolume);
+				Flag_Save(FLAG_TYPE.SETTINGS);
+			}
+			break;
+		case 3: // Border
+			if (_input_horizontal != 0)
+			{
+				__setting_border = clamp(__setting_border + _input_horizontal, 0, array_length(__setting_border_option) - 1);
+				Border_SetEnabled(__setting_border != 0, __setting_border == 2);
+				Border_SetSprite(__setting_border == 2 ? noone : spr_border, __setting_border == 3 ? 2 : (__setting_border > 4 ? __setting_border + 4 : 0));
+				Flag_Set(FLAG_TYPE.SETTINGS, FLAG_SETTINGS.BORDER, __setting_border);
+				Flag_Save(FLAG_TYPE.SETTINGS);
+			}
+			break;
+	}
 }
 
 if (__menu == 2 || __menu == 3)
@@ -265,7 +293,7 @@ if (__menu == 2 || __menu == 3)
         __confirm_name_offset_y = random_range(-1, 1);
         __confirm_name_angle = random_range(-1, 1);
     }
-    __confirm_name_update = !__confirm_name_update;
+    __confirm_name_update ^= 1;
 }
 else
 {

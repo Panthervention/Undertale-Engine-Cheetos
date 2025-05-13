@@ -26,6 +26,7 @@
                                          }\
                                      }
 
+
 __InputSystem();
 function __InputSystem()
 {

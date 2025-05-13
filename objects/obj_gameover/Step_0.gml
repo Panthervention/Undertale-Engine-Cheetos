@@ -36,11 +36,15 @@ else if (__state == 1)
 			{
 				text_skippable = false;
 				text_typist.in(0.25, 0).sound_per_char(voice_asgore, 1, 1, " ", 1);
-				text = $"[font_dt_mono][scale, 2]You cannot give\nup just yet...[pause][clear]{Player_GetName()}!\n[sleep, 30]Stay determined...[pause][end]";
+				text = other.__gameover_text;
 			}
 		}
 		else if (!instance_exists(obj_textwriter))
+		{
+			// 100 frames equivalent on 60 fps for the bgm to leap to 0 volume
+			audio_sound_gain(__gameover_bgm, 0, 1667);
 			__state = 2;
+		}
 	}
 }
 else if (__state == 2)
@@ -63,5 +67,15 @@ else if (__state == 2)
 			else
 				alarm[3] = 1;
 		}
+	}
+}
+else if (__state == 3)
+{
+	if (room == Flag_Get(FLAG_TYPE.TEMP, FLAG_TEMP.BATTLE_ROOM_RETURN))
+	{
+		room_persistent = false;
+		Flag_Load(FLAG_TYPE.STATIC);
+		room_restart();
+		instance_destroy();
 	}
 }

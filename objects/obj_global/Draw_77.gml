@@ -18,18 +18,18 @@ with (border)
     
 		// Previous border sprite
 		if (sprite_exists(sprite_previous))
-			draw_sprite_stretched_ext(sprite_previous, 0, _border_x, _border_y, 960 * _window_ratio, 540 * _window_ratio, c_white, 1);
+			draw_sprite_stretched_ext(sprite_previous, index_previous, _border_x, _border_y, 960 * _window_ratio, 540 * _window_ratio, c_white, 1);
 		else
 			draw_sprite_stretched_ext(spr_pixel, 0, _border_x, _border_y, 960 * _window_ratio, 540 * _window_ratio, c_black, 1);
     
 		// If there is currently a border sprite
 		// OR the border is the screen itself
 		if (sprite_exists(sprite))
-			draw_sprite_stretched_ext(sprite, 0, _border_x, _border_y, 960 * _window_ratio, 540 * _window_ratio, c_white, alpha);   
+			draw_sprite_stretched_ext(sprite, index, _border_x, _border_y, 960 * _window_ratio, 540 * _window_ratio, c_white, alpha);   
 		else if (auto_capture)
 		{
 			draw_surface_ext(application_surface, _border_x, _border_y, (960 * _window_ratio) / 640, (540 * _window_ratio) / 480, 0, c_white, alpha);
-			draw_sprite_stretched_ext(spr_border_outline, 0, _border_x, _border_y, 960 * _window_ratio, 540 * _window_ratio, c_white, alpha);
+			draw_sprite_stretched_ext(spr_border, 1, _border_x, _border_y, 960 * _window_ratio, 540 * _window_ratio, c_white, alpha);
 		}
 		else
 			draw_sprite_stretched_ext(spr_pixel, 0, _border_x, _border_y, 960 * _window_ratio, 540 * _window_ratio, c_black, alpha);

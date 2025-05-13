@@ -254,6 +254,8 @@ enum FLAG_INFO
 enum FLAG_SETTINGS
 {
 	LANGUAGE,
+	VOLUME,
+	BORDER
 }
 #endregion
 /*-----------------------------------------------------------------*/

@@ -3,7 +3,7 @@
     "locale": "en-US",
     "text": 
     {
-        "copyright": "UNDERTALE (C) TOBY FOX {0}\nUNDERTALE ENGINE {1} BY TML",
+        "copyright": "UNDERTALE (C) TOBY FOX {0}\nTML UNDERTALE ENGINE - MODIFIED BY CHEETOS - {1}",
         "battle":
         {
             "menu":
@@ -26,7 +26,8 @@
                     "3": "* Don't slow me down.",
                     "reward": "* Ran away with {0} EXP\n  and {1} GOLD."
                 },
-                "lv_up": "* Your LOVE increased."
+                "lv_up": "* Your LOVE increased.",
+                "gameover": "You cannot give\nup just yet...[pause][clear]{0}!\n[sleep, 30]Stay determined...[pause][end]"
             },
             "enemy":
             {
@@ -260,6 +261,36 @@
                     "mtt": "OOOOH!!! ARE YOU\nPROMOTING MY BRAND?",
                     "chara": "The true name.",
                     "frisk": "WARNING: This name will\nmake your life hell.\nProceed anyway?"
+                }
+            }
+        },
+        "setting":
+        {
+            "label": "SETTINGS",
+            "exit": "EXIT",
+            "language":
+            {
+                "label": "Language",
+                "option": "English"
+            },
+            "mastervolume":
+            {
+                "label": "Master Volume"
+            },
+            "border":
+            {
+                "label": "Border",
+                "option":
+                {
+                    "0": "Off",
+                    "1": "Simple",
+                    "2": "Auto-Capture",
+                    "3": "Sepia",
+                    "4": "Dynamic",
+                    "5": "Beauty",
+                    "6": "Real/Not Real",
+                    "7": "Super Dog, Hoi",
+                    "8": "Casino"
                 }
             }
         }

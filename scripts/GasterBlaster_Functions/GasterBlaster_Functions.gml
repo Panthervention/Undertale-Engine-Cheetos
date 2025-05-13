@@ -16,6 +16,7 @@
 ///@param {Bool}				[blur]				Whenever there will be blur when the blaster blast. (Default: false)
 ///@param {Bool}				[sound_charge]		Whenever there will be the charging sound of the blaster. (Default: true)
 ///@param {Bool}				[sound_blast]		Whenever there will be the blasting sound of the blaster. (Default: true)
+///@return {Id.Instance<obj_battle_bullet_gb>}
 function Bullet_Blaster(_sprite, _x0, _y0, _angle0, _xscale, _yscale, _x1, _y1, _angle1, _delay = 16, _blast = 10, _duration = 30, _type = 0, _blur = false, _snd_charge = true, _snd_blast = true) 
 {	
 	var _depth = DEPTH_BATTLE.BULLET_HIGH;
@@ -33,6 +34,8 @@ function Bullet_Blaster(_sprite, _x0, _y0, _angle0, _xscale, _yscale, _x1, _y1, 
 	}
 	with (_gb)
 	{
+		depth = _depth;
+		
 		target_x = _x1;
 		target_y = _y1;
 		target_angle = _angle1;
@@ -68,6 +71,7 @@ function Bullet_Blaster(_sprite, _x0, _y0, _angle0, _xscale, _yscale, _x1, _y1, 
 ///@param {Bool}				[blur]				Whenever there will be blur when the blaster blast. (Default: false)
 ///@param {Bool}				[sound_charge]		Whenever there will be the charging sound of the blaster. (Default: true)
 ///@param {Bool}				[sound_blast]		Whenever there will be the blasting sound of the blaster. (Default: true)
+///@return {Id.Instance<obj_battle_bullet_gb>}
 function Bullet_BlasterCircle(_sprite, _len_x, _len_y, _len0, _len1, _rot, _angle, _xscale, _yscale, _delay = 16, _blast = 10, _duration = 30, _type = 0, _blur = false, _snd_charge = true, _snd_blast = true) 
 {
 	var _x0 = (_len_x + lengthdir_x(_len0, _angle)),

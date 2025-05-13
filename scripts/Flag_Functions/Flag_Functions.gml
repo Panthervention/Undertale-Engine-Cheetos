@@ -13,7 +13,7 @@ function Flag_Uninit() {
 
 ///@func Flag_Save(type)
 ///@desc Saves flag data to corresponding file.
-///@param {Real}	flag_type	The flag type to save the data (base on FLAG_TYPE enum of between 0 to 4).
+///@param {Enum.FLAG_TYPE, Real}	flag_type	The flag type to save the data (base on FLAG_TYPE enum of between 0 to 4).
 function Flag_Save(_type) {
 	var _path = Flag_GetSavePath(_type)
     var _string = Flag_GetRawData(_type),
@@ -29,7 +29,7 @@ function Flag_Save(_type) {
 
 ///@func Flag_Load(type)
 ///@desc Loads flag data from corresponding file.
-///@param {Real}	flag_type	The flag type to load the data (base on FLAG_TYPE enum of between 0 to 4).
+///@param {Enum.FLAG_TYPE, Real}	flag_type	The flag type to load the data (base on FLAG_TYPE enum of between 0 to 4).
 function Flag_Load(_type) {
 	var _path = Flag_GetSavePath(_type);
 	
@@ -51,9 +51,9 @@ function Flag_Load(_type) {
 
 ///@func Flag_Get(type, entry, [value_default])
 ///@desc Retrieve a specific flag value from its file.
-///@param {Real}	flag_type		The flag type to retrieve the data from (base on FLAG_TYPE enum of between 0 to 4).
-///@param {Real}	flag_entry		The flag entry to retrieve the data from (ex: FLAG_STATIC.HP).
-///@param {Real}	[val_default]	The default value to return in case the data entry does not exist.
+///@param {Enum.FLAG_TYPE, Real}	flag_type		The flag type to retrieve the data from (base on FLAG_TYPE enum of between 0 to 4).
+///@param {Real}					flag_entry		The flag entry to retrieve the data from (ex: FLAG_STATIC.HP).
+///@param {Real}					[val_default]	The default value to return in case the data entry does not exist.
 ///@return {Any}
 function Flag_Get(_type, _entry, _value_default = 0) {
     var struct = global.__flag;
@@ -71,9 +71,9 @@ function Flag_Get(_type, _entry, _value_default = 0) {
 
 ///@func Flag_Set(type, entry, value)
 ///@desc Set a value to a specific flag entry.
-///@param {Real}	flag_type	The flag type to set the data to (base on FLAG_TYPE enum of between 0 to 4).
-///@param {Real}	flag_entry	The flag entry to set the data to (ex: FLAG_STATIC.HP).
-///@param {Any}		val			The value to assign to the flag entry.
+///@param {Enum.FLAG_TYPE, Real}	flag_type	The flag type to set the data to (base on FLAG_TYPE enum of between 0 to 4).
+///@param {Real}					flag_entry	The flag entry to set the data to (ex: FLAG_STATIC.HP).
+///@param {Any}						val			The value to assign to the flag entry.
 function Flag_Set(_type, _entry, _value) {
     global.__flag[$ _type] ??= {}; 
     global.__flag[$ _type][$ _entry] = _value; // Set the value directly
@@ -81,7 +81,7 @@ function Flag_Set(_type, _entry, _value) {
 
 ///@func Flag_GetSavePath(type)
 ///@desc Get the path for saving the flag data.
-///@param {Real}	flag_type	The flag type to retrieve the path (base on FLAG_TYPE enum of between 0 to 4).
+///@param {Enum.FLAG_TYPE, Real}	flag_type	The flag type to retrieve the path (base on FLAG_TYPE enum of between 0 to 4).
 ///@return {String}
 function Flag_GetSavePath(_type) {
     var _path = $"./savefiles/",
@@ -118,7 +118,7 @@ function Flag_SetSaveSlot(_slot) {
 
 ///@func Flag_Clear(type)
 ///@desc Clear all data of specified flag type.
-///@param {Real}	flag_type	The flag type to clear the data (base on FLAG_TYPE enum of between 0 to 4).
+///@param {Enum.FLAG_TYPE, Real}	flag_type	The flag type to clear the data (base on FLAG_TYPE enum of between 0 to 4).
 function Flag_Clear(_type) {
     if (global.__flag[$ _type] != undefined)
         global.__flag[$ _type] = {}; // Reset the struct directly
@@ -126,7 +126,7 @@ function Flag_Clear(_type) {
 
 ///@func Flag_GetRawData(type)
 ///@desc Retrieve raw JSON data from specified flag type.
-///@param {Real}	flag_type	The flag type to retrieve the raw data (base on FLAG_TYPE enum of between 0 to 4).
+///@param {Enum.FLAG_TYPE, Real}	flag_type	The flag type to retrieve the raw data (base on FLAG_TYPE enum of between 0 to 4).
 ///@return {String}
 function Flag_GetRawData(_type) {
     global.__flag[$ _type] ??= {}; // Ensure the type exists
@@ -135,7 +135,7 @@ function Flag_GetRawData(_type) {
 
 ///@func Flag_SetRawData(type, raw)
 ///@desc Set raw data to specified flag type.
-///@param {Real}	flag_type	The flag type to assign the raw data (base on FLAG_TYPE enum of between 0 to 4).
+///@param {Enum.FLAG_TYPE, Real}	flag_type	The flag type to assign the raw data (base on FLAG_TYPE enum of between 0 to 4).
 ///@param {Any}		flag_data	The raw data to assign.
 function Flag_SetRawData(_type, _raw) {
     global.__flag[$ _type] = _raw; // Directly update the struct in global.__flag

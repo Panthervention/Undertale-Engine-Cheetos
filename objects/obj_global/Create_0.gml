@@ -1,4 +1,4 @@
-depth = -10000;
+depth = -15000;
 timer = 0;
 quit_timer = 0;
 
@@ -45,8 +45,13 @@ with (border)
 {
 	enable = false;
 	auto_capture = false;
+	
 	sprite = noone;
 	sprite_previous = noone;
+	
+	index = 0;
+	index_previous = 0;
+	
 	alpha = 1;
 }
 #endregion
@@ -57,6 +62,7 @@ with (global)
 {
 	debug = false;
 	show_hitbox = 0;
+	
 	__fps_real = game_get_speed(gamespeed_fps);
 	__fps_average = __fps_real;
 	__fps_min = __fps_real;

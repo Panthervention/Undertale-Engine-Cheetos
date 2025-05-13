@@ -23,9 +23,9 @@ function Cell_AddressCount() {
 
 ///@func Cell_CallEvent(_cell, _event, _address)
 ///@desc Run the specified event of the given cell address struct.
-///@param {Struct.Cell}		cell		The cell address struct to execute the event.
-///@param {Real}			event		The cell address event to execute (base on CELL_EVENT enum or 0 because there is only 1 event by now).
-///@param {Real}			address		The number of the cell address.
+///@param {Struct.Cell}						cell		The cell address struct to execute the event.
+///@param {Enum.CELL_EVENT, Real}			event		The cell address event to execute (base on CELL_EVENT enum or 0 because there is only 1 event by now).
+///@param {Real}							address		The number of the cell address.
 function Cell_CallEvent(_cell, _event, _address) {
 	if (Cell_IsValid(_cell))
 	{

@@ -38,18 +38,36 @@ __naming_letter_shake_y	= ds_grid_create(26, 2);
 var	_letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var _i = 0; repeat (26)
 {
-	var _char_count_x = _i mod 7,
-	    _char_count_y = _i div 7;
+	var _char_x = (_i mod 7) * 64,
+	    _char_y = (_i div 7) * 28;
 
 	__naming_letter[# _i, 0] = string_char_at(_letters, _i + 1);
 	__naming_letter[# _i, 1] = string_lower(string_char_at(_letters, _i + 1));
-	__naming_letter_x[# _i, 0] = 120 + (_char_count_x * 64);
-	__naming_letter_x[# _i, 1] = 120 + (_char_count_x * 64);
-	__naming_letter_y[# _i, 0] = 152 + (_char_count_y * 28);
-	__naming_letter_y[# _i, 1] = 272 + (_char_count_y * 28);
+	__naming_letter_x[# _i, 0] = 120 + _char_x;
+	__naming_letter_x[# _i, 1] = 120 + _char_x;
+	__naming_letter_y[# _i, 0] = 152 + _char_y;
+	__naming_letter_y[# _i, 1] = 272 + _char_y;
 	__naming_letter_shake_x[# _i, 0] = random_range(-1, 1);
 	__naming_letter_shake_x[# _i, 1] = random_range(-1, 1);
 	__naming_letter_shake_y[# _i, 0] = random_range(-1, 1);
 	__naming_letter_shake_y[# _i, 1] = random_range(-1, 1);
 	_i++;
 }
+
+__setting_label = lexicon_text("setting.label");
+__setting_exit = lexicon_text("setting.exit");
+
+__setting_label_language = lexicon_text("setting.language.label");
+__setting_language = lexicon_text("setting.language.option");
+
+__setting_label_mastervolume = lexicon_text("setting.mastervolume.label");
+ // If data exists, load. Else return 100.
+__setting_mastervolume = Flag_Get(FLAG_TYPE.SETTINGS, FLAG_SETTINGS.VOLUME, 100);
+
+__setting_label_border = lexicon_text("setting.border.label");
+__setting_border_option = [];
+ // If data exists, load. Else return 0.
+__setting_border = Flag_Get(FLAG_TYPE.SETTINGS, FLAG_SETTINGS.BORDER, 0);
+var _i = 0; repeat (9)
+	array_push(__setting_border_option, lexicon_text($"setting.border.option.{_i++}"));
+

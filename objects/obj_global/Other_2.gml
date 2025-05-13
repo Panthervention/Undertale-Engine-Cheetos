@@ -24,4 +24,15 @@ gml_release_mode(released);
 
 game_set_speed(60, gamespeed_fps);
 
-audio_master_gain(0.25);
+#region Loading settings
+Flag_Load(FLAG_TYPE.SETTINGS);
+
+var _volume = Flag_Get(FLAG_TYPE.SETTINGS, FLAG_SETTINGS.LANGUAGE, 100) / 100,
+	_border = Flag_Get(FLAG_TYPE.SETTINGS, FLAG_SETTINGS.BORDER);
+
+audio_master_gain(_volume);
+
+Border_SetEnabled(_border != 0, _border == 2);
+Border_SetSprite(_border == 2 ? noone : spr_border, _border == 3 ? 2 : (_border > 4 ? _border + 4 : 0));
+#endregion
+

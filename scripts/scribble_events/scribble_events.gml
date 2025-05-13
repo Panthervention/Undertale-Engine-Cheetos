@@ -81,8 +81,8 @@ function set_portrait(_element, _parameter_array, _character_index) {
 	for (var _i = 0, _n = array_length(_parameter_array); _i < _n; _i++)
 		_parameter[_i] = string_trim(_parameter_array[_i]);
 	
-	portrait = asset_get_index(parameter[0]);
-	portrait_index = real(parameter[1]);
+	portrait = asset_get_index(_parameter[0]);
+	portrait_index = real(_parameter[1]);
 }
 
 function set_portrait_scale(_element, _parameter_array, _character_index) {

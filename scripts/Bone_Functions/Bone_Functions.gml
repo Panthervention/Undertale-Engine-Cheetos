@@ -13,6 +13,7 @@
 ///@param {Real}	[rotate]			The rotation speed of the bone. (Default: 0)
 ///@param {Bool}	[auto_destroy]		Whenever the bone will automatically destroy itself if it goes outside the screen or not. (Default: true)
 ///@param {Real}	[duration]			The duration the bone will stay before getting destroyed. (Default: -1)
+///@return {Id.Instance<obj_battle_bullet_bone>}
 function Bullet_Bone(_x, _y, _length, _hspeed, _vspeed, _type = 0, _mask = true, _mode = 0, _angle = 90, _rotate = 0, _auto_destroy = true, _duration = -1)
 {
 	var _depth = DEPTH_BATTLE.BULLET_MID;
@@ -22,6 +23,7 @@ function Bullet_Bone(_x, _y, _length, _hspeed, _vspeed, _type = 0, _mask = true,
 	{
 		x = _x;
 		y = _y;
+		depth = _depth;
 		hspeed = _hspeed;
 		vspeed = _vspeed;
 		image_angle = _angle;
@@ -50,14 +52,14 @@ function Bullet_Bone(_x, _y, _length, _hspeed, _vspeed, _type = 0, _mask = true,
 ///@param {Real}	[rotate]			The rotation speed of the bone. (Default: 0)
 ///@param {Bool}	[auto_destroy]		Whenever the bone will automatically destroy itself if it goes outside the screen or not. (Default: true)
 ///@param {Real}	[duration]			The duration the bone will stay before getting destroyed. (Default: -1)
+///@return {Id.Instance<obj_battle_bullet_bone>}
 function Bullet_BoneTop(_x, _length, _hspeed, _type = 0, _mask = true, _rotate = 0, _auto_destroy = true, _duration = -1)
 {
 	var _y = (obj_battle_board.y - obj_battle_board.up) + (_length / 2),
 		_vspeed = 0,
 		_angle = 90,
 		_mode = 0;
-	var _bone = Bullet_Bone(_x, _y, _length, _hspeed, _vspeed, _type, _mask, _mode, _angle, _rotate, _auto_destroy, _duration);
-	return _bone;
+	return Bullet_Bone(_x, _y, _length, _hspeed, _vspeed, _type, _mask, _mode, _angle, _rotate, _auto_destroy, _duration);
 }
 
 ///@func Bullet_BoneBottom(x, length, hspeed, [type], [mask], [rotate], [auto_destroy], [duration])
@@ -70,13 +72,13 @@ function Bullet_BoneTop(_x, _length, _hspeed, _type = 0, _mask = true, _rotate =
 ///@param {Real}	[rotate]			The rotation speed of the bone. (Default: 0)
 ///@param {Bool}	[auto_destroy]		Whenever the bone will automatically destroy itself if it goes outside the screen or not. (Default: true)
 ///@param {Real}	[duration]			The duration the bone will stay before getting destroyed. (Default: -1)
+///@return {Id.Instance<obj_battle_bullet_bone>}
 function Bullet_BoneBottom(_x, _length, _hspeed, _type = 0, _mask = true, _rotate = 0, _auto_destroy = true, _duration = -1)
 {	var _y = (obj_battle_board.y + obj_battle_board.down) - (_length / 2),
 		_vspeed = 0,
 		_angle = 90,
 		_mode = 0;
-	var _bone = Bullet_Bone(_x, _y, _length, _hspeed, _vspeed, _type, _mask, _mode, _angle, _rotate, _auto_destroy, _duration);
-	return _bone;
+	return Bullet_Bone(_x, _y, _length, _hspeed, _vspeed, _type, _mask, _mode, _angle, _rotate, _auto_destroy, _duration);
 }
 
 ///@func Bullet_BoneLeft(y, length, vspeed, [type], [mask], [rotate], [auto_destroy], [duration])
@@ -89,14 +91,14 @@ function Bullet_BoneBottom(_x, _length, _hspeed, _type = 0, _mask = true, _rotat
 ///@param {Real}	[rotate]			The rotation speed of the bone. (Default: 0)
 ///@param {Bool}	[auto_destroy]		Whenever the bone will automatically destroy itself if it goes outside the screen or not. (Default: true)
 ///@param {Real}	[duration]			The duration the bone will stay before getting destroyed. (Default: -1)
+///@return {Id.Instance<obj_battle_bullet_bone>}
 function Bullet_BoneLeft(_y, _length, _vspeed, _type = 0, _mask = true, _rotate = 0, _auto_destroy = true, _duration = -1)
 {
 	var _x = (obj_battle_board.x - obj_battle_board.left) + (_length / 2),
 		_hspeed = 0,
 		_angle = 0,
 		_mode = 0;
-	var _bone = Bullet_Bone(_x, _y, _length, _hspeed, _vspeed, _type, _mask, _mode, _angle, _rotate, _auto_destroy, _duration);
-	return _bone;
+	return Bullet_Bone(_x, _y, _length, _hspeed, _vspeed, _type, _mask, _mode, _angle, _rotate, _auto_destroy, _duration);
 }
 
 ///@func Bullet_BoneRight(y, length, vspeed, [type], [mask], [rotate], [auto_destroy], [duration])
@@ -109,14 +111,14 @@ function Bullet_BoneLeft(_y, _length, _vspeed, _type = 0, _mask = true, _rotate 
 ///@param {Real}	[rotate]			The rotation speed of the bone. (Default: 0)
 ///@param {Bool}	[auto_destroy]		Whenever the bone will automatically destroy itself if it goes outside the screen or not. (Default: true)
 ///@param {Real}	[duration]			The duration the bone will stay before getting destroyed. (Default: -1)
+///@return {Id.Instance<obj_battle_bullet_bone>}
 function Bullet_BoneRight(_y, _length, _vspeed, _type = 0, _mask = true, _rotate = 0, _auto_destroy = true, _duration = -1)
 {
 	var _x = (obj_battle_board.x + obj_battle_board.right) - (_length / 2),
 		_hspeed = 0,
 		_angle = 0,
 		_mode = 0;
-	var _bone = Bullet_Bone(_x, _y, _length, _hspeed, _vspeed, _type, _mask, _mode, _angle, _rotate, _auto_destroy, _duration);
-	return _bone;
+	return Bullet_Bone(_x, _y, _length, _hspeed, _vspeed, _type, _mask, _mode, _angle, _rotate, _auto_destroy, _duration);
 }
 #endregion
 
@@ -133,6 +135,7 @@ function Bullet_BoneRight(_y, _length, _vspeed, _type = 0, _mask = true, _rotate
 ///@param {Real}	frequency	The frequency of the bone wave.
 ///@param {Real}	[type]		The type (color) of the bone (between 0 and 2 which is white, blue and orange respectively). (Default: 0)
 ///@param {Bool}	[mask]		Whenever the bone will only be drawn within the board or not. (Default: true)
+///@return {Array<Array<Id.Instance<obj_battle_bullet_bone>>>}
 function Bullet_BoneWaveV(_y, _x_gap, _vspeed, _space, _amount, _gap, _amplitude, _frequency, _type = 0, _mask = false)
 {
 	var _sine = 0,
@@ -162,6 +165,7 @@ function Bullet_BoneWaveV(_y, _x_gap, _vspeed, _space, _amount, _gap, _amplitude
 ///@param {Real}	frequency	The frequency of the bone wave.
 ///@param {Real}	[type]		The type (color) of the bone (between 0 and 2 which is white, blue and orange respectively). (Default: 0)
 ///@param {Bool}	[mask]		Whenever the bone will only be drawn within the board or not. (Default: true)
+///@return {Array<Array<Id.Instance<obj_battle_bullet_bone>>>}
 function Bullet_BoneWaveH(_x, _y_gap, _hspeed, _space, _amount, _gap, _amplitude, _frequency, _type = 0, _mask = true)
 {
 	var _sine = 0,
@@ -190,6 +194,7 @@ function Bullet_BoneWaveH(_x, _y_gap, _hspeed, _space, _amount, _gap, _amplitude
 ///@param {Bool}	[mask]				Whenever the bone will only be drawn within the board or not. (Default: true)
 ///@param {Bool}	[auto_destroy]		Whenever the bone will automatically destroy itself if it goes outside the screen or not. (Default: true)
 ///@param {Real}	[duration]			The duration the bone will stay before getting destroyed. (Default: -1)
+///@return {Array<Id.Instance<obj_battle_bullet_bone>>}
 function Bullet_BoneGapV(_x_gap, _y, _vspeed, _gap, _type = 0, _mask = true, _auto_destroy = true, _duration = -1)
 {
 	var _bone = [],
@@ -215,6 +220,7 @@ function Bullet_BoneGapV(_x_gap, _y, _vspeed, _gap, _type = 0, _mask = true, _au
 ///@param {Bool}	[mask]				Whenever the bone will only be drawn within the board or not. (Default: true)
 ///@param {Bool}	[auto_destroy]		Whenever the bone will automatically destroy itself if it goes outside the screen or not. (Default: true)
 ///@param {Real}	[duration]			The duration the bone will stay before getting destroyed. (Default: -1)		
+///@return {Array<Id.Instance<obj_battle_bullet_bone>>}
 function Bullet_BoneGapH(_x, _y_gap, _hspeed, _gap, _type = 0, _mask = true, _auto_destroy = true, _duration = -1)
 {
 	var _bone = [],
@@ -234,13 +240,14 @@ function Bullet_BoneGapH(_x, _y_gap, _hspeed, _gap, _type = 0, _mask = true, _au
 #region Bone Wall
 ///@func Bullet_BoneWall(dir, height, delay, stay, [type], [stab], [warning])
 ///@desc Create a bone wall at the specified direction of the board.
-///@param {Real}	dir			The direction of the bone wall (base on DIR enum or either 0, 90, 180 and 270).
-///@param {Real}	height		The height of the bone wall.
-///@param {Real}	delay		The delay duration until the bone wall stab.
-///@param {Real}	stay		The duration which the bone wall stay before going away.
-///@param {Real}	[type]		The type (color) of the bone (between 0 and 2 which is white, blue and orange respectively). (Default: 0)
-///@param {Real}	[stab]		The duration it takes for the stabbing/unstabbing animation.
-///@param {Bool}	[warning]	Whenever there will be a warning sound or not. (Default: true)
+///@param {Enum.DIR, Real}	dir			The direction of the bone wall (base on DIR enum or either 0, 90, 180 and 270).
+///@param {Real}			height		The height of the bone wall.
+///@param {Real}			delay		The delay duration until the bone wall stab.
+///@param {Real}			stay		The duration which the bone wall stay before going away.
+///@param {Real}			[type]		The type (color) of the bone (between 0 and 2 which is white, blue and orange respectively). (Default: 0)
+///@param {Real}			[stab]		The duration it takes for the stabbing/unstabbing animation.
+///@param {Bool}			[warning]	Whenever there will be a warning sound or not. (Default: true)
+///@return {Id.Instance<obj_battle_bullet_bonewall>}
 function Bullet_BoneWall(_direction, _height, _delay_duration, _stay_duration, _type = 0, _stab_duration = 5, _warning_sound = true)
 {
 	var _depth = DEPTH_BATTLE.BULLET_MID;
@@ -255,8 +262,7 @@ function Bullet_BoneWall(_direction, _height, _delay_duration, _stay_duration, _
 		time_stab = _stab_duration;
 		type = _type;
 		sound_warn = _warning_sound;
-	}
-	
+	}	
 	return _wall;
 }
 #endregion

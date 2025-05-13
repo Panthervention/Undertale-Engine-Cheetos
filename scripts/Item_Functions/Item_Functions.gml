@@ -23,9 +23,9 @@ function Item_Count() {
 
 ///@func Item_CallEvent(item, event, slot)
 ///@desc Run the specified event of the given item struct.
-///@param {Struct.Item}		item		The item struct to execute the event.
-///@param {Real}			event		The item event to execute (base on ITEM_EVENT enum or between 0 and 2).
-///@param {Real}			slot		The inventory slot of the item.
+///@param {Struct.Item}						item		The item struct to execute the event.
+///@param {Enum.ITEM_EVENT, Real}			event		The item event to execute (base on ITEM_EVENT enum or between 0 and 2).
+///@param {Real}							slot		The inventory slot of the item.
 function Item_CallEvent(_item, _event, _slot) {
 	if (Item_IsValid(_item))
 	{
@@ -288,7 +288,7 @@ function Item_GetTextHeal(_heal, _new_line = true) {
 	var _hp = Flag_Get(FLAG_TYPE.STATIC,FLAG_STATIC.HP),
 		_hp_max = Flag_Get(FLAG_TYPE.STATIC,FLAG_STATIC.HP_MAX);
 	
-	_result += (_hp + _heal >= _hp_max) ? lexicon_text("item.heal.full") : lexicon_text("item.heal.part", _heal);
+	_result += (_hp >= _hp_max) ? lexicon_text("item.heal.full") : lexicon_text("item.heal.part", _heal);
 	
 	return _result;
 }

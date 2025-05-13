@@ -64,18 +64,18 @@ with (border)
 #endregion
 
 #region		Debug Logic
-with (global)
-{
-	__fps_real = floor(fps_real);
-	__fps_average = fps_average;
-	__fps_min = min(max(__fps_min, 0), __fps_real);
-	__fps_max = max(__fps_max, __fps_real);
-}
-
 if (allow_debug && !released && keyboard_check_pressed(vk_f3))
 	global.debug ^= 1;
 if (global.debug)
 {
+	with (global)
+	{
+		__fps_real = floor(fps_real);
+		__fps_average = fps_average;
+		__fps_min = min(max(__fps_min, 0), __fps_real);
+		__fps_max = max(__fps_max, __fps_real);
+	}
+
 	var _input_horizontal = PRESS_HORIZONTAL;
 	if (keyboard_check(vk_shift))
 	{

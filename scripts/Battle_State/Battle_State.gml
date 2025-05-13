@@ -7,7 +7,7 @@ function Battle_GetState() {
 
 ///@func Battle_SetState(state)
 ///@desc Set the current state for the battle.
-///@param {Real}	state		The state to assign for the battle (base on BATTLE_STATE enum or between 0 and 5).
+///@param {Enum.BATTLE_STATE, Real}		state		The state to assign for the battle (base on BATTLE_STATE enum or between 0 and 5).
 function Battle_SetState(_state) {
     obj_battle_controller.__state = _state;
 
@@ -71,7 +71,7 @@ function Battle_GetNextState() {
 
 ///@func Battle_SetNextState(state_next)
 ///@desc Set the current state for the battle.
-///@param {Real}	state_next		The next state to assign for the battle (base on BATTLE_STATE enum or between 0 and 5).
+///@param {Enum.BATTLE_STATE, Real}		state_next		The next state to assign for the battle (base on BATTLE_STATE enum or between 0 and 5).
 function Battle_SetNextState(_state_next) {
     obj_battle_controller.__state_next = _state_next;
 }

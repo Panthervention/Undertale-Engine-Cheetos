@@ -13,7 +13,7 @@
 									RELEASE NOTES
 ********************************************************************************
 
-v1.2.0	- 
+v1.2.0	- 13/05/2025
 - Enforced naming convention thoughout the engine.
 - Updated IDE to 2024.13.1.193, Runtime 2024.13.1.242.
 - Updated Scribble to v9.5.0.
@@ -23,14 +23,16 @@ v1.2.0	-
 - Updated documentation for custom Scribble formatting.
 - Updated Global_Input.
 - Updated the soul processing functionality. Now image_angle can and will point exactly corresponding with the DIR enum.
-- Updated the battle fight menu target sprites from ilovecookies, but it appears the sprites still need calibration.
 - Renamed Flag_Custom to Flag_Define.
 - Renamed Effects to Effect_Functions.
 - Rewritten logic for the Battle Info and Battle Button rendering and controls.
 - Rewritten logic for the obj_char and its children.
-- Rewritten logic for the obj_gameover.
+- Rewritten logic for the obj_gameover with reload after death.
 - Rewritten logic for the "voice" tag of obj_textwriter. Now the 'pitch' and 'gain' can be optional.
 - Created BATTLE_BUTTON enum for usages.
+- Imported all UNDERTALE's borders.
+- Imported new menu fight target sprites from ilovecookies.
+- Added a menu for obj_title_screen.
 - Changed Bullet_Platform parameter order. Please improvise and adjust your code accordingly to the new parameter order.
 - Changed Bullet Functions parameter name from "out" to "mask". Now if you want the bone to only be drawn within the board, "mask" need to be true instead of "out" = false like before.
 - Changed SOUL_MODE enum name to just SOUL.
