@@ -103,6 +103,10 @@ else if (__menu == 4) // Settings
 	var _exit_col = (__choice_setting == 0) ? __color_chosen : __color_default;
 	draw_text_transformed_color(40, 80, __setting_exit, 2, 2, 0, _exit_col, _exit_col, _exit_col, _exit_col, 1);
 	
+	draw_set_align(fa_right, fa_top);
+	draw_text(640, 0, __setting_label_season);
+	draw_set_align();
+	
 	var _language_col = (__choice_setting == 1) ? __color_chosen : __color_default;
 	draw_text_transformed_color(40, 140, __setting_label_language, 2, 2, 0, _language_col, _language_col, _language_col, _language_col, 1);
 	draw_text_transformed_color(320, 140, __setting_language, 2, 2, 0, _language_col, _language_col, _language_col, _language_col, 1);
@@ -114,6 +118,12 @@ else if (__menu == 4) // Settings
 	var _border_col = (__choice_setting == 3) ? __color_chosen : __color_default;
 	draw_text_transformed_color(40, 220, __setting_label_border, 2, 2, 0, _border_col, _border_col, _border_col, _border_col, 1);
 	draw_text_transformed_color(320, 220, $"<  {__setting_border_option[__setting_border]}  >", 2, 2, 0, _border_col, _border_col, _border_col, _border_col, 1);
+	
+	draw_set_align(fa_center, fa_middle);
+	draw_set_color(c_gray);
+	draw_text(320, 470, __setting_instruction);
+	draw_set_align();
+	draw_set_color(c_white);
 }
 
 if (__menu >= 1 && __menu <= 3) // The name label

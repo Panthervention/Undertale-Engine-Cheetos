@@ -13,7 +13,7 @@
 									RELEASE NOTES
 ********************************************************************************
 
-v1.2.0	- 13/05/2025
+v1.2.0	- 14/05/2025
 - Enforced naming convention thoughout the engine.
 - Updated IDE to 2024.13.1.193, Runtime 2024.13.1.242.
 - Updated Scribble to v9.5.0.

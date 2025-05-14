@@ -50,6 +50,7 @@ enum ITEM {
 #region Item Template
 function Item() constructor {
 	// Compulsory variables
+	is_item = true;					// Exist for validation check! Don't touch!
 	item_id = ITEM.TEMPLATE;
 	type = ITEM_TYPE.CONSUMABLE;	// Either consumable or equipment
 	uses = 1;						// Only needed when the type is consumable

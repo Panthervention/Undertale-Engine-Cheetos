@@ -3,7 +3,7 @@
 ///@param {Struct.Item}		item		The item struct to check for validation.
 ///@return {Bool}
 function Item_IsValid(_item) {
-    return is_struct(_item);
+    return (is_struct(_item) && variable_struct_exists(_item, "is_item") && _item.is_item);
 }
 
 ///@func Item_IsSlotValid(slot)

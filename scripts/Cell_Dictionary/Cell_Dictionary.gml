@@ -30,6 +30,7 @@ enum CELL_EVENT {
 
 	#region Cells
 	function Cell() constructor {
+		is_cell = true;						// Exist for validation check! Do not touch!
 		address = CELL_ADDRESS.TEMPLATE;
 		name = undefined;
 		dialog = undefined;

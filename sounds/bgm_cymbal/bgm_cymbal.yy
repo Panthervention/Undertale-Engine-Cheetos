@@ -1,16 +1,16 @@
 {
   "$GMSound":"",
-  "%Name":"bgm_gameover",
+  "%Name":"bgm_cymbal",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
   },
   "bitDepth":1,
-  "bitRate":192,
+  "bitRate":128,
   "compression":3,
   "conversionMode":0,
-  "duration":46.35719,
-  "name":"bgm_gameover",
+  "duration":5.18966,
+  "name":"bgm_cymbal",
   "parent":{
     "name":"BGM",
     "path":"folders/Engine/Audio/BGM.yy",
@@ -18,8 +18,8 @@
   "preload":false,
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
-  "sampleRate":48000,
-  "soundFile":"bgm_gameover.ogg",
+  "sampleRate":44100,
+  "soundFile":"bgm_cymbal.ogg",
   "type":1,
   "volume":1.0,
 }

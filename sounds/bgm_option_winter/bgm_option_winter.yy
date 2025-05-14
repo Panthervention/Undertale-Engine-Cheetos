@@ -1,6 +1,6 @@
 {
   "$GMSound":"",
-  "%Name":"bgm_gameover",
+  "%Name":"bgm_option_winter",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -9,8 +9,8 @@
   "bitRate":192,
   "compression":3,
   "conversionMode":0,
-  "duration":46.35719,
-  "name":"bgm_gameover",
+  "duration":13.727347,
+  "name":"bgm_option_winter",
   "parent":{
     "name":"BGM",
     "path":"folders/Engine/Audio/BGM.yy",
@@ -19,7 +19,7 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":48000,
-  "soundFile":"bgm_gameover.ogg",
+  "soundFile":"bgm_option_winter.ogg",
   "type":1,
   "volume":1.0,
 }

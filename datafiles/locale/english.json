@@ -68,8 +68,8 @@
             {
                 "dialog": 
                 {
-                    "introduce": "[voice, snd_text_voice_sans][font_sans][portrait, spr_char_sans_expression, 0]* hi[sleep, 20], i'm funni\n  skeleton man[pause][clear][portrait, spr_char_sans_expression, 5]* currently i'm stoned...[pause][clear][portrait, spr_char_sans_expression, 3]* by the way do you want\n  to have a fight?\n\n  [option, 0]Yes         [option, 1]Nuh uh[option_event, option_sans_fight_yes, option_sans_fight_nope]",
-                    "weary": "[voice, snd_text_voice_sans][scale, 2][font_sans][portrait, spr_char_sans_expression, 5]* aww that sad[pause][clear][portrait, spr_char_sans_expression, 3]* maybe next time?[pause][clear][portrait, spr_char_sans_expression, 1]* or until you find a way\n  to do something with\n  this project?[pause][end]"
+                    "introduce": "[voice, voice_sans][font_sans][portrait, spr_char_sans_expression, 0]* hi[sleep, 20], i'm funni\n  skeleton man[pause][clear][portrait, spr_char_sans_expression, 5]* currently i'm stoned...[pause][clear][portrait, spr_char_sans_expression, 3]* by the way do you want\n  to have a fight?\n\n  [option, 0]Yes         [option, 1]Nuh uh[option_event, option_sans_fight_yes, option_sans_fight_nope]",
+                    "weary": "[voice, voice_sans][scale, 2][font_sans][portrait, spr_char_sans_expression, 5]* aww that sad[pause][clear][portrait, spr_char_sans_expression, 3]* maybe next time?[pause][clear][portrait, spr_char_sans_expression, 1]* or until you find a way\n  to do something with\n  this project?[pause][end]"
                 }
             }
         },
@@ -268,6 +268,15 @@
         {
             "label": "SETTINGS",
             "exit": "EXIT",
+            "instruction": "Use [Arrow Keys] or [WASD] to config the settings. Press [Enter] on the EXIT to quit.",
+            "season":
+            {
+                "label": "Current Season: {0}",
+                "spring": "Spring",
+                "summer": "Summer",
+                "fall": "Fall",
+                "winter": "Winter"
+            },
             "language":
             {
                 "label": "Language",

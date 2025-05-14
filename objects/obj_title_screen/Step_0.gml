@@ -3,10 +3,14 @@ var _input_vertical = PRESS_VERTICAL,
 	_input_confirm = PRESS_CONFIRM,
 	_input_cancel = PRESS_CANCEL;
 	
-if (__menu == -1)
+if (__menu == -1) // Logo
 {
 	if (_input_confirm)
+	{
 		__menu = 0;
+		if (!audio_is_playing(__menu_bgm))
+			audio_play_sound(__menu_bgm, 0, true);
+	}
 }
 else if (__menu == 0) // Instruction - Main menu
 {
@@ -24,6 +28,9 @@ else if (__menu == 0) // Instruction - Main menu
 					break;
 				case 1: // Setting
 					__menu = 4;
+					audio_stop_sound(__menu_bgm);
+					if (!audio_is_playing(__season_bgm))
+						audio_play_sound(__season_bgm, 0, true);
 					break;
 			}
 	    }
@@ -44,12 +51,13 @@ else if (__menu == 0) // Instruction - Main menu
 			switch (__choice)
 			{
 				case 0: // Continue
+					audio_stop_sound(__menu_bgm);
 					Player_Load(0);
-		            var target = Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.ROOM, -1);
-		            if (room_exists(target))
-		                room_goto(target);
+		            var _target = Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.ROOM, -1);
+		            if (room_exists(_target))
+		                room_goto(_target);
 		            else
-		                show_message($"CHEETOS: Attempt to goto an unexisting room {target}");
+		                show_message($"CHEETOS: Attempt to goto an unexisting room {_target}");
 					break;
 				
 				case 1: // Reset
@@ -70,12 +78,15 @@ else if (__menu == 0) // Instruction - Main menu
 					
 					__menu_label_confirm_title = scribble(__confirm_title).starting_format("font_dt_sans", c_white).transform(2, 2, 0);
 					__menu_label_confirm_title.build(true);
-					__menu_label_naming_name	  = scribble(__naming_name)	.starting_format("font_dt_mono", c_white).transform(2, 2, 0);
+					__menu_label_naming_name   = scribble(__naming_name).starting_format("font_dt_sans", c_white).transform(2, 2, 0);
 					__menu_label_naming_name.build(true);
 					break;
 				
 				case 2: // Settings
-					__menu = 4;
+					__menu = 4;		
+					audio_stop_sound(__menu_bgm);
+					if (!audio_is_playing(__season_bgm))
+						audio_play_sound(__season_bgm, 0, true);
 					break;
 			}
 	    }
@@ -126,7 +137,7 @@ else if (__menu == 1) // Naming
 	        {
 	            var _text = __naming_letter[# ((__choice_naming_letter) % 26), 0];
 	            __naming_name += (__choice_naming_letter < 26 ? _text : string_lower(_text));
-				__menu_label_naming_name	= scribble(__naming_name).starting_format("font_dt_mono", c_white).transform(2, 2, 0);
+				__menu_label_naming_name	= scribble(__naming_name).starting_format("font_dt_sans", c_white).transform(2, 2, 0);
 				__menu_label_naming_name.build(true);
 	        }
 	    }
@@ -135,7 +146,7 @@ else if (__menu == 1) // Naming
 	        if (string_length(__naming_name) > 0)
 			{
 	            __naming_name = string_delete(__naming_name, string_length(__naming_name), 1);
-				__menu_label_naming_name	  = scribble(__naming_name)	.starting_format("font_dt_mono", c_white).transform(2, 2, 0);
+				__menu_label_naming_name	  = scribble(__naming_name).starting_format("font_dt_sans", c_white).transform(2, 2, 0);
 				__menu_label_naming_name.build(true);
 			}
 	    }
@@ -245,10 +256,14 @@ else if (__menu == 2) // Name Confirmation
 	    else // Yes
 		{
 	        __menu = 3;
-			audio_sound_set_track_position(audio_play_sound(snd_cymbal, 0, false), 1.4);
+			audio_stop_sound(__menu_bgm);
+			var _cymbal = audio_play_sound(bgm_cymbal, 0, false);
+			audio_sound_gain(_cymbal, 0.8, 0);
+			audio_sound_pitch(_cymbal, 0.95)
+			audio_sound_set_track_position(_cymbal, 1.4);
 			obj_global.fader_color = c_white;
 			Fader_Fade(0, 1, 240, c_white);
-			alarm[0] = 240;
+			alarm[0] = 300;
 		}
 	}
 }
@@ -259,7 +274,12 @@ else if (__menu == 4) // Settings
 	{
 		case 0: // Exit
 			if (_input_confirm)
+			{
 				__menu = 0;
+				audio_stop_sound(__season_bgm);
+				if (!audio_is_playing(__menu_bgm))
+					audio_play_sound(__menu_bgm, 0, true);
+			}
 			break;
 		case 1: // Language
 			break;

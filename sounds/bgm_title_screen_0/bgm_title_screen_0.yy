@@ -1,6 +1,6 @@
 {
   "$GMSound":"",
-  "%Name":"bgm_gameover",
+  "%Name":"bgm_title_screen_0",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -9,8 +9,8 @@
   "bitRate":192,
   "compression":3,
   "conversionMode":0,
-  "duration":46.35719,
-  "name":"bgm_gameover",
+  "duration":32.02177,
+  "name":"bgm_title_screen_0",
   "parent":{
     "name":"BGM",
     "path":"folders/Engine/Audio/BGM.yy",
@@ -19,7 +19,7 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":48000,
-  "soundFile":"bgm_gameover.ogg",
+  "soundFile":"bgm_title_screen_0.ogg",
   "type":1,
   "volume":1.0,
 }

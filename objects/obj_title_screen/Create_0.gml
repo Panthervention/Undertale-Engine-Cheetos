@@ -7,6 +7,7 @@ TweenFire(id, "", 0, false, 99, 1, "__hint>", 1); // Wait till the [Press Z or E
 __fun = 0;
 
 __menu = -1;
+__menu_bgm = bgm_title_screen_0;
 __mode = file_exists(Flag_GetSavePath(FLAG_TYPE.INFO));
 
 __color_instruction = c_silver;
@@ -45,5 +46,10 @@ __naming_shake_buffer = 0;
 __naming_shake_buffer_asign = 1; 
 
 __season = (current_month mod 12) div 3 + 1;
+
+var _season_to_string = ((__season == 1) ? "winter" : ((__season == 2) ? "spring" : ((__season == 3) ? "summer" : "fall")));
+
+__season_converted = lexicon_text($"setting.season.{_season_to_string}");
+__season_bgm = ((__season == 1) ? bgm_option_winter : ((__season == 3) ? bgm_option_summer : bgm_option_fall));
 
 event_user(0); // Initiate text elements

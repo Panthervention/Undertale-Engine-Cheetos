@@ -3,7 +3,7 @@ event_inherited();
 x = 60; y = 270;
 
 menu_string_prefix = "[scale, 2][c_white][font_dt_mono]";
-menu_dialog_prefix = "[voice, snd_text_voice_typer]";
+menu_dialog_prefix = "[voice, voice_typer]";
 menu_dialog_visible = true;
 
 item_scroll_mode = BATTLE_MENU_ITEM.VERTICAL;

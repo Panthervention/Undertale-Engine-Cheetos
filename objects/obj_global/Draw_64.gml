@@ -15,17 +15,18 @@ if (global.debug)
 	draw_set_color(_col_debug);
 	draw_text(5, 0, "DEBUG");
 	draw_text(5, 10, "----------------------------------------");
-	draw_text(5, 20, $"FPS: {fps} ({global.__fps_real}/{global.__fps_average}) ({global.__fps_min}/{global.__fps_max})");
-	draw_text(5, 35, $"Speed: {_game_speed} ({_game_speed / 60}x) {_fps_locked}");
-	draw_text(5, 50, $"Room: {room_get_name(room)}");
-	draw_text(5, 65, $"Instances: {instance_count}");
-	draw_text(5, 80, $"Mouse Coords: {mouse_x}x ; {mouse_y}y");
-	draw_text(5, 90, "----------------------------------------");
+	draw_text(5, 20, $"Current Time: {current_time/1000}s");
+	draw_text(5, 35, $"FPS: {fps} ({global.__fps_real}/{global.__fps_average}) ({global.__fps_min}/{global.__fps_max})");
+	draw_text(5, 50, $"Speed: {_game_speed} ({_game_speed / 60}x) {_fps_locked}");
+	draw_text(5, 65, $"Room: {room_get_name(room)}");
+	draw_text(5, 80, $"Instances: {instance_count}");
+	draw_text(5, 95, $"Mouse Coords: {mouse_x}x ; {mouse_y}y");
+	draw_text(5, 105, "----------------------------------------");
 	if (Player_IsInBattle())
 	{
-		draw_text(5, 100, $"Turn: {Battle_GetTurnNumber()}{instance_exists(obj_battle_turn) ? $" - Timer: {obj_battle_turn.timer}" : "" }");
+		draw_text(5, 115, $"Turn: {Battle_GetTurnNumber()}{instance_exists(obj_battle_turn) ? $" - Timer: {obj_battle_turn.timer}" : "" }");
 		if (instance_exists(obj_battle_soul))
-			draw_text(5, 115, $"Soul Coords: {obj_battle_soul.x}x ; {obj_battle_soul.y}y");
+			draw_text(5, 130, $"Soul Coords: {obj_battle_soul.x}x ; {obj_battle_soul.y}y");
 	}
 	
 	draw_set_color(c_white);

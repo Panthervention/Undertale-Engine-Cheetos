@@ -43,7 +43,7 @@ switch (turn)
 			timer = 571;
 			proceed = false;
 			var _dialog = instance_create_depth(420, (obj_battle_enemy_sans.y - 100), 0, obj_battle_dialog_enemy);
-		    _dialog.text = $"[voice, snd_text_voice_sans][font_sans]{lexicon_text("battle.enemy.sans.turn.0.1")}";
+		    _dialog.text = $"[voice, voice_sans][font_sans]{lexicon_text("battle.enemy.sans.turn.0.1")}";
 		}
 		else if (timer == 571 && !instance_exists(obj_battle_dialog_enemy))
 			Battle_EndTurn();

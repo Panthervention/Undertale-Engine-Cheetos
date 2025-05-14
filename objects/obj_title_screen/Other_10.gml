@@ -27,7 +27,7 @@ __info_yeso				= lexicon_text("menu.confirm.yes");
 
 __menu_label_naming_title	= scribble(__info_naming_title) .starting_format("font_dt_sans", c_white).transform(2, 2, 0);
 __menu_label_confirm_title	= scribble(__confirm_title)		.starting_format("font_dt_sans", c_white).transform(2, 2, 0);
-__menu_label_naming_name	= scribble(__naming_name)		.starting_format("font_dt_mono", c_white).transform(__confirm_name_scale, __confirm_name_scale, __confirm_name_angle);
+__menu_label_naming_name	= scribble(__naming_name)		.starting_format("font_dt_sans", c_white).transform(__confirm_name_scale, __confirm_name_scale, __confirm_name_angle);
 
 __naming_letter			= ds_grid_create(26, 2);
 __naming_letter_x		= ds_grid_create(26, 2);
@@ -56,6 +56,9 @@ var _i = 0; repeat (26)
 
 __setting_label = lexicon_text("setting.label");
 __setting_exit = lexicon_text("setting.exit");
+__setting_instruction = lexicon_text("setting.instruction");
+
+__setting_label_season = lexicon_text("setting.season.label", __season_converted);
 
 __setting_label_language = lexicon_text("setting.language.label");
 __setting_language = lexicon_text("setting.language.option");

@@ -58,6 +58,7 @@ else if (__state == 2)
 		else
 		{
 			__state = 3;
+			Player_Load(0);
 			var _room_return = Flag_Get(FLAG_TYPE.TEMP, FLAG_TEMP.BATTLE_ROOM_RETURN);
 			if (room_exists(_room_return))
 			{
@@ -74,7 +75,6 @@ else if (__state == 3)
 	if (room == Flag_Get(FLAG_TYPE.TEMP, FLAG_TEMP.BATTLE_ROOM_RETURN))
 	{
 		room_persistent = false;
-		Flag_Load(FLAG_TYPE.STATIC);
 		room_restart();
 		instance_destroy();
 	}
