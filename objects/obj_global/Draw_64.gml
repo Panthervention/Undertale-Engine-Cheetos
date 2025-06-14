@@ -8,7 +8,7 @@ if (global.debug)
 	// Drawing background
 	draw_set_color(c_white);
 	draw_set_alpha(0.25);
-	draw_rectangle(0, 0, 220, 130, false);
+	draw_rectangle(0, 0, 220, Player_IsInBattle() ? 145 : 115, false);
 	
 	draw_set_font(font_dt_sans);
 	draw_set_alpha(1);
