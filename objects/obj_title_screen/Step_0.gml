@@ -296,7 +296,10 @@ else if (__menu == 4) // Settings
 		case 3: // Border
 			if (_input_horizontal != 0)
 			{
+				// feather disable GM1062
+				// __setting_border_option sometimes triggers GM1062 before fixing itself, possibly a product of the fact that feather does not concider User Event 0 as a part of Create.
 				__setting_border = clamp(__setting_border + _input_horizontal, 0, array_length(__setting_border_option) - 1);
+				// feather enable GM1062
 				Border_SetEnabled(__setting_border != 0, __setting_border == 2);
 				// feather ignore once GM1063
 				// -1 is the empty version of Asset
