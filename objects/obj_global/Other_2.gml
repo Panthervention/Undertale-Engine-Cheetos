@@ -33,6 +33,8 @@ var _volume = Flag_Get(FLAG_TYPE.SETTINGS, FLAG_SETTINGS.LANGUAGE, 100) / 100,
 audio_master_gain(_volume);
 
 Border_SetEnabled(_border != 0, _border == 2);
-Border_SetSprite(_border == 2 ? noone : spr_border, _border == 3 ? 2 : (_border > 4 ? _border + 4 : 0));
+// feather ignore once GM1063
+// -1 is the empty version of Asset
+Border_SetSprite(_border == 2 ? -1 : spr_border, _border == 3 ? 2 : (_border > 4 ? _border + 4 : 0));
 #endregion
 

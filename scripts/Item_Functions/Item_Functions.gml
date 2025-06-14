@@ -46,7 +46,11 @@ function Item_CallEvent(_item, _event, _slot) {
 						if (_item[$ "heal"] != undefined)
 						{
 							audio_play_sound(snd_item_heal, 0, false);
+							// feather ignore once GM1041
+							// The if statement means this is not undefined
 							Player_Heal(_item.heal);
+							// feather ignore once GM1041
+							// The if statement means this is not undefined
 							_desc_use += "[sleep, 20]" + Item_GetTextHeal(_item.heal) + "\n";
 						}
 				

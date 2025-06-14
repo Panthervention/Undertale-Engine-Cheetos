@@ -14,4 +14,3 @@ __label_box			= lexicon_text("ui.box.box");
 __label_finish		= lexicon_text("ui.box.finish");
 
 __prefix = "[scale, 2][font_dt_sans]";
-event_user(0); // Update item label

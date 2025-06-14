@@ -2,8 +2,8 @@
 depth = DEPTH_BATTLE.BOARD;
 image_alpha = 1;
 
-surface_clip = noone;
-surface_mask = noone;
+surface_clip = -1;
+surface_mask = -1;
 
 x = BATTLE_BOARD.X;
 y = BATTLE_BOARD.Y;
@@ -32,7 +32,7 @@ __point_xy = function(_point_x, _point_y)
 #endregion
 
 #region	Private Variables
-__surface_frame = noone;
+__surface_frame = -1;
 
 __frame_x = [0, 0, 0, 0];
 __frame_y = [0, 0, 0, 0];

@@ -53,8 +53,10 @@ function Flag_Load(_type) {
 ///@desc Retrieve a specific flag value from its file.
 ///@param {Enum.FLAG_TYPE, Real}	flag_type		The flag type to retrieve the data from (base on FLAG_TYPE enum of between 0 to 4).
 ///@param {Real}					flag_entry		The flag entry to retrieve the data from (ex: FLAG_STATIC.HP).
-///@param {Real}					[val_default]	The default value to return in case the data entry does not exist.
+///@param {Any}					[val_default]	The default value to return in case the data entry does not exist.
 ///@return {Any}
+// feather ignore once GM1045
+// Real is part of Any
 function Flag_Get(_type, _entry, _value_default = 0) {
     var struct = global.__flag;
     if (struct[$ _type] != undefined) 

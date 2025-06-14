@@ -38,6 +38,8 @@ function Cell_CallEvent(_cell, _event, _address) {
 				if (_cell[$ "dialog"] != undefined)
 				{
 					audio_play_sound(snd_phone_call, 0, false);
+					// feather ignore once GM1041
+					// The if statement means this is not undefined
 					Dialog_Add(_cell.dialog);
 					Dialog_Start();
 				}

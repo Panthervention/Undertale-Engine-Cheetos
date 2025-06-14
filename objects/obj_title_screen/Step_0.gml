@@ -1,3 +1,4 @@
+/* Feather ignore GM2016 */
 var _input_vertical = PRESS_VERTICAL,
 	_input_horizontal = PRESS_HORIZONTAL,
 	_input_confirm = PRESS_CONFIRM,
@@ -297,7 +298,9 @@ else if (__menu == 4) // Settings
 			{
 				__setting_border = clamp(__setting_border + _input_horizontal, 0, array_length(__setting_border_option) - 1);
 				Border_SetEnabled(__setting_border != 0, __setting_border == 2);
-				Border_SetSprite(__setting_border == 2 ? noone : spr_border, __setting_border == 3 ? 2 : (__setting_border > 4 ? __setting_border + 4 : 0));
+				// feather ignore once GM1063
+				// -1 is the empty version of Asset
+				Border_SetSprite(__setting_border == 2 ? -1 : spr_border, __setting_border == 3 ? 2 : (__setting_border > 4 ? __setting_border + 4 : 0));
 				Flag_Set(FLAG_TYPE.SETTINGS, FLAG_SETTINGS.BORDER, __setting_border);
 				Flag_Save(FLAG_TYPE.SETTINGS);
 			}

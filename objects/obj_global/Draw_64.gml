@@ -24,7 +24,8 @@ if (global.debug)
 	draw_text(5, 105, "----------------------------------------");
 	if (Player_IsInBattle())
 	{
-		draw_text(5, 115, $"Turn: {Battle_GetTurnNumber()}{instance_exists(obj_battle_turn) ? $" - Timer: {obj_battle_turn.timer}" : "" }");
+		var _turn_ternary = instance_exists(obj_battle_turn) ? $" - Timer: {obj_battle_turn.timer}" : "";
+		draw_text(5, 115, $"Turn: {Battle_GetTurnNumber()}{_turn_ternary}");
 		if (instance_exists(obj_battle_soul))
 			draw_text(5, 130, $"Soul Coords: {obj_battle_soul.x}x ; {obj_battle_soul.y}y");
 	}
