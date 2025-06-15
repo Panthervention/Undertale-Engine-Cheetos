@@ -2,7 +2,7 @@
 depth = DEPTH_BATTLE.BOARD;
 image_alpha = 1;
 
-surface_clip = -1;
+//surface_clip = -1;
 surface_mask = -1;
 
 x = BATTLE_BOARD.X;
