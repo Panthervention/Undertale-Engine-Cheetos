@@ -33,10 +33,10 @@ with (ui_info)
 			_lv_counter_x = _lv_icon_x + string_width(_lv_icon);
 			
 		// Label
-		var _color_final = color_lv_label;
+		_color_final = color_lv_label;
 		draw_text_color(_lv_icon_x, y, _lv_icon, _color_final, _color_final, _color_final, _color_final, _alpha_final);
 		// Counter
-		var _color_final = color_lv;
+		_color_final = color_lv;
 		draw_text_color(_lv_counter_x, y, lv, _color_final, _color_final, _color_final, _color_final, _alpha_final);
 	}
 	
@@ -63,8 +63,8 @@ with (ui_info)
 		draw_sprite_ext(spr_pixel, 0, x + 245, y, _bar_hp, 20, 0, _color_final, _alpha_final);
 	}
 	
-	var _kr = round(kr),
-		_color_final = (_kr > 0) ? color_kr_active : color_kr_idle;
+	var _kr = round(kr);
+	_color_final = (_kr > 0) ? color_kr_active : color_kr_idle;
 	if (_kr_enable)
 	{		
 		_alpha_final = image_alpha * alpha_kr;
