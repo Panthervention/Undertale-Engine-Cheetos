@@ -59,11 +59,11 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 	}
 	#endregion
 	
-		if (follow_board)
-		{
-			x += _board_x - _board.xprevious;
-			y += _board_y - _board.yprevious;
-		}
+	if (follow_board)
+	{
+		x += _board_x - _board.xprevious;
+		y += _board_y - _board.yprevious;
+	}
 	
 	switch (mode)
 	{
@@ -182,7 +182,7 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			{
 				_on_ground = false;
 			}
-			
+
 			// Platform checking
 			var _relative_x = x + _platform_check_position[0],
 				_relative_y = y + _platform_check_position[2];
