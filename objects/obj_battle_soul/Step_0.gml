@@ -59,11 +59,11 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 	}
 	#endregion
 	
-	if (follow_board)
-	{
-		x += _board_x - _board.xprevious;
-		y += _board_y - _board.yprevious;
-	}
+		if (follow_board)
+		{
+			x += _board_x - _board.xprevious;
+			y += _board_y - _board.yprevious;
+		}
 	
 	switch (mode)
 	{
@@ -80,7 +80,6 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_move_input = 0;
 			
 			var _on_ground = false,
-				_on_ceil = false,
 				_on_platform = false;
 		
 			var _fall_spd = fall_spd,
@@ -104,11 +103,11 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_dir = point_direction(_board_x, _board_y, x, y) - _board_dir,
 				_r_x = lengthdir_x(_dist, _dir) + _board_x,
 				_r_y = lengthdir_y(_dist, _dir) + _board_y,
-				_displace_x = lengthdir_x(_x_offset + (_board_thickness / 2), _angle) + (2 * dcos(_board_angle % 90)),
-				_displace_y = lengthdir_y(_y_offset + (_board_thickness / 2), _angle) + (2 * dsin((_board_angle % 90) + 90));
+				_displace_x = lengthdir_x(_x_offset, _angle),
+				_displace_y = lengthdir_y(_y_offset, _angle);
 			
-			var _sin = dsin(_board_angle),
-				_cos = dcos(_board_angle);
+			var _sin = dsin(-_board_angle),
+				_cos = dcos(-_board_angle);
 			
 			var _top_left_x = -_board.left,
 				_top_left_y = -_board.up,
@@ -129,23 +128,16 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_bottom_right_y = _board.down,
 				_bottom_right_x_rotated = _bottom_right_x * _cos - _bottom_right_y * _sin,
 				_bottom_right_y_rotated = _bottom_right_x * _sin + _bottom_right_y * _cos;
-			
+				
+			var small_offset = 0.0001;
 			var _board_vertices = [
-				_board_x + _top_left_x_rotated, _board_y + _top_left_y_rotated,
-				_board_x + _top_right_x_rotated, _board_y + _top_right_y_rotated,
-				_board_x + _bottom_right_x_rotated, _board_y + _bottom_right_y_rotated,
-				_board_x + _bottom_left_x_rotated, _board_y + _bottom_left_y_rotated
+				_board_x + _top_left_x_rotated+small_offset, _board_y + _top_left_y_rotated+small_offset,
+				_board_x + _top_right_x_rotated-small_offset, _board_y + _top_right_y_rotated+small_offset,
+				_board_x + _bottom_right_x_rotated-small_offset, _board_y + _bottom_right_y_rotated-small_offset,
+				_board_x + _bottom_left_x_rotated+small_offset, _board_y + _bottom_left_y_rotated-small_offset
 			];
 			
-			var _ground_top    = !point_in_parallelogram(_r_x, _r_y + _displace_y, _board_vertices),
-				_ground_bottom = !point_in_parallelogram(_r_x, _r_y + _displace_y, _board_vertices),
-				_ground_left   = !point_in_parallelogram(_r_x + _displace_x, _r_y, _board_vertices),
-				_ground_right  = !point_in_parallelogram(_r_x + _displace_x, _r_y, _board_vertices);
-				
-			var _ceil_top    = !point_in_parallelogram(_r_x, _r_y - _displace_y, _board_vertices),
-				_ceil_bottom = !point_in_parallelogram(_r_x, _r_y - _displace_y, _board_vertices),
-				_ceil_left   = !point_in_parallelogram(_r_x - _displace_x, _r_y, _board_vertices),
-				_ceil_right  = !point_in_parallelogram(_r_x - _displace_x, _r_y, _board_vertices);
+			_on_ground = !point_in_parallelogram(_r_x + _displace_x, _r_y + _displace_y, _board_vertices);
 			#endregion
 			
 			#region Collision processing
@@ -153,12 +145,6 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			#region Input and collision check of different directions of soul
 			if (_angle == DIR.UP)
 			{
-				if (_board_exists)
-				{
-					_on_ground = _ground_top;
-					_on_ceil = _ceil_top;
-				}
-				
 				_platform_check_position[2] = -10;
 				_platform_check_position[3] = -_y_offset;
 				
@@ -167,12 +153,6 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			}
 			else if (_angle == DIR.DOWN)
 			{
-				if (_board_exists)
-				{
-					_on_ground = _ground_bottom;
-					_on_ceil = _ceil_bottom;
-				}
-				
 				_platform_check_position[2] = _y_offset + 1;
 				_platform_check_position[3] = _y_offset;
 				
@@ -181,12 +161,6 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			}
 			else if (_angle == DIR.LEFT)
 			{
-				if (_board_exists)
-				{
-					_on_ground = _ground_left;
-					_on_ceil = _ceil_left;
-				}
-				
 				_platform_check_position[0] = -10;
 				_platform_check_position[1] = _x_offset;
 				
@@ -195,12 +169,6 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			}
 			else if (_angle == DIR.RIGHT)
 			{
-				if (_board_exists)
-				{
-					_on_ground = _ground_right;
-					_on_ceil = _ceil_right;
-				}
-				
 				_platform_check_position[1] = _x_offset + 1;
 				_platform_check_position[0] = -_x_offset;
 				
@@ -213,7 +181,6 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			if (!_board_exists)
 			{
 				_on_ground = false;
-				_on_ceil = false;
 			}
 			
 			// Platform checking
@@ -249,7 +216,7 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			#endregion
 			
 			#region Soul slamming (or some might call this soul throwing)
-			if (_on_ground || _on_platform || (_fall_spd < 0 && _on_ceil))
+			if (_on_ground || _on_platform)
 			{
 				if (slam)
 				{
@@ -278,7 +245,6 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_move_y = lengthdir_y(_move_input, _angle_compensation) + lengthdir_x(_fall_spd, _angle_compensation);
 			
 			on_ground = _on_ground;
-			on_ceil = _on_ceil;
 			on_platform = _on_platform;
 	
 			fall_spd = _fall_spd;

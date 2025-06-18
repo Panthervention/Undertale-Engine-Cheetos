@@ -19,7 +19,6 @@ fall_grav = 0;
 fall_multi = 1;
 
 on_ground = false;
-on_ceil = false;
 on_platform = false;
 
 platform_check = noone;
