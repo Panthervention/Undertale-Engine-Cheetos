@@ -60,6 +60,7 @@ function Battle_SoulSlam(_dir, _slam_power = global.slam_power)
 	with (obj_battle_soul)
 	{
 		on_ground = false;
+		on_ceil = false;
 		
 		slam = true;
 		fall_spd = _slam_power;

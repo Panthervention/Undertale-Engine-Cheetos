@@ -80,6 +80,7 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_move_input = 0;
 			
 			var _on_ground = false,
+				_on_ceil = false,
 				_on_platform = false;
 		
 			var _fall_spd = fall_spd,
@@ -141,6 +142,7 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			];
 			
 			_on_ground = !point_in_parallelogram(x + _displace_x, y + _displace_y, _board_vertices);
+			_on_ceil = !point_in_parallelogram(x - _displace_x, y - _displace_y, _board_vertices);
 			#endregion
 			
 			#region Collision processing
@@ -184,6 +186,7 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			if (!_board_exists)
 			{
 				_on_ground = false;
+				_on_ceil = false;
 			}
 
 			// Platform checking
@@ -219,7 +222,7 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			#endregion
 			
 			#region Soul slamming (or some might call this soul throwing)
-			if (_on_ground || _on_platform)
+			if (_on_ground || _on_platform || (_fall_spd < 0 && _on_ceil))
 			{
 				if (slam)
 				{
@@ -248,6 +251,7 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_move_y = lengthdir_y(_move_input, _angle_compensation) + lengthdir_x(_fall_spd, _angle_compensation);
 			
 			on_ground = _on_ground;
+			on_ceil = _on_ceil;
 			on_platform = _on_platform;
 	
 			fall_spd = _fall_spd;
