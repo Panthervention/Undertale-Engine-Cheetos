@@ -99,30 +99,34 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			#endregion
 			
 			#region Position calculation
-			var _small_offset = 0.001,
+			var _leniency_px = 10;
+
+			var _small_offset = 0.001 + _leniency_px,
 				_displace_x = lengthdir_x(_x_offset+_small_offset, _angle),
 				_displace_y = lengthdir_y(_y_offset+_small_offset, _angle);
+
+			_leniency_px *= abs(((_board_angle mod 90) - 45)/45);
 			
 			var _sin = dsin(-_board_angle),
 				_cos = dcos(-_board_angle);
 			
-			var _top_left_x = -_board.left,
-				_top_left_y = -_board.up,
+			var _top_left_x = -_board.left-_leniency_px,
+				_top_left_y = -_board.up-_leniency_px,
 				_top_left_x_rotated = _top_left_x * _cos - _top_left_y * _sin,
 				_top_left_y_rotated = _top_left_x * _sin + _top_left_y * _cos;
 			
-			var _top_right_x = _board.right,
-				_top_right_y = -_board.up,
+			var _top_right_x = _board.right+_leniency_px,
+				_top_right_y = -_board.up-_leniency_px,
 				_top_right_x_rotated = _top_right_x * _cos - _top_right_y * _sin,
 				_top_right_y_rotated = _top_right_x * _sin + _top_right_y * _cos;
 			
-			var _bottom_left_x = -_board.left,
-				_bottom_left_y = _board.down,
+			var _bottom_left_x = -_board.left-_leniency_px,
+				_bottom_left_y = _board.down+_leniency_px,
 				_bottom_left_x_rotated = _bottom_left_x * _cos - _bottom_left_y * _sin,
 				_bottom_left_y_rotated = _bottom_left_x * _sin + _bottom_left_y * _cos;
 			
-			var _bottom_right_x = _board.right,
-				_bottom_right_y = _board.down,
+			var _bottom_right_x = _board.right+_leniency_px,
+				_bottom_right_y = _board.down+_leniency_px,
 				_bottom_right_x_rotated = _bottom_right_x * _cos - _bottom_right_y * _sin,
 				_bottom_right_y_rotated = _bottom_right_x * _sin + _bottom_right_y * _cos;
 				
