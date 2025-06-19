@@ -99,12 +99,9 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			#endregion
 			
 			#region Position calculation
-			var _dist = point_distance(_board_x, _board_y, x, y),
-				_dir = point_direction(_board_x, _board_y, x, y) - _board_dir,
-				_r_x = lengthdir_x(_dist, _dir) + _board_x,
-				_r_y = lengthdir_y(_dist, _dir) + _board_y,
-				_displace_x = lengthdir_x(_x_offset, _angle),
-				_displace_y = lengthdir_y(_y_offset, _angle);
+			var _small_offset = 0.001,
+				_displace_x = lengthdir_x(_x_offset+_small_offset, _angle),
+				_displace_y = lengthdir_y(_y_offset+_small_offset, _angle);
 			
 			var _sin = dsin(-_board_angle),
 				_cos = dcos(-_board_angle);
@@ -129,15 +126,14 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_bottom_right_x_rotated = _bottom_right_x * _cos - _bottom_right_y * _sin,
 				_bottom_right_y_rotated = _bottom_right_x * _sin + _bottom_right_y * _cos;
 				
-			var small_offset = 0.0001;
 			var _board_vertices = [
-				_board_x + _top_left_x_rotated+small_offset, _board_y + _top_left_y_rotated+small_offset,
-				_board_x + _top_right_x_rotated-small_offset, _board_y + _top_right_y_rotated+small_offset,
-				_board_x + _bottom_right_x_rotated-small_offset, _board_y + _bottom_right_y_rotated-small_offset,
-				_board_x + _bottom_left_x_rotated+small_offset, _board_y + _bottom_left_y_rotated-small_offset
+				_board_x + _top_left_x_rotated, _board_y + _top_left_y_rotated,
+				_board_x + _top_right_x_rotated, _board_y + _top_right_y_rotated,
+				_board_x + _bottom_right_x_rotated, _board_y + _bottom_right_y_rotated,
+				_board_x + _bottom_left_x_rotated, _board_y + _bottom_left_y_rotated
 			];
 			
-			_on_ground = !point_in_parallelogram(_r_x + _displace_x, _r_y + _displace_y, _board_vertices);
+			_on_ground = !point_in_parallelogram(x + _displace_x, y + _displace_y, _board_vertices);
 			#endregion
 			
 			#region Collision processing
