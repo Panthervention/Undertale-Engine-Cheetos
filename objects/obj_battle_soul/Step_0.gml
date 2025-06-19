@@ -30,7 +30,7 @@ if (_battle_state == BATTLE_STATE.MENU && _menu_state == BATTLE_MENU.BUTTON)
 }
 if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_STATE.IN_TURN)
 {
-	image_angle %= 360;
+	image_angle = posmod(image_angle, 360);
 	var _angle = image_angle,
 		_angle_compensation = (_angle + 90) % 360;
 	
@@ -148,7 +148,7 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			#region Collision processing
 			var _platform_check_position = array_create(4, 0);
 			#region Input and collision check of different directions of soul
-			if (_angle == DIR.UP)
+			if (_angle >= 45 && _angle <= 135)
 			{
 				_platform_check_position[2] = -10;
 				_platform_check_position[3] = -_y_offset;
@@ -156,7 +156,7 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_jump_input = CHECK_DOWN;
 				_move_input = _hspeed * -_mspeed;
 			}
-			else if (_angle == DIR.DOWN)
+			else if (_angle >= 225 && _angle <= 315)
 			{
 				_platform_check_position[2] = _y_offset + 1;
 				_platform_check_position[3] = _y_offset;
@@ -164,7 +164,7 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_jump_input = CHECK_UP;
 				_move_input = _hspeed * _mspeed;
 			}
-			else if (_angle == DIR.LEFT)
+			else if (_angle > 135 && _angle < 225)
 			{
 				_platform_check_position[0] = -10;
 				_platform_check_position[1] = _x_offset;
@@ -172,7 +172,7 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_jump_input = CHECK_RIGHT;
 				_move_input = _vspeed * _mspeed;
 			}
-			else if (_angle == DIR.RIGHT)
+			else if (_angle < 45 || _angle > 315)
 			{
 				_platform_check_position[1] = _x_offset + 1;
 				_platform_check_position[0] = -_x_offset;
