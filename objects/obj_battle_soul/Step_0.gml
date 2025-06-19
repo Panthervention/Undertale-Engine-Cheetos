@@ -99,13 +99,16 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			#endregion
 			
 			#region Position calculation
-			var _leniency_px = 10;
+			var _leniency_px = 6; // When < 0, it moves the board vertices inwards when rotated. When > 0, it moves everything outwards. They both have their own issues. I personally like either: 7, 6, -3, or -4.
 
-			var _small_offset = 0.001 + _leniency_px,
+			var _small_offset = 0.001 + (_leniency_px > 0 ? _leniency_px : 0),
 				_displace_x = lengthdir_x(_x_offset+_small_offset, _angle),
 				_displace_y = lengthdir_y(_y_offset+_small_offset, _angle);
 
-			_leniency_px *= abs(((_board_angle mod 90) - 45)/45);
+			if (_leniency_px < 0)
+				_leniency_px *= 1 - abs(((_board_angle mod 90) - 45)/45);
+			else
+				_leniency_px *= abs(((_board_angle mod 90) - 45)/45);
 			
 			var _sin = dsin(-_board_angle),
 				_cos = dcos(-_board_angle);
