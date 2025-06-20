@@ -14,12 +14,26 @@ function __InputColorSystem()
             return new __InputColorClassPlayer(_index);
         });
         
-        InputPlugInRegisterCallback(INPUT_PLUG_IN_CALLBACK.PLAYER_DEVICE_CHANGED, undefined, function(_playerIndex, _oldDevice, _newDevice)
+        InputPlugInDefine("InputTeam.GamepadColor", "Input Team", "1.0", "10.0", function()
         {
-            with(__playerArray[_playerIndex])
+            InputPlugInRegisterCallback(INPUT_PLUG_IN_CALLBACK.PLAYER_DEVICE_CHANGED, undefined, function(_playerIndex, _oldDevice, _newDevice)
             {
-                __SetColor(__color);
-            }
+                with(__playerArray[_playerIndex])
+                {
+                    __SetColor(__color);
+                }
+            });
+            
+            InputPlugInRegisterCallback(INPUT_PLUG_IN_CALLBACK.GAME_RESTART, undefined, function()
+            {
+                var _i = 0;
+                repeat(array_length(INPUT_MAX_PLAYERS))
+                {
+                    InputColorReset(_i);
+                
+                    ++_i;
+                }
+            });
         });
     }
     

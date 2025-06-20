@@ -12,37 +12,45 @@ function __InputMotionSystem()
         __deviceMap   = ds_map_create();
         __deviceArray = [];
         
-        InputPlugInRegisterCallback(INPUT_PLUG_IN_CALLBACK.GAMEPAD_CONNECTED, undefined, function(_device)
+        InputPlugInDefine("InputTeam.GyroMotion", "Input Team", "1.0", "10.0", function()
         {
-            var _struct = new __InputMotionClass(_device);
-            __deviceMap[? _device] = _struct;
-            array_push(__deviceArray, _struct);
-        });
-        
-        InputPlugInRegisterCallback(INPUT_PLUG_IN_CALLBACK.GAMEPAD_DISCONNECTED, undefined, function(_device, _actuallyDisconnected)
-        {
-            ds_map_delete(__deviceMap, _device);
-            
-            var _i = 0;
-            repeat(array_length(__deviceArray))
+            if (InputMotionSupportedByPlatform())
             {
-                if (__deviceArray[_i].__device == _device)
+                //Only initialize callbacks if this platform actually supports gyro and motion
+                
+                InputPlugInRegisterCallback(INPUT_PLUG_IN_CALLBACK.GAMEPAD_CONNECTED, undefined, function(_device)
                 {
-                    array_delete(__deviceArray, _i, 1);
-                }
-                else
+                    var _struct = new __InputMotionClass(_device);
+                    __deviceMap[? _device] = _struct;
+                    array_push(__deviceArray, _struct);
+                });
+                
+                InputPlugInRegisterCallback(INPUT_PLUG_IN_CALLBACK.GAMEPAD_DISCONNECTED, undefined, function(_device, _actuallyDisconnected)
                 {
-                    ++_i;
-                }
+                    ds_map_delete(__deviceMap, _device);
+                    
+                    var _i = 0;
+                    repeat(array_length(__deviceArray))
+                    {
+                        if (__deviceArray[_i].__device == _device)
+                        {
+                            array_delete(__deviceArray, _i, 1);
+                        }
+                        else
+                        {
+                            ++_i;
+                        }
+                    }
+                });
+                
+                InputPlugInRegisterCallback(INPUT_PLUG_IN_CALLBACK.UPDATE, undefined, function()
+                {
+                    array_foreach(__deviceArray, function(_element, _index)
+                    {
+                        _element.__Update();
+                    });
+                });
             }
-        });
-        
-        InputPlugInRegisterCallback(INPUT_PLUG_IN_CALLBACK.UPDATE, undefined, function()
-        {
-            array_foreach(__deviceArray, function(_element, _index)
-            {
-                _element.__Update();
-            });
         });
     }
     

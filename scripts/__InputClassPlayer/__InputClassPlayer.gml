@@ -11,13 +11,13 @@ function __InputClassPlayer(_playerIndex) constructor
     
     __playerIndex = _playerIndex;
     
-    __device           = INPUT_NO_DEVICE;
-    __metadata         = undefined;
-    __status           = INPUT_PLAYER_STATUS.DISCONNECTED;
-    __blocked          = false;
-    __ghost            = false;
-    __anyHardwareInput = false;
-    __lastInputTime    = -infinity;
+    __device         = INPUT_NO_DEVICE;
+    __metadata       = undefined;
+    __status         = INPUT_PLAYER_STATUS.DISCONNECTED;
+    __blocked        = false;
+    __ghost          = false;
+    __anyInput       = false;
+    __lastInputTime  = -infinity;
     
     //Set the last connected gamepad speculatively based on the platform / gamepad ban setting
     if (INPUT_BAN_GAMEPADS)
@@ -47,14 +47,16 @@ function __InputClassPlayer(_playerIndex) constructor
     
     __kbmBindingArray = array_create_ext(_verbCount, function(_index)
     {
-        static _verbArray = __InputSystem().__verbDefinitionArray;
-        return variable_clone(_verbArray[_index].__kbmBinding);
+        static _verbDefinitionArray = __InputSystem().__verbDefinitionArray;
+        var _verbDefinition = _verbDefinitionArray[_index];
+        return (_verbDefinition != undefined)? variable_clone(_verbDefinition.__kbmBinding) : [];
     });
     
     __gamepadBindingArray = array_create_ext(_verbCount, function(_index)
     {
-        static _verbArray = __InputSystem().__verbDefinitionArray;
-        return variable_clone(_verbArray[_index].__gamepadBinding);
+        static _verbDefinitionArray = __InputSystem().__verbDefinitionArray;
+        var _verbDefinition = _verbDefinitionArray[_index];
+        return (_verbDefinition != undefined)? variable_clone(_verbDefinition.__gamepadBinding) : [];
     });
     
     __verbStateArray = array_create_ext(_verbCount, function(_index)
@@ -65,13 +67,15 @@ function __InputClassPlayer(_playerIndex) constructor
     __verbMetadataArray = array_create_ext(_verbCount, function(_index)
     {
         static _verbDefinitionArray = __InputSystem().__verbDefinitionArray;
-        return variable_clone(_verbDefinitionArray[_index].__metadata);
+        var _verbDefinition = _verbDefinitionArray[_index];
+        return (_verbDefinition != undefined)? variable_clone(_verbDefinition.__metadata) : undefined;
     });
     
     __clusterMetadataArray = array_create_ext(_clusterCount, function(_index)
     {
         static _clusterDefinitionArray = __InputSystem().__clusterDefinitionArray;
-        return variable_clone(_clusterDefinitionArray[_index].__metadata);
+        var _clusterDefinition = _clusterDefinitionArray[_index];
+        return (_clusterDefinition != undefined)? variable_clone(_clusterDefinition.__metadata) : undefined;
     });
     
     __valueRawArray   = array_create(_verbCount, 0);
@@ -181,7 +185,7 @@ function __InputClassPlayer(_playerIndex) constructor
         //                     //
         /////////////////////////
         
-        __anyHardwareInput = false;
+        __anyInput = false;
         __InputPlugInExecuteCallbacks(INPUT_PLUG_IN_CALLBACK.UPDATE_PLAYER, __playerIndex);
         
         //////////////////////
@@ -224,6 +228,12 @@ function __InputClassPlayer(_playerIndex) constructor
         repeat(_clusterCount)
         {
             var _clusterDefinition = _clusterDefinitionArray[_i];
+            
+            if (not is_struct(_clusterDefinition))
+            {
+                ++_i;
+                continue;
+            }
             
             //Pull raw verb values so we can apply thresholds in 2D
             var _valueU = _verbStateArray[_clusterDefinition.__verbUp   ].__valueRaw;
@@ -303,6 +313,6 @@ function __InputClassPlayer(_playerIndex) constructor
             ++_i;
         }
         
-        if (__anyHardwareInput) __lastInputTime = current_time;
+        if (__anyInput) __lastInputTime = current_time;
     }
 }

@@ -12,8 +12,8 @@
 /// 
 /// @param {Real} device
 /// @param {Bool} state
-/// @param {Bool} [ignoreArray]
-/// @param {Bool} [allowArray]
+/// @param {Array<Enum.INPUT_VERB,Real>} [ignoreArray]
+/// @param {Array<Enum.INPUT_VERB,Real>} [allowArray]
 
 function InputDeviceSetRebinding(_device, _state, _ignoreArray = undefined, _allowArray = undefined)
 {
@@ -29,11 +29,11 @@ function InputDeviceSetRebinding(_device, _state, _ignoreArray = undefined, _all
     {
         if (not ds_map_exists(_rebindingMap, _device))
         {
-            InputVerbConsumeAll(InputDeviceGetPlayer(_device));
-            
             var _handler = new __InputClassRebindingHandler(_device, _ignoreArray, _allowArray);
             _rebindingMap[? _device] = _handler;
             array_push(_rebindingArray, _handler);
+            
+            InputVerbConsumeAll(InputDeviceGetPlayer(_device));
         }
     }
     else
@@ -54,6 +54,8 @@ function InputDeviceSetRebinding(_device, _state, _ignoreArray = undefined, _all
                     ++_i;
                 }
             }
+            
+            InputVerbConsumeAll(InputDeviceGetPlayer(_device));
         }
     }
 }
