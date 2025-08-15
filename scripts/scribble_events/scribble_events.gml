@@ -109,6 +109,8 @@ function method_execute(_element, _parameter_array, _character_index) {
 	var _parameter = [];
 	for (var _i = 0, _n = array_length(_parameter_array); _i < _n; _i++)
 		_parameter[_i] = string_trim(_parameter_array[_i]);
+	// feather ignore once GM1041
+	// The parameter should (if being used correctly) be a script
 	script_execute_ext(asset_get_index(_parameter[0]), _parameter, 1);
 }
 

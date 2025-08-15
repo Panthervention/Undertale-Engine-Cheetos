@@ -27,7 +27,18 @@ function __InputRegisterUpdate()
                 
                 //Linux app continues to recieve input some number of frames after focus loss
                 //Clear IO on focus loss to prevent false positive of subsequent focus regain
-                io_clear();
+                if (INPUT_ON_LINUX)
+                {
+                    var _keyboardString = keyboard_string;
+                    io_clear();
+                    keyboard_string = _keyboardString;
+                }
+                
+                //Enable Windows IME
+                if (INPUT_ON_WINDOWS)
+                {
+                    keyboard_virtual_show(undefined, undefined, undefined, undefined);
+                }
                 
                 __InputPlugInExecuteCallbacks(INPUT_PLUG_IN_CALLBACK.LOSE_FOCUS);
             }
@@ -51,6 +62,12 @@ function __InputRegisterUpdate()
                     __windowFocus                   = true;
                     __pointerBlockedByWindowDefocus = true;
                     __pointerBlockedByUserThisFrame = true;
+                
+                    //Disable Windows IME
+                    if (INPUT_ON_WINDOWS)
+                    {
+                        keyboard_virtual_hide();
+                    }
                     
                     __InputPlugInExecuteCallbacks(INPUT_PLUG_IN_CALLBACK.GAIN_FOCUS);
                 }
@@ -182,6 +199,25 @@ function __InputRegisterUpdate()
         {
             steam_input_run_frame();
             
+            //Enable Windows IME for Steam Overlay
+            if (INPUT_ON_WINDOWS && __windowFocus)
+            {
+                var _overlayEnabled = steam_is_overlay_activated();
+                var _imeEnabled = keyboard_virtual_status();
+                
+                if (_imeEnabled != _overlayEnabled)
+                {
+                    if (_overlayEnabled)
+                    {
+                         keyboard_virtual_show(undefined, undefined, undefined, undefined);
+                    }
+                    else
+                    {
+                        keyboard_virtual_hide();
+                    }
+                }
+            }
+            
             if (__InputSteamHandlesChanged())
             {
                 __InputTrace("Steam handles changed, disconnecting all gamepads for reconnection");
@@ -201,6 +237,12 @@ function __InputRegisterUpdate()
         
         if ((not INPUT_BAN_GAMEPADS) && (_frame > INPUT_GAMEPADS_TICK_PREDELAY))
         {
+            if (INPUT_ON_ANDROID && (__time - __androidEnumerationTime > INPUT_ANDROID_GAMEPAD_ENUMERATION_INTERVAL))
+            {
+                __androidEnumerationTime = __time;
+                gamepad_enumerate();
+            }
+            
             var _deviceCountChange = max(0, gamepad_get_device_count() - array_length(_gamepadArray));
             repeat(_deviceCountChange)
             {

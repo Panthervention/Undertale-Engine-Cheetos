@@ -1,4 +1,4 @@
-/* Feather ignore all */
+/* Feather ignore GM2016 */
 ///@desc Update Text Elements
 __info_instruction = $"{lexicon_text("menu.instruction.title")}";
 for (var _i = 0; _i < 6; _i++)
@@ -71,6 +71,6 @@ __setting_label_border = lexicon_text("setting.border.label");
 __setting_border_option = [];
  // If data exists, load. Else return 0.
 __setting_border = Flag_Get(FLAG_TYPE.SETTINGS, FLAG_SETTINGS.BORDER, 0);
-var _i = 0; repeat (9)
+_i = 0; repeat (9)
 	array_push(__setting_border_option, lexicon_text($"setting.border.option.{_i++}"));
 

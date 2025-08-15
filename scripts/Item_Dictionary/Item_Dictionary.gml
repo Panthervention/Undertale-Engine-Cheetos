@@ -69,7 +69,7 @@ function Item() constructor {
 	def = undefined;
 	spd = undefined;
 	inv = undefined;
-	effect = function() {
+	effect = function(_item) {
 		// Your effect goes here
 	};
 	#endregion

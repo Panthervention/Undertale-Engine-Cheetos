@@ -31,11 +31,7 @@ if (active)
 				
 			if (!global.inv && collision_rectangle(_board_l + 2, _bone_y[1], _board_r - 3, _bone_y[2], _soul, false, true))
 			{
-				var _white = type != 1 || type != 2,
-					_blue = type == 1 && Battle_IsSoulMoving(),
-					_orange = type == 2 && !Battle_IsSoulMoving();
-				if (_white || _blue || _orange)
-					Battle_CallSoulEventBulletCollision();
+				Battle_CallSoulEventBulletCollision();
 			}	
 		}		
 		else if (dir == DIR.LEFT || dir == DIR.RIGHT)
@@ -50,11 +46,7 @@ if (active)
 
 			if (!global.inv && collision_rectangle(_bone_x[1], _board_u + 2, _bone_x[2], _board_d - 3, _soul, false, true))
 			{
-				var _white = type != 1 || type != 2,
-					_blue = type == 1 && Battle_IsSoulMoving(),
-					_orange = type == 2 && !Battle_IsSoulMoving();
-				if (_white || _blue || _orange)
-					Battle_CallSoulEventBulletCollision();
+				Battle_CallSoulEventBulletCollision();
 			}
 		}
 		

@@ -93,7 +93,7 @@
 // How long to wait before automatically cancelling rebinding, measured in milliseconds. An
 // automatic timeout is important to ensure that players don't softlock their game if a device
 // that is being rebound becomes unresponsive.
-#macro INPUT_REBIND_TIMEOUT  3000
+#macro INPUT_REBIND_TIMEOUT  5000
 
 // Whether various noisy, error-prone inputs will report a device as active and trigger a hotswap.
 // Because these inputs are unreliable, it is recommended that they are set to `false`. However, if
@@ -122,7 +122,7 @@
 // 2 = The library will not automatically collect player input. Instead, you must call
 //     `InputManualCollect()` yourself. This gives you maximum flexibility in how player input
 //     is collected at the cost of having to manage that yourself.
-#macro INPUT_COLLECT_MODE  1
+#macro INPUT_COLLECT_MODE  0
 
 // Whether to update library state immediately after collecting player input. This is set to `true`
 // by default. If this macro is set to `false` then you should call `InputManualUpdate()` at

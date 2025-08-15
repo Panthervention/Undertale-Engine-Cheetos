@@ -16,7 +16,7 @@ gui = false;
 top = (instance_exists(obj_char_player)) ? (obj_char_player.y - camera.y > 130 + obj_char_player.sprite_height) : false;
 
 #region Portrait
-portrait = noone;
+portrait = -1;
 portrait_xscale = 1;
 portrait_yscale = 1;
 portrait_side = PORTRAIT_SIDE.LEFT; // Left (Right side exists but no idea what for atm)

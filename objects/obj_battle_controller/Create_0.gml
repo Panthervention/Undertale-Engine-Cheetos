@@ -59,9 +59,12 @@ with (ui_button)
 	correspond	= [BATTLE_BUTTON.FIGHT, BATTLE_BUTTON.ACT, BATTLE_BUTTON.ITEM, BATTLE_BUTTON.MERCY];
 	
 	count		= function() { // Return the amount of buttons
+		// feather disable GM1041
+		// ui_button.sprite does not work... and it seems fine as is. I printed it, and it was in fact defined.
 		static _button_count = array_length(sprite);
 		if (_button_count != array_length(sprite))
 			_button_count = array_length(sprite);
+		// feather enable GM1041
 		return _button_count;
 	}
 	

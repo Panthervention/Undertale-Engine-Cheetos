@@ -8,7 +8,7 @@ if (global.debug)
 	// Drawing background
 	draw_set_color(c_white);
 	draw_set_alpha(0.25);
-	draw_rectangle(0, 0, 220, 130, false);
+	draw_rectangle(0, 0, 220, Player_IsInBattle() ? 145 : 115, false);
 	
 	draw_set_font(font_dt_sans);
 	draw_set_alpha(1);
@@ -24,7 +24,8 @@ if (global.debug)
 	draw_text(5, 105, "----------------------------------------");
 	if (Player_IsInBattle())
 	{
-		draw_text(5, 115, $"Turn: {Battle_GetTurnNumber()}{instance_exists(obj_battle_turn) ? $" - Timer: {obj_battle_turn.timer}" : "" }");
+		var _turn_ternary = instance_exists(obj_battle_turn) ? $" - Timer: {obj_battle_turn.timer}" : "";
+		draw_text(5, 115, $"Turn: {Battle_GetTurnNumber()}{_turn_ternary}");
 		if (instance_exists(obj_battle_soul))
 			draw_text(5, 130, $"Soul Coords: {obj_battle_soul.x}x ; {obj_battle_soul.y}y");
 	}

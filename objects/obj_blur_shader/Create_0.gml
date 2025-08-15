@@ -10,5 +10,5 @@ blur_uni_amount_hoz = shader_get_uniform(shd_gaussian_vertical, "blur_amount");
 blur_uni_amount_vert = shader_get_uniform(shd_gaussian_horizontal, "blur_amount");
 
 blur_intensity = 0;
-blur_surf_final = noone;
-blur_surf = noone;
+blur_surf_final = -1;
+blur_surf = -1;

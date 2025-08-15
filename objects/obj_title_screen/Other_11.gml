@@ -58,5 +58,6 @@ switch (string_lower(__naming_name))
 __confirm_title = _text;
 __confirm_valid = _valid;
 
+// Feather ignore once GM2016
 __menu_label_confirm_title = scribble(__confirm_title).starting_format("font_dt_sans", c_white).transform(2, 2, 0);
 __menu_label_confirm_title.build(true);

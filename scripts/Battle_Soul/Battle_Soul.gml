@@ -78,6 +78,24 @@ function Battle_SoulSlam(_dir, _slam_power = global.slam_power)
 	}
 }
 
+/**
+ * Should damage be delt based on the color of the bullet.
+ * @param {real} type BONE.COLOR of the bullet
+ * @returns {bool} Should damage be delt?
+ */
+function Battle_SoulBulletCollisionTypeCheck(type)
+{
+	switch (type)
+	{
+		case BONE.WHITE:
+			return true;
+		case BONE.BLUE:
+			return Battle_IsSoulMoving();
+		case BONE.ORANGE:
+			return !Battle_IsSoulMoving();
+	}
+}
+
 #endregion
 
 #region Better not touch

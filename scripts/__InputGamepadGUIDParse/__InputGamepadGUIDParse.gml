@@ -3,25 +3,16 @@
 /// @param GUID
 /// @param legacy
 
-function __InputGamepadGUIDParse(_guid, _legacy)
+function __InputGamepadGUIDParse(_guid)
 {
     static _result = {};
     
-    _result.__vendor      = "";
-    _result.__product     = "";
-    _result.__description = undefined;
+    _result.__vendor  = "";
+    _result.__product = "";
     
     if (_guid == "00000000000000000000000000000000")
     {
         __InputTrace("Warning! GUID was empty");
-        return _result;
-    }
-    
-    if (_legacy)
-    {
-        //GM on Windows uses an older version of SDL so we strip out VID + PID as a special case
-        _result.__vendor  = string_copy(_guid, 1, 4);
-        _result.__product = string_copy(_guid, 5, 4);
         return _result;
     }
     
@@ -40,14 +31,10 @@ function __InputGamepadGUIDParse(_guid, _legacy)
     //description, N3 onwards contains encoded description instead of indicated values.
     //On Android platform, GUID description encoding begins at N1 and will not mismatch
     
-    //Check for non-empty N4, indicating this is a description encoded GUID
-    if (string_copy(_guid, 13, 4) != "0000")
+    //Check for empty N4, indicating this is not a description encoded GUID
+    if (string_copy(_guid, 13, 4) == "0000")
     {
-        _result.__description = string_copy(_guid, 1, 20); //Match to minimum description length, N1 - N5
-    }
-    else
-    {
-        //Otherwise confirm N6 is also empty
+        //Confirm N6 is also empty
         if (string_copy(_guid, 21, 4) != "0000")
         {
             __InputTrace("Warning! GUID \"", _guid, "\" does not fit expected pattern. VID+PID cannot be extracted");

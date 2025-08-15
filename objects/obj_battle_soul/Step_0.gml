@@ -41,7 +41,7 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 	var _x_offset = sprite_width / 2,
 		_y_offset = sprite_height / 2;
 	
-	#region Board variables
+	#region Board variables & follow
 	var _board_exists = instance_exists(obj_battle_board);
 	if (_board_exists)
 	{
@@ -56,14 +56,14 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			_board_bottom_limit = (_board_y + _board.down) - _y_offset,
 			_board_left_limit   = (_board_x - _board.left) + _x_offset,
 			_board_right_limit  = (_board_x + _board.right) - _x_offset;
+
+		if (follow_board)
+		{
+			x += _board_x - _board.xprevious;
+			y += _board_y - _board.yprevious;
+		}
 	}
 	#endregion
-	
-	if (follow_board)
-	{
-		x += _board_x - _board.xprevious;
-		y += _board_y - _board.yprevious;
-	}
 	
 	switch (mode)
 	{

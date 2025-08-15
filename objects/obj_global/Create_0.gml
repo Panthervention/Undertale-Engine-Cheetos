@@ -46,8 +46,8 @@ with (border)
 	enable = false;
 	auto_capture = false;
 	
-	sprite = noone;
-	sprite_previous = noone;
+	sprite = -1;
+	sprite_previous = -1;
 	
 	index = 0;
 	index_previous = 0;

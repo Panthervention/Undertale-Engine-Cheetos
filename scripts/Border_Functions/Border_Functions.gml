@@ -22,13 +22,13 @@ function Border_SetEnabled(_enable, _auto_capture = false) {
 		    if (sprite_exists(sprite))
 		    {
 		        sprite_flush(sprite);
-		        sprite = noone;
+		        sprite = -1;
 				index = 0;
 		    }
 		    if (sprite_exists(sprite_previous))
 		    {
 		        sprite_flush(sprite_previous);
-		        sprite_previous = noone;
+		        sprite_previous = -1;
 				index_previous = 0;
 		    }
 		}

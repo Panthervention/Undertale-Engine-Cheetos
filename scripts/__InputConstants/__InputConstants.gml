@@ -11,8 +11,8 @@
 //                                                                        //
 ////////////////////////////////////////////////////////////////////////////
 
-#macro INPUT_VERSION  "10.0.8"
-#macro INPUT_DATE     "2025-05-01"
+#macro INPUT_VERSION  "10.1.0"
+#macro INPUT_DATE     "2025-06-16"
 
 #macro INPUT_NO_DEVICE       -666
 #macro INPUT_KBM             -1
@@ -29,6 +29,8 @@
 #macro INPUT_GAMEPAD_TYPE_SWITCH        5
 #macro INPUT_GAMEPAD_TYPE_JOYCON_LEFT   6
 #macro INPUT_GAMEPAD_TYPE_JOYCON_RIGHT  7
+
+#macro INPUT_GAMEPAD_FALLBACK_TYPE  INPUT_GAMEPAD_TYPE_XBOX
 
 #macro INPUT_SUPPORT_GAMEPADS  (not INPUT_BAN_GAMEPADS)
 #macro INPUT_SUPPORT_KBM       (not INPUT_BAN_KBM)
@@ -94,6 +96,8 @@ enum INPUT_PLUG_IN_CALLBACK
     UPDATE_PLAYER,
     LOSE_FOCUS,
     GAIN_FOCUS,
+    GAME_RESTART,
+    FIND_BINDING_COLLISIONS,
     __SIZE,
 }
 
@@ -102,10 +106,8 @@ enum INPUT_PLUG_IN_CALLBACK
 #macro INPUT_ON_WINDOWS  (os_type == os_windows)
 #macro INPUT_ON_MACOS    (os_type == os_macosx)
 #macro INPUT_ON_LINUX    (os_type == os_linux)
-#macro INPUT_ON_DESKTOP  (INPUT_ON_WINDOWS || INPUT_ON_MACOS || INPUT_ON_LINUX)
-#macro INPUT_ON_IOS      (os_type == os_ios)
+#macro INPUT_ON_IOS      (os_type == os_ios || os_type == os_tvos)
 #macro INPUT_ON_ANDROID  (os_type == os_android)
-#macro INPUT_ON_MOBILE   (INPUT_ON_IOS || INPUT_ON_ANDROID)
 #macro INPUT_ON_XBOX     ((os_type == os_xboxone) || (os_type == os_xboxseriesxs))
 #macro INPUT_ON_PS4      (os_type == os_ps4)
 #macro INPUT_ON_PS5      (os_type == os_ps5)
@@ -115,13 +117,18 @@ enum INPUT_PLUG_IN_CALLBACK
 #macro INPUT_ON_OPERAGX  (os_type == os_operagx)
 #macro INPUT_ON_WEB      ((os_browser != browser_not_a_browser) || INPUT_ON_OPERAGX)
 
+//Runtime on web, constant on native as of 2024.2
+//Tested and confirmed in VM bytecode disassembly
+#macro INPUT_ON_DESKTOP  (INPUT_ON_WINDOWS || INPUT_ON_MACOS || INPUT_ON_LINUX || (INPUT_ON_OPERAGX && !__InputOnOperaGXMobile()))
+#macro INPUT_ON_MOBILE   (INPUT_ON_ANDROID || INPUT_ON_IOS || (INPUT_ON_OPERAGX && __InputOnOperaGXMobile()))
+
 #macro INPUT_STEAMWORKS_SUPPORT   ((INPUT_ON_LINUX || INPUT_ON_WINDOWS) && (not INPUT_ON_WEB))
 #macro INPUT_SDL_SUPPORT          ((not INPUT_ON_WEB) && INPUT_ON_DESKTOP)
 
-#macro INPUT_BAN_GAMEPADS  INPUT_ON_MOBILE
 #macro INPUT_BAN_KBM       (not INPUT_ON_DESKTOP)
 #macro INPUT_BAN_TOUCH     (not INPUT_ON_MOBILE)
-#macro INPUT_BAN_HOTSWAP   INPUT_ON_MOBILE
+#macro INPUT_BAN_GAMEPADS  false
+#macro INPUT_BAN_HOTSWAP   false
 
 #macro INPUT_BLOCK_MOUSE_CHECKS  INPUT_ON_CONSOLE
 
@@ -132,6 +139,10 @@ enum INPUT_PLUG_IN_CALLBACK
 //How many frames to wait before considering a gamepad disconnected
 //This works around momentary disconnections such as a jiggled cable or low battery level
 #macro INPUT_GAMEPADS_DISCONNECTION_TIMEOUT  5
+
+//Number of milliseconds between enumerating gamepads on Android
+//This should be longer than a single frame (eg >17 ms at 60FPS)
+ #macro INPUT_ANDROID_GAMEPAD_ENUMERATION_INTERVAL  1000
 
 // 32769 = gp_face1
 // 32770 = gp_face2

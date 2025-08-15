@@ -115,7 +115,6 @@ if (global.debug)
 				Battle_SetTurnNumber(_turn_current);
 				if (instance_exists(obj_battle_bullet))
 					instance_destroy(obj_battle_bullet);
-				cam_angle = 0;
 				fader_alpha = 0;
 				audio_resume_all();
 				with (all)
