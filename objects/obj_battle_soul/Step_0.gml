@@ -30,7 +30,7 @@ if (_battle_state == BATTLE_STATE.MENU && _menu_state == BATTLE_MENU.BUTTON)
 }
 if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_STATE.IN_TURN)
 {
-	image_angle %= 360;
+	image_angle = posmod(image_angle, 360);
 	var _angle = image_angle,
 		_angle_compensation = (_angle + 90) % 360;
 	
@@ -100,36 +100,40 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			#endregion
 			
 			#region Position calculation
-			var _dist = point_distance(_board_x, _board_y, x, y),
-				_dir = point_direction(_board_x, _board_y, x, y) - _board_dir,
-				_r_x = lengthdir_x(_dist, _dir) + _board_x,
-				_r_y = lengthdir_y(_dist, _dir) + _board_y,
-				_displace_x = lengthdir_x(_x_offset + (_board_thickness / 2), _angle) + (2 * dcos(_board_angle % 90)),
-				_displace_y = lengthdir_y(_y_offset + (_board_thickness / 2), _angle) + (2 * dsin((_board_angle % 90) + 90));
+			var _leniency_px = 6; // When < 0, it moves the board vertices inwards when rotated. When > 0, it moves everything outwards. They both have their own issues. I personally like either: 7, 6, -3, or -4.
+
+			var _small_offset = 0.001 + (_leniency_px > 0 ? _leniency_px : 0),
+				_displace_x = lengthdir_x(_x_offset+_small_offset, _angle),
+				_displace_y = lengthdir_y(_y_offset+_small_offset, _angle);
+
+			if (_leniency_px < 0)
+				_leniency_px *= 1 - abs(((_board_angle mod 90) - 45)/45);
+			else
+				_leniency_px *= abs(((_board_angle mod 90) - 45)/45);
 			
-			var _sin = dsin(_board_angle),
-				_cos = dcos(_board_angle);
+			var _sin = dsin(-_board_angle),
+				_cos = dcos(-_board_angle);
 			
-			var _top_left_x = -_board.left,
-				_top_left_y = -_board.up,
+			var _top_left_x = -_board.left-_leniency_px,
+				_top_left_y = -_board.up-_leniency_px,
 				_top_left_x_rotated = _top_left_x * _cos - _top_left_y * _sin,
 				_top_left_y_rotated = _top_left_x * _sin + _top_left_y * _cos;
 			
-			var _top_right_x = _board.right,
-				_top_right_y = -_board.up,
+			var _top_right_x = _board.right+_leniency_px,
+				_top_right_y = -_board.up-_leniency_px,
 				_top_right_x_rotated = _top_right_x * _cos - _top_right_y * _sin,
 				_top_right_y_rotated = _top_right_x * _sin + _top_right_y * _cos;
 			
-			var _bottom_left_x = -_board.left,
-				_bottom_left_y = _board.down,
+			var _bottom_left_x = -_board.left-_leniency_px,
+				_bottom_left_y = _board.down+_leniency_px,
 				_bottom_left_x_rotated = _bottom_left_x * _cos - _bottom_left_y * _sin,
 				_bottom_left_y_rotated = _bottom_left_x * _sin + _bottom_left_y * _cos;
 			
-			var _bottom_right_x = _board.right,
-				_bottom_right_y = _board.down,
+			var _bottom_right_x = _board.right+_leniency_px,
+				_bottom_right_y = _board.down+_leniency_px,
 				_bottom_right_x_rotated = _bottom_right_x * _cos - _bottom_right_y * _sin,
 				_bottom_right_y_rotated = _bottom_right_x * _sin + _bottom_right_y * _cos;
-			
+				
 			var _board_vertices = [
 				_board_x + _top_left_x_rotated, _board_y + _top_left_y_rotated,
 				_board_x + _top_right_x_rotated, _board_y + _top_right_y_rotated,
@@ -137,70 +141,39 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_board_x + _bottom_left_x_rotated, _board_y + _bottom_left_y_rotated
 			];
 			
-			var _ground_top    = !point_in_parallelogram(_r_x, _r_y + _displace_y, _board_vertices),
-				_ground_bottom = !point_in_parallelogram(_r_x, _r_y + _displace_y, _board_vertices),
-				_ground_left   = !point_in_parallelogram(_r_x + _displace_x, _r_y, _board_vertices),
-				_ground_right  = !point_in_parallelogram(_r_x + _displace_x, _r_y, _board_vertices);
-				
-			var _ceil_top    = !point_in_parallelogram(_r_x, _r_y - _displace_y, _board_vertices),
-				_ceil_bottom = !point_in_parallelogram(_r_x, _r_y - _displace_y, _board_vertices),
-				_ceil_left   = !point_in_parallelogram(_r_x - _displace_x, _r_y, _board_vertices),
-				_ceil_right  = !point_in_parallelogram(_r_x - _displace_x, _r_y, _board_vertices);
+			_on_ground = !point_in_parallelogram(x + _displace_x, y + _displace_y, _board_vertices);
+			_on_ceil = !point_in_parallelogram(x - _displace_x, y - _displace_y, _board_vertices);
 			#endregion
 			
 			#region Collision processing
 			var _platform_check_position = array_create(4, 0);
 			#region Input and collision check of different directions of soul
-			if (_angle == DIR.UP)
+			if (_angle >= 45 && _angle <= 135)
 			{
-				if (_board_exists)
-				{
-					_on_ground = _ground_top;
-					_on_ceil = _ceil_top;
-				}
-				
 				_platform_check_position[2] = -10;
 				_platform_check_position[3] = -_y_offset;
 				
 				_jump_input = CHECK_DOWN;
 				_move_input = _hspeed * -_mspeed;
 			}
-			else if (_angle == DIR.DOWN)
+			else if (_angle >= 225 && _angle <= 315)
 			{
-				if (_board_exists)
-				{
-					_on_ground = _ground_bottom;
-					_on_ceil = _ceil_bottom;
-				}
-				
 				_platform_check_position[2] = _y_offset + 1;
 				_platform_check_position[3] = _y_offset;
 				
 				_jump_input = CHECK_UP;
 				_move_input = _hspeed * _mspeed;
 			}
-			else if (_angle == DIR.LEFT)
+			else if (_angle > 135 && _angle < 225)
 			{
-				if (_board_exists)
-				{
-					_on_ground = _ground_left;
-					_on_ceil = _ceil_left;
-				}
-				
 				_platform_check_position[0] = -10;
 				_platform_check_position[1] = _x_offset;
 				
 				_jump_input = CHECK_RIGHT;
 				_move_input = _vspeed * _mspeed;
 			}
-			else if (_angle == DIR.RIGHT)
+			else if (_angle < 45 || _angle > 315)
 			{
-				if (_board_exists)
-				{
-					_on_ground = _ground_right;
-					_on_ceil = _ceil_right;
-				}
-				
 				_platform_check_position[1] = _x_offset + 1;
 				_platform_check_position[0] = -_x_offset;
 				
@@ -215,7 +188,7 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_on_ground = false;
 				_on_ceil = false;
 			}
-			
+
 			// Platform checking
 			var _relative_x = x + _platform_check_position[0],
 				_relative_y = y + _platform_check_position[2];
