@@ -14,6 +14,9 @@ with (global)
 
 mode = SOUL.RED;
 
+jump_input = 0;
+move_input = 0;
+				
 fall_spd = 0;
 fall_grav = 0;
 fall_multi = 1;

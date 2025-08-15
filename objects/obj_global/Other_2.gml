@@ -27,8 +27,10 @@ game_set_speed(60, gamespeed_fps);
 #region Loading settings
 Flag_Load(FLAG_TYPE.SETTINGS);
 
-var _volume = Flag_Get(FLAG_TYPE.SETTINGS, FLAG_SETTINGS.LANGUAGE, 100) / 100,
+var _volume = Flag_Get(FLAG_TYPE.SETTINGS, FLAG_SETTINGS.VOLUME, 100) / 100,
 	_border = Flag_Get(FLAG_TYPE.SETTINGS, FLAG_SETTINGS.BORDER);
+
+print($"volume: {_volume}");
 
 audio_master_gain(_volume);
 

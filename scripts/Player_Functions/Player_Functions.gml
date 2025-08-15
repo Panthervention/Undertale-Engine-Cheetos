@@ -505,4 +505,15 @@ function Player_Load(_slot) {
 	Flag_Load(FLAG_TYPE.DYNAMIC);
 	Flag_Load(FLAG_TYPE.INFO);
 }
+
+///@func Player_SaveExists(slot)
+///@desc Return whenever the save file exists or not.
+///@param {Real}	slot	The number of the save slot to check for existence.
+///@return {Bool}
+function Player_SaveExists(_slot)
+{
+	Flag_SetSaveSlot(_slot);
+	return (file_exists(Flag_GetSavePath(FLAG_TYPE.STATIC)) && file_exists(Flag_GetSavePath(FLAG_TYPE.DYNAMIC)) && file_exists(Flag_GetSavePath(FLAG_TYPE.INFO)));
+}
+
 #endregion

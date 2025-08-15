@@ -58,7 +58,14 @@ else if (__state == 2)
 		else
 		{
 			__state = 3;
-			Player_Load(0);
+			if (Player_SaveExists(0))
+				Player_Load(0);
+			else
+			{
+				var _name = Player_GetName();
+				Flag_Define();
+				Player_SetName(_name);
+			}
 			var _room_return = Flag_Get(FLAG_TYPE.TEMP, FLAG_TEMP.BATTLE_ROOM_RETURN);
 			if (room_exists(_room_return))
 			{
