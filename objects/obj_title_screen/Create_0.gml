@@ -36,10 +36,6 @@ __confirm_name_offset_y = 0;
 __confirm_name_angle = 0;
 __confirm_name_update = true;
 
-__tween_confirm_name_x = noone;
-__tween_confirm_name_y = noone;
-__tween_confirm_name_scale = noone;
-
 __naming_name = "";
 __naming_length_limit = 6;
 __naming_shake_buffer = 0;

@@ -63,17 +63,13 @@ else if (__menu == 0) // Instruction - Main menu
 				
 				case 1: // Reset
 					__menu = 2;
+	
+					TweenDestroy(id);
 					
-					if (TweenExists(__tween_confirm_name_x))
-						TweenDestroy(__tween_confirm_name_x);
-					if (TweenExists(__tween_confirm_name_y))
-						TweenDestroy(__tween_confirm_name_y);
-					if (TweenExists(__tween_confirm_name_scale))
-						TweenDestroy(__tween_confirm_name_scale);
-					__tween_confirm_name_x = TweenFire(id, "", 0, off, 0, 270, "__confirm_name_x>", 200);
-					__tween_confirm_name_y = TweenFire(id, "", 0, off, 0, 270, "__confirm_name_y>", 230);
-					__tween_confirm_name_scale = TweenFire(id, "", 0, off, 0, 270, "__confirm_name_scale>", 7);
-		                    
+					TweenFire(id, "", 0, off, 0, 270, "__confirm_name_x>", 200);
+					TweenFire(id, "", 0, off, 0, 270, "__confirm_name_y>", 230);
+					TweenFire(id, "", 0, off, 0, 270, "__confirm_name_scale>", 7);
+					
 		            __naming_name = Flag_Get(FLAG_TYPE.INFO, FLAG_INFO.NAME, lexicon_text("ui.save.name.empty"));
 		            __confirm_title = lexicon_text("menu.confirm.title.reset"); // A name has already been chosen.
 					
@@ -123,7 +119,7 @@ else if (__menu == 1) // Naming
 				if (__choice_naming_letter <= 6)
 				{
 				    __choice_naming = 1;
-					__choice_naming_command = floor(__choice_naming_letter * 0.5);
+					__choice_naming_command = clamp(floor(__choice_naming_letter * 0.5), 0, 2);
 				}
 				else if (__choice_naming_letter >= 26 && __choice_naming_letter <= 32)
 				    __choice_naming_letter -= (__choice_naming_letter < 31) ? 5 : 12;
@@ -196,15 +192,10 @@ else if (__menu == 1) // Naming
 						
 						event_user(1); // Name validation checking
 						
-						if (TweenExists(__tween_confirm_name_x))
-							TweenDestroy(__tween_confirm_name_x);
-						if (TweenExists(__tween_confirm_name_y))
-							TweenDestroy(__tween_confirm_name_y);
-						if (TweenExists(__tween_confirm_name_scale))
-							TweenDestroy(__tween_confirm_name_scale);
-						__tween_confirm_name_x = TweenFire(id, "", 0, off, 0, 270, "__confirm_name_x>", 200);
-						__tween_confirm_name_y = TweenFire(id, "", 0, off, 0, 270, "__confirm_name_y>", 230);
-						__tween_confirm_name_scale = TweenFire(id, "", 0, off, 0, 270, "__confirm_name_scale>", 7);
+						TweenDestroy(id);
+						TweenFire(id, "", 0, off, 0, 270, "__confirm_name_x>", 200);
+						TweenFire(id, "", 0, off, 0, 270, "__confirm_name_y>", 230);
+						TweenFire(id, "", 0, off, 0, 270, "__confirm_name_scale>", 7);
 					}
 					break;
 			}
@@ -244,12 +235,7 @@ else if (__menu == 2) // Name Confirmation
 	    if (__choice_confirm == 0) // No
 		{
 	        __menu = (!__mode ? 1 : 0);
-			if (TweenExists(__tween_confirm_name_x))
-				TweenDestroy(__tween_confirm_name_x);
-			if (TweenExists(__tween_confirm_name_y))
-				TweenDestroy(__tween_confirm_name_y);
-			if (TweenExists(__tween_confirm_name_scale))
-				TweenDestroy(__tween_confirm_name_scale);
+			TweenDestroy(id);
 			__confirm_name_x = 280;
 			__confirm_name_y = 110;
 			__confirm_name_scale = 2;

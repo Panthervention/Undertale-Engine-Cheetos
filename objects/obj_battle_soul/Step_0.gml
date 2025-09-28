@@ -28,14 +28,15 @@ if (_battle_state == BATTLE_STATE.MENU && _menu_state == BATTLE_MENU.BUTTON)
 	x = lerp(x, _button_pos[_button * 2] - (38 * _button_scale[_button]), 1/3);
 	y = lerp(y, _button_pos[_button * 2 + 1] + 1, 1/3);
 }
+
 if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_STATE.IN_TURN)
 {
 	image_angle %= 360;
 	var _angle = image_angle,
 		_angle_compensation = (_angle + 90) % 360;
 	
-	var _hspeed = (!hor_lock) ? CHECK_HORIZONTAL : 0,
-		_vspeed = (!ver_lock) ? CHECK_VERTICAL   : 0,
+	var _hspeed = CHECK_HORIZONTAL,
+		_vspeed = CHECK_VERTICAL,
 		_mspeed = (Player_GetSpdTotal() / (CHECK_CANCEL + 1));
 	
 	var _x_offset = sprite_width / 2,
@@ -68,10 +69,14 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 	switch (mode)
 	{
 		case SOUL.RED:  #region
-			if (!hor_lock)
-				x += (_hspeed * _mspeed) * (input_rotateable ? dcos(_angle_compensation) : 1);
-			if (!ver_lock)
-				y += (_vspeed * _mspeed) * (input_rotateable ? dcos(_angle_compensation) : 1);
+			if (moveable)
+			{
+				var _dir_compensation = (input_rotateable ? dcos(_angle_compensation) : 1);
+				if (!hor_lock)
+					x += (_hspeed * _mspeed) * _dir_compensation;
+				if (!ver_lock)
+					y += (_vspeed * _mspeed) * _dir_compensation;
+			}
 			break;
 		#endregion
 			
@@ -85,56 +90,35 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 		
 			var _fall_spd = fall_spd,
 				_fall_grav = fall_grav;
-		
-			#region Soul gravity
-			if (_fall_spd < 4 && _fall_spd > 0.25)
-				_fall_grav = 0.15;
-			else if (_fall_spd <= 0.25 && _fall_spd > -0.5)
-				_fall_grav = 0.05;
-			else if (_fall_spd <= -0.5 && _fall_spd > -2)
-				_fall_grav = 0.125;
-			else if (_fall_spd <= -2)
-				_fall_grav = 0.05;
-	
-			_fall_spd += (_fall_grav * fall_multi);
-			#endregion
 			
 			#region Position calculation
 			var _dist = point_distance(_board_x, _board_y, x, y),
 				_dir = point_direction(_board_x, _board_y, x, y) - _board_dir,
 				_r_x = lengthdir_x(_dist, _dir) + _board_x,
 				_r_y = lengthdir_y(_dist, _dir) + _board_y,
-				_displace_x = lengthdir_x(_x_offset + (_board_thickness / 2), _angle) + (2 * dcos(_board_angle % 90)),
-				_displace_y = lengthdir_y(_y_offset + (_board_thickness / 2), _angle) + (2 * dsin((_board_angle % 90) + 90));
+				_displace_x = lengthdir_x(_x_offset + (_board_thickness / 2), _angle),
+				_displace_y = lengthdir_y(_y_offset + (_board_thickness / 2), _angle);
 			
-			var _sin = dsin(_board_angle),
-				_cos = dcos(_board_angle);
+			// Store board vertices into vectors for checking (Rotated board is a parallelogram)
+			var _board_top_left		= new Vector2(-_board.left, -_board.up).Rotated(_board_angle),
+				_board_top_right	= new Vector2(_board.right, -_board.up).Rotated(_board_angle),
+				_board_bottom_left	= new Vector2(-_board.left, _board.down).Rotated(_board_angle),
+				_board_bottom_right = new Vector2(_board.right, _board.down).Rotated(_board_angle);
 			
-			var _top_left_x = -_board.left,
-				_top_left_y = -_board.up,
-				_top_left_x_rotated = _top_left_x * _cos - _top_left_y * _sin,
-				_top_left_y_rotated = _top_left_x * _sin + _top_left_y * _cos;
+			switch (_angle)
+			{
+				case DIR.RIGHT:		_board_top_right.x += 2;   _board_bottom_right.x += 2;	break;
+				case DIR.UP:		_board_top_left.y -= 2;    _board_top_right.y -= 2;		break;
+				case DIR.LEFT:		_board_top_left.x -= 2;    _board_bottom_left.x -= 2;	break;
+				case DIR.DOWN:		_board_bottom_left.y += 2; _board_bottom_right.y += 2;	break;
+			}
 			
-			var _top_right_x = _board.right,
-				_top_right_y = -_board.up,
-				_top_right_x_rotated = _top_right_x * _cos - _top_right_y * _sin,
-				_top_right_y_rotated = _top_right_x * _sin + _top_right_y * _cos;
-			
-			var _bottom_left_x = -_board.left,
-				_bottom_left_y = _board.down,
-				_bottom_left_x_rotated = _bottom_left_x * _cos - _bottom_left_y * _sin,
-				_bottom_left_y_rotated = _bottom_left_x * _sin + _bottom_left_y * _cos;
-			
-			var _bottom_right_x = _board.right,
-				_bottom_right_y = _board.down,
-				_bottom_right_x_rotated = _bottom_right_x * _cos - _bottom_right_y * _sin,
-				_bottom_right_y_rotated = _bottom_right_x * _sin + _bottom_right_y * _cos;
-			
-			var _board_vertices = [
-				_board_x + _top_left_x_rotated, _board_y + _top_left_y_rotated,
-				_board_x + _top_right_x_rotated, _board_y + _top_right_y_rotated,
-				_board_x + _bottom_right_x_rotated, _board_y + _bottom_right_y_rotated,
-				_board_x + _bottom_left_x_rotated, _board_y + _bottom_left_y_rotated
+			var _board_vertices =
+			[
+				_board_x + _board_top_left.x	, _board_y + _board_top_left.y,
+				_board_x + _board_top_right.x	, _board_y + _board_top_right.y,
+				_board_x + _board_bottom_right.x, _board_y + _board_bottom_right.y,
+				_board_x + _board_bottom_left.x	, _board_y + _board_bottom_left.y
 			];
 			
 			var _ground_top    = !point_in_parallelogram(_r_x, _r_y + _displace_y, _board_vertices),
@@ -148,9 +132,23 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_ceil_right  = !point_in_parallelogram(_r_x - _displace_x, _r_y, _board_vertices);
 			#endregion
 			
+			#region Soul gravity
+			if (_fall_spd < 4 && _fall_spd > 0.25)
+				_fall_grav = 0.15;
+			else if (_fall_spd <= 0.25 && _fall_spd > -0.5)
+				_fall_grav = 0.05;
+			else if (_fall_spd <= -0.5 && _fall_spd > -2)
+				_fall_grav = 0.125;
+			else if (_fall_spd <= -2)
+				_fall_grav = 0.05;
+	
+			_fall_spd += (_fall_grav * fall_multi);
+			#endregion
+			
 			#region Collision processing
-			var _platform_check_position = array_create(4, 0);
+			
 			#region Input and collision check of different directions of soul
+			var _platform_check_position = array_create(4, 0);
 			if (_angle == DIR.UP)
 			{
 				if (_board_exists)
@@ -209,42 +207,30 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			}
 			#endregion
 			
-			// If the board doesn't exist, it will never be on the ground nor touching the ceiling
-			if (!_board_exists)
-			{
-				_on_ground = false;
-				_on_ceil = false;
-			}
-			
 			// Platform checking
 			var _relative_x = x + _platform_check_position[0],
-				_relative_y = y + _platform_check_position[2];
-			
-			platform_check = instance_position(_relative_x, _relative_y, obj_battle_platform);
+				_relative_y = y + _platform_check_position[2],
+				_respective_platform = instance_position(_relative_x, _relative_y, obj_battle_platform);
 			// If the soul is on a platform, stop the falling
 			if (position_meeting(_relative_x, _relative_y, obj_battle_platform) && _fall_spd >= 0)
 			{
 				_on_platform = true;
-				while position_meeting(x + _platform_check_position[1], y + _platform_check_position[3], obj_battle_platform)
+				while (position_meeting(x + _platform_check_position[1], y + _platform_check_position[3], obj_battle_platform))
 				{
+					// Since the platform movement should be perpendicular to the soul, x/y are swapped for minor optimization
 					x -= lengthdir_y(0.1, _angle_compensation);
 					y -= lengthdir_x(0.1, _angle_compensation);
 				}
 			}
 			
-			if (instance_exists(platform_check))
+			// If the platform is sticky, carry the soul
+			with (_respective_platform)
 			{
-				var _soul_x = x, _soul_y = y;
-				// If the platform is sticky, carry the soul
-				with (platform_check)
+				if (sticky)
 				{
-					if (sticky)
-					{
-						_soul_x += xdelta;
-						_soul_y += ydelta;
-					}
+					other.x += xdelta;
+					other.y += ydelta;
 				}
-				x = _soul_x; y = _soul_y;
 			}
 			#endregion
 			
@@ -257,12 +243,7 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 					Camera_Shake(global.slam_power / 2, global.slam_power / 2, 1, 1, 1, 1, true, true);
 				
 					if (global.slam_damage)
-					{
-						if (Player_GetHp() > 1)
-							Player_Hurt(1);
-						else
-							Player_SetHp(1);
-					}
+						Player_SetHp(max(1, Player_GetHp() - 1));
 			
 					audio_stop_sound(snd_impact);
 					audio_play_sound(snd_impact, 50, false);
@@ -276,10 +257,6 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			// Rotate the movement by the soul's angle
 			var _move_x = lengthdir_x(_move_input, _angle_compensation) - lengthdir_y(_fall_spd, _angle_compensation),
 				_move_y = lengthdir_y(_move_input, _angle_compensation) + lengthdir_x(_fall_spd, _angle_compensation);
-			
-			on_ground = _on_ground;
-			on_ceil = _on_ceil;
-			on_platform = _on_platform;
 	
 			fall_spd = _fall_spd;
 			fall_grav = _fall_grav;

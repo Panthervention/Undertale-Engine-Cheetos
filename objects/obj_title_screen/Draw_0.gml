@@ -128,3 +128,4 @@ else if (__menu == 4) // Settings
 
 if (__menu >= 1 && __menu <= 3) // The name label
 	__menu_label_naming_name.transform(__confirm_name_scale, __confirm_name_scale, __confirm_name_angle).draw(__confirm_name_x + __confirm_name_offset_x, __confirm_name_y + __confirm_name_offset_y);
+

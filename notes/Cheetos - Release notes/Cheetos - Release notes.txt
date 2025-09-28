@@ -12,6 +12,11 @@
 ********************************************************************************
 									RELEASE NOTES
 ********************************************************************************
+v1.2.1	- 29/09/2025
+- Implemented blue soul fix from Coalition Engine. Now the soul doesn't float anymore in certain circumstances.
+- Created Player_SaveExists() check to fix obj_gameover state loading.
+- Slightly enhanced Global_Input to ensure it's self-contained.
+- Fixed some minor bugs of obj_title_screen (naming letter index go wrong, volume config go wrong...).
 
 v1.2.0	- 14/05/2025
 - Enforced naming convention thoughout the engine.

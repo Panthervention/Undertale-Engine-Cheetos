@@ -492,7 +492,7 @@ function Player_Save(_slot) {
 	Flag_Set(FLAG_TYPE.INFO, FLAG_INFO.TIME, _time);
 	Flag_Set(FLAG_TYPE.INFO, FLAG_INFO.ROOM, _room);
 	Flag_Set(FLAG_TYPE.INFO, FLAG_INFO.NAME, _name);
-	Flag_Save(FLAG_TYPE.INFO);	
+	Flag_Save(FLAG_TYPE.INFO);
 }
 
 ///@func Player_Load(slot)
@@ -513,7 +513,7 @@ function Player_Load(_slot) {
 function Player_SaveExists(_slot)
 {
 	Flag_SetSaveSlot(_slot);
-	return (file_exists(Flag_GetSavePath(FLAG_TYPE.STATIC)) && file_exists(Flag_GetSavePath(FLAG_TYPE.DYNAMIC)) && file_exists(Flag_GetSavePath(FLAG_TYPE.INFO)));
+	return (file_exists(Flag_GetSavePath(FLAG_TYPE.STATIC)) && file_exists(Flag_GetSavePath(FLAG_TYPE.INFO)));
 }
 
 #endregion

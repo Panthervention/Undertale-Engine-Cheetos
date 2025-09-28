@@ -19,30 +19,26 @@ if (timer >= 60)
 else
 	timer += 1;
 
+// Game restart
 if ((keyboard_check_pressed(vk_f2)) && !global.f2_locked)
 	game_restart();
 
+// Fullscreen
 if (keyboard_check_pressed(vk_f4) && !keyboard_check(vk_alt) && !keyboard_check(vk_control) && !keyboard_check(vk_shift))
 {
 	window_set_fullscreen(!window_get_fullscreen());
-	if (!window_get_fullscreen())
-		alarm[0] = 1;
+	alarm[0] = 1;
 	display_set_gui_maximize();
 }
-	
-if (keyboard_check(vk_escape))
+
+// Quitting
+if (CHECK_PAUSE)
 {
-	quit_timer += 1;
-	if (quit_timer >= 60)
+	if (quit_timer++ > 60)
 		game_end();
 }
 else
-{
-	if (quit_timer > 0)
-		quit_timer -= 2;
-	else
-		quit_timer = 0
-}
+	quit_timer = (quit_timer > 0) ? (quit_timer - 2) : 0;
 #endregion
 
 #region		Camera Logic
@@ -117,8 +113,7 @@ if (global.debug)
 					instance_destroy(obj_battle_bullet);
 				fader_alpha = 0;
 				audio_resume_all();
-				with (all)
-					TweenDestroy({target: id});
+				TweenDestroy(all);
 				with (obj_battle_board)
 				{
 					x = 320;

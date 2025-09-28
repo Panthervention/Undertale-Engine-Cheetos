@@ -122,7 +122,7 @@
 // 2 = The library will not automatically collect player input. Instead, you must call
 //     `InputManualCollect()` yourself. This gives you maximum flexibility in how player input
 //     is collected at the cost of having to manage that yourself.
-#macro INPUT_COLLECT_MODE  0
+#macro INPUT_COLLECT_MODE  2
 
 // Whether to update library state immediately after collecting player input. This is set to `true`
 // by default. If this macro is set to `false` then you should call `InputManualUpdate()` at
