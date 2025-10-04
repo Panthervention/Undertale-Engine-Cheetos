@@ -31,7 +31,7 @@ if (_battle_state == BATTLE_STATE.MENU && _menu_state == BATTLE_MENU.BUTTON)
 
 if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_STATE.IN_TURN)
 {
-	image_angle %= 360;
+	image_angle = posmod(image_angle, 360);
 	var _angle = image_angle,
 		_angle_compensation = (_angle + 90) % 360;
 	
@@ -148,8 +148,9 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			#region Collision processing
 			
 			#region Input and collision check of different directions of soul
-			var _platform_check_position = array_create(4, 0);
-			if (_angle == DIR.UP)
+			var _relative_x = x,
+				_relative_y = y;
+			if (_angle >= 45 && _angle <= 135)  // Up
 			{
 				if (_board_exists)
 				{
@@ -157,13 +158,12 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 					_on_ceil = _ceil_top;
 				}
 				
-				_platform_check_position[2] = -10;
-				_platform_check_position[3] = -_y_offset;
+				_relative_y -= _y_offset;
 				
 				_jump_input = CHECK_DOWN;
 				_move_input = _hspeed * -_mspeed;
 			}
-			else if (_angle == DIR.DOWN)
+			else if (_angle >= 225 && _angle <= 315)  // Down
 			{
 				if (_board_exists)
 				{
@@ -171,13 +171,12 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 					_on_ceil = _ceil_bottom;
 				}
 				
-				_platform_check_position[2] = _y_offset + 1;
-				_platform_check_position[3] = _y_offset;
+				_relative_y += _y_offset;
 				
 				_jump_input = CHECK_UP;
 				_move_input = _hspeed * _mspeed;
 			}
-			else if (_angle == DIR.LEFT)
+			else if (_angle > 135 && _angle < 225)  // Left
 			{
 				if (_board_exists)
 				{
@@ -185,13 +184,12 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 					_on_ceil = _ceil_left;
 				}
 				
-				_platform_check_position[0] = -10;
-				_platform_check_position[1] = _x_offset;
+				_relative_x -= _x_offset;
 				
 				_jump_input = CHECK_RIGHT;
 				_move_input = _vspeed * _mspeed;
 			}
-			else if (_angle == DIR.RIGHT)
+			else if (_angle < 45 || _angle > 315)  // Right
 			{
 				if (_board_exists)
 				{
@@ -199,8 +197,7 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 					_on_ceil = _ceil_right;
 				}
 				
-				_platform_check_position[1] = _x_offset + 1;
-				_platform_check_position[0] = -_x_offset;
+				_relative_x += _x_offset;
 				
 				_jump_input = CHECK_LEFT;
 				_move_input = _vspeed * -_mspeed;
@@ -208,30 +205,24 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			#endregion
 			
 			// Platform checking
-			var _relative_x = x + _platform_check_position[0],
-				_relative_y = y + _platform_check_position[2],
-				_respective_platform = instance_position(_relative_x, _relative_y, obj_battle_platform);
-			// If the soul is on a platform, stop the falling
-			if (position_meeting(_relative_x, _relative_y, obj_battle_platform) && _fall_spd >= 0)
+			var _respective_platform = instance_position(_relative_x, _relative_y, obj_battle_platform);
+			if (_respective_platform != noone)
 			{
-				_on_platform = true;
-				while (position_meeting(x + _platform_check_position[1], y + _platform_check_position[3], obj_battle_platform))
+				// If the soul is on a platform, stop the falling
+				if (_fall_spd >= 0)
+					_on_platform = true;
+					
+				// If the platform is sticky, carry the soul
+				with (_respective_platform)
 				{
-					// Since the platform movement should be perpendicular to the soul, x/y are swapped for minor optimization
-					x -= lengthdir_y(0.1, _angle_compensation);
-					y -= lengthdir_x(0.1, _angle_compensation);
+					if (sticky)
+					{
+						other.x += xdelta;
+						other.y += ydelta;
+					}
 				}
 			}
 			
-			// If the platform is sticky, carry the soul
-			with (_respective_platform)
-			{
-				if (sticky)
-				{
-					other.x += xdelta;
-					other.y += ydelta;
-				}
-			}
 			#endregion
 			
 			#region Soul slamming (or some might call this soul throwing)
@@ -262,11 +253,8 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			fall_grav = _fall_grav;
 	
 			// Finalize movement
-			if (moveable)
-			{
-				x += _move_x;
-				y += _move_y;
-			} 
+			if (moveable && array_length(move_and_collide(_move_x, _move_y, obj_battle_platform)) > 0)
+				fall_spd = 0;
 			break;
 		#endregion
 	}
