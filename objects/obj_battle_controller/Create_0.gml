@@ -130,12 +130,12 @@ with (ui_fight)
 						-(obj_battle_board.left + obj_battle_board.right + sprite_get_width(spr_battle_menu_fight_recticle));
 		__aim_x_target = __aim_x + __aim_x_change;
 		__aim_x_tween = TweenFire(self, "", 0, off, 0, 90, "__aim_x>", __aim_x_target);
-	}
+	};
 	
 	// Run on BATTLE_MENU.FIGHT_ANIM menu state
 	anim = function()
 	{
-		if ((Battle_GetMenuFightDamage() >= 0) && __aim_confirm == true)
+		if ((Battle_GetMenuFightDamage() >= 0) && __aim_confirm)
 		{
 			__aim_confirm = 10;
 		    var _enemy_slot = Battle_ConvertMenuChoiceEnemyToEnemySlot(Battle_GetMenuChoiceEnemy()),

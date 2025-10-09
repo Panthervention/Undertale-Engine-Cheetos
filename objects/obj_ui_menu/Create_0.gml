@@ -17,6 +17,8 @@ __choice_item = 0;
 __choice_item_operation = 0;
 __choice_cell = 0;
 
+__xpreset = [23, 119, 233];
+
 audio_play_sound(snd_menu_switch, 0, false);
 
 event_user(0); // Stashing text elements

@@ -70,7 +70,7 @@ function Encounter_Start(_encounter_id, _animation = true, _exclamation = true) 
 			with (_encounter_anim)
 			{
 				__encounter = _encounter_id;
-				__exclam = _exclamation;
+				__exclaim = _exclamation;
 				__quick = Encounter_IsQuick(_encounter_id);
 				__soul_x = Encounter_GetSoulX(_encounter_id);
 				__soul_y = Encounter_GetSoulY(_encounter_id);

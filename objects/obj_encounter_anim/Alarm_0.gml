@@ -1,6 +1,6 @@
 if (Encounter_Exists(__encounter) && instance_exists(obj_char_player))
 {
-    if (__exclam)
+    if (__exclaim)
     {
         var _inst = instance_create_depth(0, 0, 0, obj_exclamation);
         _inst.x = obj_char_player.x;

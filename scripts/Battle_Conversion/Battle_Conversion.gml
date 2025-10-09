@@ -15,9 +15,9 @@ function Battle_ConvertEnemySlotToMenuChoiceEnemy(_enemy_slot) {
 					_result = _j;
 					break;
 				}
-				_j += 1;
+				_j++;
 			}
-			_i += 1;
+			_i++;
 		}
 		return _result;
 	}
@@ -42,9 +42,9 @@ function Battle_ConvertMenuChoiceEnemyToEnemySlot(_menu_choice_enemy) {
 					_result = _i;
 					break;
 				}
-				_j += 1;
+				_j++;
 			}
-			_i += 1;
+			_i++;
 		}
 		return _result;
 	}

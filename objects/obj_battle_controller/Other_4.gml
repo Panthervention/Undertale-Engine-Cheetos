@@ -6,7 +6,7 @@ var _encounter_id = Flag_Get(FLAG_TYPE.TEMP, FLAG_TEMP.ENCOUNTER);
 var _i = 0; repeat (3)
 {
     Battle_SetEnemy(__enemy_object[_i], _i);
-    _i += 1;
+    _i++;
 }
 
 Battle_SetNextState(BATTLE_STATE.MENU);

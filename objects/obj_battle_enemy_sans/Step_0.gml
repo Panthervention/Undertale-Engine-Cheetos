@@ -1,4 +1,4 @@
-if (follow_board_y == true)
+if (follow_board_y)
     y = obj_battle_board.y - obj_battle_board.up - obj_battle_board.frame_thickness - 6;
 
 var num = sprite_get_number(__body_sprite);
@@ -19,14 +19,14 @@ if (__wiggle)
     __wiggle_sin++;
     if (__wiggle_sin % 1 == 0)
     {
-        if (sans_is_alive == true)
+        if (sans_is_alive)
         {
             __body_x = sin(__wiggle_sin * 0.1) * 1;
             __body_y = sin(__wiggle_sin * 0.2) * 0.7;
             __head_x = sin(__wiggle_sin * 0.1) * 0.1;
             __head_y = sin(__wiggle_sin * 0.2) * 0.1;
         }
-        else if (sans_is_alive == false)
+        else
         {
             __body_y = sin(__wiggle_sin * 0.1) * 0.35;
             __head_y = sin(__wiggle_sin * 0.1) * 0.05;

@@ -66,9 +66,7 @@ else if (__menu == 0) // Instruction - Main menu
 	
 					TweenDestroy(id);
 					
-					TweenFire(id, "", 0, off, 0, 270, "__confirm_name_x>", 200);
-					TweenFire(id, "", 0, off, 0, 270, "__confirm_name_y>", 230);
-					TweenFire(id, "", 0, off, 0, 270, "__confirm_name_scale>", 7);
+					TweenFire(id, "", 0, off, 0, 270, "__confirm_name_x>", 200, "__confirm_name_y>", 230, "__confirm_name_scale>", 7);
 					
 		            __naming_name = Flag_Get(FLAG_TYPE.INFO, FLAG_INFO.NAME, lexicon_text("ui.save.name.empty"));
 		            __confirm_title = lexicon_text("menu.confirm.title.reset"); // A name has already been chosen.
@@ -193,9 +191,7 @@ else if (__menu == 1) // Naming
 						event_user(1); // Name validation checking
 						
 						TweenDestroy(id);
-						TweenFire(id, "", 0, off, 0, 270, "__confirm_name_x>", 200);
-						TweenFire(id, "", 0, off, 0, 270, "__confirm_name_y>", 230);
-						TweenFire(id, "", 0, off, 0, 270, "__confirm_name_scale>", 7);
+						TweenFire(id, "", 0, off, 0, 270, "__confirm_name_x>", 200, "__confirm_name_y>", 230, "__confirm_name_scale>", 7);
 					}
 					break;
 			}
@@ -229,12 +225,12 @@ else if (__menu == 1) // Naming
 else if (__menu == 2) // Name Confirmation
 {
 	if (_input_horizontal != 0)
-		__choice_confirm = (_input_horizontal == 1 && __confirm_valid) ? 1 : 0
+		__choice_confirm = (_input_horizontal == 1 && __confirm_valid) ? 1 : 0;
 	else if (_input_confirm)
 	{
 	    if (__choice_confirm == 0) // No
 		{
-	        __menu = (!__mode ? 1 : 0);
+	        __menu = __mode ? 0 : 1;
 			TweenDestroy(id);
 			__confirm_name_x = 280;
 			__confirm_name_y = 110;
@@ -305,7 +301,7 @@ if (__menu == 2 || __menu == 3)
         __confirm_name_offset_y = random_range(-1, 1);
         __confirm_name_angle = random_range(-1, 1);
     }
-    __confirm_name_update ^= 1;
+    __confirm_name_update ^= true;
 }
 else
 {

@@ -250,10 +250,10 @@ function Battle_SetMenuChoiceItem(_slot, _call_event = true) {
 			
 			case BATTLE_MENU_ITEM.VERTICAL:
 				while (_slot >= obj_battle_controller.__menu_choice_item_first + 3)
-				    obj_battle_controller.__menu_choice_item_first += 1;
+				    obj_battle_controller.__menu_choice_item_first++;
     
 				while (_slot < obj_battle_controller.__menu_choice_item_first)
-				    obj_battle_controller.__menu_choice_item_first -= 1;
+				    obj_battle_controller.__menu_choice_item_first--;
 				break;
 		}
  

@@ -1,7 +1,7 @@
 depth = -12000;	// DEPTH_UI.ENCOUNTER_ANIM;
 
 __encounter = -1;
-__exclam = true;
+__exclaim = true;
 __quick = false;
 __soul_x = 48;
 __soul_y = 454;

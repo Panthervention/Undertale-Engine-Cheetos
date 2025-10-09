@@ -10,19 +10,18 @@ var _tg_ow = "texgroup_overworld", _tg_bt = "texgroup_battle",
 	_tg_ow_status = texturegroup_get_status(_tg_ow),
 	_tg_bt_status = texturegroup_get_status(_tg_bt);
 
-switch(Player_IsInBattle())
+if (Player_IsInBattle())
 {
-	case false:
-		if (_tg_ow_status == texturegroup_status_unloaded)
-			texturegroup_load(_tg_ow);
-		if (_tg_bt_status == texturegroup_status_fetched)
-			texturegroup_unload(_tg_bt);
-		break;
-	case true:
-		if (_tg_ow_status == texturegroup_status_fetched)
-			texturegroup_unload(_tg_ow);
-		if (_tg_bt_status == texturegroup_status_unloaded)
-			texturegroup_load(_tg_bt);
-		break;
+	if (_tg_ow_status == texturegroup_status_fetched)
+		texturegroup_unload(_tg_ow);
+	if (_tg_bt_status == texturegroup_status_unloaded)
+		texturegroup_load(_tg_bt);
+}
+else
+{
+	if (_tg_ow_status == texturegroup_status_unloaded)
+		texturegroup_load(_tg_ow);
+	if (_tg_bt_status == texturegroup_status_fetched)
+		texturegroup_unload(_tg_bt);
 }
 #endregion

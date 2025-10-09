@@ -30,6 +30,6 @@ alarm[0] = 1;
 alarm[1] = 1;
 
 bone_index = spr_bone_sans;
-bone_index_outline = spr_bone_sans_outline
+bone_index_outline = spr_bone_sans_outline;
 bone_sub = 0;
 	

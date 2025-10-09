@@ -1,4 +1,4 @@
-if (proceed == true)
+if (proceed)
     timer++;
 if (turn != Battle_GetTurnNumber())
 {

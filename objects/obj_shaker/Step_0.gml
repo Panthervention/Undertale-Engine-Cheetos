@@ -15,7 +15,7 @@ if (object_exists(target) && instance_exists(target))
             _inst.shake_random = shake_random;
             _inst.shake_decrease = shake_decrease;
         }
-        _i += 1;
+        _i++;
     }
 }
 
@@ -25,7 +25,7 @@ if (instance_exists(target) && !object_exists(target) && variable_instance_exist
         __shake_base = variable_instance_get(target, var_name);
     
     if (__shake_time > 0)
-        __shake_time -= 1;
+        __shake_time--;
     else
     {
         if (!shake_random)
@@ -37,7 +37,7 @@ if (instance_exists(target) && !object_exists(target) && variable_instance_exist
                 shake_distance -= shake_decrease;
                 __shake_pos = -shake_distance;
             }
-            __shake_positive = !__shake_positive;
+            __shake_positive ^= true;
         }
         else
         {

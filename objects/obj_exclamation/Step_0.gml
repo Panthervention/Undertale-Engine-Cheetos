@@ -1,3 +1,3 @@
-__timer += 1;
+__timer++;
 if (__timer >= duration)
     instance_destroy();

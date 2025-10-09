@@ -121,29 +121,29 @@ function Item_Get(_slot) {
 		if (Item_IsValid(_item))
 		{
 			var _item_base = global.__dictionary_item[_item.item_id];
-			with _item
+			with (_item)
 			{
 				if (name != _item_base.name)
 					name = _item_base.name;
-				else if (name_short != _item_base.name_short)
+				if (name_short != _item_base.name_short)
 					name_short = _item_base.name_short;
-				else if (name_short_serious != _item_base.name_short_serious)
+				if (name_short_serious != _item_base.name_short_serious)
 					name_short_serious = _item_base.name_short_serious;
 					
-				else if (desc_info != _item_base.desc_info)
+				if (desc_info != _item_base.desc_info)
 					desc_info = _item_base.desc_info;
-				else if (desc_use_before != _item_base.desc_use_before)
+				if (desc_use_before != _item_base.desc_use_before)
 					desc_use_before = _item_base.desc_use_before;
-				else if (desc_use_after != _item_base.desc_use_after)
+				if (desc_use_after != _item_base.desc_use_after)
 					desc_use_after = _item_base.desc_use_after;
 				
-				else if (heal != _item_base.heal)	heal = _item_base.heal;
-				else if (atk != _item_base.atk)		atk = _item_base.atk;
-				else if (def != _item_base.def)		def = _item_base.def;
-				else if (spd != _item_base.spd)		spd = _item_base.spd;
-				else if (inv != _item_base.inv)		inv = _item_base.inv;
+				if (heal != _item_base.heal)	heal = _item_base.heal;
+				if (atk != _item_base.atk)		atk = _item_base.atk;
+				if (def != _item_base.def)		def = _item_base.def;
+				if (spd != _item_base.spd)		spd = _item_base.spd;
+				if (inv != _item_base.inv)		inv = _item_base.inv;
 				
-				else
+				if (effect != _item_base.effect)
 				{
 					effect = _item_base.effect;
 					_inventory_temp[_slot] = self;

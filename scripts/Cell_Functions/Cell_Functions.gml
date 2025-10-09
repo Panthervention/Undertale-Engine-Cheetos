@@ -47,11 +47,11 @@ function Cell_CallEvent(_cell, _event, _address) {
 		}
 	}
 }
-
+/// Feather ignore GM1045
 ///@func Cell_GetAdress(address)
 ///@desc Return the cell address struct at the specified address number or return -1 if the cell address does not exist.
 ///@param {Real}	address		The address number to get the cell address struct.
-///@return {Struct.Cell}
+///@return {Struct.Cell, Real}
 function Cell_GetAdress(_address) {
 	if (Cell_IsAddressValid(_address))
 	{
@@ -64,7 +64,7 @@ function Cell_GetAdress(_address) {
 				if (name != _cell_base.name)
 					name = _cell_base.name;
 				if (dialog != _cell_base.dialog)
-					dialog = _cell_base; // Not sure, requires further condition inspect!
+					dialog = _cell_base.dialog; // Not sure, requires further condition inspect!
 				event = _cell_base.event;
 			}
 			return _cell;

@@ -1,6 +1,4 @@
-if (!active)
-	exit;
-else
+if (active)
 {
 	var _spr = bone_index,
 		_spr_outline = bone_index_outline,

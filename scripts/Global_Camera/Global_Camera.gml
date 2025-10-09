@@ -2,7 +2,7 @@ function Global_Camera() constructor {
 	
 	Init();
 	//__camera = camera_create_view(x, y, (width / scale_x) + 1, (height / scale_y) + 1, angle, target, -1, -1, ((width / scale_x) + 1) / 2, ((height / scale_y) + 1) / 2);
-
+	///@method Init()
 	static Init = function()
 	{
 		#region	Public Variables
@@ -45,7 +45,7 @@ function Global_Camera() constructor {
 		__shake_positive_y = true;
 		#endregion
 	}
-	
+	///@method Reload
 	static Reload = function()
 	{
 		Init();
@@ -53,7 +53,7 @@ function Global_Camera() constructor {
 		view_enabled = true;
 		view_visible[0] = true;
 	}
-	
+	///@method Update
 	static Update = function()
 	{
 		var _cam = view_camera[0],
@@ -70,7 +70,7 @@ function Global_Camera() constructor {
 		    camera_set_view_target(_cam, noone);
         
 		    if (__shake_time_x > 0)
-		        __shake_time_x -= 1;
+		        __shake_time_x--;
 		    else
 		    {
 		        if (!shake_random_x)
@@ -82,7 +82,7 @@ function Global_Camera() constructor {
 		                shake_x -= shake_decrease_x;
 		                __shake_pos_x = -shake_x;
 		            }
-		            __shake_positive_x = !__shake_positive_x;
+		            __shake_positive_x ^= true;
 		        }
 		        else
 		        {
@@ -110,7 +110,7 @@ function Global_Camera() constructor {
 		    camera_set_view_target(_cam, noone);
         
 		    if (__shake_time_y > 0)
-		        __shake_time_y -= 1;
+		        __shake_time_y--;
 		    else
 		    {
 		        if (!shake_random_y)
@@ -122,7 +122,7 @@ function Global_Camera() constructor {
 		                shake_y -= shake_decrease_y;
 		                __shake_pos_y = -shake_y;
 		            }
-		            __shake_positive_y = !__shake_positive_y;
+		            __shake_positive_y ^= true;
 		        }
 		        else
 		        {

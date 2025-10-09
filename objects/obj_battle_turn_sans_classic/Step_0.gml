@@ -76,10 +76,12 @@ switch (turn)
 		if (timer == 500)
 			Battle_EndTurn();
 		#endregion
+		break;
 	case 5: // Blaster Circle
 		#region
 		if (timer == 600)
 			Battle_EndTurn();
 		#endregion
+		break;
 }
 

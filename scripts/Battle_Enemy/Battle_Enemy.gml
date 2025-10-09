@@ -14,7 +14,7 @@ function Battle_CallEnemyEvent(_enemy_event, _enemy_slot = -1) {
 	            with (_enemy_instance)
 	                event_user(_enemy_event);
 	        }
-	        _i += 1;
+	        _i++;
 	    }
 	}
 	else if (Battle_IsEnemySlotValid(_enemy_slot))
@@ -49,7 +49,7 @@ function Battle_SetEnemy(_enemy, _enemy_slot) {
 	                Battle_RemoveEnemy(_i);
 	                break;
 	            }
-	            _i += 1;
+	            _i++;
 	        }
 	        obj_battle_controller.__enemy[_enemy_slot] = _enemy;
 	    }
@@ -84,8 +84,8 @@ function Battle_GetEnemyNumber() {
 	var _i = 0, _n = 0; repeat (3)
 	{
 	    if (instance_exists(Battle_GetEnemy(_i)))
-	        _n += 1;
-	    _i += 1;
+	        _n++;
+	    _i++;
 	}
 
 	return _n;

@@ -4,10 +4,10 @@ var _input_vertical = PRESS_VERTICAL,
 	_input_cancel = PRESS_CANCEL;
 	
 if (_input_vertical < 0 && __choice_item > 0)
-	__choice_item -= 1;
+	__choice_item--;
 else if (_input_vertical > 0 && ((__choice_mode == 0 && __choice_item < 7) || 
 		(__choice_mode == 1 && __choice_item < 9)))
-	__choice_item += 1;
+	__choice_item++;
 
 if (_input_horizontal != 0)
 {

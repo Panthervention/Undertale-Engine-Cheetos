@@ -10,5 +10,7 @@ function Player_GetRoomName(_room)
 	        return "--";
 	    case room_area_0:
 	        return lexicon_text("overworld.white_space.room_name");
+		default:
+			return lexicon_text("overworld.{0}.room_name", room_get_name(room));
 	}
 }

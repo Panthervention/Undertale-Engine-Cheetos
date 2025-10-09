@@ -40,12 +40,12 @@ function Box_ItemRemove(_box_slot, _slot) {
 		}
 	}
 }
-
+// Feather ignore GM1045
 ///@func Box_ItemGet(box_slot, slot)
 ///@desc Return the item struct from the given box slot at the specified slot number in that box.
 ///@param {Real}	box_slot	The box slot number.
 ///@param {Real}	slot		The slot number in the box.
-///@return {Struct.Item}
+///@return {Struct.Item, Real}
 function Box_ItemGet(_box_slot, _slot) {
 	if (Box_IsBoxSlotValid(_box_slot))
 	{

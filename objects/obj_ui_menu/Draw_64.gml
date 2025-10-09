@@ -53,8 +53,7 @@ else if (__menu == 1 || __menu == 2)
 
 	if (__menu == 2)
 	{
-	    var _xpreset = [23, 119, 233],
-			_soul_x = 194 + _xpreset[__choice_item_operation];
+	    var _soul_x = 194 + __xpreset[__choice_item_operation];
 	    draw_sprite_ext(spr_battle_soul, 0, _soul_x, 377, 1, 1, DIR.DOWN, c_red, 1);
 	}
 }

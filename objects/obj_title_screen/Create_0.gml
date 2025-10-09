@@ -41,11 +41,12 @@ __naming_length_limit = 6;
 __naming_shake_buffer = 0;
 __naming_shake_buffer_asign = 1; 
 
-__season = (current_month mod 12) div 3 + 1;
+__season = ((current_month % 12) div 3);
 
-var _season_to_string = ((__season == 1) ? "winter" : ((__season == 2) ? "spring" : ((__season == 3) ? "summer" : "fall")));
+var _season_names = ["winter", "spring", "summer", "autumn"],
+	_season_to_string = _season_names[__season];
 
 __season_converted = lexicon_text($"setting.season.{_season_to_string}");
-__season_bgm = ((__season == 1) ? bgm_option_winter : ((__season == 3) ? bgm_option_summer : bgm_option_fall));
+__season_bgm = ((__season == 0) ? bgm_option_winter : ((__season == 2) ? bgm_option_summer : bgm_option_fall));
 
 event_user(0); // Initiate text elements

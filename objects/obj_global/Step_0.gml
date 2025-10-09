@@ -17,7 +17,7 @@ if (timer >= 60)
 	timer = 0;
 }
 else
-	timer += 1;
+	timer++;
 
 // Game restart
 if ((keyboard_check_pressed(vk_f2)) && !global.f2_locked)
@@ -61,7 +61,7 @@ with (border)
 
 #region		Debug Logic
 if (allow_debug && !released && keyboard_check_pressed(vk_f3))
-	global.debug ^= 1;
+	global.debug ^= true;
 if (global.debug)
 {
 	with (global)
@@ -92,9 +92,9 @@ if (global.debug)
 	if (keyboard_check(vk_control))
 	{
 		if (keyboard_check_pressed(ord("L")))
-			debug_fps_lock ^= 1;
+			debug_fps_lock ^= true;
 		if (keyboard_check_pressed(ord("H")))
-			global.show_hitbox ^= 1;
+			global.show_hitbox ^= true;
 	}
 		
 	if (Player_IsInBattle())
