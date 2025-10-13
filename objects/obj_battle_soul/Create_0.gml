@@ -21,6 +21,8 @@ fall_spd = 0;
 fall_grav = 0;
 fall_multi = 1;
 
+__count = 0;
+
 slam = false;
 
 moveable = true;

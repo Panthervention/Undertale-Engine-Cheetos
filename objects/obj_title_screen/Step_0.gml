@@ -179,7 +179,7 @@ else if (__menu == 1) // Naming
 				case 1: // Backspace
 					if (string_length(__naming_name) > 0) // Letter remove
 						__naming_name = string_delete(__naming_name, string_length(__naming_name), 1);
-						__menu_label_naming_name	= scribble(__naming_name).starting_format("font_dt_mono", c_white).transform(2, 2, 0);
+						__menu_label_naming_name	= scribble(__naming_name).starting_format("font_dt_sans", c_white).transform(2, 2, 0);
 						__menu_label_naming_name.build(true);
 					break;
 					
@@ -201,7 +201,7 @@ else if (__menu == 1) // Naming
 	        if (string_length(__naming_name) > 0) // Letter remove
 			{
 	            __naming_name = string_delete(__naming_name, string_length(__naming_name), 1);
-				__menu_label_naming_name	= scribble(__naming_name).starting_format("font_dt_mono", c_white).transform(2, 2, 0);
+				__menu_label_naming_name	= scribble(__naming_name).starting_format("font_dt_sans", c_white).transform(2, 2, 0);
 				__menu_label_naming_name.build(true);
 			}
 	    }

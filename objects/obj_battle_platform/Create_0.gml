@@ -5,5 +5,5 @@ destroyable = true;
 destroydir = -1;
 xdelta = 0;
 ydelta = 0;
-out = 0;
+mask = true;
 image_angle = 0;

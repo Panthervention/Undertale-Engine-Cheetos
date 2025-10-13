@@ -97,7 +97,11 @@ draw_clear_alpha(c_black, 0);
 
 // Draw things relative to clip-surface
 draw_sprite_ext(spr_pixel, 0, 0, 0, 640, 480, 0, _bg_c, _bg_a);
-Battle_BoardDraw();
+
+/
+	This is where you draw everything you want inside the board...
+/
+
 //
 
 // Cut out the mask-surface from it

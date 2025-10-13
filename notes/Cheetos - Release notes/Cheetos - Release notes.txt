@@ -12,6 +12,14 @@
 ********************************************************************************
 									RELEASE NOTES
 ********************************************************************************
+v1.2.2	- 14/10/2025
+- Implemented blue soul fix from Coalition Engine whereas the soul could clip through the platform under high falling speed and reworked platform logic in general.
+- Fixed obj_platform which did not used `mask` variable, which should also fix the Bullet_Platform now.
+- Fixed obj_shaker because the original code from TML had some flaws term of logic, preventing the object to work altogether.
+- Fixed obj_title_screen with font inconsistency for backspace inputs.
+- Moved Game Over check from obj_battle_soul to obj_battle_controller.
+- Deprecated Draw event of obj_battle_soul and turned into a visible toggle check in Step event.
+
 v1.2.1	- 29/09/2025
 - Implemented blue soul fix from Coalition Engine. Now the soul doesn't float anymore in certain circumstances.
 - Created Player_SaveExists() check to fix obj_gameover state loading.

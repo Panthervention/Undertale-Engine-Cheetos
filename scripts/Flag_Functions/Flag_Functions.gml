@@ -8,7 +8,7 @@ function Flag_Init() {
 ///@func Flag_Uninit()
 ///@desc Uninitializes the flag system
 function Flag_Uninit() {
-    global.__flag = undefined; // Allow garbage collection
+    delete global.__flag; // Allow garbage collection
 }
 
 ///@func Flag_Save(type)

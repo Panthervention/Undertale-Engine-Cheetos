@@ -14,7 +14,7 @@ var _image_yscale = image_yscale;
 var _x = x;
 var _y = y;
 
-Battle_BoardMaskSet(true, !out);
+Battle_BoardMaskSet(true, mask);
 draw_sprite_ext(_sprite,0,_x,_y,_image_xscale,_image_yscale,_angle,c_white,_alpha);
 draw_sprite_ext(_sprite,1,_x,_y,_image_xscale,_image_yscale,_angle,_color,_alpha);
 Battle_BoardMaskReset();

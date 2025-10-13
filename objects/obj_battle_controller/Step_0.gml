@@ -126,12 +126,12 @@ if (__state == BATTLE_STATE.MENU)
 			    if (__aim_x == __aim_x_target)
 				{
 			        Battle_SetMenuFightDamage(-1);
-			        Battle_EndMenuFightAim();
+			        Battle_EndMenuFightAim(); // Aim -> Anim
 			        __input_acceptable = false;
 					__aim_confirm = true;
 			    }
     
-			    if (_input_confirm && __input_acceptable && !__aim_confirm)
+			    if (_input_confirm && !__aim_confirm)
 			    {
 					__input_acceptable = false;
 					__aim_confirm = true;
@@ -155,7 +155,8 @@ if (__state == BATTLE_STATE.MENU)
 		
 			        if (_damage <= 0)
 			            _damage = 1;
-        
+					
+					// Aim -> Anim -> Damage
 			        Battle_SetMenuFightDamage(_damage);
 			        Battle_SetMenuFightAnimTime(50);
 			        Battle_SetMenuFightDamageTime(45);
@@ -169,14 +170,14 @@ if (__state == BATTLE_STATE.MENU)
         if (__menu_fight_anim_time > 0)
             __menu_fight_anim_time--;
         else if (__menu_fight_anim_time == 0)
-            Battle_EndMenuFightAnim();
+            Battle_EndMenuFightAnim(); // Anim -> Damage
     }
     else if (__menu == BATTLE_MENU.FIGHT_DAMAGE)
     {
         if (__menu_fight_damage_time > 0)
             __menu_fight_damage_time--;
         else if (__menu_fight_damage_time == 0)
-            Battle_EndMenuFightDamage();
+            Battle_EndMenuFightDamage(); // Damage -> exit Menu
     }
     else if (__menu == BATTLE_MENU.ACT_TARGET)
     {

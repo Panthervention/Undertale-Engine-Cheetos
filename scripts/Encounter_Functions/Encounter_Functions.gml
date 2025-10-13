@@ -8,7 +8,7 @@ function Encounter_Init() {
 ///@func Encounter_Uninit()
 ///@desc Uninitialize the encounter system.
 function Encounter_Uninit() {
-    global.__encounter = undefined; // Clear the global struct to allow garbage collection
+    delete global.__encounter; // Clear the global struct to allow garbage collection
 }
 
 ///@func Encounter_Set(encounter_id, enemy_0, enemy_1, enemy_2, menu_dialog, [fleeable], [quick], [soul_x], [soul_y]) 
@@ -26,8 +26,7 @@ function Encounter_Set(_encounter_id, _enemy_0, _enemy_1, _enemy_2, _menu_dialog
 	if (_encounter_id < 0)
 		exit;
 	
-    if (global.__encounter[$ _encounter_id] == undefined)
-        global.__encounter[$ _encounter_id] = {};
+	global.__encounter[$ _encounter_id] ??= {};
 
     var _struct_encounter = global.__encounter[$ _encounter_id];
 	with (_struct_encounter)

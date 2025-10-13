@@ -1,4 +1,7 @@
-#region Invincibility
+var _battle_state = Battle_GetState(), _menu_state = Battle_GetMenu();
+visible = (_battle_state == BATTLE_STATE.IN_TURN || _battle_state == BATTLE_STATE.TURN_PREPARATION || (_battle_state == BATTLE_STATE.MENU && _menu_state != BATTLE_MENU.FIGHT_AIM && _menu_state != BATTLE_MENU.FIGHT_ANIM && _menu_state != BATTLE_MENU.FIGHT_DAMAGE));
+
+#region Invincibility and Soul Flickering
 if (global.inv > 0)
 {
 	global.inv--;
@@ -19,7 +22,6 @@ else if (image_speed != 0)
 #endregion
 
 #region Soul Movement
-var _battle_state = Battle_GetState(), _menu_state = Battle_GetMenu();
 if (_battle_state == BATTLE_STATE.MENU && _menu_state == BATTLE_MENU.BUTTON)
 {
 	var _button_pos = obj_battle_controller.ui_button.position,
@@ -32,7 +34,8 @@ if (_battle_state == BATTLE_STATE.MENU && _menu_state == BATTLE_MENU.BUTTON)
 if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_STATE.IN_TURN)
 {
 	image_angle %= 360;
-	var _angle = image_angle,
+	var _soul = id,
+		_angle = image_angle,
 		_angle_compensation = (_angle + 90) % 360;
 	
 	var _hspeed = CHECK_HORIZONTAL,
@@ -89,7 +92,8 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_on_platform = false;
 		
 			var _fall_spd = fall_spd,
-				_fall_grav = fall_grav;
+				_fall_grav = fall_grav,
+				_fall_multi = fall_multi;
 			
 			#region Position calculation
 			var _dist = point_distance(_board_x, _board_y, x, y),
@@ -141,14 +145,14 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_fall_grav = 0.125;
 			else if (_fall_spd <= -2)
 				_fall_grav = 0.05;
-	
-			_fall_spd += (_fall_grav * fall_multi);
+			
+			// Apply gravity to speed
+			_fall_spd += (_fall_grav * _fall_multi);
 			#endregion
 			
 			#region Collision processing
 			
 			#region Input and collision check of different directions of soul
-			var _platform_check_position = array_create(4, 0);
 			if (_angle == DIR.UP)
 			{
 				if (_board_exists)
@@ -156,10 +160,6 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 					_on_ground = _ground_top;
 					_on_ceil = _ceil_top;
 				}
-				
-				_platform_check_position[2] = -10;
-				_platform_check_position[3] = -_y_offset;
-				
 				_jump_input = CHECK_DOWN;
 				_move_input = _hspeed * -_mspeed;
 			}
@@ -170,10 +170,6 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 					_on_ground = _ground_bottom;
 					_on_ceil = _ceil_bottom;
 				}
-				
-				_platform_check_position[2] = _y_offset + 1;
-				_platform_check_position[3] = _y_offset;
-				
 				_jump_input = CHECK_UP;
 				_move_input = _hspeed * _mspeed;
 			}
@@ -184,10 +180,6 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 					_on_ground = _ground_left;
 					_on_ceil = _ceil_left;
 				}
-				
-				_platform_check_position[0] = -10;
-				_platform_check_position[1] = _x_offset;
-				
 				_jump_input = CHECK_RIGHT;
 				_move_input = _vspeed * _mspeed;
 			}
@@ -198,38 +190,70 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 					_on_ground = _ground_right;
 					_on_ceil = _ceil_right;
 				}
-				
-				_platform_check_position[1] = _x_offset + 1;
-				_platform_check_position[0] = -_x_offset;
-				
 				_jump_input = CHECK_LEFT;
 				_move_input = _vspeed * -_mspeed;
 			}
 			#endregion
 			
-			// Platform checking
-			var _relative_x = x + _platform_check_position[0],
-				_relative_y = y + _platform_check_position[2],
-				_respective_platform = instance_position(_relative_x, _relative_y, obj_battle_platform);
-			// If the soul is on a platform, stop the falling
-			if (position_meeting(_relative_x, _relative_y, obj_battle_platform) && _fall_spd >= 0)
+			#region Platform check
+			var _respective_platform = noone;		
+			with (obj_battle_platform)
 			{
-				_on_platform = true;
-				while (position_meeting(x + _platform_check_position[1], y + _platform_check_position[3], obj_battle_platform))
+				var // Get delta
+					_dx = xdelta, _dy = ydelta,
+					// Get normal angle
+					_angle_normal = image_angle + 90,
+					// Get delta angle from normal
+					_angle_delta = _angle_normal - darctan2(_dy, _dx),
+					// Get delta along normal
+					_normal_delta_x = _dx * dcos(_angle_delta),
+					_normal_delta_y = _dy * -dsin(_angle_delta),
+					_normal_delta = sqrt((_normal_delta_x * _normal_delta_x) + (_normal_delta_y * _normal_delta_y));				
+				
+				// Not colliding if either the soul is not relatively falling
+				// or the angle difference is too high
+				if ((_fall_spd < 0 && -_fall_spd > _normal_delta) || abs(angle_difference(_angle_compensation, image_angle)) > 75)
+					continue;
+				
+				var 
+					// Tip of the soul
+					_soul_x = _soul.x + (8 * dsin(_angle_compensation)), _soul_y = _soul.y + (8 * dcos(_angle_compensation)),
+					// Top left corner of the platform
+					_top_left_x = x + lengthdir_x(-length / 2, image_angle) + lengthdir_y(-2, -image_angle),
+					_top_left_y = y + lengthdir_x(-2, image_angle) - lengthdir_y(-length / 2, -image_angle),
+					// Rotated length vector of the platform
+					_platform_delta_x = lengthdir_x(length, image_angle),
+					_platform_delta_y = lengthdir_y(length, image_angle),
+					// Top right corner of the platform
+					_top_right_x = _top_left_x + _platform_delta_x, _top_right_y = _top_left_y + _platform_delta_y,
+					// Displacement vector between soul and left side of the platform
+					_soul_delta_x = _soul_x - _top_left_x, _soul_delta_y = _soul_y - _top_left_y,
+					// Scalar projection of the soul to the platform
+					_projection_scalar = ((_soul_delta_x * _platform_delta_x) + (_soul_delta_y * _platform_delta_y)) / (length * length),
+					// Projection vector of the soul to the platform
+					_projection_x = _platform_delta_x * _projection_scalar, _projection_y = _platform_delta_y * _projection_scalar;
+				
+				// Not colliding if the soul is outside of horizontal bounds of the platform 
+				// (Left side OR Right side)
+				if ((((_projection_x * _platform_delta_x) + (_projection_y * _platform_delta_y)) < 0) || (point_distance(0, 0, _projection_x, _projection_y) > point_distance(0, 0, _platform_delta_x, _platform_delta_y)))
+					continue;
+				
+				// If the nearest point of soul to platform is close enough, it is colliding				
+				if (point_distance(0, 0, _projection_x + _top_left_x - _soul_x, _projection_y + _top_left_y - _soul_y) < (_normal_delta + 1))
 				{
-					// Since the platform movement should be perpendicular to the soul, x/y are swapped for minor optimization
-					x -= lengthdir_y(0.1, _angle_compensation);
-					y -= lengthdir_x(0.1, _angle_compensation);
+					_on_platform = true;
+					_respective_platform = self;
+					continue;
 				}
 			}
 			
 			// If the platform is sticky, carry the soul
-			with (_respective_platform)
-			{
+			if (_respective_platform != noone) then with (_respective_platform)
+			{	
 				if (sticky)
 				{
-					other.x += xdelta;
-					other.y += ydelta;
+					_soul.x += xdelta;
+					_soul.y += ydelta;
 				}
 			}
 			#endregion
@@ -253,21 +277,98 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 			else if (!_jump_input && _fall_spd < -0.5)
 				_fall_spd = -0.5;
 			#endregion
-			
-			// Rotate the movement by the soul's angle
-			var _move_x = lengthdir_x(_move_input, _angle_compensation) - lengthdir_y(_fall_spd, _angle_compensation),
-				_move_y = lengthdir_y(_move_input, _angle_compensation) + lengthdir_x(_fall_spd, _angle_compensation);
-	
-			fall_spd = _fall_spd;
-			fall_grav = _fall_grav;
 	
 			// Finalize movement
 			if (moveable)
 			{
-				x += _move_x;
-				y += _move_y;
-			} 
+				// Apply relative vertical movement
+				var _fall_x = -lengthdir_y(_fall_spd, _angle_compensation), _fall_y = lengthdir_x(_fall_spd, _angle_compensation),
+					_step_count = max(10, _fall_spd / 2);
+				repeat (_step_count) // Preventing the soul to clip through the platform if the fall speed is too high
+				{
+					x += _fall_x / _step_count; y += _fall_y / _step_count;
+					
+					// Could have been a function, but I prefer to just inline this
+					#region Platform check
+					with (obj_battle_platform)
+					{
+						var // Get delta
+							_dx = xdelta, _dy = ydelta,
+							// Get normal angle
+							_angle_normal = image_angle + 90,
+							// Get delta angle from normal
+							_angle_delta = _angle_normal - darctan2(_dy, _dx),
+							// Get delta along normal
+							_normal_delta_x = _dx * dcos(_angle_delta),
+							_normal_delta_y = _dy * -dsin(_angle_delta),
+							_normal_delta = sqrt((_normal_delta_x * _normal_delta_x) + (_normal_delta_y * _normal_delta_y));
+					
+						// Not colliding if either the soul is not relatively falling
+						// or the angle difference is too high
+						if ((_fall_spd < 0 && -_fall_spd > _normal_delta) || abs(angle_difference(_angle_compensation, image_angle)) > 75)
+							continue;
+				
+						var 
+							// Tip of the soul
+							_soul_x = _soul.x + (8 * dsin(_angle_compensation)), _soul_y = _soul.y + (8 * dcos(_angle_compensation)),
+							// Top left corner of the platform
+							_top_left_x = x + lengthdir_x(-length / 2, image_angle) + lengthdir_y(-2, -image_angle),
+							_top_left_y = y + lengthdir_x(-2, image_angle) - lengthdir_y(-length / 2, -image_angle),
+							// Rotated length vector of the platform
+							_platform_delta_x = lengthdir_x(length, image_angle),
+							_platform_delta_y = lengthdir_y(length, image_angle),
+							// Top right corner of the platform
+							_top_right_x = _top_left_x + _platform_delta_x, _top_right_y = _top_left_y + _platform_delta_y,
+							// Displacement vector between soul and left side of the platform
+							_soul_delta_x = _soul_x - _top_left_x, _soul_delta_y = _soul_y - _top_left_y,
+							// Scalar projection of the soul to the platform
+							_projection_scalar = ((_soul_delta_x * _platform_delta_x) + (_soul_delta_y * _platform_delta_y)) / (length * length),
+							// Projection vector of the soul to the platform
+							_projection_x = _platform_delta_x * _projection_scalar, _projection_y = _platform_delta_y * _projection_scalar;
+				
+						// Not colliding if the soul is outside of horizontal bounds of the platform 
+						// (Left side OR Right side)
+						if ((((_projection_x * _platform_delta_x) + (_projection_y * _platform_delta_y)) < 0) || (point_distance(0, 0, _projection_x, _projection_y) > point_distance(0, 0, _platform_delta_x, _platform_delta_y)))
+							continue;
+				
+						// If the nearest point of soul to platform is close enough, it is colliding				
+						if (point_distance(0, 0, _projection_x + _top_left_x - _soul_x, _projection_y + _top_left_y - _soul_y) < (_normal_delta + 1))
+						{
+							_on_platform = true;
+							continue;
+						}
+					}
+					#endregion
+					// Same inlining
+					#region Soul slamming
+					if (_on_platform)
+					{
+						if (slam)
+						{
+							slam = false;
+							Camera_Shake(global.slam_power / 2, global.slam_power / 2, 1, 1, 1, 1, true, true);
+				
+							if (global.slam_damage)
+								Player_SetHp(max(1, Player_GetHp() - 1));
+			
+							audio_stop_sound(snd_impact);
+							audio_play_sound(snd_impact, 50, false);
+						}
+						break;
+					}
+					#endregion
+				}
+				
+				// Apply relative horizontal movement
+				x += lengthdir_x(_move_input, _angle_compensation);
+				y += lengthdir_y(_move_input, _angle_compensation);
+			}			
+			
+			fall_spd = _fall_spd;
+			fall_grav = _fall_grav;
+			fall_multi = _fall_multi;
 			break;
+			#endregion
 		#endregion
 	}
 	#region Soul clamping (aka the soul stay inside the board)
