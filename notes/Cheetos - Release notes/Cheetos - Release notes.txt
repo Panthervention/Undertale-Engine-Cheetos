@@ -12,6 +12,10 @@
 ********************************************************************************
 									RELEASE NOTES
 ********************************************************************************
+v1.2.3	- 23/10/2025
+- Fixed Item_Set and Cell_SetAddress resizing the array unnecessarily, causing empty elements being created.
+- Fixed obj_ui_menu navigation accepting input for Item selection and Cell selection when respective category only hold 1 element.
+
 v1.2.2	- 14/10/2025
 - Implemented blue soul fix from Coalition Engine whereas the soul could clip through the platform under high falling speed and reworked platform logic in general.
 - Fixed obj_platform which did not used `mask` variable, which should also fix the Bullet_Platform now.

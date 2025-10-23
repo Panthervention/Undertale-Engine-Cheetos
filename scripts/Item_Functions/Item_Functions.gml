@@ -167,9 +167,8 @@ function Item_Set(_slot, _item) {
 		var _inventory_temp = Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.ITEM);
 		if (Item_IsValid(_item))
 		{
-			if (_slot < array_length(_inventory_temp))
-				array_resize(_inventory_temp, _slot + 1);
-			
+			if (_slot > array_length(_inventory_temp))
+				_slot = array_length(_inventory_temp);			
 			_inventory_temp[_slot] = _item;
 		}
 		Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.ITEM, _inventory_temp);
@@ -182,8 +181,7 @@ function Item_Set(_slot, _item) {
 function Item_Add(_item) {
 	if (Item_IsValid(_item))
 	{
-		var _inventory_cap = global.inventory_capacity;
-		if (Item_Count() < _inventory_cap)
+		if (Item_Count() < global.inventory_capacity)
 		{
 			var _inventory_temp = Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.ITEM);
 			array_push(_inventory_temp, _item);
@@ -283,7 +281,7 @@ function Player_SetWeapon(weapon) {
 ///		 [Your HP was maxed out.] if the heal can fully recover HP or
 ///		 [You recovered x HP.] if the heal can only recover the x amount of HP.
 ///@param {Real}	heal			The amount of heal of the item.
-///@param {Bool}	[new_line]		Whenever the healing dialog will go down to the new line. (Default: true)
+///@param {Bool}	new_line		Whenever the healing dialog will go down to the new line. (Default: true)
 ///@return {String}
 function Item_GetTextHeal(_heal, _new_line = true) {
 	var _result =" ";

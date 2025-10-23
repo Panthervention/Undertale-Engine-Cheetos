@@ -1,6 +1,6 @@
 {
   "FolderOrderSettings":[
-    {"name":"Engine","order":17,"path":"folders/Engine.yy",},
+    {"name":"Engine","order":18,"path":"folders/Engine.yy",},
     {"name":"Audio","order":3,"path":"folders/Engine/Audio.yy",},
     {"name":"SFX","order":1,"path":"folders/Engine/Audio/SFX.yy",},
     {"name":"Battle","order":3,"path":"folders/Engine/Audio/SFX/Battle.yy",},
@@ -61,7 +61,7 @@
     {"name":"Prototype (Testing Purposes)","order":13,"path":"folders/Engine/Prototype (Testing Purposes).yy",},
     {"name":"Shop","order":11,"path":"folders/Engine/Shop.yy",},
     {"name":"Title Screen","order":9,"path":"folders/Engine/Title Screen.yy",},
-    {"name":"Extension","order":18,"path":"folders/Extension.yy",},
+    {"name":"Extension","order":17,"path":"folders/Extension.yy",},
     {"name":"Clean Shapes","order":6,"path":"folders/Extension/Clean Shapes.yy",},
     {"name":"(System)","order":1,"path":"folders/Extension/Clean Shapes/(System).yy",},
     {"name":"Batches","order":2,"path":"folders/Extension/Clean Shapes/Batches.yy",},

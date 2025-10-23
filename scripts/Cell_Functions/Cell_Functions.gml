@@ -85,8 +85,8 @@ function Cell_SetAddress(_address, _cell) {
 		var _cell_temp = Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.CELL, []);
 		if (Cell_IsValid(_cell))
 		{
-			if (_address < array_length(_cell_temp))
-				array_resize(_cell_temp, _address + 1);
+			if (_address > array_length(_cell_temp))
+				_address = array_length(_cell_temp);
 			_cell_temp[_address] = _cell;
 		}
 		Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.CELL, _cell_temp);

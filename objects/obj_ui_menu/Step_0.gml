@@ -23,7 +23,7 @@ switch (__menu)
             if (__choice == 0)
 				__menu = (Item_Count() > 0) ? 1 : 0;
             else
-				__menu = __choice + 2;    
+				__menu = __choice + 2;
             audio_play_sound(snd_menu_confirm, 0, false);
         }
 		else if (_input_menu || _input_cancel)
@@ -31,7 +31,7 @@ switch (__menu)
         break;
     case 1:
         // Item selection
-        if (abs(_input_vertical) == 1)
+        if (abs(_input_vertical) == 1 && Item_Count() > 1)
         {
             __choice_item = posmod(__choice_item + _input_vertical, Item_Count());
             audio_play_sound(snd_menu_switch, 0, false);
@@ -63,7 +63,7 @@ switch (__menu)
     case 3:
     case 4:
         // Phone menu and other menus with simple navigation
-        if (__menu == 4 && abs(_input_vertical) == 1)
+        if (__menu == 4 && abs(_input_vertical) == 1 && Cell_AddressCount() > 1)
         {
             __choice_cell = posmod(__choice_cell + _input_vertical, Cell_AddressCount());
             audio_play_sound(snd_menu_switch, 0, false);
