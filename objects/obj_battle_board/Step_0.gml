@@ -75,7 +75,7 @@ bg_alpha = _bg_a;
 #region Arbitrary Clipping via surface
 /*
 if (!surface_exists(surface_mask))
-    surface_mask = surface_create(640, 480);
+    surface_mask = surface_create(640, 480); // surface_mask has surface_r8unorm, so idk if this code would work if readded
 	
 surface_set_target(surface_mask);
 draw_clear(c_black);
@@ -116,41 +116,30 @@ draw_surface(surface_clip, 0, 0);
 #endregion
 
 #region Arbitrary Clipping via shader
-if (!surface_exists(surface_mask))
-    surface_mask = surface_create(640, 480);
-else
-{
-	surface_set_target(surface_mask);
-	draw_clear_alpha(c_white, 0);
-	// Cut the shape(s) out of the mask-surface
-	draw_sprite_ext(spr_pixel, 0, _bg_x, _bg_y, _bg_w, _bg_h, _angle, c_white, 1);
-	surface_reset_target();
+if (!surface_exists(surface_mask)) {
+	var _depth_setting = surface_get_depth_disable();
+	surface_depth_disable(true);
+    surface_mask = surface_create(640, 480, surface_r8unorm);
+	surface_depth_disable(_depth_setting);
 }
+surface_set_target(surface_mask);
+draw_clear(c_black);
+// Cut the shape(s) out of the mask-surface
+draw_sprite_ext(spr_pixel, 0, _bg_x, _bg_y, _bg_w, _bg_h, _angle, c_red, 1);
+surface_reset_target();
 
-// Drawing the board's background and frame onto the frame surface
-// It's done in this Step event to ensure position/angle calculation are synced with rendering
-if (!surface_exists(__surface_frame))
-    __surface_frame = surface_create(640, 480);
-else
-{
-	surface_set_target(__surface_frame);
-	Battle_BoardMaskSet(true, false);
-	{	
-		gpu_set_blendenable(false);
-		draw_clear_alpha(c_black, 0);
-		gpu_set_blendenable(true);
-		
-		// Board's background rendering
-		draw_sprite_ext(spr_pixel, 0, _bg_x, _bg_y, _bg_w, _bg_h, _angle, _bg_c, _bg_a);
-
-		// Board's frame rendering
-		draw_sprite_ext(spr_pixel, 0, _fx[0], _fy[0], _fw[0], _fh[0], _angle, _color, _alpha);
-		draw_sprite_ext(spr_pixel, 0, _fx[1], _fy[1], _fw[1], _fh[1], _angle, _color, _alpha);
-		draw_sprite_ext(spr_pixel, 0, _fx[2], _fy[2], _fw[2], _fh[2], _angle, _color, _alpha);
-		draw_sprite_ext(spr_pixel, 0, _fx[3], _fy[3], _fw[3], _fh[3], _angle, _color, _alpha);
-	}
-	Battle_BoardMaskReset();
-	surface_reset_target();
-}
+__step_to_draw._bg_x = _bg_x;
+__step_to_draw._bg_y = _bg_y;
+__step_to_draw._bg_w = _bg_w;
+__step_to_draw._bg_h = _bg_h;
+__step_to_draw._angle = _angle;
+__step_to_draw._bg_c = _bg_c;
+__step_to_draw._bg_a = _bg_a;
+__step_to_draw._color = _color;
+__step_to_draw._alpha = _alpha;
+array_copy(__step_to_draw._fx, 0, _fx, 0, 4);
+array_copy(__step_to_draw._fy, 0, _fy, 0, 4);
+array_copy(__step_to_draw._fw, 0, _fw, 0, 4);
+array_copy(__step_to_draw._fh, 0, _fh, 0, 4);
 #endregion
 #endregion

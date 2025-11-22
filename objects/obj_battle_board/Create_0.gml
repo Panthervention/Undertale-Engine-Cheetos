@@ -32,8 +32,6 @@ __point_xy = function(_point_x, _point_y)
 #endregion
 
 #region	Private Variables
-__surface_frame = -1;
-
 __frame_x = [0, 0, 0, 0];
 __frame_y = [0, 0, 0, 0];
 __frame_width = [0, 0, 0, 0];
@@ -46,5 +44,21 @@ __bg_height = 0;
 
 __point_x = 0;
 __point_y = 0;
+
+__step_to_draw = {
+	_bg_x: 0,
+	_bg_y: 0,
+	_bg_w: 0,
+	_bg_h: 0,
+	_angle: 0,
+	_bg_c: c_black,
+	_bg_a: 0,
+	_fx: [0, 0, 0, 0],
+	_fy: [0, 0, 0, 0],
+	_fw: [0, 0, 0, 0],
+	_fh: [0, 0, 0, 0],
+	_color: c_black,
+	_alpha: 0
+}
 #endregion
 
