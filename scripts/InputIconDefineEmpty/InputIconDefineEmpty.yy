@@ -6,7 +6,7 @@
   "name":"InputIconDefineEmpty",
   "parent":{
     "name":"Config",
-    "path":"folders/Extension/Input Plug-Ins/Binding Icons/Config.yy",
+    "path":"folders/Extension/Input v10.2.2/Plug-Ins/Binding Icons/Config.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -4,7 +4,7 @@
   "name":"__shd_scribble_bake_effect_8dir",
   "parent":{
     "name":"Shaders",
-    "path":"folders/Extension/Scribble/(System - don't call these functions)/Shaders.yy",
+    "path":"folders/Extension/Scribble v9.7.0 (beta)/(System - don't call these functions)/Shaders.yy",
   },
   "resourceType":"GMShader",
   "resourceVersion":"2.0",

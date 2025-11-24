@@ -44,11 +44,12 @@ if (round(global.hp) <= 0)
 {
 	if (!global.debug)
 	{
-		var _camera_x = camera.x,
-			_camera_y = camera.y;
+		var _gameover_pos = instance_exists(obj_battle_soul) ?
+							[obj_battle_soul.x - camera.x, obj_battle_soul.y - camera.y] :
+							[320, 240];
 			
-		Flag_Set(FLAG_TYPE.TEMP, FLAG_TEMP.GAMEOVER_SOUL_X, x - _camera_x);
-		Flag_Set(FLAG_TYPE.TEMP, FLAG_TEMP.GAMEOVER_SOUL_Y, y - _camera_y);
+		Flag_Set(FLAG_TYPE.TEMP, FLAG_TEMP.GAMEOVER_SOUL_X, _gameover_pos[0]);
+		Flag_Set(FLAG_TYPE.TEMP, FLAG_TEMP.GAMEOVER_SOUL_Y, _gameover_pos[1]);
 		room_goto(room_gameover);
 	}
 	else

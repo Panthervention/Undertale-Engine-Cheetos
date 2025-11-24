@@ -17,13 +17,13 @@ __player_armor		=	Item_GetName(Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.ITEM_ARMOR
 __label_lv					=	$"LV   {__player_lv}";
 __label_hp					=	$"HP   {__player_hp}/{__player_hp_max}";
 __label_g					=	"G";
-__label_item_use			=	lexicon_text("ui.menu.item_use");
-__label_item_info			=	lexicon_text("ui.menu.item_info");
-__label_item_drop			=	lexicon_text("ui.menu.item_drop");
+__label_item_use			=	Lexicon("ui.menu.item_use").Get();
+__label_item_info			=	Lexicon("ui.menu.item_info").Get();
+__label_item_drop			=	Lexicon("ui.menu.item_drop").Get();
 __label_item_count			=	Item_Count();
-__label_item				=	lexicon_text("ui.menu.item");
-__label_stat				=	lexicon_text("ui.menu.stat");
-__label_cell				=	lexicon_text("ui.menu.cell");
+__label_item				=	Lexicon("ui.menu.item").Get();
+__label_stat				=	Lexicon("ui.menu.stat").Get();
+__label_cell				=	Lexicon("ui.menu.cell").Get();
 __label_address_count		=	Cell_AddressCount();
 __label_item_name			=	function() {
 									var _item_name = "", i = 0;
@@ -37,13 +37,13 @@ __label_cell_address		=	function() {
 										_address += Cell_GetName(Cell_GetAdress(i++)) + "\n";
 									return _address;
 								};
-__label_stats_name			=	lexicon_text("ui.menu.stats.0", __player_name);
-__label_stats_vitality		=	lexicon_text("ui.menu.stats.1", __player_lv, __player_hp, __player_hp_max,
-								__player_atk, __player_atk_item, __player_def, __player_def_item);
-__label_stats_equipment		=	lexicon_text("ui.menu.stats.2", __player_weapon, __player_armor);
-__label_stats_gold			=	lexicon_text("ui.menu.stats.3", __player_gold);
-__label_stats_xp			=	lexicon_text("ui.menu.stats.4", __player_xp, __player_xp_next);
-__label_stats_kill_count	=	lexicon_text("ui.menu.stats.5", __player_kill);
+__label_stats_name			=	Lexicon("ui.menu.stats.0", __player_name).Get();
+__label_stats_vitality		=	Lexicon("ui.menu.stats.1", __player_lv, __player_hp, __player_hp_max,
+								__player_atk, __player_atk_item, __player_def, __player_def_item).Get();
+__label_stats_equipment		=	Lexicon("ui.menu.stats.2", __player_weapon, __player_armor).Get();
+__label_stats_gold			=	Lexicon("ui.menu.stats.3", __player_gold).Get();
+__label_stats_xp			=	Lexicon("ui.menu.stats.4", __player_xp, __player_xp_next).Get();
+__label_stats_kill_count	=	Lexicon("ui.menu.stats.5", __player_kill).Get();
 
 __draw_item_name		=	scribble($"{__prefix}{__label_item_name()}");
 __draw_cell_address		=	scribble($"{__prefix}{__label_cell_address()}");

@@ -6,7 +6,7 @@
   "name":"InputDeviceCheckViaPlayer",
   "parent":{
     "name":"Device",
-    "path":"folders/Extension/Input/Device.yy",
+    "path":"folders/Extension/Input v10.2.2/Device.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

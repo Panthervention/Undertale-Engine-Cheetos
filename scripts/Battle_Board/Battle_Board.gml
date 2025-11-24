@@ -37,7 +37,7 @@ function Battle_SetBoardSize(_up, _down, _left, _right, _duration = 25, _ease = 
 ///@param {Bool}	[use_texture]	Whenever further drawing includes sprite or just primitive draw functions (like draw_line(), draw_rectangle()...). (Default: false)
 ///@param {Bool}	[mask_enable]	Whenever further drawing will be masked within the board or not. (Default: true)
 function Battle_BoardMaskSet(_use_texture = false, _mask_enable = true) {
-	var _mask_shader = (!_use_texture) ? shd_clip_mask_primitive : shd_clip_mask_sprite;
+	var _mask_shader = shd_clip_mask_primitive;//(!_use_texture) ? shd_clip_mask_primitive : shd_clip_mask_sprite;
 	shader_set(_mask_shader);
 	var _u_mask = shader_get_sampler_index(_mask_shader, "u_mask"),
 		_u_maskEnable = shader_get_uniform(_mask_shader, "u_maskEnable"),
@@ -46,6 +46,7 @@ function Battle_BoardMaskSet(_use_texture = false, _mask_enable = true) {
 	shader_set_uniform_f(_u_rect, 0, 0, 640, 480);
 	shader_set_uniform_f(_u_maskEnable, _mask_enable);
 	texture_set_stage(_u_mask, surface_get_texture(obj_battle_board.surface_mask));
+	//show_debug_message($"shader {shader_get_name(_mask_shader)} is compiled: {shader_is_compiled(_mask_shader)}");
 }
 
 ///@func Battle_BoardMaskReset()

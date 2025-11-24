@@ -6,7 +6,7 @@
   "name":"__InputTriggerEffectSystem",
   "parent":{
     "name":"(System)",
-    "path":"folders/Extension/Input Plug-Ins/Trigger Effects/(System).yy",
+    "path":"folders/Extension/Input v10.2.2/Plug-Ins/Trigger Effects/(System).yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

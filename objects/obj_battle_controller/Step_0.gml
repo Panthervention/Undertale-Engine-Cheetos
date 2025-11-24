@@ -375,12 +375,12 @@ if (__state != BATTLE_STATE.RESULT && Battle_GetEnemyNumber() <= 0)
     Battle_SetNextState(BATTLE_STATE.RESULT);
     var _exp = Battle_GetRewardExp(),
 		_gold = Battle_GetRewardGold(),
-		_text_won = lexicon_text("battle.result.won", _exp, _gold);
+		_text_won = Lexicon("battle.result.won", _exp, _gold).Get();
     Player_SetExp(Player_GetExp() + Battle_GetRewardExp());
     Player_SetGold(Player_GetGold() + Battle_GetRewardGold());
     if (Player_UpdateLv())
     {
-        _text_won += $"\n{lexicon_text("battle.result.lv_up")}";
+        _text_won += $"\n{Lexicon("battle.result.lv_up").Get()}";
         audio_play_sound(snd_level_up, 50, false);
     }
     _text_won += "[pause][end]";

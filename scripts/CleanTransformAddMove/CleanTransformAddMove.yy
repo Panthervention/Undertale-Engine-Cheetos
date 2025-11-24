@@ -6,7 +6,7 @@
   "name":"CleanTransformAddMove",
   "parent":{
     "name":"Transform",
-    "path":"folders/Extension/Clean Shapes/Transform.yy",
+    "path":"folders/Extension/Clean Shapes v1.2.0/Transform.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

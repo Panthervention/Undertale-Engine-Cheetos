@@ -6,7 +6,7 @@
   "name":"InputCursorLimitBoundary",
   "parent":{
     "name":"Elastic & Limits",
-    "path":"folders/Extension/Input Plug-Ins/Cursor/Elastic & Limits.yy",
+    "path":"folders/Extension/Input v10.2.2/Plug-Ins/Cursor/Elastic & Limits.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

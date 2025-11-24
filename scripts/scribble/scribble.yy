@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scribble",
   "parent":{
-    "name":"Scribble",
-    "path":"folders/Extension/Scribble.yy",
+    "name":"Scribble v9.7.0 (beta)",
+    "path":"folders/Extension/Scribble v9.7.0 (beta).yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

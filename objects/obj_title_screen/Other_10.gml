@@ -1,29 +1,29 @@
 /* Feather ignore GM2016 */
 ///@desc Update Text Elements
-__info_instruction = $"{lexicon_text("menu.instruction.title")}";
+__info_instruction = $"{Lexicon("menu.instruction.title").Get()}";
 for (var _i = 0; _i < 6; _i++)
-	__info_instruction += lexicon_text($"menu.instruction.line.{_i}");
+	__info_instruction += Lexicon($"menu.instruction.line.{_i}").Get();
 	
 __info_time = Flag_Get(FLAG_TYPE.INFO, FLAG_INFO.TIME);
 __info_minute = __info_time div 60;
 __info_second = __info_time mod 60;
 
-__info_input_request	= lexicon_text("menu.input");
-__info_copyright		= lexicon_text("copyright", $"2015 - {current_year}", __CHEETOS_ENGINE_VERSION);
-__info_begin			= lexicon_text("menu.begin");
-__info_settings			= lexicon_text("menu.settings");
-__info_name				= Flag_Get(FLAG_TYPE.INFO, FLAG_INFO.NAME, lexicon_text("ui.save.name.empty"));
+__info_input_request	= Lexicon("menu.input").Get();
+__info_copyright		= Lexicon("copyright", $"2015 - {current_year}", __CHEETOS_ENGINE_VERSION).Get();
+__info_begin			= Lexicon("menu.begin").Get();
+__info_settings			= Lexicon("menu.settings").Get();
+__info_name				= Flag_Get(FLAG_TYPE.INFO, FLAG_INFO.NAME, Lexicon("ui.save.name.empty"));
 __info_lv				= $"LV {Flag_Get(FLAG_TYPE.INFO, FLAG_INFO.LV)}";
 __info_timer			= $"{__info_minute}:{__info_second < 10 ? "0" : ""}{__info_second}";
 __info_room				= $"{Player_GetRoomName(Flag_Get(FLAG_TYPE.INFO, FLAG_INFO.ROOM))}";
-__info_continue			= lexicon_text("menu.continue");
-__info_reset			= lexicon_text("menu.reset.default");
-__info_naming_title		= lexicon_text("menu.naming.title");
-__info_quit				= lexicon_text("menu.naming.quit");
-__info_backspace		= lexicon_text("menu.naming.backspace");
-__info_done				= lexicon_text("menu.naming.done");
-__info_nope				= lexicon_text("menu.confirm.no");
-__info_yeso				= lexicon_text("menu.confirm.yes");
+__info_continue			= Lexicon("menu.continue").Get();
+__info_reset			= Lexicon("menu.reset.default").Get();
+__info_naming_title		= Lexicon("menu.naming.title").Get();
+__info_quit				= Lexicon("menu.naming.quit").Get();
+__info_backspace		= Lexicon("menu.naming.backspace").Get();
+__info_done				= Lexicon("menu.naming.done").Get();
+__info_nope				= Lexicon("menu.confirm.no").Get();
+__info_yeso				= Lexicon("menu.confirm.yes").Get();
 
 __menu_label_naming_title	= scribble(__info_naming_title) .starting_format("font_dt_sans", c_white).transform(2, 2, 0);
 __menu_label_confirm_title	= scribble(__confirm_title)		.starting_format("font_dt_sans", c_white).transform(2, 2, 0);
@@ -54,23 +54,23 @@ var _i = 0; repeat (26)
 	_i++;
 }
 
-__setting_label = lexicon_text("setting.label");
-__setting_exit = lexicon_text("setting.exit");
-__setting_instruction = lexicon_text("setting.instruction");
+__setting_label = Lexicon("setting.label").Get();
+__setting_exit = Lexicon("setting.exit").Get();
+__setting_instruction = Lexicon("setting.instruction").Get();
 
-__setting_label_season = lexicon_text("setting.season.label", __season_converted);
+__setting_label_season = Lexicon("setting.season.label", __season_converted).Get();
 
-__setting_label_language = lexicon_text("setting.language.label");
-__setting_language = lexicon_text("setting.language.option");
+__setting_label_language = Lexicon("setting.language.label").Get();
+__setting_language = Lexicon("setting.language.option").Get();
 
-__setting_label_mastervolume = lexicon_text("setting.mastervolume.label");
+__setting_label_mastervolume = Lexicon("setting.mastervolume.label").Get();
  // If data exists, load. Else return 100.
 __setting_mastervolume = Flag_Get(FLAG_TYPE.SETTINGS, FLAG_SETTINGS.VOLUME, 100);
 
-__setting_label_border = lexicon_text("setting.border.label");
+__setting_label_border = Lexicon("setting.border.label").Get();
 __setting_border_option = [];
  // If data exists, load. Else return 0.
 __setting_border = Flag_Get(FLAG_TYPE.SETTINGS, FLAG_SETTINGS.BORDER, 0);
 _i = 0; repeat (9)
-	array_push(__setting_border_option, lexicon_text($"setting.border.option.{_i++}"));
+	array_push(__setting_border_option, Lexicon($"setting.border.option.{_i++}").Get());
 

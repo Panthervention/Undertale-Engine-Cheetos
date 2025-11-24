@@ -1,5 +1,5 @@
 {
-  "$GMNotes":"",
+  "$GMNotes":"v1",
   "%Name":"Cheetos - Release notes",
   "name":"Cheetos - Release notes",
   "parent":{

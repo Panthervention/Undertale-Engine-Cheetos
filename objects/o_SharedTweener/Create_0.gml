@@ -1,12 +1,8 @@
 /*
 	Proverbs 3:5-8
-	Trust in the Lord with all your heart and lean not on your own understanding;
-	in all your ways submit to him, and he will make your paths straight.
-	Do not be wise in your own eyes; fear the Lord and shun evil.
-	This will bring health to your body and nourishment to your bones.
 */
 
-/// @desc [TweenGMX 1.0.4]
+/// @desc [TweenGMX 1.0.8]
 /// Feather ignore all
 
 TGMX_2_EaseFunctions();

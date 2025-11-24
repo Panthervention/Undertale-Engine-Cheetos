@@ -6,7 +6,7 @@
   "name":"InputManualUpdate",
   "parent":{
     "name":"Miscellaneous",
-    "path":"folders/Extension/Input/Miscellaneous.yy",
+    "path":"folders/Extension/Input v10.2.2/Miscellaneous.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

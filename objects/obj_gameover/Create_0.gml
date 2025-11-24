@@ -15,7 +15,7 @@ __state = 0;
 __timer = 0;
 
 __gameover_ever_existed = false;
-__gameover_text = $"[font_dt_mono][scale, 2]{lexicon_text("battle.result.gameover", Player_GetName())}";
+__gameover_text = $"[font_dt_mono][scale, 2]{Lexicon("battle.result.gameover", Player_GetName()).Get()}";
 __gameover_bgm = noone;
 
 __soul_shard = {};

@@ -1,12 +1,13 @@
 // Feather disable all
 /// @return Nested struct/array data that represents the contents of the JSON string
 /// 
-/// @param buffer  Buffer to read data from
-/// @param offset  Offset in the buffer to read data from
+/// @param buffer                   Buffer to read data from
+/// @param offset                   Offset in the buffer to read data from
+/// @param [trackFieldOrder=false]  Whether to track the order of struct fields as they appear in the JSON string (stored in __snapFieldOrder field on each GML struct)
 /// 
-/// @jujuadams 2022-12-11
+/// Juju Adams 2025-10-20
 
-function SnapBufferReadJSON(_buffer, _inOffset = undefined)
+function SnapBufferReadJSON(_buffer, _inOffset = undefined, _trackFieldOrder = false)
 {
     if (_inOffset != undefined)
     {
@@ -33,9 +34,10 @@ function SnapBufferReadJSON(_buffer, _inOffset = undefined)
     var _newComment          = false;
     var _newMultilineComment = false;
     
-    var _stack    = [];
-    var _root     = undefined;
-    var _stackTop = undefined;
+    var _stack           = [];
+    var _root            = undefined;
+    var _stackTop        = undefined;
+    var _fieldOrderArray = undefined;
     
     var _bufferSize = buffer_get_size(_buffer);
     while(buffer_tell(_buffer) < _bufferSize)
@@ -91,6 +93,11 @@ function SnapBufferReadJSON(_buffer, _inOffset = undefined)
                 {
                     _expectingColon = true;
                     _structKey      = _value;
+                    
+                    if (_trackFieldOrder)
+                    {
+                        array_push(_fieldOrderArray, _structKey);
+                    }
                 }
                 else if (_inStructValue)
                 {
@@ -294,8 +301,8 @@ function SnapBufferReadJSON(_buffer, _inOffset = undefined)
                     if (_expectingColon)
                     {
                         _expectingColon = false;
-                        _inStructKey   = false;
-                        _inStructValue = true;
+                        _inStructKey    = false;
+                        _inStructValue  = true;
                     }
                     else
                     {
@@ -350,8 +357,8 @@ function SnapBufferReadJSON(_buffer, _inOffset = undefined)
                         _stackTop = _new_stack_top;
                         
                         _expectingComma = false;
-                        _inStructKey   = false;
-                        _inStructValue = false;
+                        _inStructKey    = false;
+                        _inStructValue  = false;
                         _inArray        = true;
                     }
                 break;
@@ -368,13 +375,18 @@ function SnapBufferReadJSON(_buffer, _inOffset = undefined)
                         {
                             _inStructKey   = true;
                             _inStructValue = false;
-                            _inArray        = false;
+                            _inArray       = false;
+                            
+                            if (_trackFieldOrder)
+                            {
+                                _fieldOrderArray = _stackTop.__snapFieldOrder;
+                            }
                         }
                         else if (is_array(_stackTop))
                         {
                             _inStructKey   = false;
                             _inStructValue = false;
-                            _inArray        = true;
+                            _inArray       = true;
                         }
                     }
                     else
@@ -399,6 +411,15 @@ function SnapBufferReadJSON(_buffer, _inOffset = undefined)
                     else
                     {
                         var _new_stack_top = {};
+                        if (_trackFieldOrder)
+                        {
+                            _fieldOrderArray = [];
+                            
+                            if (_trackFieldOrder)
+                            {
+                                _new_stack_top.__snapFieldOrder = _fieldOrderArray;
+                            }
+                        }
                         
                         if (_inStructValue)
                         {
@@ -415,8 +436,8 @@ function SnapBufferReadJSON(_buffer, _inOffset = undefined)
                         _stackTop = _new_stack_top;
                         
                         _expectingComma = false;
-                        _inStructKey   = true;
-                        _inStructValue = false;
+                        _inStructKey    = true;
+                        _inStructValue  = false;
                         _inArray        = false;
                     }
                 break;
@@ -430,6 +451,12 @@ function SnapBufferReadJSON(_buffer, _inOffset = undefined)
                     {
                         _expectingComma = true;
                         
+                        //Don't write the field order for empty structs
+                        if (_trackFieldOrder && is_struct(_stackTop) && (variable_struct_names_count(_stackTop) == 1))
+                        {
+                            variable_struct_remove(_stackTop, "__snapFieldOrder");
+                        }
+                        
                         array_pop(_stack);
                         _stackTop = (array_length(_stack) <= 0)? undefined : _stack[array_length(_stack)-1];
                         
@@ -437,13 +464,18 @@ function SnapBufferReadJSON(_buffer, _inOffset = undefined)
                         {
                             _inStructKey   = true;
                             _inStructValue = false;
-                            _inArray        = false;
+                            _inArray       = false;
+                            
+                            if (_trackFieldOrder)
+                            {
+                                _fieldOrderArray = _stackTop.__snapFieldOrder;
+                            }
                         }
                         else if (is_array(_stackTop))
                         {
                             _inStructKey   = false;
                             _inStructValue = false;
-                            _inArray        = true;
+                            _inArray       = true;
                         }
                     }
                     else

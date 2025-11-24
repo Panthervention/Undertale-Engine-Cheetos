@@ -6,7 +6,7 @@
   "name":"TGM_Raycasting",
   "parent":{
     "name":"Code",
-    "path":"folders/Extension/TurboGML/Code.yy",
+    "path":"folders/Extension/TurboGML v5.0.0/Code.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

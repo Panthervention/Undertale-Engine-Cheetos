@@ -99,7 +99,7 @@ function Item_CallEvent(_item, _event, _slot) {
 				if (Item_IsSlotValid(_slot))
 				{
 					var _rand = irandom(18), _sub = (_rand >= 0 && _rand <= 3) ? _rand + 1 : 0,		
-						_desc_drop = lexicon_text($"item.drop.{_sub}", _item.name);
+						_desc_drop = Lexicon($"item.drop.{_sub}", _item.name).Get();
 					Dialog_Add(_desc_drop);
 					Dialog_Start();
 					Item_Remove(_slot);
@@ -290,9 +290,9 @@ function Item_GetTextHeal(_heal, _new_line = true) {
 	var _hp = Flag_Get(FLAG_TYPE.STATIC,FLAG_STATIC.HP),
 		_hp_max = Flag_Get(FLAG_TYPE.STATIC,FLAG_STATIC.HP_MAX);
 	
-	_result += (_hp >= _hp_max) ? lexicon_text("item.heal.full") : lexicon_text("item.heal.part", _heal);
+	_result += (_hp >= _hp_max) ? Lexicon("item.heal.full") : Lexicon("item.heal.part", _heal);
 	
-	return _result;
+	return _result.Get();
 }
 
 ///@func Item_GetTextEat(name)
@@ -300,7 +300,7 @@ function Item_GetTextHeal(_heal, _new_line = true) {
 ///@param {String}		name	The name of the item.
 ///@return {String}
 function Item_GetTextEat(_name) {
-	return lexicon_text("item.eat", _name);
+	return Lexicon("item.eat", _name).Get();
 }
 
 ///@func Item_GetTextEquip(name)
@@ -308,7 +308,7 @@ function Item_GetTextEat(_name) {
 ///@param {String}		name	The name of the item.
 ///@return {String}
 function Item_GetTextEquip(_name) {
-	return lexicon_text("item.equip", _name);
+	return Lexicon("item.equip", _name).Get();
 }
 
 

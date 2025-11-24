@@ -136,11 +136,11 @@ function Battle_EndMenu() {
 	                else if (_rand == 3) _fled_text = 3;
 	                else _fled_text = 0;
 					
-	                _text += lexicon_text($"battle.result.fled.{_fled_text}");
+	                _text += Lexicon($"battle.result.fled.{_fled_text}").Get();
 	            }
 	            else
 	            {   
-	                _text += lexicon_text("battle.result.fled.reward", _exp, _gold);
+	                _text += Lexicon("battle.result.fled.reward", _exp, _gold).Get();
 					
 	                Player_SetExp(Player_GetExp() + Battle_GetRewardExp());
 	                Player_SetGold(Player_GetGold() + Battle_GetRewardGold());

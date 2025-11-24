@@ -42,13 +42,13 @@ enum CELL_EVENT {
 
 	function Cell_Toriel() : Cell() constructor {
 		address = CELL_ADDRESS.TORIEL_PHONE;
-		name = lexicon_text("cell.toriel.address");
-		dialog = lexicon_text("cell.toriel.0");
+		name = Lexicon("cell.toriel.address").Get();
+		dialog = Lexicon("cell.toriel.0").Get();
 	}
 
 	function Cell_BoxA() : Cell() constructor {
 		address = CELL_ADDRESS.BOX_A;
-		name = lexicon_text("cell.dimension_box", "A");
+		name = Lexicon("cell.dimension_box", "A").Get();
 		event = function(_cell) {
 			var slot = 0;
 			if (!instance_exists(obj_ui_box) && (Item_Count() > 0 || Box_ItemCount(slot) > 0))
@@ -60,7 +60,7 @@ enum CELL_EVENT {
 			else
 			{
 				var rand = irandom(2),
-					dialog = lexicon_text($"ui.box.inventory.empty.{rand}");
+					dialog = Lexicon($"ui.box.inventory.empty.{rand}").Get();
 				Dialog_Add(dialog);
 				Dialog_Start();
 			}
@@ -69,7 +69,7 @@ enum CELL_EVENT {
 
 	function Cell_BoxB() : Cell() constructor {
 		address = CELL_ADDRESS.BOX_B;
-		name = lexicon_text("cell.dimension_box", "B");
+		name = Lexicon("cell.dimension_box", "B").Get();
 		event = function(_cell) {
 			var slot = 1;
 			if (!instance_exists(obj_ui_box) && (Item_Count() > 0 || Box_ItemCount(slot) > 0))
@@ -81,7 +81,7 @@ enum CELL_EVENT {
 			else
 			{
 				var rand = irandom(2),
-					dialog = lexicon_text($"ui.box.inventory.empty.{rand}");
+					dialog = Lexicon($"ui.box.inventory.empty.{rand}").Get();
 				Dialog_Add(dialog);
 				Dialog_Start();
 			}

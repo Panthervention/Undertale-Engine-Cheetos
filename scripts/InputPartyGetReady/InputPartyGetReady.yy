@@ -6,7 +6,7 @@
   "name":"InputPartyGetReady",
   "parent":{
     "name":"Party Multiplayer",
-    "path":"folders/Extension/Input Plug-Ins/Party Multiplayer.yy",
+    "path":"folders/Extension/Input v10.2.2/Plug-Ins/Party Multiplayer.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"__InputKeyboardConstants",
   "parent":{
-    "name":"Input",
-    "path":"folders/Extension/Input.yy",
+    "name":"Input v10.2.2",
+    "path":"folders/Extension/Input v10.2.2.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__LexiconParserJSONStruct",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__LexiconParserJSONStruct",
+  "parent":{
+    "name":"JSON",
+    "path":"folders/Extension/Lexicon v4.0.2/(System)/Parsers/JSON.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

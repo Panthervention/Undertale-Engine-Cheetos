@@ -6,7 +6,7 @@
   "name":"scribble_font_delete",
   "parent":{
     "name":"Fonts",
-    "path":"folders/Extension/Scribble/Fonts.yy",
+    "path":"folders/Extension/Scribble v9.7.0 (beta)/Fonts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -6,7 +6,7 @@
   "name":"SnapBufferReadVDF",
   "parent":{
     "name":"VDF",
-    "path":"folders/Extension/SNAP/VDF.yy",
+    "path":"folders/Extension/SNAP v8.1.1/VDF.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

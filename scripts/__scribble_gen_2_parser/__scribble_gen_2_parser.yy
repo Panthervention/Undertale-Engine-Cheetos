@@ -6,7 +6,7 @@
   "name":"__scribble_gen_2_parser",
   "parent":{
     "name":"Generator",
-    "path":"folders/Extension/Scribble/(System - don't call these functions)/Generator.yy",
+    "path":"folders/Extension/Scribble v9.7.0 (beta)/(System - don't call these functions)/Generator.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

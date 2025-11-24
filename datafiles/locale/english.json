@@ -1,6 +1,7 @@
 {
     "language": "English",
     "locale": "en-US",
+    "fallback": "en",
     "text": 
     {
         "copyright": "UNDERTALE (C) TOBY FOX {0}\nTML UNDERTALE ENGINE - MODIFIED BY CHEETOS - {1}",

@@ -6,7 +6,7 @@
   "name":"__InputGamepadIdentifySwitchType",
   "parent":{
     "name":"Gamepads",
-    "path":"folders/Extension/Input/(System)/Gamepads.yy",
+    "path":"folders/Extension/Input v10.2.2/(System)/Gamepads.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

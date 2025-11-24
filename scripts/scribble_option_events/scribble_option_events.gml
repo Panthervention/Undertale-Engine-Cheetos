@@ -50,7 +50,7 @@ function option_box_yes() {
 	else
 	{
 		var _rand = irandom(2),
-			_dialog = lexicon_text($"ui.box.inventory.empty.{_rand}");
+			_dialog = Lexicon($"ui.box.inventory.empty.{_rand}").Get();
 		Dialog_Add(_dialog);
 		Dialog_Start();
 	}
@@ -66,6 +66,6 @@ function option_sans_fight_yes() {
 }
 
 function option_sans_fight_nope() {
-	text = lexicon_text("overworld.sans.dialog.weary");
+	text = Lexicon("overworld.sans.dialog.weary").Get();
 }
 #endregion

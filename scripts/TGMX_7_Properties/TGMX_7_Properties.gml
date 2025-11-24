@@ -843,11 +843,15 @@ function TGMX_Variable_Get(_target, _variable, _caller, _caller_other)
 
 		// Get _variable string from advanced _data and keep executing below...
 		_variable = _variable[1];
-		// Get _variable string from inner array if WE MUST GO DEEPER! Muhahaha (I'm ok)
-		if (is_array(_variable)) { _variable = _variable[0]; }
+		
+		// Get _variable string name from inner array if WE MUST GO DEEPER! Muhahaha (I'm ok)
+		// Note: _variable[0] becomes a method after property optmisation, otherwise grab [0] index on initial call
+		if (is_array(_variable)) 
+		{ 
+			_variable = is_method(_variable[0]) ? _variable[3] : _variable[0];
+		}
 	}
-
-	// METHOD (TPFunc)
+	
 	if (_target[$ STR_AMPERSAND+_variable] != undefined)
 	{	
 		return _target[$ STR_AMPERSAND+_variable](_target, _variable);
