@@ -7,7 +7,7 @@
  When enabled, any loading failures will throw an exception.
  Default: false
 */
-#macro __LEXICON_ERROR_ON_LOAD_FAILURE_ON_RELEASE false
+#macro __LEXICON_ERROR_ON_LOAD_FAILURE_ON_RELEASE true
 /*
  When enabled, Lexicon will attempt to refer to the bundle area, if sandbox is enabled.
  If this is ran from the IDE while this is enabled, but sandbox is disabled, an error will be thrown.

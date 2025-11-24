@@ -30,8 +30,7 @@ if (_battle_state == BATTLE_STATE.MENU && _menu_state == BATTLE_MENU.BUTTON)
 	x = lerp(x, _button_pos[_button * 2] - (38 * _button_scale[_button]), 1/3);
 	y = lerp(y, _button_pos[_button * 2 + 1] + 1, 1/3);
 }
-
-if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_STATE.IN_TURN)
+else if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_STATE.IN_TURN)
 {
 	image_angle %= 360;
 	var _soul = id,

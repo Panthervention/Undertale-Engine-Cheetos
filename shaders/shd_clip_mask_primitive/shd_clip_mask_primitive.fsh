@@ -5,12 +5,12 @@ varying vec2 v_vTexcoord;
 varying vec4 v_vColour;
 varying vec3 v_vPosition;
 
-//
 uniform vec4 u_rect;
 uniform sampler2D u_mask;
 uniform float u_maskEnable;
 
-void main() {
+void main()
+{
 	if (u_maskEnable > 0.5)
 		gl_FragColor = v_vColour
 					 * texture2D(gm_BaseTexture, v_vTexcoord)

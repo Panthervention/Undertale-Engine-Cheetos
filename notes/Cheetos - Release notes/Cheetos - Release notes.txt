@@ -12,6 +12,12 @@
 ********************************************************************************
 									RELEASE NOTES
 ********************************************************************************
+v1.3.0 - WIP 2	- 24/11/2025
+- Calibrated arbitrary clipping shaders so they are functional on both Windows and MacOS.
+- TODO:
+	+ Fix some entries due to Lexicon somehow does not fill the number templates.
+	+ Add some Quality of Life changes to auto-capture of the border.
+
 v1.3.0 - WIP 1	- 24/11/2025
 - Updated macOS Graphic configuration.
 - Updated IDE to 2024.14.1.210, Runtime 2024.14.1.253.

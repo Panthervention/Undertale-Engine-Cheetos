@@ -20,7 +20,6 @@ var _color_outline = _color;
 Battle_BoardMaskSet(true, mask);
 draw_sprite_ext(bone_index, bone_sub, _x, _y, _length_sprite, 1, _angle, _color, _alpha);
 draw_sprite_ext(bone_index_outline, bone_sub, _x, _y, _length_sprite, 1, _angle, _color_outline, _alpha);
-
 if (global.show_hitbox)
 	draw_sprite_ext(sprite_index, 0, _x, _y, _xscale, _yscale, _angle, c_green, _alpha / 4);
 Battle_BoardMaskReset();
