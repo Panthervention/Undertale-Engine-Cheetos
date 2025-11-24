@@ -192,7 +192,7 @@
   "name":"__LexiconFontFallback",
   "parent":{
     "name":"(System)",
-    "path":"folders/Extension/Lexicon v4.0.2/(System).yy",
+    "path":"folders/Extension/Lexicon v4.0.3/(System).yy",
   },
   "pointRounding":0,
   "ranges":[

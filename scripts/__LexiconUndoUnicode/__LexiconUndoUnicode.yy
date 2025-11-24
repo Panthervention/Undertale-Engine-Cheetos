@@ -6,7 +6,7 @@
   "name":"__LexiconUndoUnicode",
   "parent":{
     "name":"UndoUnicode",
-    "path":"folders/Extension/Lexicon v4.0.2/Lexicon Plug-Ins/UndoUnicode.yy",
+    "path":"folders/Extension/Lexicon v4.0.3/Lexicon Plug-Ins/UndoUnicode.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

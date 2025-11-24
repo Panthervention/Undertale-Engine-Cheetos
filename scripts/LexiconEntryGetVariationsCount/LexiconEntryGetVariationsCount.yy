@@ -6,7 +6,7 @@
   "name":"LexiconEntryGetVariationsCount",
   "parent":{
     "name":"Entry",
-    "path":"folders/Extension/Lexicon v4.0.2/Entry.yy",
+    "path":"folders/Extension/Lexicon v4.0.3/Entry.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -6,7 +6,7 @@
   "name":"UnicGetSymMinus",
   "parent":{
     "name":"Symbols",
-    "path":"folders/Extension/Lexicon v4.0.2/Unic/Getters/Symbols.yy",
+    "path":"folders/Extension/Lexicon v4.0.3/Unic/Getters/Symbols.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

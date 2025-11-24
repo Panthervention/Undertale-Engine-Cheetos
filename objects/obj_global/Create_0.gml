@@ -53,6 +53,14 @@ with (border)
 	index_previous = 0;
 	
 	alpha = 1;
+	
+	blur_uni_amount_hoz = shader_get_uniform(shd_gaussian_horizontal, "blur_amount");
+	blur_uni_resolution_hoz = shader_get_uniform(shd_gaussian_horizontal, "resolution");
+
+	blur_intensity = 1;
+
+	blur_resolution_x = display_get_gui_width();
+	blur_resolution_y = display_get_gui_height();
 }
 #endregion
 

@@ -6,7 +6,7 @@
   "name":"__UnicLineBreak",
   "parent":{
     "name":"Constants",
-    "path":"folders/Extension/Lexicon v4.0.2/Unic/Constants.yy",
+    "path":"folders/Extension/Lexicon v4.0.3/Unic/Constants.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

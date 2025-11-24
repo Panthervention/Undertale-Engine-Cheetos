@@ -6,7 +6,7 @@
   "name":"__LexiconReplaceNewLines",
   "parent":{
     "name":"Lexicon-Replace-Newlines",
-    "path":"folders/Extension/Lexicon v4.0.2/Lexicon Plug-Ins/Lexicon-Replace-Newlines.yy",
+    "path":"folders/Extension/Lexicon v4.0.3/Lexicon Plug-Ins/Lexicon-Replace-Newlines.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

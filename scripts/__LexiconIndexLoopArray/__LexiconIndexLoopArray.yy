@@ -6,7 +6,7 @@
   "name":"__LexiconIndexLoopArray",
   "parent":{
     "name":"JSON",
-    "path":"folders/Extension/Lexicon v4.0.2/(System)/Parsers/JSON.yy",
+    "path":"folders/Extension/Lexicon v4.0.3/(System)/Parsers/JSON.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -6,7 +6,7 @@
   "name":"__LexiconPlugInClass",
   "parent":{
     "name":"Classes",
-    "path":"folders/Extension/Lexicon v4.0.2/(System)/Classes.yy",
+    "path":"folders/Extension/Lexicon v4.0.3/(System)/Classes.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

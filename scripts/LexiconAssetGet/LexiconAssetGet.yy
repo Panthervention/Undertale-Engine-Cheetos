@@ -6,7 +6,7 @@
   "name":"LexiconAssetGet",
   "parent":{
     "name":"Asset",
-    "path":"folders/Extension/Lexicon v4.0.2/Asset.yy",
+    "path":"folders/Extension/Lexicon v4.0.3/Asset.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

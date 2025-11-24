@@ -290,9 +290,9 @@ function Item_GetTextHeal(_heal, _new_line = true) {
 	var _hp = Flag_Get(FLAG_TYPE.STATIC,FLAG_STATIC.HP),
 		_hp_max = Flag_Get(FLAG_TYPE.STATIC,FLAG_STATIC.HP_MAX);
 	
-	_result += (_hp >= _hp_max) ? Lexicon("item.heal.full") : Lexicon("item.heal.part", _heal);
+	_result += (_hp >= _hp_max) ? Lexicon("item.heal.full").Get() : Lexicon("item.heal.part", _heal).Get();
 	
-	return _result.Get();
+	return _result;
 }
 
 ///@func Item_GetTextEat(name)

@@ -6,7 +6,7 @@
   "name":"LexiconLanguageExists",
   "parent":{
     "name":"Language",
-    "path":"folders/Extension/Lexicon v4.0.2/Language.yy",
+    "path":"folders/Extension/Lexicon v4.0.3/Language.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

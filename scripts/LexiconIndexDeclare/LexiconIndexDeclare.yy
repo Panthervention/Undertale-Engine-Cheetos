@@ -6,7 +6,7 @@
   "name":"LexiconIndexDeclare",
   "parent":{
     "name":"Index",
-    "path":"folders/Extension/Lexicon v4.0.2/Index.yy",
+    "path":"folders/Extension/Lexicon v4.0.3/Index.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -6,7 +6,7 @@
   "name":"__LexiconTextParser",
   "parent":{
     "name":"TextEntry",
-    "path":"folders/Extension/Lexicon v4.0.2/(System)/Parsers/TextEntry.yy",
+    "path":"folders/Extension/Lexicon v4.0.3/(System)/Parsers/TextEntry.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -1,6 +1,10 @@
 ///@desc Name Check
+
 var _name = string_lower(__naming_name),
-	_text = (Lexicon($"menu.confirm.title.{_name}").Get() != $"Missing text entry: \"menu.confirm.title.{_name}\"") ? Lexicon($"menu.confirm.title.{_name}").Get() : Lexicon("menu.confirm.title.default").Get(),
+	_key  = $"menu.confirm.title.{_name}",
+	_text = (LexiconPlugInExistsEntry(_key) && !is_undefined(LexiconPlugInGetEntry(_key).GetText()))
+		  ? Lexicon($"menu.confirm.title.{_name}").Get()
+		  : Lexicon("menu.confirm.title.default").Get(),
 	_valid = true;
 
 switch (_name)

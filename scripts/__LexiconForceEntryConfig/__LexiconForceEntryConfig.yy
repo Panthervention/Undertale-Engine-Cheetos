@@ -6,7 +6,7 @@
   "name":"__LexiconForceEntryConfig",
   "parent":{
     "name":"Lexicon-Force-Entry",
-    "path":"folders/Extension/Lexicon v4.0.2/Lexicon Plug-Ins/Lexicon-Force-Entry.yy",
+    "path":"folders/Extension/Lexicon v4.0.3/Lexicon Plug-Ins/Lexicon-Force-Entry.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

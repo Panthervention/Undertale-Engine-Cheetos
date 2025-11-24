@@ -6,7 +6,7 @@
   "name":"UnicStringUpper",
   "parent":{
     "name":"String",
-    "path":"folders/Extension/Lexicon v4.0.2/Unic/String.yy",
+    "path":"folders/Extension/Lexicon v4.0.3/Unic/String.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

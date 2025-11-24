@@ -6,7 +6,7 @@
   "name":"LexiconGlobalSet",
   "parent":{
     "name":"Global",
-    "path":"folders/Extension/Lexicon v4.0.2/Global.yy",
+    "path":"folders/Extension/Lexicon v4.0.3/Global.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

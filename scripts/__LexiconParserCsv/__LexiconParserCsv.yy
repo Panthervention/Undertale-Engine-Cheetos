@@ -6,7 +6,7 @@
   "name":"__LexiconParserCsv",
   "parent":{
     "name":"CSV",
-    "path":"folders/Extension/Lexicon v4.0.2/(System)/Parsers/CSV.yy",
+    "path":"folders/Extension/Lexicon v4.0.3/(System)/Parsers/CSV.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

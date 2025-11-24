@@ -28,7 +28,17 @@ with (border)
 			draw_sprite_stretched_ext(sprite, index, _border_x, _border_y, 960 * _window_ratio, 540 * _window_ratio, c_white, alpha);   
 		else if (auto_capture)
 		{
+			shader_set(shd_gaussian_horizontal);
+			shader_set_uniform_f(blur_uni_resolution_hoz, blur_resolution_x, blur_resolution_y);
+			shader_set_uniform_f(blur_uni_amount_hoz, blur_intensity);
 			draw_surface_ext(application_surface, _border_x, _border_y, (960 * _window_ratio) / 640, (540 * _window_ratio) / 480, 0, c_white, alpha);
+			shader_reset();
+			
+			if (instance_exists(obj_encounter_anim)) then if (obj_encounter_anim.__draw_black)
+				draw_sprite_stretched_ext(spr_pixel, 0, _border_x, _border_y, 960 * _window_ratio, 540 * _window_ratio, c_black, 1);
+			
+			draw_sprite_stretched_ext(spr_pixel, 0, _border_x, _border_y, 960 * _window_ratio, 540 * _window_ratio, obj_global.fader_color, obj_global.fader_alpha);
+			draw_sprite_stretched_ext(spr_pixel, 0, _border_x, _border_y, 960 * _window_ratio, 540 * _window_ratio, c_black, 1 - alpha);
 			draw_sprite_stretched_ext(spr_border, 1, _border_x, _border_y, 960 * _window_ratio, 540 * _window_ratio, c_white, alpha);
 		}
 		else
