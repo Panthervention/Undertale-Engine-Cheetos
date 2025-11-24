@@ -14,7 +14,8 @@
 ********************************************************************************
 v1.3.0			- 24/11/2025
 - Updated Lexicon to v4.0.3 along with fixes around it (Thanks TabularElf for the bug fixes <3).
-- Implemented Quality of Life changes (inspired by Magi's Fancy Border).
+- Updated index validity check for Item and Cell system.
+- Implemented Quality of Life changes for Border system (inspired by Magi's Fancy Border).
 
 v1.3.0 - WIP 2	- 24/11/2025
 - Calibrated arbitrary clipping shaders so they are functional on both Windows and MacOS.

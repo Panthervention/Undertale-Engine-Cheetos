@@ -38,7 +38,7 @@ with (border)
 				draw_sprite_stretched_ext(spr_pixel, 0, _border_x, _border_y, 960 * _window_ratio, 540 * _window_ratio, c_black, 1);
 			
 			draw_sprite_stretched_ext(spr_pixel, 0, _border_x, _border_y, 960 * _window_ratio, 540 * _window_ratio, obj_global.fader_color, obj_global.fader_alpha);
-			draw_sprite_stretched_ext(spr_pixel, 0, _border_x, _border_y, 960 * _window_ratio, 540 * _window_ratio, c_black, 1 - alpha);
+			draw_sprite_stretched_ext(spr_pixel, 0, _border_x, _border_y, 960 * _window_ratio, 540 * _window_ratio, c_black, 1 - (alpha * 0.5));
 			draw_sprite_stretched_ext(spr_border, 1, _border_x, _border_y, 960 * _window_ratio, 540 * _window_ratio, c_white, alpha);
 		}
 		else

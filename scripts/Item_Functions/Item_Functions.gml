@@ -162,7 +162,7 @@ function Item_Get(_slot) {
 ///@param {Real}			slot		The inventory slot to set the item struct to.
 ///@param {Struct.Item}		item		The item struct to set to the inventory slot.
 function Item_Set(_slot, _item) {
-	if (_slot >= 0)
+	if (Item_IsSlotValid(_slot))
 	{
 		var _inventory_temp = Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.ITEM);
 		if (Item_IsValid(_item))

@@ -80,7 +80,7 @@ function Cell_GetAdress(_address) {
 ///@param {Real}			address		The address number to assign the cell address struct.
 ///@param {Struct.Cell}		cell		The cell address struct need to be assigned.
 function Cell_SetAddress(_address, _cell) {
-	if (_address >= 0)
+	if (Cell_IsAddressValid(_address))
 	{
 		var _cell_temp = Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.CELL, []);
 		if (Cell_IsValid(_cell))
