@@ -94,11 +94,21 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_fall_multi = fall_multi;
 			
 			#region Position calculation
+			// Option 1
 			var _board_angle_90 = _board_angle mod 90,
 				_angle_90 = _angle mod 90,
 				_small_offset = 0.001 + abs(min(_board_angle_90, 90 - _board_angle_90) - min(_angle_90, 90 - _angle_90)) / 15,
 				_displace_x = lengthdir_x(_x_offset+_small_offset, _angle),
 				_displace_y = lengthdir_y(_y_offset+_small_offset, _angle);
+			
+			/* Option 2
+			var _shift = _board_angle mod 90 - _angle mod 90;
+			if (_shift > 45) _shift -= 90;
+			if (_shift < -45) _shift += 90;
+			var _angle_rot = _angle + _shift,
+				_displace_x = lengthdir_x(_x_offset+0.001, _angle_rot),
+				_displace_y = lengthdir_y(_y_offset+0.001, _angle_rot);
+			*/
 			
 			// Store board vertices into vectors for checking (Rotated board is a parallelogram)
 			var _board_top_left		= new Vector2(-_board.left, -_board.up).Rotated(-_board_angle),
