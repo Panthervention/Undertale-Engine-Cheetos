@@ -11,7 +11,7 @@ function Cell_IsValid(_cell) {
 ///@param {Real}	address		The cell address number to check for validation.
 ///@return {Bool}
 function Cell_IsAddressValid(_address) {
-	return (_address >= 0 && _address < Cell_AddressCount() && _address < 8);
+	return (_address >= 0 && _address < 8);
 }
 
 ///@func Cell_AddressCount()
@@ -53,7 +53,7 @@ function Cell_CallEvent(_cell, _event, _address) {
 ///@param {Real}	address		The address number to get the cell address struct.
 ///@return {Struct.Cell, Real}
 function Cell_GetAdress(_address) {
-	if (Cell_IsAddressValid(_address))
+	if (Cell_IsAddressValid(_address) && _address < Cell_AddressCount())
 	{
 		var _cell = Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.CELL)[_address];
 		if (Cell_IsValid(_cell))
@@ -80,16 +80,13 @@ function Cell_GetAdress(_address) {
 ///@param {Real}			address		The address number to assign the cell address struct.
 ///@param {Struct.Cell}		cell		The cell address struct need to be assigned.
 function Cell_SetAddress(_address, _cell) {
-	if (Cell_IsAddressValid(_address))
-	{
+	if (Cell_IsAddressValid(_address) && Cell_IsValid(_cell))
+	{	
 		var _cell_temp = Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.CELL, []);
-		if (Cell_IsValid(_cell))
-		{
-			if (_address > array_length(_cell_temp))
-				_address = array_length(_cell_temp);
-			_cell_temp[_address] = _cell;
-		}
-		Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.CELL, _cell_temp);
+		if (_address > array_length(_cell_temp))
+			_address = array_length(_cell_temp);
+		_cell_temp[_address] = _cell;
+		Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.CELL, _cell_temp);	
 	}
 }
 

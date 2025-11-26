@@ -49,4 +49,5 @@ var _season_names = ["winter", "spring", "summer", "fall"],
 __season_converted = Lexicon($"setting.season.{_season_to_string}").Get();
 __season_bgm = ((__season == 0) ? bgm_option_winter : ((__season == 2) ? bgm_option_summer : bgm_option_fall));
 
+__tween = 0;
 event_user(0); // Initiate text elements

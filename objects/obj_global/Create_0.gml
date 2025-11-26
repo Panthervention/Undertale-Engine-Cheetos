@@ -1,4 +1,4 @@
-depth = -15000;
+depth = -10000;
 timer = 0;
 quit_timer = 0;
 

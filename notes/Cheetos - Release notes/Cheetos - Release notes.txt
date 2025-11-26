@@ -12,6 +12,12 @@
 ********************************************************************************
 									RELEASE NOTES
 ********************************************************************************
+v1.3.1			- 26/11/2025
+- Fixed validation check for Item and Cell gone wrong.
+- Fixed TweenDestroy crash for obj_title_screen, which happens when you Reset -> Yes -> F2 -> Reset.
+- Fixed box usage in overworld gone wrong.
+- Increased obj_global depth from -15000 to -10000.
+
 v1.3.0			- 24/11/2025
 - Updated Lexicon to v4.0.3 along with fixes around it (Thanks TabularElf for the bug fixes <3).
 - Updated index validity check for Item and Cell system.

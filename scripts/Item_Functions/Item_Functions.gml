@@ -11,7 +11,7 @@ function Item_IsValid(_item) {
 ///@param {Real}	slot	The slot number to check for validation.
 ///@return {Bool}
 function Item_IsSlotValid(_slot) {
-	return (_slot >= 0 && _slot < Item_Count() && _slot < global.inventory_capacity);
+	return (_slot >= 0 && _slot < global.inventory_capacity);
 }
 
 ///@func Item_Count()
@@ -114,7 +114,7 @@ function Item_CallEvent(_item, _event, _slot) {
 ///@param {Real}	slot	The inventory slot to get the item struct.
 ///@return {Struct.Item}
 function Item_Get(_slot) {
-	if (Item_IsSlotValid(_slot))
+	if (Item_IsSlotValid(_slot) && _slot < Item_Count())
 	{
 		var _inventory_temp = Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.ITEM),
 			_item = _inventory_temp[_slot];
@@ -162,16 +162,13 @@ function Item_Get(_slot) {
 ///@param {Real}			slot		The inventory slot to set the item struct to.
 ///@param {Struct.Item}		item		The item struct to set to the inventory slot.
 function Item_Set(_slot, _item) {
-	if (Item_IsSlotValid(_slot))
-	{
+	if (Item_IsSlotValid(_slot) && Item_IsValid(_item))
+	{	
 		var _inventory_temp = Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.ITEM);
-		if (Item_IsValid(_item))
-		{
-			if (_slot > array_length(_inventory_temp))
-				_slot = array_length(_inventory_temp);			
-			_inventory_temp[_slot] = _item;
-		}
-		Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.ITEM, _inventory_temp);
+		if (_slot > array_length(_inventory_temp))
+			_slot = array_length(_inventory_temp);			
+		_inventory_temp[_slot] = _item;
+		Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.ITEM, _inventory_temp);	
 	}
 }
 
@@ -179,14 +176,11 @@ function Item_Set(_slot, _item) {
 ///@desc Add an item struct to the inventory.
 ///@param {Struct.Item}		item	The item struct to add to the inventory.
 function Item_Add(_item) {
-	if (Item_IsValid(_item))
+	if (Item_IsValid(_item) && (Item_Count() < global.inventory_capacity))
 	{
-		if (Item_Count() < global.inventory_capacity)
-		{
-			var _inventory_temp = Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.ITEM);
-			array_push(_inventory_temp, _item);
-			Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.ITEM, _inventory_temp);
-		}
+		var _inventory_temp = Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.ITEM);
+		array_push(_inventory_temp, _item);
+		Flag_Set(FLAG_TYPE.STATIC, FLAG_STATIC.ITEM, _inventory_temp);
 	}
 }
 
@@ -194,7 +188,7 @@ function Item_Add(_item) {
 ///@desc Remove an item struct from the specified inventory slot
 ///@param {Real}	slot	The inventory slot that has the item need to be removed.
 function Item_Remove(_slot) {
-	if (Item_IsValid(Item_Get(_slot)) && Item_Count() > 0)
+	if (Item_Count() > 0 && Item_IsValid(Item_Get(_slot)))
 	{
 		var _inventory_temp = Flag_Get(FLAG_TYPE.STATIC, FLAG_STATIC.ITEM);
 		array_delete(_inventory_temp, _slot, 1);
@@ -204,24 +198,20 @@ function Item_Remove(_slot) {
 
 ///@func Item_GetName(item)
 ///@desc Return the name of the specified item struct.
-///@param {Struct.Item}		item	The item struct to get the name.
+///@param {Struct.Item}	item	The item struct to get the name.
+///@return {String}
 function Item_GetName(_item) {
 	if (Item_IsValid(_item))
 	{
-		var _name = "";
 		switch (global.item_name_mode)
 		{
 			case 0:
-				_name = _item.name;
-				break;
+				return _item.name;
 			case 1:
-				_name = _item.name_short;
-				break;
+				return _item.name_short;
 			case 2:
-				_name = _item.name_short_serious;
-				break;
+				return _item.name_short_serious;
 		}
-		return _name;
 	}
 	else
 		return "";
