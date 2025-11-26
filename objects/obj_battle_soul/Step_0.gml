@@ -52,9 +52,7 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 		var _board = obj_battle_board,
 			_board_x = _board.x,
 			_board_y = _board.y,
-			_board_angle = posmod(_board.image_angle, 360),
-			_board_dir = _board_angle div 90,
-			_board_thickness = _board.frame_thickness;
+			_board_angle = posmod(_board.image_angle, 360);
 		
 		var _board_top_limit    = (_board_y - _board.up) + _y_offset,
 			_board_bottom_limit = (_board_y + _board.down) - _y_offset,
@@ -96,7 +94,9 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_fall_multi = fall_multi;
 			
 			#region Position calculation
-			var _small_offset = 0.001,
+			var _board_angle_90 = _board_angle mod 90,
+				_angle_90 = _angle mod 90,
+				_small_offset = 0.001 + abs(min(_board_angle_90, 90 - _board_angle_90) - min(_angle_90, 90 - _angle_90)) / 15,
 				_displace_x = lengthdir_x(_x_offset+_small_offset, _angle),
 				_displace_y = lengthdir_y(_y_offset+_small_offset, _angle);
 			
