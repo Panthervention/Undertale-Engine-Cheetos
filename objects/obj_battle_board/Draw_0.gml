@@ -2,15 +2,15 @@
 Battle_BoardMaskSet(true, false);
 
 // Board's background rendering
-var _angle = __step_to_draw._angle,
-	_color = __step_to_draw._color,
-	_alpha = __step_to_draw._alpha,
-	_fx = __step_to_draw._fx,
-	_fy = __step_to_draw._fy,
-	_fw = __step_to_draw._fw,
-	_fh = __step_to_draw._fh;
+var _angle = __transfer_angle,
+	_color = __transfer_color,
+	_alpha = __transfer_alpha,
+	_fx = __frame_x,
+	_fy = __frame_y,
+	_fw = __frame_width,
+	_fh = __frame_height;
 
-draw_sprite_ext(spr_pixel, 0, __step_to_draw._bg_x, __step_to_draw._bg_y, __step_to_draw._bg_w, __step_to_draw._bg_h, _angle, __step_to_draw._bg_c, __step_to_draw._bg_a);
+draw_sprite_ext(spr_pixel, 0, __bg_x, __bg_y, __bg_width, __bg_height, _angle, __transfer_bg_c, __transfer_bg_a);
 
 // Board's frame rendering
 draw_sprite_ext(spr_pixel, 0, _fx[0], _fy[0], _fw[0], _fh[0], _angle, _color, _alpha);

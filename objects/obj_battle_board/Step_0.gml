@@ -128,18 +128,10 @@ draw_clear(c_black);
 draw_sprite_ext(spr_pixel, 0, _bg_x, _bg_y, _bg_w, _bg_h, _angle, c_red, 1);
 surface_reset_target();
 
-__step_to_draw._bg_x = _bg_x;
-__step_to_draw._bg_y = _bg_y;
-__step_to_draw._bg_w = _bg_w;
-__step_to_draw._bg_h = _bg_h;
-__step_to_draw._angle = _angle;
-__step_to_draw._bg_c = _bg_c;
-__step_to_draw._bg_a = _bg_a;
-__step_to_draw._color = _color;
-__step_to_draw._alpha = _alpha;
-array_copy(__step_to_draw._fx, 0, _fx, 0, 4);
-array_copy(__step_to_draw._fy, 0, _fy, 0, 4);
-array_copy(__step_to_draw._fw, 0, _fw, 0, 4);
-array_copy(__step_to_draw._fh, 0, _fh, 0, 4);
+__transfer_angle = _angle;
+__transfer_bg_c = _bg_c;
+__transfer_bg_a = _bg_a;
+__transfer_color = _color;
+__transfer_alpha = _alpha;
 #endregion
 #endregion
