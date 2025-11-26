@@ -6,7 +6,7 @@
   "name":"scribble_msdf_thickness_offset",
   "parent":{
     "name":"Deprecated",
-    "path":"folders/Extension/Scribble/(System - don't call these functions)/Deprecated.yy",
+    "path":"folders/Extension/Scribble v9.7.0 (beta)/(System - don't call these functions)/Deprecated.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

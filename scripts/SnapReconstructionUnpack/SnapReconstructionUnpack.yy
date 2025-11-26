@@ -6,7 +6,7 @@
   "name":"SnapReconstructionUnpack",
   "parent":{
     "name":"Reconstruction",
-    "path":"folders/Extension/SNAP/Reconstruction.yy",
+    "path":"folders/Extension/SNAP v8.1.1/Reconstruction.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

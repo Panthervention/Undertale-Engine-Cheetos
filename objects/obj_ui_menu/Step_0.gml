@@ -21,11 +21,17 @@ switch (__menu)
         else if (_input_confirm)
         {
             if (__choice == 0)
+			{
 				__menu = (Item_Count() > 0) ? 1 : 0;
-            else
+				if (__menu == 1)
+					audio_play_sound(snd_menu_confirm, 0, false);
+			}
+			else
+			{
 				__menu = __choice + 2;
-            audio_play_sound(snd_menu_confirm, 0, false);
-        }
+				audio_play_sound(snd_menu_confirm, 0, false);
+			}
+		}
 		else if (_input_menu || _input_cancel)
 			instance_destroy();
         break;

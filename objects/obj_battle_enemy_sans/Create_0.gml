@@ -3,8 +3,8 @@ hp = 1;
 hp_max = 1;
 
 __check_status = 0;
-__check_dialog[0] = lexicon_text("battle.enemy.sans.check.0");
-__check_dialog[1] = lexicon_text("battle.enemy.sans.check.1");
+__check_dialog[0] = Lexicon("battle.enemy.sans.check.0").Get();
+__check_dialog[1] = Lexicon("battle.enemy.sans.check.1").Get();
 
 __body_init_x = 0;
 __body_init_y = -12;

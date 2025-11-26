@@ -3,6 +3,8 @@
 #macro __INPUT_VERB_STATE_HEADER  "<PWP"
 #macro __INPUT_VERB_STATE_FOOTER  ">"
 
+#macro __INPUT_DEBUG_STEAM_INPUT  false
+
 #macro __INPUT_CONTROLLER_OBJECT_DEPTH  16001
 
 // Whether the game uses the horizontal holdtype for single Joy-Cons. Set this to `false` for
@@ -46,13 +48,25 @@
                                          }\
                                      }
 
+#macro __INPUT_VALIDATE_CURSOR_CLUSTER if (INPUT_SAFETY_CHECKS)\
+                                     {\
+                                         if (not is_numeric(INPUT_CURSOR_CLUSTER))\
+                                         {\
+                                             __InputError("Cursor cluster index must be a number (typeof = \"", typeof(INPUT_CURSOR_CLUSTER), "\")");\
+                                         }\
+                                         if (INPUT_CURSOR_CLUSTER < 0)\
+                                         {\
+                                             __InputError("Cursor cluster index ", INPUT_CURSOR_CLUSTER, " less than zero");\
+                                         }\
+                                     }
+
 __InputSystem();
 function __InputSystem()
 {
     static _system = undefined;
     if (_system != undefined) return _system;
     
-    __InputTrace("Welcome to Input by Juju Adams, Alynne Keith, and friends! This is version " + INPUT_VERSION + ", " + INPUT_DATE);
+    __InputTrace("Welcome to Input by Juju Adams, Alynne Keith, and friends! This is version " + INPUT_VERSION + ", " + INPUT_DATE + " (GM version " + string(GM_runtime_version) + ")");
     
     device_mouse_dbclick_enable(false);
     

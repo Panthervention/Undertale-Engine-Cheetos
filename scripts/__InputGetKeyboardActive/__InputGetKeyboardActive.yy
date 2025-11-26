@@ -6,7 +6,7 @@
   "name":"__InputGetKeyboardActive",
   "parent":{
     "name":"Device Scanning",
-    "path":"folders/Extension/Input/(System)/Device Scanning.yy",
+    "path":"folders/Extension/Input v10.2.2/(System)/Device Scanning.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

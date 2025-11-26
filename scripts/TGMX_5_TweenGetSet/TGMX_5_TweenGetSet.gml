@@ -44,7 +44,7 @@ function TweenGroupSetTimeScale(_group, _timescale)
 	}
 	else
 	{
-		_group_scale[@ 0] = _group_scale;
+		_group_scale[@ 0] = _timescale;
 	}
 }_=TweenGroupSetTimeScale;
 
@@ -297,10 +297,46 @@ function TweenGet(_t, _data_label)
 					
 			return _return;
 		break;
+		
+		// NEW 107
+		case TGMX_T_EASE:
+			if (is_array(_t[TGMX_T_EASE_RAW]))
+			{
+				var _ease1 = _t[TGMX_T_EASE_RAW][0];
+				var _ease2 = _t[TGMX_T_EASE_RAW][1];
+				return [_ease1.name ?? _ease1, _ease2.name ?? _ease2];
+			}
+			else
+			{
+				if (_t[TGMX_T_EASE][$ "name"] != undefined)
+				{
+					return _t[TGMX_T_EASE].name;	
+				}
+			
+				return _t[TGMX_T_EASE];
+			}
+		break;
+		
+		case TGMX_T_DURATION:
+			if (is_array(_t[TGMX_T_DURATION_RAW]))
+			{
+				return _t[TGMX_T_DURATION_RAW];
+			}
+			else
+			{
+				return _t[TGMX_T_DURATION];	
+			}
+		break;
     
 	    case TGMX_T_DELAY: return _t[TGMX_T_DELAY] <= 0 ? 0 : _t[TGMX_T_DELAY]; break;
 	    case TGMX_T_SCALE: return _t[TGMX_T_SCALE] * _t[TGMX_T_DIRECTION]; break;
-		case TGMX_T_TIME:  return clamp(_t[TGMX_T_TIME], 0, _t[TGMX_T_DURATION]); break;
+		
+		case TGMX_T_TIME:  
+			return _t[TGMX_T_TIME];
+			//return clamp(_t[TGMX_T_TIME], 0, _t[TGMX_T_DURATION]); v107 TODO: CHECK IF THIS CLAMP IS STILL NEEDED IN SOME CONDITIONS
+		break;
+		
+		case TGMX_T_AMOUNT: return _t[TGMX_T_TIME] / _t[TGMX_T_DURATION]; break;
 		default:		   return _t[global.TGMX.TweenDataLabelMap[? _data_label]];
 	}
 }
@@ -389,6 +425,7 @@ function TweenSet(_t, _data_label)
 	var _setValue, _data, _pIndex = 1;
 	while(_pIndex < argument_count)
 	{
+		var _data_label_hold = _data_label; // NEW 107
 		_data_label = TGMX_StringStrip(argument[_pIndex++]);
 		var _index = global.TGMX.TweenDataLabelMap[? _data_label];
 		
@@ -406,7 +443,29 @@ function TweenSet(_t, _data_label)
 						
 						if (_setValue == undefined)
 						{
-							show_error("TweenGMX: Invalid ease type used in TweenSet()", false);	
+							var _assetID = asset_get_index(string_replace(string_replace(_data_label_hold, "~", ""), "function gml_Script_", ""));
+				
+							if (_assetID < 100000) // CURVE ID
+							{
+								var _name = (animcurve_get(_assetID).name);
+				
+								if (ds_map_exists(global.TGMX.ShortCodesEase, _name) == false)
+								{
+									var _channel = animcurve_get_channel(_assetID, 0);
+									_channel.name = _name;
+									global.TGMX.ShortCodesEase[? _name] = _channel;
+								}
+				
+								_setValue = global.TGMX.ShortCodesEase[? _name];
+							}
+							else // FUNCTION ID
+							{
+								_setValue = method(undefined, _assetID);
+							}
+				
+							var _stripped = TGMX_StringStrip(_data_label_hold);
+							global.TGMX.Cache[? _data_label_hold] = _stripped;
+							global.TGMX.ShortCodesEase[? _stripped] = _setValue;
 						}
 					}
 					else
@@ -442,11 +501,70 @@ function TweenSet(_t, _data_label)
 		        case TGMX_T_SCALE:
 		            _t[@ TGMX_T_SCALE] = _setValue * _t[TGMX_T_DIRECTION];
 		        break;
+				
+				case TGMX_T_DURATION:
+					if (is_string(_setValue) && string_byte_at(_setValue, 1) == 91)
+					{
+						_setValue = json_parse(_setValue);
+					}
+					
+					if (is_array(_setValue) && array_length(_setValue) == 2)
+					{
+						if (_setValue[0] <= 0) { _setValue[@ 0] = 0.0000001; }
+						if (_setValue[1] <= 0) { _setValue[@ 1] = 0.0000001; }
+						_t[@ TGMX_T_DURATION_RAW] = _setValue;
+						_t[@ TGMX_T_DURATION] = _setValue[0];
+					}
+					else
+					{
+						_t[@ TGMX_T_DURATION] = _setValue;
+						_t[@ TGMX_T_DURATION_RAW] = 0;
+					}	
+				break;
         
-				// THIS IS ON PURPOSE! DON'T WORRY!
-				case TGMX_T_AMOUNT: _t[@ TGMX_T_TIME] = _setValue * _t[TGMX_T_DURATION];
+				
+				case TGMX_T_AMOUNT: 
+					_setValue *= _t[TGMX_T_DURATION];
+					_t[@ TGMX_T_TIME] = _setValue;
+					// NO BREAK IS ON PURPOSE...
 		        case TGMX_T_TIME: 
-		            _t[@ _index] = _setValue; // THIS IS ON PURPOSE! Maybe I should separate these two cases for better clarity
+					// v107 NEW
+					if (_setValue > _t[TGMX_T_DURATION])
+					{
+						if (_t[TGMX_T_MODE] == TWEEN_MODE_BOUNCE || _t[TGMX_T_MODE] == TWEEN_MODE_PATROL)
+						{
+							// CHECK FOR ARRAY DURATION
+							if (is_array(_t[TGMX_T_DURATION_RAW]))
+							{
+								//var _dur1 = _t[TGMX_T_DURATION_RAW[0]];
+								
+							}
+							else
+							{
+								_setValue = _t[TGMX_T_DURATION] - (_setValue - _t[TGMX_T_DURATION]);
+							}
+							
+							// CHECK FOR EASE ARRAY
+							if (is_array(_t[TGMX_T_EASE_RAW]))
+							{
+								_t[TGMX_T_EASE] = _t[TGMX_T_EASE_RAW][1];	
+							}
+							
+							
+							_t[@ TGMX_T_DIRECTION] *= -1;
+							_t[@ TGMX_T_SCALE] *= -1;
+						}	
+					}
+					else
+					{
+						// CHECK FOR EASE ARRAY
+						if (is_array(_t[TGMX_T_EASE_RAW]))
+						{
+							_t[TGMX_T_EASE] = _t[TGMX_T_EASE_RAW][1];	
+						}
+					}
+					
+		            _t[@ TGMX_T_TIME] = clamp(_setValue, 0, _t[TGMX_T_DURATION]);
 			
 					if (is_struct(_t[TGMX_T_STATE]) || real(_t[TGMX_T_STATE]) >= 0 && _t[TGMX_T_DURATION] != 0)
 				    {
@@ -455,23 +573,74 @@ function TweenSet(_t, _data_label)
 		        break;
 			
 				case TGMX_T_EASE:
-					if (typeof(_setValue) == "number")
-					{									  // FUNCTION ID			     // ANIMATION CURVE
-						_setValue = _setValue >= 100000 ? method(undefined, _setValue) : animcurve_get_channel(_setValue, 0);
+					var _eases = [];
+					
+					if (is_string(_setValue) && string_byte_at(_setValue, 1) == 91) // "["
+					{
+						_eases = json_parse(_setValue);
 					}
-					else // "ease" string
-					if (is_string(_setValue))
-		    		{
-						_setValue =  global.TGMX.ShortCodesEase[? TGMX_StringStrip(_setValue)];
-		    		}
+					else
+					if (is_array(_setValue))
+					{
+						array_copy(_eases, 0, _setValue, 0, 2);
+					}
 					else
 					{
-						// TODO: Update for asset ref for anim curve	
+						_eases[0] = _setValue;
 					}
-		    		
-		    		// Update ease data
-		    		_t[@ TGMX_T_EASE] = _setValue;
+					
+					var i = -1;
+					repeat(array_length(_eases))
+					{
+						_setValue = _eases[++i];
+						
+						if (typeof(_setValue) == "number" || typeof(_setValue) == "ref") // NEW 107
+						{									  // FUNCTION ID			     // ANIMATION CURVE
+							_setValue = real(_setValue) >= 100000 ? method(undefined, _setValue) : animcurve_get_channel(_setValue, 0);
+						}
+						else // "EASE" STRING
+						if (is_string(_setValue))
+			    		{
+							// NEW 107 CHECK AGAINST ASSET STRING NAME TO FIND FUNCTION ID
+							var _easeHold = _setValue;
+							_setValue = global.TGMX.ShortCodesEase[? TGMX_StringStrip(_setValue)];
 			
+							if (_setValue == undefined)
+							{							
+								// NEW 107
+								var _assetID = asset_get_index(string_replace(_easeHold, "function gml_Script_", ""));
+				
+								if (_assetID < 100000) // CURVE ID
+								{
+									var _name = (animcurve_get(_assetID).name);
+									_setValue = global.TGMX.ShortCodesEase[? _name];
+								
+									if (_setValue == undefined)
+									{
+										var _channel = animcurve_get_channel(_assetID, 0);
+										_channel.name = _name;
+										global.TGMX.ShortCodesEase[? _name] = _channel;
+										_setValue = _channel;
+									}
+								}
+								else // FUNCTION ID
+								{
+									_setValue = method(undefined, _assetID);
+								}
+				
+								var _stripped = TGMX_StringStrip(_easeHold);
+								global.TGMX.Cache[? _easeHold] = _stripped;
+								global.TGMX.ShortCodesEase[? _stripped] = _setValue;
+							}	
+			    		}
+						
+						_eases[i] = _setValue;
+					}
+
+		    		// UPDATE EASE DATA
+		    		_t[@ TGMX_T_EASE] = _eases[0];
+					_t[@ TGMX_T_EASE_RAW] = array_length(_eases) == 2 ? _eases : _eases[0];
+					
 					// Process tween right away if it is currently active and has a valid duration
 					if (is_struct(_t[TGMX_T_STATE]) || real(_t[TGMX_T_STATE]) >= 0 && _t[TGMX_T_DURATION] != 0)
 				    {
@@ -735,7 +904,7 @@ function TweenSet(_t, _data_label)
 						_data[@ 2] = _setValue;
 					}
 				break;
-		        
+				
 				// Default Setter Case
 		        default: _t[@ _index] = _setValue;
 		    }

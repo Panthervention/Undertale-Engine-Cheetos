@@ -6,7 +6,7 @@
   "name":"__InputCreateKbmBindingNameMap",
   "parent":{
     "name":"Initializing",
-    "path":"folders/Extension/Input/(System)/Initializing.yy",
+    "path":"folders/Extension/Input v10.2.2/(System)/Initializing.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

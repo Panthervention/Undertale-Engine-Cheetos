@@ -6,7 +6,7 @@
   "name":"SnapFromJSON",
   "parent":{
     "name":"JSON",
-    "path":"folders/Extension/SNAP/JSON.yy",
+    "path":"folders/Extension/SNAP v8.1.1/JSON.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

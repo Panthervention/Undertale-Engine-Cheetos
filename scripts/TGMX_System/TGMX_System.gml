@@ -1,5 +1,5 @@
 
-// [TweenGMX 1.0.4]
+// [TweenGMX 1.0.8]
 
 // Feather ignore all
 
@@ -7,7 +7,7 @@
 /// TGMX_Tween | TGMX_TweenPreprocess | TGMX_TweenProcess | TGMX_StringStrip | TGMX_ExecuteEvent
 
 // SET SHARED TWEENER TO BE AUTOMATICALLY CREATED IN FIRST ROOM
-room_instance_add(room_first, 0, 0, o_SharedTweener);
+//room_instance_add(room_first, 0, 0, o_SharedTweener);
 
 //-------------------------------
 // MACROS
@@ -373,6 +373,7 @@ function TGMX_Begin()
 	_[@ TGMX_T_ID] = TWEEN_DEFAULT;
 	_[@ TGMX_T_TARGET] = noone;
 	_[@ TGMX_T_EASE] = EaseLinear;
+	_[@ TGMX_T_EASE_RAW] = EaseLinear;
 	_[@ TGMX_T_TIME] = 0;
 	_[@ TGMX_T_DURATION] = 1;
 	_[@ TGMX_T_PROPERTY_DATA_RAW] = -1;
@@ -393,7 +394,6 @@ function TGMX_Begin()
 	_[@ TGMX_T_OTHER] = noone;
 	_[@ TGMX_T_REST] = 0;
 	_[@ TGMX_T_CONTINUE_COUNT] = -1;
-	_[@ TGMX_T_EASE_RAW] = 0;
 	
 	//-------------------------------------------------
 	// ASSIGN DEFAULT TWEEN AS [1] IN INDEX MAP
@@ -746,21 +746,31 @@ function TGMX_Tween(_script, _args, _tID)
 		
 		_t = TGMX_FetchTween(_tID);  // FETCH RAW TWEEN DATA
 		_pData = _t[TGMX_T_PROPERTY_DATA_RAW]; // CACHE EXISTING VARIABLE DATA LIST
+		_t[@ TGMX_T_TIME] = 0;
 		_t[@ TGMX_T_DIRECTION] = 1;
 		_t[@ TGMX_T_SCALE] = abs(_t[TGMX_T_SCALE]);
-		_t[@ TGMX_T_TIME] = 0;
 		
-		if (_paramCount > 0)
+		// TODO: NEED TO FIX THE DIFFERENCE IN PARAM COUNT WHEN USING ON-RAIL VS OFF-RAIL
+		if (_paramCount > 0) 
 		{	//^ IF NEW ARGUMENTS ARE SUPPLIED
 			_pData = [];
+			
+			_t[@ TGMX_T_CALLER] = is_struct(self) ? weak_ref_create(self) : id; // STRUCT OR INSTANCE CALLING THE SCRIPT
+			_t[@ TGMX_T_OTHER] = is_struct(other) ? weak_ref_create(other) : other.id; // SET 'other' CALLING ENVIRONMENT
+			_t[@ TGMX_T_REST] = 0;
 			_t[@ TGMX_T_AMOUNT] = 0;
-			_t[@ TGMX_T_CALLER] = is_struct(self) ? weak_ref_create(self) : id; // STRUCT OR INSTANCE CALLING THE SCRIPT TODO
+			_t[@ TGMX_T_DURATION_RAW] = 0;
+			_t[@ TGMX_T_CONTINUE_COUNT] = -1;
 			
 			// WE HAVE AN "ON-RAIL" TWEEN -- WE CAN APPLY THE VALUES WE KNOW WE HAVE
 			if (_args[0] == undefined) 
 			{	// SET OUR KNOWN VALUES
 				_t[@ TGMX_T_EASE] = _args[1]; _t[@ TGMX_T_MODE] = _args[2]; _t[@ TGMX_T_DELTA] = _args[3]; _t[@ TGMX_T_DELAY] = _args[4]; _t[@ TGMX_T_DURATION] = _args[5];
 				i = 5;
+			}
+			else
+			{
+				_t[@ TGMX_T_EASE] = EaseLinear; _t[@ TGMX_T_MODE] = 0; _t[@ TGMX_T_DELAY] = 0;
 			}
 		}
 		
@@ -774,13 +784,25 @@ function TGMX_Tween(_script, _args, _tID)
 		
 		_t = TGMX_FetchTween(_tID);  // FETCH RAW TWEEN DATA
 		_pData = []; // SET NEW PROPRETY DATA ARRAY
+		_t[@ TGMX_T_TIME] = 0;
+		_t[@ TGMX_T_DIRECTION] = 1;
+		_t[@ TGMX_T_SCALE] = abs(_t[TGMX_T_SCALE]);
 		_t[@ TGMX_T_CALLER] = is_struct(self) ? weak_ref_create(self) : id; // STRUCT OR INSTANCE CALLING THE SCRIPT
+		_t[@ TGMX_T_OTHER] = is_struct(other) ? weak_ref_create(other) : other.id; // SET 'other' CALLING ENVIRONMENT
+		_t[@ TGMX_T_REST] = 0;
+		_t[@ TGMX_T_AMOUNT] = 0;
+		_t[@ TGMX_T_DURATION_RAW] = 0;
+		_t[@ TGMX_T_CONTINUE_COUNT] = -1;
 		
 		// WE HAVE AN "ON-RAIL" TWEEN -- WE CAN APPLY THE VALUES WE KNOW WE HAVE
 		if (_args[0] == undefined) 
 		{	// SET OUR KNOWN VALUES
 			_t[@ TGMX_T_EASE] = _args[1]; _t[@ TGMX_T_MODE] = _args[2]; _t[@ TGMX_T_DELTA] = _args[3]; _t[@ TGMX_T_DELAY] = _args[4]; _t[@ TGMX_T_DURATION] = _args[5];
 			i = 5;
+		}
+		else
+		{
+			_t[@ TGMX_T_EASE] = EaseLinear; _t[@ TGMX_T_MODE] = 0; _t[@ TGMX_T_DELAY] = 0;
 		}
 		
 		_base_target = _t[TGMX_T_TARGET];
@@ -860,7 +882,12 @@ function TGMX_Tween(_script, _args, _tID)
 			if (is_numeric(_argLabel)) 
 			{
 				switch(string_byte_at(_tag, 1))
-				{						
+				{			
+				case 126: // "~" Ease
+					i += 1;
+					_t[@ TGMX_T_EASE] = _args[i];
+				break;
+					
 				case 64: // "@" Event Callback -- This makes sure that we use the right assigned target before actually adding the callbacks later in this function
 					i += 1;
 					_qCallbacks ??= ds_queue_create();
@@ -888,7 +915,7 @@ function TGMX_Tween(_script, _args, _tID)
 						TweenAddCallback(TGMX.TweenIndex-1, TWEEN_EV_FINISH, _sharedTweener, TweenPlay, _tID);
 					}
 				break;
-				
+								
 				default: // SET TWEEN DATA TYPE e.g. TweenFire(..., "-mode", "patrol", "$", 100...)
 					i += 1;
 					if (is_string(_args[i])) { _t[@ _argLabel] = TGMX_Cache[? _args[i]] ?? TGMX_StringStrip(_args[i]); } // e.g. "patrol"
@@ -965,29 +992,114 @@ function TGMX_Tween(_script, _args, _tID)
 	}
 
 	// FINALIZE USED EASE TYPE
+	if (is_string(_t[TGMX_T_EASE]) && string_byte_at(_t[TGMX_T_EASE], 1) == 91) // "["
+	{
+		_t[@ TGMX_T_EASE] = json_parse(_t[TGMX_T_EASE]);
+	}
+	
 	static __EaseTypes__ = {"string": 0, "number": 1, "struct": 2, "ref": 3, "array": 4, };
 	switch( __EaseTypes__[$ typeof(_t[TGMX_T_EASE])] )
 	{
-		case 0: // STRING
+		case 0: // STRING	
+			var _easeHold = _t[TGMX_T_EASE];
 			_t[@ TGMX_T_EASE] = TGMX.ShortCodesEase[? TGMX_Cache[? _t[TGMX_T_EASE]] ?? TGMX_StringStrip(_t[TGMX_T_EASE])];
+			
+			// NEW 107 CHECK AGAINST ASSET STRING NAME TO FIND FUNCTION ID
+			if (_t[TGMX_T_EASE] == undefined)
+			{
+				var _assetID = asset_get_index(string_replace(_easeHold, "function gml_Script_", ""));
+				
+				if (_assetID < 100000) // CURVE ID
+				{
+					var _name = (animcurve_get(_assetID).name);
+				
+					if (ds_map_exists(global.TGMX.ShortCodesEase, _name) == false)
+					{
+						var _channel = animcurve_get_channel(_assetID, 0);
+						_channel.name = _name;
+						global.TGMX.ShortCodesEase[? _name] = _channel;
+					}
+				
+					_t[@ TGMX_T_EASE] = global.TGMX.ShortCodesEase[? _name];
+				}
+				else // FUNCTION ID
+				{
+					_t[@ TGMX_T_EASE] = method(undefined, _assetID);
+				}
+				
+				var _stripped = TGMX_StringStrip(_easeHold);
+				TGMX_Cache[? _easeHold] = _stripped;
+				global.TGMX.ShortCodesEase[? _stripped] = _t[TGMX_T_EASE];
+			}
+			
+			_t[@ TGMX_T_EASE_RAW] = _t[TGMX_T_EASE];
 		break;
 		
 		case 1: // NUMBER
-			_t[@ TGMX_T_EASE] = _t[TGMX_T_EASE] < 100000 ? animcurve_get_channel(_t[TGMX_T_EASE], 0) : method(undefined, _t[TGMX_T_EASE]);
+			if (_t[TGMX_T_EASE] < 100000) // CURVE ID
+			{
+				// TODO: Clean this up a bit
+				var _name = (animcurve_get(_t[TGMX_T_EASE]).name);
+				
+				if (ds_map_exists(global.TGMX.ShortCodesEase, _name) == false)
+				{
+					var _channel = animcurve_get_channel(_t[TGMX_T_EASE], 0);
+					_channel.name = _name;
+					global.TGMX.ShortCodesEase[? _name] = _channel;
+				}
+				
+				_t[@ TGMX_T_EASE] = global.TGMX.ShortCodesEase[? _name];
+			}
+			else // FUNCTION ID
+			{
+				_t[@ TGMX_T_EASE] = method(undefined, _t[TGMX_T_EASE]);
+			}
+			
+			_t[@ TGMX_T_EASE_RAW] = _t[TGMX_T_EASE];
 		break;
 		
 		case 2: // STRUCT
-		if (variable_struct_exists(_t[TGMX_T_EASE], "channel"))
-		{
-			_t[@ TGMX_T_EASE] = animcurve_get_channel(_t[TGMX_T_EASE], 0);
-		}
+			// NEW 107
+			if (variable_struct_exists(_t[TGMX_T_EASE], "channel"))
+			{
+				_t[@ TGMX_T_EASE] = animcurve_get_channel(_t[TGMX_T_EASE], 0);
+				_t[@ TGMX_T_EASE_RAW] = _t[TGMX_T_EASE];
+			}
+
+			var _name = TGMX_StringStrip(_t[TGMX_T_EASE].name);
+				
+			if (ds_map_exists(global.TGMX.ShortCodesEase, _name) == false)
+			{
+				global.TGMX.ShortCodesEase[? _name] = _t[TGMX_T_EASE];
+			}
 		break;
 		
-		case 3: // REF
-			_t[@ TGMX_T_EASE] = (real(_t[TGMX_T_EASE]) < 100000) ? animcurve_get_channel(_t[TGMX_T_EASE], 0) : method(undefined, _t[TGMX_T_EASE]); 
+		case 3: // REF -- TODO: CHECK IF THIS IS DIFFERENT FOR NON-LTS
+			var _assetID = real(_t[TGMX_T_EASE]);
+			
+			if (_assetID < 100000) // CURVE ID
+			{
+				// TODO: Clean this up a bit
+				var _name = (animcurve_get(_assetID).name);
+				
+				if (ds_map_exists(global.TGMX.ShortCodesEase, _name) == false)
+				{
+					var _channel = animcurve_get_channel(_assetID, 0);
+					_channel.name = _name;
+					global.TGMX.ShortCodesEase[? _name] = _channel;
+				}
+				
+				_t[@ TGMX_T_EASE] = global.TGMX.ShortCodesEase[? _name];
+			}
+			else // FUNCTION ID
+			{
+				_t[@ TGMX_T_EASE] = method(undefined, _assetID);
+			}
+			
+			_t[@ TGMX_T_EASE_RAW] = _t[TGMX_T_EASE];
 		break;
 		
-		case 4: // ARRAY
+		case 4: // ARRAY -- TODO: Update for other 107 changes [Is this supported by TweenSet(t, "ease", ...) ??]
 			switch( __EaseTypes__[$ typeof(_t[TGMX_T_EASE][0]) ])
 			{
 				case 0: // STRING
@@ -1052,6 +1164,11 @@ function TGMX_Tween(_script, _args, _tID)
 	}
 
 	// DURATION SWAPPING
+	if (is_string(_t[TGMX_T_DURATION]) && string_byte_at(_t[TGMX_T_DURATION], 1) == 91)
+	{
+		_t[@ TGMX_T_DURATION] = json_parse(_t[TGMX_T_DURATION]);	
+	}
+	
 	if (is_array(_t[TGMX_T_DURATION]) && array_length(_t[TGMX_T_DURATION]) == 2)
 	{
 		if (_t[TGMX_T_DURATION][0] <= 0) { _t[TGMX_T_DURATION][@ 0] = 0.0000001; }
@@ -1060,7 +1177,7 @@ function TGMX_Tween(_script, _args, _tID)
 		_t[@ TGMX_T_DURATION] = _t[TGMX_T_DURATION][0];
 	}
 	
-	// DELAY AND RESTS
+	// DELAY AND RESTS -- TODO: UPDATE THIS FOR TWEEN SET
 	if (is_array(_t[TGMX_T_DELAY]))
 	{
 		_t[@ TGMX_T_REST] = (array_length(_t[TGMX_T_DELAY]) == 2) ? _t[TGMX_T_DELAY][1] : [_t[TGMX_T_DELAY][1], _t[TGMX_T_DELAY][2]];
@@ -1070,7 +1187,7 @@ function TGMX_Tween(_script, _args, _tID)
 	// TRACK DELAY START
 	_t[@ TGMX_T_DELAY_START] = _t[TGMX_T_DELAY];
 
-	// HANDLE QUEUED CALLBACK EVENTS
+		// HANDLE QUEUED CALLBACK EVENTS
 	if (_qCallbacks != undefined)
 	{
 		// WE NEED TO USE THIS FOR ASSUMED CALLBACK TARGETS -- WE DONT WANT TO CREATE A DOUBLE WEAK REFERENCES FOR STRUCT TARGETS
@@ -1087,19 +1204,26 @@ function TGMX_Tween(_script, _args, _tID)
 			}
 			else // HANDLE ADVANCED CALLBACK
 			{
+				var _cArgs; // Arguments to be passed to TweenAddCallback() later on
 				var _cbDataTarget = _cbData[0];
-				static TGMX_STR_method = "method";
+				static TGMX_STR_method = "method"; // Cache string for optimization
 				
 				// Undefined -- use original method environment
 				if (_cbDataTarget == undefined) 
 				{
-					var _cArgs = [_tID, _event, method_get_self(_cbData[1])];
+					_cArgs = [_tID, _event, method_get_self(_cbData[1])];
 					array_copy(_cArgs, 3, _cbData, 1, array_length(_cbData)-1);
+				}
+				else // First argument is a method or function id -- _cbData[0] is first argument in array
+				if (is_method(_cbDataTarget) || real(_cbDataTarget) >= 100000 || typeof(_cbDataTarget) == TGMX_STR_method) // typeof() is used for HTML5 bug where built-in functions can change type
+				{
+					_cArgs = [_tID, _event, _raw_tween_target];
+					array_copy(_cArgs, 3, _cbData, 0, array_length(_cbData));
 				}
 				else // Explicit target using {target: some_target} -- DON'T WORRY ABOUT WEAK REFERENCES HERE, AS _cArgs IS TEMPORARY
 				if (is_struct(_cbDataTarget))
 				{	
-					var _cArgs = array_create(array_length(_cbData) + 2);
+					_cArgs = array_create(array_length(_cbData) + 2);
 					_cArgs[0] = _tID;
 					_cArgs[1] = _event;
 					
@@ -1116,20 +1240,15 @@ function TGMX_Tween(_script, _args, _tID)
 					
 					array_copy(_cArgs, 3, _cbData, 1, array_length(_cbData)-1);
 				}
-				else // First argument is a method or function id -- _cbData[0] is first argument in array
-				if (is_method(_cbDataTarget) || real(_cbDataTarget) >= 100000 || typeof(_cbDataTarget) == TGMX_STR_method) // typeof() is used for HTML5 bug where built-in functions can change type
-				{
-					var _cArgs = [_tID, _event, _raw_tween_target];
-					array_copy(_cArgs, 3, _cbData, 0, array_length(_cbData));
-				}
 				else // INSTANCE self | other TARGET -- NOTE -- THE FOLLOWING IS ONLY FOR INSTANCES AND NOT STRUCTS, WHICH ARE HANDLED ABOVE
 				{
-					var _cArgs = [_tID, _event, _cbDataTarget.id];
-					array_copy(_cArgs, 3, _cbData, 1, array_length(_cbData)-1);
+					_cArgs = [_tID, _event, _raw_tween_target];
+					array_copy(_cArgs, 3, _cbData, 0, array_length(_cbData));
 				}
 				
+				
 				// Execute TweenAddCallback() with defined arguments above
-				script_execute_ext(TweenAddCallback, _cArgs);	
+				script_execute_ext(TweenAddCallback, _cArgs);
 			}
 		}
 

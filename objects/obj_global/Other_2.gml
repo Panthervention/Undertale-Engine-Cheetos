@@ -1,9 +1,11 @@
 randomize();
 
 #region		Localization Initialize
-lexicon_index_definitions("./locale/definitions.json");
-lexicon_language_set("English");
-lexicon_index_fallback_language_set("English");
+// feather ignore GM1019
+// feather ignore GM2039
+LexiconIndexDeclareFromFile("./locale/english.json");
+LexiconLanguageSet("English");
+LexiconGlobalFallbackSet("English");
 #endregion
 
 Input_Init();
@@ -29,8 +31,6 @@ Flag_Load(FLAG_TYPE.SETTINGS);
 
 var _volume = Flag_Get(FLAG_TYPE.SETTINGS, FLAG_SETTINGS.VOLUME, 100) / 100,
 	_border = Flag_Get(FLAG_TYPE.SETTINGS, FLAG_SETTINGS.BORDER);
-
-print($"volume: {_volume}");
 
 audio_master_gain(_volume);
 

@@ -6,7 +6,7 @@
   "name":"InputCheck",
   "parent":{
     "name":"Basics",
-    "path":"folders/Extension/Input/Checkers/Basics.yy",
+    "path":"folders/Extension/Input v10.2.2/Checkers/Basics.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

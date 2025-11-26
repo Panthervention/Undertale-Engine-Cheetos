@@ -1,5 +1,5 @@
 {
-  "$GMNotes":"",
+  "$GMNotes":"v1",
   "%Name":"Cheetos - Coding style and convention",
   "name":"Cheetos - Coding style and convention",
   "parent":{

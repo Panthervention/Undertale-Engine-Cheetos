@@ -82,12 +82,12 @@ function Item() constructor {
 		item_id = ITEM.PIE;
 		type = ITEM_TYPE.CONSUMABLE;
 		uses = 4;
-		name = lexicon_text("item.pie.name");
-		name_short = lexicon_text("item.pie.name_short");
-		name_short_serious = lexicon_text("item.pie.name_short_serious");
+		name = Lexicon("item.pie.name").Get();
+		name_short = Lexicon("item.pie.name_short").Get();
+		name_short_serious = Lexicon("item.pie.name_short_serious").Get();
 
 		heal = infinity;
-		desc_info = lexicon_text("item.pie.info");
+		desc_info = Lexicon("item.pie.info").Get();
 		effect = function(_item) {
 			show_debug_message("uses: {0}", _item.uses - 1);
 		};
@@ -96,49 +96,49 @@ function Item() constructor {
 		item_id = ITEM.NOODLES;
 		type = ITEM_TYPE.CONSUMABLE;
 		uses = 1;
-		name = lexicon_text("item.noodles.name");
-		name_short = lexicon_text("item.noodles.name_short");
-		name_short_serious = lexicon_text("item.noodles.name_short_serious");
+		name = Lexicon("item.noodles.name").Get();
+		name_short = Lexicon("item.noodles.name_short").Get();
+		name_short_serious = Lexicon("item.noodles.name_short_serious").Get();
 		
 		heal = 90;
-		desc_info = lexicon_text("item.noodles.info");
-		desc_use_before = lexicon_text("item.noodles.use.before");
+		desc_info = Lexicon("item.noodles.info").Get();
+		desc_use_before = Lexicon("item.noodles.use.before").Get();
 	};
 	function Item_Steak() : Item() constructor {
 		item_id = ITEM.STEAK;
 		type = ITEM_TYPE.CONSUMABLE;
 		uses = 1;
 
-		name = lexicon_text("item.face_steak.name");
-		name_short = lexicon_text($"item.face_steak.name_short.{real((string_lower(Player_GetName()) == "drak" || string_lower(Player_GetName()) == "gigi" || string_lower(Player_GetName()) == "gugu"))}");
-		name_short_serious = lexicon_text("item.face_steak.name_short_serious");
+		name = Lexicon("item.face_steak.name").Get();
+		name_short = Lexicon($"item.face_steak.name_short.{real((string_lower(Player_GetName()) == "drak" || string_lower(Player_GetName()) == "gigi" || string_lower(Player_GetName()) == "gugu"))}").Get();
+		name_short_serious = Lexicon("item.face_steak.name_short_serious").Get();
 		
 		heal = 60;
-		desc_info = lexicon_text("item.face_steak.info", heal);
+		desc_info = Lexicon("item.face_steak.info", heal).Get();
 	};
 	function Item_SnowPiece() : Item() constructor {
 		item_id = ITEM.SNOW;
 		type = ITEM_TYPE.CONSUMABLE;
 		uses = 1;
-		name = lexicon_text("item.snow.name");
-		name_short = lexicon_text("item.snow.name_short");
-		name_short_serious = lexicon_text("item.snow.name_short_serious");
+		name = Lexicon("item.snow.name").Get();
+		name_short = Lexicon("item.snow.name_short").Get();
+		name_short_serious = Lexicon("item.snow.name_short_serious").Get();
 
 		heal = 45;
-		desc_info = lexicon_text("item.snow.info", heal);
+		desc_info = Lexicon("item.snow.info", heal).Get();
 	}
 
 	function Item_LegendaryHero() : Item() constructor {
 		item_id = ITEM.L_HERO;
 		type = ITEM_TYPE.CONSUMABLE;
 		uses = 1;
-		name = lexicon_text("item.legendary_hero.name");
-		name_short = lexicon_text("item.legendary_hero.name_short");
-		name_short_serious = lexicon_text("item.legendary_hero.name_short_serious");
+		name = Lexicon("item.legendary_hero.name").Get();
+		name_short = Lexicon("item.legendary_hero.name_short").Get();
+		name_short_serious = Lexicon("item.legendary_hero.name_short_serious").Get();
 
 		heal = 40;
-		desc_info = lexicon_text("item.legendary_hero.info", heal);
-		desc_use_after = lexicon_text("item.legendary_hero.use.after");
+		desc_info = Lexicon("item.legendary_hero.info", heal).Get();
+		desc_use_after = Lexicon("item.legendary_hero.use.after").Get();
 	}
 	#endregion
 	
@@ -147,11 +147,11 @@ function Item() constructor {
 		item_id = ITEM.STICK;
 		type = ITEM_TYPE.CONSUMABLE;
 		uses = infinity;
-		name = lexicon_text("item.stick.name");
-		name_short = lexicon_text("item.stick.name");
-		name_short_serious = lexicon_text("item.stick.name");		
+		name = Lexicon("item.stick.name").Get();
+		name_short = Lexicon("item.stick.name").Get();
+		name_short_serious = Lexicon("item.stick.name").Get();		
 		
-		desc_info = lexicon_text("item.stick.info");
+		desc_info = Lexicon("item.stick.info").Get();
 		
 		atk = 0;
 	};
@@ -159,11 +159,11 @@ function Item() constructor {
 		item_id = ITEM.BANDAGE;
 		type = ITEM_TYPE.CONSUMABLE;
 		uses = 1;
-		name = lexicon_text("item.bandage.name");
-		name_short = lexicon_text("item.bandage.name");
-		name_short_serious = lexicon_text("item.bandage.name");
+		name = Lexicon("item.bandage.name").Get();
+		name_short = Lexicon("item.bandage.name").Get();
+		name_short_serious = Lexicon("item.bandage.name").Get();
 
-		desc_info = lexicon_text("item.bandage.info");
+		desc_info = Lexicon("item.bandage.info").Get();
 		
 		heal = 10;
 		def = 0;
@@ -172,11 +172,11 @@ function Item() constructor {
 		item_id = ITEM.TOY_KNIFE;
 		type = ITEM_TYPE.EQUIPMENT;
 		type_equipment = "weapon";
-		name = lexicon_text("item.toy_knife.name");
-		name_short = lexicon_text("item.toy_knife.name");
-		name_short_serious = lexicon_text("item.toy_knife.name");
+		name = Lexicon("item.toy_knife.name").Get();
+		name_short = Lexicon("item.toy_knife.name").Get();
+		name_short_serious = Lexicon("item.toy_knife.name").Get();
 
-		desc_info = lexicon_text("item.toy_knife.info");
+		desc_info = Lexicon("item.toy_knife.info").Get();
 
 		atk = 3;
 	}
@@ -184,11 +184,11 @@ function Item() constructor {
 		item_id = ITEM.RIBBON;
 		type = ITEM_TYPE.EQUIPMENT;
 		type_equipment = "armor";
-		name = lexicon_text("item.faded_ribbon.name");
-		name_short = lexicon_text("item.faded_ribbon.name.short");
-		name_short_serious = lexicon_text("item.faded_ribbon.name.short");
+		name = Lexicon("item.faded_ribbon.name").Get();
+		name_short = Lexicon("item.faded_ribbon.name.short").Get();
+		name_short_serious = Lexicon("item.faded_ribbon.name.short").Get();
 
-		desc_info = lexicon_text("item.faded_ribbon.info");
+		desc_info = Lexicon("item.faded_ribbon.info").Get();
 
 		def = 3;
 	}

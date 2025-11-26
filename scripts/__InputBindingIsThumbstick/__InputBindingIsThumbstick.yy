@@ -6,7 +6,7 @@
   "name":"__InputBindingIsThumbstick",
   "parent":{
     "name":"(System)",
-    "path":"folders/Extension/Input/(System).yy",
+    "path":"folders/Extension/Input v10.2.2/(System).yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

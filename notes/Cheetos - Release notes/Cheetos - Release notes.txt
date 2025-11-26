@@ -12,11 +12,39 @@
 ********************************************************************************
 									RELEASE NOTES
 ********************************************************************************
-v1.2.3	- 23/10/2025
+v1.3.1			- 26/11/2025
+- Fixed validation check for Item and Cell gone wrong.
+- Fixed TweenDestroy crash for obj_title_screen, which happens when you Reset -> Yes -> F2 -> Reset.
+- Fixed box usage in overworld gone wrong.
+- Increased obj_global depth from -15000 to -10000.
+
+v1.3.0			- 24/11/2025
+- Updated Lexicon to v4.0.3 along with fixes around it (Thanks TabularElf for the bug fixes <3).
+- Updated index validity check for Item and Cell system.
+- Implemented Quality of Life changes for Border system (inspired by Magi's Fancy Border).
+
+v1.3.0 - WIP 2	- 24/11/2025
+- Calibrated arbitrary clipping shaders so they are functional on both Windows and MacOS.
+- TODO:
+	+ Fix some entries due to Lexicon somehow does not fill the number templates.
+	+ Add some Quality of Life changes to auto-capture of the border.
+
+v1.3.0 - WIP 1	- 24/11/2025
+- Updated macOS Graphic configuration.
+- Updated IDE to 2024.14.1.210, Runtime 2024.14.1.253.
+- Updated Input to v10.2.2.
+- Updated TweenGMX to v1.0.8.
+- Updated Scribble to v9.7.0 (Beta).
+- Updated SNAP to v8.1.1.
+- Fixed typo in obj_title_screen ("Autumn" -> "Fall" for season detection because localization uses "Fall" as entry name).
+- Breaking changes:
+	+ Updated Lexicon to v4.0.2. Be sure to check Lexicon's documentation for the changes!
+
+v1.2.3			- 23/10/2025
 - Fixed Item_Set and Cell_SetAddress resizing the array unnecessarily, causing empty elements being created.
 - Fixed obj_ui_menu navigation accepting input for Item selection and Cell selection when respective category only hold 1 element.
 
-v1.2.2	- 14/10/2025
+v1.2.2			- 14/10/2025
 - Implemented blue soul fix from Coalition Engine whereas the soul could clip through the platform under high falling speed and reworked platform logic in general.
 - Fixed obj_platform which did not used `mask` variable, which should also fix the Bullet_Platform now.
 - Fixed obj_shaker because the original code from TML had some flaws term of logic, preventing the object to work altogether.
@@ -24,13 +52,13 @@ v1.2.2	- 14/10/2025
 - Moved Game Over check from obj_battle_soul to obj_battle_controller.
 - Deprecated Draw event of obj_battle_soul and turned into a visible toggle check in Step event.
 
-v1.2.1	- 29/09/2025
+v1.2.1			- 29/09/2025
 - Implemented blue soul fix from Coalition Engine. Now the soul doesn't float anymore in certain circumstances.
 - Created Player_SaveExists() check to fix obj_gameover state loading.
 - Slightly enhanced Global_Input to ensure it's self-contained.
 - Fixed some minor bugs of obj_title_screen (naming letter index go wrong, volume config go wrong...).
 
-v1.2.0	- 14/05/2025
+v1.2.0			- 14/05/2025
 - Enforced naming convention thoughout the engine.
 - Updated IDE to 2024.13.1.193, Runtime 2024.13.1.242.
 - Updated Scribble to v9.5.0.
@@ -62,10 +90,10 @@ v1.2.0	- 14/05/2025
 - Deprecated spr_battle_damage and spr_battle_damage_miss. Now we will use Hachiro font directly for damage display (font_damage).
 - Deprecated unused code remnants.
 
-v1.1.1	- 18/03/2025
+v1.1.1			- 18/03/2025
 - Removed [refresh] tag from `menu_dialog_prefix` variable in obj_battle_textwriter that caused the textwriter to crash.
 
-v1.1	- 18/03/2025
+v1.1			- 18/03/2025
 - Updated Input to v8.1.2
 - Updated Lexicon to v3.0.8
 - Updated CleanShape to v1.2.0
@@ -81,9 +109,9 @@ v1.1	- 18/03/2025
 - Implemented auto capture border.
 - Removed Minecraft music background.
 
-v1.0.2	- 28/07/2024
+v1.0.2			- 28/07/2024
 - Miscellaneous adjustments.
 - Updated runtime to v2024.6.1.208
 
-v1.0	- 04/06/2024
+v1.0			- 04/06/2024
 - Engine repository publicly released.

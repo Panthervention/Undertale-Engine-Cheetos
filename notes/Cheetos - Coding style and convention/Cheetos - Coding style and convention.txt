@@ -161,7 +161,7 @@ IV. The standards in Cheetos Edition:
 											  No exception, and that include iteration variables like i, j, k!)
 	- Function and Constructor parameter:
 								_my_parameter
-		Example: my_add_function(_param_1, _param_2)
+		Example: My_AddFunction(_param_1, _param_2)
 				 {
 					return (_param_1 + _param_2);
 				 }

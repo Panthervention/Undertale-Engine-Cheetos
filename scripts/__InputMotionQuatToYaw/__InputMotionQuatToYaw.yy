@@ -6,7 +6,7 @@
   "name":"__InputMotionQuatToYaw",
   "parent":{
     "name":"(System)",
-    "path":"folders/Extension/Input Plug-Ins/Gyro & Motion/(System).yy",
+    "path":"folders/Extension/Input v10.2.2/Plug-Ins/Gyro & Motion/(System).yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -6,7 +6,7 @@
   "name":"SnapBufferWriteBinary",
   "parent":{
     "name":"Custom Binary",
-    "path":"folders/Extension/SNAP/Custom Binary.yy",
+    "path":"folders/Extension/SNAP v8.1.1/Custom Binary.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

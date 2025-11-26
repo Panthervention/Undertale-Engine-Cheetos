@@ -30,6 +30,18 @@ function __InputPartySystem()
                     InputPlugInError("Join verb not defined. Please call InputPartySetParams()");
                 }
                 
+                //Remove players with disconnected devices
+                var _p = 0;
+                repeat(INPUT_MAX_PLAYERS)
+                {
+                    if (not InputPlayerIsConnected(_p))
+                    {
+                        InputPlayerSetDevice(INPUT_NO_DEVICE, _p);
+                    }
+                    
+                    ++_p;
+                }
+                
                 if (__fillEmpty)
                 {
                     //Drop players down into empty spaces
@@ -83,7 +95,15 @@ function __InputPartySystem()
                             }
                         }
                         
-                        var _device = InputDeviceGetNewActivityOnVerb(__joinVerb, _p);
+                        if (__joinVerb == INPUT_PARTY_ANY_BUTTON)
+                        {
+                            var _device = __InputPartyDeviceGetNewActivity(__leaveVerb, _p);
+                        }
+                        else
+                        {
+                            var _device = InputDeviceGetNewActivityOnVerb(__joinVerb, _p);
+                        }
+                        
                         if (_device != INPUT_NO_DEVICE)
                         {
                             __InputTrace("Player ", _p, " joined with device ", _device);

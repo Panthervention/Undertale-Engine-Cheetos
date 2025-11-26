@@ -1,20 +1,64 @@
 // Feather disable all
 /// @return JSON string that encodes the struct/array nested data
 /// 
-/// @param buffer                Buffer to write data into
-/// @param struct/array          The data to be encoded. Can contain structs, arrays, strings, and numbers.   N.B. Will not encode ds_list, ds_map etc.
-/// @param [pretty]              (bool) Whether to format the string to be human readable. Defaults to <false>
-/// @param [alphabetizeStructs]  (bool) Sorts struct variable names is ascending alphabetical order as per ds_list_sort(). Defaults to <false>
-/// @param [accurateFloats]      (bool) Whether to output floats at a higher accuracy than GM normally defaults to. Defaults to <false>. Setting this to <true> confers a performance penalty
+/// @param buffer                      Buffer to write data into
+/// @param struct/array                The data to be encoded. Can contain structs, arrays, strings, and numbers.   N.B. Will not encode ds_list, ds_map etc.
+/// @param [pretty=false]              (bool) Whether to format the string to be human readable
+/// @param [alphabetizeStructs=false]  (bool) Sorts struct variable names is ascending alphabetical order as per array_sort()
+/// @param [accurateFloats=true]       (bool) Whether to output floats at a higher accuracy than GM normally defaults to. Setting this to <true> confers a performance penalty
+/// @param [useFieldOrder=true]        (bool) Whether to respect the special .__snapFieldOrder array when writing struct fields
 /// 
-/// @jujuadams 2022-10-30
+/// Juju Adams 2025-10-10
 
-function SnapBufferWriteJSON(_buffer, _value, _pretty = false, _alphabetise = false, _accurateFloats = false)
+function SnapBufferWriteJSON(_buffer, _value, _pretty = false, _alphabetise = false, _accurateFloats = false, _useFieldOrder = true)
 {
-    return __SnapToJSONBufferValue(_buffer, _value, _pretty, _alphabetise, _accurateFloats, "");
+    return __SnapToJSONBufferValue(_buffer, _value, _pretty, _alphabetise, _accurateFloats, _useFieldOrder, "");
 }
 
-function __SnapToJSONBufferValue(_buffer, _value, _pretty, _alphabetise, _accurateFloats, _indent)
+function __SnapToJSONArrayFindIndex(_array, _value)
+{
+    var _i = 0;
+    repeat(array_length(_array))
+    {
+        if (_array[_i] == _value)
+        {
+            return _i;
+        }
+        
+        ++_i;
+    }
+    
+    return undefined;
+}
+
+function __SnapToJSONMergeStructNames(_struct, _nameArray, _fieldOrderArray)
+{
+    if (array_length(_nameArray)-1 != array_length(_fieldOrderArray)) // Subtract one here to account for the field order
+    {
+        show_debug_message("Warning! Field order length (" + string(array_length(_fieldOrderArray)) + ") does not match number of fields in struct (" + string(array_length(_nameArray)-1) + ")");
+        show_debug_message("         Field order is " + string(json_stringify(_fieldOrderArray)));
+        show_debug_message("         Struct fields are " + string(json_stringify(_nameArray)));
+    }
+    
+    var _i = array_length(_fieldOrderArray)-1;
+    repeat(array_length(_fieldOrderArray))
+    {
+        var _name = _fieldOrderArray[_i];
+        if (not variable_struct_exists(_struct, _name))
+        {
+            show_debug_message("Warning! Struct key \"" + string(_name) + "\" found in field order but not found in struct");
+        }
+        else
+        {
+            array_delete(_nameArray, __SnapToJSONArrayFindIndex(_nameArray, _name), 1);
+            array_insert(_nameArray, 0, _name);
+        }
+        
+        --_i;
+    }
+}
+                
+function __SnapToJSONBufferValue(_buffer, _value, _pretty, _alphabetise, _accurateFloats, _useFieldOrder, _indent)
 {
     if (is_real(_value) || is_int32(_value) || is_int64(_value))
     {
@@ -55,7 +99,7 @@ function __SnapToJSONBufferValue(_buffer, _value, _pretty, _alphabetise, _accura
                 repeat(_count)
                 {
                     buffer_write(_buffer, buffer_text, _indent);
-                    __SnapToJSONBufferValue(_buffer, _array[_i], _pretty, _alphabetise, _accurateFloats, _indent);
+                    __SnapToJSONBufferValue(_buffer, _array[_i], _pretty, _alphabetise, _accurateFloats, _useFieldOrder, _indent);
                     buffer_write(_buffer, buffer_u16, 0x0A2C); //Comma + newline
                     ++_i;
                 }
@@ -74,7 +118,7 @@ function __SnapToJSONBufferValue(_buffer, _value, _pretty, _alphabetise, _accura
                 var _i = 0;
                 repeat(_count)
                 {
-                    __SnapToJSONBufferValue(_buffer, _array[_i], _pretty, _alphabetise, _accurateFloats, _indent);
+                    __SnapToJSONBufferValue(_buffer, _array[_i], _pretty, _alphabetise, _accurateFloats, _useFieldOrder, _indent);
                     buffer_write(_buffer, buffer_u8, 0x2C); //Comma
                     ++_i;
                 }
@@ -96,6 +140,22 @@ function __SnapToJSONBufferValue(_buffer, _value, _pretty, _alphabetise, _accura
         
         var _names = variable_struct_get_names(_struct);
         if (_alphabetise) array_sort(_names, true);
+        
+        if (_useFieldOrder)
+        {
+            var _structFieldOrder = _struct[$ "__snapFieldOrder"];
+            if (is_array(_structFieldOrder))
+            {
+                __SnapToJSONMergeStructNames(_struct, _names, _structFieldOrder);
+            }
+        }
+        
+        //Clean up the field order
+        if (variable_struct_exists(_struct, "__snapFieldOrder"))
+        {
+            var _index = __SnapToJSONArrayFindIndex(_names, "__snapFieldOrder");
+            if (_index != undefined) array_delete(_names, _index, 1);
+        }
         
         var _count = array_length(_names);
         if (_count <= 0)
@@ -122,7 +182,7 @@ function __SnapToJSONBufferValue(_buffer, _value, _pretty, _alphabetise, _accura
                     buffer_write(_buffer, buffer_text, string(_name));
                     buffer_write(_buffer, buffer_u32,  0x203A2022); // <" : >
                     
-                    __SnapToJSONBufferValue(_buffer, _struct[$ _name], _pretty, _alphabetise, _accurateFloats, _indent);
+                    __SnapToJSONBufferValue(_buffer, _struct[$ _name], _pretty, _alphabetise, _accurateFloats, _useFieldOrder, _indent);
                     
                     buffer_write(_buffer, buffer_u16, 0x0A2C); //Comma + newline
                     
@@ -150,7 +210,7 @@ function __SnapToJSONBufferValue(_buffer, _value, _pretty, _alphabetise, _accura
                     buffer_write(_buffer, buffer_text, string(_name));
                     buffer_write(_buffer, buffer_u16,  0x3A22); // Double quote then colon
                     
-                    __SnapToJSONBufferValue(_buffer, _struct[$ _name], _pretty, _alphabetise, _accurateFloats, _indent);
+                    __SnapToJSONBufferValue(_buffer, _struct[$ _name], _pretty, _alphabetise, _accurateFloats, _useFieldOrder, _indent);
                     
                     buffer_write(_buffer, buffer_u8, 0x2C); //Comma
                     

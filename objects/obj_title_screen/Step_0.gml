@@ -63,13 +63,14 @@ else if (__menu == 0) // Instruction - Main menu
 				
 				case 1: // Reset
 					__menu = 2;
-	
-					TweenDestroy(id);
 					
-					TweenFire(id, "", 0, off, 0, 270, "__confirm_name_x>", 200, "__confirm_name_y>", 230, "__confirm_name_scale>", 7);
+					if (TweenExists(__tween))
+						TweenDestroy(__tween);
 					
-		            __naming_name = Flag_Get(FLAG_TYPE.INFO, FLAG_INFO.NAME, lexicon_text("ui.save.name.empty"));
-		            __confirm_title = lexicon_text("menu.confirm.title.reset"); // A name has already been chosen.
+					__tween = TweenFire(id, "", 0, off, 0, 270, "__confirm_name_x>", 200, "__confirm_name_y>", 230, "__confirm_name_scale>", 7);
+					
+		            __naming_name = Flag_Get(FLAG_TYPE.INFO, FLAG_INFO.NAME, Lexicon("ui.save.name.empty").Get());
+		            __confirm_title = Lexicon("menu.confirm.title.reset").Get(); // A name has already been chosen.
 					
 					__menu_label_confirm_title = scribble(__confirm_title).starting_format("font_dt_sans", c_white).transform(2, 2, 0);
 					__menu_label_confirm_title.build(true);
@@ -190,8 +191,9 @@ else if (__menu == 1) // Naming
 						
 						event_user(1); // Name validation checking
 						
-						TweenDestroy(id);
-						TweenFire(id, "", 0, off, 0, 270, "__confirm_name_x>", 200, "__confirm_name_y>", 230, "__confirm_name_scale>", 7);
+						if (TweenExists(__tween))
+							TweenDestroy(__tween);
+						__tween = TweenFire(id, "", 0, off, 0, 270, "__confirm_name_x>", 200, "__confirm_name_y>", 230, "__confirm_name_scale>", 7);
 					}
 					break;
 			}
@@ -231,7 +233,8 @@ else if (__menu == 2) // Name Confirmation
 	    if (__choice_confirm == 0) // No
 		{
 	        __menu = __mode ? 0 : 1;
-			TweenDestroy(id);
+			if (TweenExists(__tween))
+				TweenDestroy(__tween);
 			__confirm_name_x = 280;
 			__confirm_name_y = 110;
 			__confirm_name_scale = 2;

@@ -42,17 +42,16 @@ scribble_typists_add_event("option_event", set_option_event);
 
 #region Option stuffs
 function option_box_yes() {
-	if (!instance_exists(obj_ui_box) && (Item_Count() > 0 || Box_ItemCount(0) > 0))
+	if (Item_Count() > 0 || Box_ItemCount(0) > 0)
 	{
-		instance_create_depth(0, 0, DEPTH_UI.PANEL, obj_ui_box);
 		instance_destroy(obj_ui_dialog);
+		if (!instance_exists(obj_ui_box))
+			instance_create_depth(0, 0, DEPTH_UI.PANEL, obj_ui_box);
 	}
 	else
 	{
-		var _rand = irandom(2),
-			_dialog = lexicon_text($"ui.box.inventory.empty.{_rand}");
-		Dialog_Add(_dialog);
-		Dialog_Start();
+		text = $"[scale, 2][font_dt_mono]{Lexicon($"ui.box.inventory.empty.{irandom(2)}").Get()}[pause][end]";
+		text_typist.reset();
 	}
 }
 
@@ -66,6 +65,6 @@ function option_sans_fight_yes() {
 }
 
 function option_sans_fight_nope() {
-	text = lexicon_text("overworld.sans.dialog.weary");
+	text = Lexicon("overworld.sans.dialog.weary").Get();
 }
 #endregion

@@ -6,7 +6,7 @@
   "name":"__scribble_config_colours",
   "parent":{
     "name":"Configuration - Please edit these!",
-    "path":"folders/Extension/Scribble/Configuration - Please edit these!.yy",
+    "path":"folders/Extension/Scribble v9.7.0 (beta)/Configuration - Please edit these!.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

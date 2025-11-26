@@ -86,7 +86,7 @@ switch (_menu_state)
 				if (Item_Count() > 4)
 				{
 					var _page_count = (floor(Battle_GetMenuChoiceItem() / 4) + 1),
-						_page = _prefix + lexicon_text("battle.menu.page", _page_count);
+						_page = _prefix + Lexicon("battle.menu.page", _page_count).Get();
 					draw_text_scribble(384, 340, _page); // Page counter
 				}
 				#endregion

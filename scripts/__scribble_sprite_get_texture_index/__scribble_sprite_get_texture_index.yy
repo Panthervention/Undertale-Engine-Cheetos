@@ -6,7 +6,7 @@
   "name":"__scribble_sprite_get_texture_index",
   "parent":{
     "name":"(System - don't call these functions)",
-    "path":"folders/Extension/Scribble/(System - don't call these functions).yy",
+    "path":"folders/Extension/Scribble v9.7.0 (beta)/(System - don't call these functions).yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
