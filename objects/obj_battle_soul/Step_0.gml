@@ -94,20 +94,23 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_fall_multi = fall_multi;
 			
 			#region Position calculation
-			// Option 1
-			var _board_angle_90 = _board_angle mod 90,
-				_angle_90 = _angle mod 90,
-				_small_offset = 0.001 + abs(min(_board_angle_90, 90 - _board_angle_90) - min(_angle_90, 90 - _angle_90)) / 15,
-				_displace_x = lengthdir_x(_x_offset+_small_offset, _angle),
-				_displace_y = lengthdir_y(_y_offset+_small_offset, _angle);
-			
-			/* Option 2
 			var _shift = _board_angle mod 90 - _angle mod 90;
 			if (_shift > 45) _shift -= 90;
 			if (_shift < -45) _shift += 90;
 			var _angle_rot = _angle + _shift,
 				_displace_x = lengthdir_x(_x_offset+0.001, _angle_rot),
 				_displace_y = lengthdir_y(_y_offset+0.001, _angle_rot);
+			_angle_rot = _angle - _shift;
+			var _displace_x2 = lengthdir_x(_x_offset+0.001, _angle_rot),
+				_displace_y2 = lengthdir_y(_y_offset+0.001, _angle_rot);
+			
+			/* Alternate method that only uses 1 check
+			var _shift = _board_angle mod 90 - _angle mod 90;
+			if (_shift > 45) _shift -= 90;
+			if (_shift < -45) _shift += 90;
+			var _small_offset = 0.001 + abs(_shift) / 10,
+				_displace_x = lengthdir_x(_x_offset+_small_offset, _angle),
+				_displace_y = lengthdir_y(_y_offset+_small_offset, _angle);
 			*/
 			
 			// Store board vertices into vectors for checking (Rotated board is a parallelogram)
@@ -124,8 +127,8 @@ if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_ST
 				_board_x + _board_bottom_left.x	, _board_y + _board_bottom_left.y
 			];
 			
-			_on_ground = !point_in_parallelogram(x + _displace_x, y + _displace_y, _board_vertices);
-			_on_ceil = !point_in_parallelogram(x - _displace_x, y - _displace_y, _board_vertices);
+			_on_ground = !(point_in_parallelogram(x + _displace_x, y + _displace_y, _board_vertices) && point_in_parallelogram(x + _displace_x2, y + _displace_y2, _board_vertices));
+			_on_ceil = !(point_in_parallelogram(x - _displace_x, y - _displace_y, _board_vertices) && point_in_parallelogram(x - _displace_x2, y - _displace_y2, _board_vertices));
 			#endregion
 			
 			#region Soul gravity
