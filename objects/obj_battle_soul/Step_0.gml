@@ -32,7 +32,7 @@ if (_battle_state == BATTLE_STATE.MENU && _menu_state == BATTLE_MENU.BUTTON)
 }
 else if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATTLE_STATE.IN_TURN)
 {
-	image_angle %= 360;
+	image_angle = posmod(image_angle, 360);
 	var _soul = id,
 		_angle = image_angle,
 		_angle_compensation = (_angle + 90) % 360;
@@ -51,9 +51,7 @@ else if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATT
 		var _board = obj_battle_board,
 			_board_x = _board.x,
 			_board_y = _board.y,
-			_board_angle = posmod(_board.image_angle, 360),
-			_board_dir = _board_angle div 90,
-			_board_thickness = _board.frame_thickness;
+			_board_angle = posmod(_board.image_angle, 360);
 		
 		var _board_top_limit    = (_board_y - _board.up) + _y_offset,
 			_board_bottom_limit = (_board_y + _board.down) - _y_offset,
@@ -95,26 +93,30 @@ else if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATT
 				_fall_multi = fall_multi;
 			
 			#region Position calculation
-			var _dist = point_distance(_board_x, _board_y, x, y),
-				_dir = point_direction(_board_x, _board_y, x, y) - _board_dir,
-				_r_x = lengthdir_x(_dist, _dir) + _board_x,
-				_r_y = lengthdir_y(_dist, _dir) + _board_y,
-				_displace_x = lengthdir_x(_x_offset + (_board_thickness / 2), _angle),
-				_displace_y = lengthdir_y(_y_offset + (_board_thickness / 2), _angle);
+			var _shift = _board_angle mod 90 - _angle mod 90;
+			if (_shift > 45) _shift -= 90;
+			if (_shift < -45) _shift += 90;
+			var _angle_rot = _angle + _shift,
+				_displace_x = lengthdir_x(_x_offset+0.001, _angle_rot),
+				_displace_y = lengthdir_y(_y_offset+0.001, _angle_rot);
+			_angle_rot = _angle - _shift;
+			var _displace_x2 = lengthdir_x(_x_offset+0.001, _angle_rot),
+				_displace_y2 = lengthdir_y(_y_offset+0.001, _angle_rot);
+			
+			/* Alternate method that only uses 1 check
+			var _shift = _board_angle mod 90 - _angle mod 90;
+			if (_shift > 45) _shift -= 90;
+			if (_shift < -45) _shift += 90;
+			var _small_offset = 0.001 + abs(_shift) / 10,
+				_displace_x = lengthdir_x(_x_offset+_small_offset, _angle),
+				_displace_y = lengthdir_y(_y_offset+_small_offset, _angle);
+			*/
 			
 			// Store board vertices into vectors for checking (Rotated board is a parallelogram)
-			var _board_top_left		= new Vector2(-_board.left, -_board.up).Rotated(_board_angle),
-				_board_top_right	= new Vector2(_board.right, -_board.up).Rotated(_board_angle),
-				_board_bottom_left	= new Vector2(-_board.left, _board.down).Rotated(_board_angle),
-				_board_bottom_right = new Vector2(_board.right, _board.down).Rotated(_board_angle);
-			
-			switch (_angle)
-			{
-				case DIR.RIGHT:		_board_top_right.x += 2;   _board_bottom_right.x += 2;	break;
-				case DIR.UP:		_board_top_left.y -= 2;    _board_top_right.y -= 2;		break;
-				case DIR.LEFT:		_board_top_left.x -= 2;    _board_bottom_left.x -= 2;	break;
-				case DIR.DOWN:		_board_bottom_left.y += 2; _board_bottom_right.y += 2;	break;
-			}
+			var _board_top_left		= new Vector2(-_board.left, -_board.up).Rotated(-_board_angle),
+				_board_top_right	= new Vector2(_board.right, -_board.up).Rotated(-_board_angle),
+				_board_bottom_left	= new Vector2(-_board.left, _board.down).Rotated(-_board_angle),
+				_board_bottom_right = new Vector2(_board.right, _board.down).Rotated(-_board_angle);
 			
 			var _board_vertices =
 			[
@@ -124,15 +126,8 @@ else if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATT
 				_board_x + _board_bottom_left.x	, _board_y + _board_bottom_left.y
 			];
 			
-			var _ground_top    = !point_in_parallelogram(_r_x, _r_y + _displace_y, _board_vertices),
-				_ground_bottom = !point_in_parallelogram(_r_x, _r_y + _displace_y, _board_vertices),
-				_ground_left   = !point_in_parallelogram(_r_x + _displace_x, _r_y, _board_vertices),
-				_ground_right  = !point_in_parallelogram(_r_x + _displace_x, _r_y, _board_vertices);
-				
-			var _ceil_top    = !point_in_parallelogram(_r_x, _r_y - _displace_y, _board_vertices),
-				_ceil_bottom = !point_in_parallelogram(_r_x, _r_y - _displace_y, _board_vertices),
-				_ceil_left   = !point_in_parallelogram(_r_x - _displace_x, _r_y, _board_vertices),
-				_ceil_right  = !point_in_parallelogram(_r_x - _displace_x, _r_y, _board_vertices);
+			_on_ground = !(point_in_parallelogram(x + _displace_x, y + _displace_y, _board_vertices) && point_in_parallelogram(x + _displace_x2, y + _displace_y2, _board_vertices));
+			_on_ceil = !(point_in_parallelogram(x - _displace_x, y - _displace_y, _board_vertices) && point_in_parallelogram(x - _displace_x2, y - _displace_y2, _board_vertices));
 			#endregion
 			
 			#region Soul gravity
@@ -152,43 +147,23 @@ else if (_battle_state == BATTLE_STATE.TURN_PREPARATION || _battle_state == BATT
 			#region Collision processing
 			
 			#region Input and collision check of different directions of soul
-			if (_angle == DIR.UP)
+			if (_angle >= 45 && _angle <= 135) // Up
 			{
-				if (_board_exists)
-				{
-					_on_ground = _ground_top;
-					_on_ceil = _ceil_top;
-				}
 				_jump_input = CHECK_DOWN;
 				_move_input = _hspeed * -_mspeed;
 			}
-			else if (_angle == DIR.DOWN)
+			else if (_angle >= 225 && _angle <= 315) // Down
 			{
-				if (_board_exists)
-				{
-					_on_ground = _ground_bottom;
-					_on_ceil = _ceil_bottom;
-				}
 				_jump_input = CHECK_UP;
 				_move_input = _hspeed * _mspeed;
 			}
-			else if (_angle == DIR.LEFT)
+			else if (_angle > 135 && _angle < 225) // Left
 			{
-				if (_board_exists)
-				{
-					_on_ground = _ground_left;
-					_on_ceil = _ceil_left;
-				}
 				_jump_input = CHECK_RIGHT;
 				_move_input = _vspeed * _mspeed;
 			}
-			else if (_angle == DIR.RIGHT)
+			else if (_angle < 45 || _angle > 315) // Right
 			{
-				if (_board_exists)
-				{
-					_on_ground = _ground_right;
-					_on_ceil = _ceil_right;
-				}
 				_jump_input = CHECK_LEFT;
 				_move_input = _vspeed * -_mspeed;
 			}
