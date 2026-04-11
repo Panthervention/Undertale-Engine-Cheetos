@@ -206,6 +206,7 @@
     {"name":"scribble_fallback_font","order":24,"path":"fonts/scribble_fallback_font/scribble_fallback_font.yy",},
     {"name":"Cheetos - Coding style and convention","order":2,"path":"notes/Cheetos - Coding style and convention/Cheetos - Coding style and convention.yy",},
     {"name":"Cheetos - Debug manual","order":1,"path":"notes/Cheetos - Debug manual/Cheetos - Debug manual.yy",},
+    {"name":"Krlmrvv - For Linux devs!","order":3,"path":"notes/Krlmrvv - For Linux devs!/Krlmrvv - For Linux devs!.yy",},
     {"name":"TGMX_Terms_of_Use","order":1,"path":"notes/TGMX_Terms_of_Use/TGMX_Terms_of_Use.yy",},
     {"name":"TGMX_Update_Log","order":2,"path":"notes/TGMX_Update_Log/TGMX_Update_Log.yy",},
     {"name":"__InputUpdateController","order":19,"path":"objects/__InputUpdateController/__InputUpdateController.yy",},

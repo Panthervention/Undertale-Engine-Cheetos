@@ -1,0 +1,42 @@
+********************************************************************************
+						I hope creator of this engine will accept my PR
+						here are some info on how to set up this project
+						if you're on linux (Ubuntu) like me.
+********************************************************************************
+
+1 -> If you haven't set up the GameMaker for Ubuntu, do that right now:
+Update your stuff :
+
+sudo apt-get update
+
+get steam runtimes ->
+
+sudo mkdir /opt/steam-runtime/ 
+curl https://repo.steampowered.com/steamrt-images-scout/snapshots/latest-steam-client-general-availability/com.valvesoftware.SteamRuntime.Sdk-amd64,i386-scout-sysroot.tar.gz | sudo tar -xzf - -C /opt/steam-runtime/
+
+get linuxdeploy ->
+wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+sudo install -m 0755 linuxdeploy-x86_64.AppImage /usr/local/bin/linuxdeploy
+
+get AppImage ->
+wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
+sudo install -m 0755 appimagetool-x86_64.AppImage /usr/local/bin/appimagetool
+
+If you get compile errors when trying to run this project (most likely you'll do)
+You'll most likely see this error msg:
+
+Lexicon Error v4.0.3 
+Cannot access datafiles! Please disable sandbox on desktop.
+Or turn off "__LEXICON_REFER_TO_BUNDLE_AREA" in "__LexiconConfig"!
+
+So this is what you gotta do, search for the __LexiconConfig file
+look for the 
+#macro __LEXICON_REFER_TO_BUNDLE_AREA true (line 17)
+change to "false"
+
+then in Game Options, go to the Platform Settings -> Ubuntu -> General
+and check the "Disable file system sandbox"
+
+save and restart gamemaker, and you're good to go!
+
+

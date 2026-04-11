@@ -244,7 +244,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.14.1.210",
+    "IDEVersion":"2024.1400.3.974",
   },
   "name":"Cheetos Engine",
   "resources":[
@@ -267,6 +267,7 @@
     {"id":{"name":"Cheetos - Coding style and convention","path":"notes/Cheetos - Coding style and convention/Cheetos - Coding style and convention.yy",},},
     {"id":{"name":"Cheetos - Debug manual","path":"notes/Cheetos - Debug manual/Cheetos - Debug manual.yy",},},
     {"id":{"name":"Cheetos - Release notes","path":"notes/Cheetos - Release notes/Cheetos - Release notes.yy",},},
+    {"id":{"name":"Krlmrvv - For Linux devs!","path":"notes/Krlmrvv - For Linux devs!/Krlmrvv - For Linux devs!.yy",},},
     {"id":{"name":"TGM_Credits","path":"notes/TGM_Credits/TGM_Credits.yy",},},
     {"id":{"name":"TGMX_Documentation","path":"notes/TGMX_Documentation/TGMX_Documentation.yy",},},
     {"id":{"name":"TGMX_Terms_of_Use","path":"notes/TGMX_Terms_of_Use/TGMX_Terms_of_Use.yy",},},
