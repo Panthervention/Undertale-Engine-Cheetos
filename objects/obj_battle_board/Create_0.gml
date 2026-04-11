@@ -22,18 +22,18 @@ bg_color = c_black;
 #region	Private Functions
 __point_xy = function(_point_x, _point_y)
 {
-	var _angle = image_angle;
+	var _angle = image_angle,
+		_x = x,
+		_y = y;
 	
-	//__point_x = ((_point_x - x) * dcos(_angle)) - ((_point_y - y) * dsin(_angle)) + x;
-	//__point_y = ((_point_y - y) * dcos(_angle)) + ((_point_x - x) * dsin(_angle)) + y;
-	__point_x = lengthdir_x(_point_x - x, _angle) + lengthdir_y(_point_y - y, -_angle) + x;
-	__point_y = lengthdir_x(_point_y - y, _angle) - lengthdir_y(_point_x - x, -_angle) + y;
+	//__point_x = ((_point_x - _x) * dcos(_angle)) - ((_point_y - _y) * dsin(_angle)) + _x;
+	//__point_y = ((_point_y - _y) * dcos(_angle)) + ((_point_x - _x) * dsin(_angle)) + _y;
+	__point_x = lengthdir_x(_point_x - _x, _angle) + lengthdir_y(_point_y - _y, -_angle) + _x;
+	__point_y = lengthdir_x(_point_y - _y, _angle) - lengthdir_y(_point_x - _x, -_angle) + _y;
 }
 #endregion
 
 #region	Private Variables
-__surface_frame = -1;
-
 __frame_x = [0, 0, 0, 0];
 __frame_y = [0, 0, 0, 0];
 __frame_width = [0, 0, 0, 0];
@@ -46,5 +46,11 @@ __bg_height = 0;
 
 __point_x = 0;
 __point_y = 0;
+
+__transfer_angle = 0;
+__transfer_bg_c = c_black;
+__transfer_bg_a = 0;
+__transfer_color = c_black;
+__transfer_alpha = 0;
 #endregion
 
